@@ -1,0 +1,48 @@
+<!-- {{ dataSource | json }} -->
+<mat-table
+  [dataSource]="dataSource"
+  id="datTable"
+  matTableExporter
+  #exporter="matTableExporter"
+  matSort
+  class="bg-color_ghost_White"
+  [trackBy]="trackBy"
+>
+  <ng-container matColumnDef="createdby">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>User Id</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.createdby }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ff0003">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Role Name</mat-header-cell
+    >
+    <mat-cell *matCellDef="let row"> {{ row.ff0003 }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ff0005">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Version</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ onRequestVersion(row) }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="createdon">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Created Date</mat-header-cell
+    >
+    <mat-cell *matCellDef="let row">
+      {{ row.createdon | customDatePipe: 'dateWithHrMin' }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="comments">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Comments</mat-header-cell
+    >
+    <mat-cell *matCellDef="let row"> {{ row.comments }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row
+    *matHeaderRowDef="resviewCommentsDisplayColumn"
+  ></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: resviewCommentsDisplayColumn"
+  ></mat-row>
+</mat-table>

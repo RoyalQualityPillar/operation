@@ -1,0 +1,21 @@
+<div
+  class="global-msg-dialog"
+  style="padding: 0px"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+>
+  <div
+    class="msg-container-header"
+    cdkDragHandle
+    style="outline: none; margin-right: 10px; cursor: move"
+  >
+    <h4>{{ data.heading }}</h4>
+  </div>
+
+  <div class="msg-container-body">
+    {{ data.message }}
+  </div>
+  <div class="buttonContainer">
+    <button (click)="closePopUp()" class="closeModuleButtons">Close</button>
+  </div>
+</div>

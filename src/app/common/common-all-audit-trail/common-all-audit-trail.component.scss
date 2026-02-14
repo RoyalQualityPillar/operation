@@ -1,0 +1,36 @@
+.dialog-header-section{
+    padding-right: 0.5rem !important;
+}
+.field-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .field-label, .field-value {
+    flex: 1; /* Make both label and value take up equal space */
+  }
+  
+  .field-label {
+    text-align: left; /* Align label text to the left */
+    font-weight: 700;
+  }
+  
+  .field-value {
+    text-align: left; /* Align value text to the right */
+  }
+  /* Style for odd and even rows */
+.row:nth-of-type(even) {
+    background-color: #f8f9fa; /* Light background for even rows */
+  }
+  
+  .row:nth-of-type(odd) {
+    background-color: #d4e3f3; /* Slightly darker background for odd rows */
+  }
+  .hidden {
+    display: none; /* Hides the element from the UI */
+  }
+  .custom-margin {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }

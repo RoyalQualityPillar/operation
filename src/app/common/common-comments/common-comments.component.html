@@ -1,0 +1,96 @@
+<div class="table-box">
+  <div class="section_header">
+    <div class="float-left">
+      <p class="section_header_title">Comments</p>
+    </div>
+  </div>
+</div>
+
+<div class="table-box m-10" *ngIf="dataSource?.data?.length">
+  <mat-table
+    [dataSource]="dataSource"
+    matTableExporter
+    #exporter="matTableExporter"
+    matSort
+  >
+    <ng-container matColumnDef="createdby">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >User Id</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row"> {{ row.createdby }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ff0003">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Role Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row"> {{ row.ff0003 }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ff0005">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Comments Version</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        {{ onRequestVersion(row) }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="createdon">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Created Date</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        {{ row.createdon | customDatePipe: 'dateWithHrMin' }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="comments">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Comments</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row"> {{ row.comments }} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="commentsDisplayColumn"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: commentsDisplayColumn"></mat-row>
+  </mat-table>
+</div>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="UserRequirementForm">
+      <div class="row no-gutters ms-1 me-1 margin-top_10">
+        <mat-form-field appearance="outline" class="width_100">
+          <mat-label>Comments</mat-label>
+          <textarea
+            type="text"
+            matInput
+            placeholder="Comments"
+            formControlName="comments"
+          >
+          </textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row" *ngIf="showNextStage">
+  <div class="col-12">
+    <form [formGroup]="UserRequirementForm">
+      <div class="row no-gutters ms-1 me-1 dense-4">
+        <mat-form-field appearance="outline" class="col-3 px-1">
+          <mat-label>Next Stage</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="stage2"
+            placeholder="Next Stage"
+          />
+          <img
+            alt="lov img"
+            src="../../../../../../assets/searchfind.svg"
+            class="icon-size lovSearchButton"
+            color="primary"
+            (click)="openNextStageLov()"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+<div class="table-box">
+  <div class="section_header">
+    <div class="float-left">
+      <p class="section_header_title">Headers</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div>
+      <div class="row no-gutters pb-2 ms-1 me-1">
+        <span class="form-validation-msg"
+          >Required Fields are denoted by an asterisk(<span style="color: red"
+            >*</span
+          >).</span
+        >
+      </div>
+      <form [formGroup]="HeaderForm">
+        <div class="row no-gutters ms-1 me-1 dense-4">
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Oarganization Unit Code</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="unitcode"
+              placeholder="Oarganization Unit Code"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Life Cycle No</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="lcnum"
+              placeholder="Life Cycle No"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Module Code</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="modulecode"
+              placeholder="Module Code"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Stage</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="stage"
+              placeholder="Stage"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+        </div>
+        <div class="row no-gutters ms-1 me-1 dense-4">
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Department Code</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="departmentcode"
+              placeholder="Department Code"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Role</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="role"
+              placeholder="Role"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>User Id</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="createdby"
+              placeholder="Department Code"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              pageData.pageName == 'qt-review' ||
+              pageData.pageName == 'qtUpdateDetail'
+            "
+            class="col-3 px-1"
+          >
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-label>Request No</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="requestNo"
+                placeholder="Request No"
+                [readonly]="isReadonly"
+                [class.isReadonlyFieldForQuotation]="isReadonly"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            pageData.pageName == 'qt-review' ||
+            pageData.pageName == 'qtUpdateDetail'
+          "
+          class="row no-gutters ms-1 me-1 dense-4"
+        >
+          <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Request Version</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="version"
+              placeholder="Request version"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<form [formGroup]="FooterForm" *ngIf="hideNextSteps">
+  <div class="row no-gutters me-1 dense-4">
+    <mat-form-field appearance="outline" class="col-4 px-1">
+      <mat-label>Next stage</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="nextStage"
+        placeholder="Next Stage"
+      />
+      <img
+        alt="lov img"
+        src="../../../../../../assets/searchfind.svg"
+        class="icon-size lovSearchButton"
+        color="primary"
+        (click)="openNextStageLov()"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4 px-1">
+      <mat-label>Previous stage</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="previousStage"
+        placeholder="Previous Stage"
+      />
+      <img
+        alt="lov img"
+        src="../../../../../../assets/searchfind.svg"
+        class="icon-size lovSearchButton"
+        color="primary"
+        (click)="openPreviousStageLov()"
+      />
+    </mat-form-field>
+  </div>
+</form>
+<div class="containerBTN" *ngIf="buttonConfig?.length">
+  <div class="d-flex justify-content-center">
+    <ng-container *ngFor="let button of buttonConfig">
+      <button
+        mat-raised-button
+        class="submitButton"
+        (click)="handleButtonClick(button)"
+      >
+        {{ button.label }}
+      </button>
+    </ng-container>
+  </div>
+</div>

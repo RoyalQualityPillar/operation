@@ -1,0 +1,169 @@
+<div *ngIf="isLoading" class="global-loading-spinner">
+  <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+</div>
+
+<div class="adjust">
+  <div class="table-container" [class.expanded]="!isFilterExpanded">
+    <div class="table-box">
+      <div class="section_header">
+        <div class="float-start">
+          <p class="section_header_title">{{ tableTitle }}</p>
+        </div>
+        <div class="float-end">
+          <input type="text" (keyup)="applyFilter(filterField.value)" #filterField placeholder="Search" />
+        </div>
+      </div>
+    </div>
+
+    <div class="table-box">
+      <mat-table [dataSource]="tableData" class="table_background_color" matSort>
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef [class]="columnClass" class="uppercase-header">Action</mat-header-cell>
+          <mat-cell *matCellDef="let row" class="action-cell" [class]="columnClass">
+            <mat-radio-button name="selectrow" (change)="setSelectedID(row)"></mat-radio-button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container *ngFor="let column of filteredColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header [class]="columnClass" class="uppercase-header">
+            {{ columnConfig[column] || column }}
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let row" [class]="columnClass">
+            <!-- {{ row[column] }} -->
+            <!-- If column is 'status', convert status code to description -->
+            <ng-container *ngIf="column === 'status'; else defaultContent">
+              {{
+              row[column] !== null && row[column] !== undefined
+              ? changeStatusByCode(row[column])
+              : ""
+              }}
+            </ng-container>
+
+            <!-- If column is a date field, apply date formatting -->
+            <ng-template #defaultContent>
+              <ng-container *ngIf="
+                  isDateColumn(column) &&
+                    row[column] !== null &&
+                    row[column] !== undefined;
+                  else normalContent
+                ">
+                <!-- {{ row[column] | date: 'd-MMM-yy, h:mm a' }} -->
+                <!-- {{ convertToDate(row[column]) | date : "d-MMM-yy, h:mm a" }} -->
+                {{ row.createdon || row.createdDate | customDatePipe : "dateWithHrMin" }}
+              </ng-container>
+
+              <!-- Normal content for non-status and non-date columns -->
+              <ng-template #normalContent>
+                {{
+                row[column] !== null && row[column] !== undefined
+                ? row[column]
+                : ""
+                }}
+              </ng-template>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[10, 15, 20, 25]" (page)="pageChanged($event)" showFirstLastButtons
+        aria-label="Select page of periodic rows"></mat-paginator>
+      <div class="button-container">
+        <ng-container *ngFor="let button of dynamicButtons">
+          <button mat-raised-button class="submitButton" (click)="handleButtonClick(button.action)">
+            {{ button.label }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-container" [class.collapsed]="!isFilterExpanded">
+    <div class="filter-header">
+      <div class="toggle-button-section">
+        <div class="toggle-button" (click)="toggleFilter()">
+          <mat-icon *ngIf="isFilterExpanded">chevron_left</mat-icon>
+          <mat-icon *ngIf="!isFilterExpanded">chevron_right</mat-icon>
+        </div>
+      </div>
+      <div class="filter-content">
+        <div class="filter-box" [class.collapsed]="!isFilterExpanded">
+          <div class="filter_section_headers">Data Filter</div>
+          <div class="filter_background_color">
+            <span *ngIf="filterFieldError" class="errorMsg">Please select filter field</span>
+            <span *ngIf="filterValueError && !['createdon', 'createdDate'].includes(filterObject.field)" class="errorMsg">Please enter filter field value</span>
+            <select class="filter_drop_down" [(ngModel)]="filterObject.field" required>
+              <option value="SELECT">Please select field</option>
+              <option *ngFor="let option of filteredFilterOptions" [value]="option" >
+                {{ columnConfig[option] || option }}
+              </option>
+            </select>
+            <select class="filter_drop_down" [(ngModel)]="filterObject.condition"  *ngIf="this.filterObject.field !== 'createdon' && this.filterObject.field !== 'createdDate'" required >
+              <option *ngFor="let option of operatorOptions" [value]="option.key">
+                {{ option.label }}
+              </option>
+            </select>
+            <input *ngIf="this.filterObject.field !== 'createdon' && this.filterObject.field !== 'createdDate'" class="filter_search_field" type="text" name="value" placeholder="Enter Value"
+              [(ngModel)]="filterObject.value" required />
+            <div *ngIf="this.filterObject.field == 'createdon' || this.filterObject.field == 'createdDate'">
+              <div class="supplier-content">
+                <div class="sup-head">
+                  <div class="sup-fields">From:-</div>
+                  <div class="sup-values">
+                    <input type="date" [(ngModel)]="filterObject.DateFieldvalue1" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="this.filterObject.field == 'createdon' || filterObject.field == 'createdDate'" class="supplier">
+              <div class="supplier-content">
+                <div class="sup-head">
+                  <div class="sup-fields">To:-</div>
+                  <input type="date" [(ngModel)]="filterObject.DateFieldvalue2" />
+                </div>
+              </div>
+            </div>
+
+            <div class="filter_btn_container">
+              <button mat-raised-button class="filter_apply_btn" (click)="applyFilterByColumn()">
+                Apply
+              </button>
+              <button mat-raised-button class="filter_apply_btn" (click)="onClearFilter()">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="filter-box" [class.collapsed]="!isFilterExpanded">
+          <div class="filter_section_headers">Export</div>
+          <div class="filter_background_color">
+            <div class="export_title">
+              Export data list to following format:
+            </div>
+            <div class="text-center">
+              <!-- <button *ngIf="tableDataLoaded" [cdkCopyToClipboard]="copyData()" class="exportIconBtn">
+                  <img class="exportIcon" src="../../../assets/copy.png" />
+                </button> -->
+              <button (click)="download('txt')" class="exportIconBtn">
+                <img class="exportIcon" src="../../../assets/txt.png" />
+              </button>
+              <button (click)="download('csv')" class="exportIconBtn">
+                <img class="exportIcon" src="../../../assets/csv.png" />
+              </button>
+              <button (click)="downloadPdf()" class="exportIconBtn">
+                <img class="exportIcon" src="../../../assets/pdf.png" />
+              </button>
+              <button (click)="download('excel')" class="exportIconBtn">
+                <img class="exportIcon" src="../../../assets/excel.png" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
