@@ -1,0 +1,105 @@
+<div class="custom-dialog" style="padding: 0px" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+  <!-- Header (Drag Handle) -->
+  <div class="row gx-0 create-update-dialog-header-section" cdkDragHandle style="outline: none; cursor: move">
+    <div class="col-10 d-flex justify-content-start">
+      <h1 class="daialog-title-name p-2">{{ userData.pageTitle }}</h1>
+    </div>
+    <div class="col-2 d-flex justify-content-end">
+      <button mat-icon-button (click)="onDownloadPDF()">
+        <mat-icon class="close-icon" color="warn">download</mat-icon>
+      </button>
+      <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+        <mat-icon class="close-icon" color="warn">close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="p-2">
+    <div id="header">
+      <div class="row align-items-center">
+        <div class="col-3 d-flex justify-content-start">
+          <img [src]="logoURL" alt="Logo" style="height: 77px; width: 200px" />
+        </div>
+        <div class="col-3" style="margin-left:190px;">
+          <h1 class="m-0">Audit Trail</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Fields -->
+  <div>
+    <div class="tabOverFlowY" id="htmlData" *ngIf="fields">
+      <div *ngFor="let row of fields; let rowIndex = index" [attr.id]="'Location' + (rowIndex + 1)">
+        <div class="dialog-header-section">
+          <div class="table-box">
+            <div class="section_header">
+              <div class="float-left">
+                <p class="section_header_title">
+                  {{ userData.pageTitle }} - {{ rowIndex + 1 }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Field Container -->
+        <div class="container custom-margin">
+          <div class="row">
+            <ng-container *ngFor="let field of row.fields; let i = index">
+              <!-- Two-column layout for non-comments -->
+              <ng-container *ngIf="field.labelName !== 'comments'">
+                <div *ngIf="i % 2 === 0" class="row">
+                  <div class="col-6">
+                    <div class="field-container">
+                      <div class="field-label">{{ field.labelName }}</div>
+                      <div class="field-value">
+                        <span 
+                          [ngStyle]="{
+                            'background-color': field.isChanged ? '#ffeb3b' : ''
+                          }"
+                        >
+                          {{ field.value }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="
+                      row.fields[i + 1] &&
+                      row.fields[i + 1].labelName !== 'comments'
+                    ">
+                    <div class="col-6">
+                      <div class="field-container">
+                        <div class="field-label">
+                          {{ row.fields[i + 1].labelName }}
+                        </div>
+                        <div class="field-value">
+                          <span 
+                            [ngStyle]="{
+                              'background-color': row.fields[i + 1].isChanged ? '#ffeb3b' : ''
+                            }"
+                          >
+                            {{ row.fields[i + 1].value }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+
+              <!-- Comments row full width -->
+              <div class="row" *ngIf="field.labelName === 'comments'">
+                <div class="col-12">
+                  <!-- keep your existing comments rendering here -->
+                </div>
+              </div>
+
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

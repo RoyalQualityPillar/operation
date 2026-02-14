@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row no-gutters" style="background-color: #18155b">
+    <div class="col-10 d-flex justify-content-start">
+      <h1 class="customeHeading">{{ this.dialogTitle }}</h1>
+    </div>
+    <div class="col-2 d-flex justify-content-end">
+      <button mat-icon-button class="close-button" (click)="closePopUp()">
+        <mat-icon class="close-icon" color="warn">close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="tabOverFlowY">
+    <bk-angular-table
+      [displayedColumns]="dialogColumns"
+      [dataSource]="this.dialogData"
+      (selectedRow$)="onSelectedChange($event)"
+      (pagination)="onPagination($event)"
+      class="rqp-table-name-class"
+    ></bk-angular-table>
+  </div>
+</div>
