@@ -16,7 +16,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { GlobalConstants } from '../global-constants';
 import { Subscription, take } from 'rxjs';
-import { SdService } from 'src/app/rqp-sd-module/sd.service';
 import { LifeCycleDataService } from 'src/app/service/life-cycle-data.service';
 import { ToolbarService } from 'src/app/service/toolbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,6 +24,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { exportData } from 'bk-export';
 import { ShareHostDataService } from 'src/app/service/load-share-data.service';
+import { SdService } from 'src/app/rqp-sd-module/sd.service';
 
 @Component({
   selector: 'app-reviewer-template',
