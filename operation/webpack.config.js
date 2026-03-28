@@ -14,7 +14,7 @@ module.exports = {
     library: { type: 'module' }, // ✅ required for ESM
 
     name: 'operation',
-    filename: 'ngxp-remoteEntry.js',
+    filename: 'operation-remoteEntry.js',
 
     exposes: {
       './AppModule': './src/app/app.module.ts',
