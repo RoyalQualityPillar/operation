@@ -8,6 +8,11 @@ const routes: Routes = [
   //   loadChildren: () =>
   //     import('../rqp-admin-module/admin/admin.module').then((m) => m.AdminModule),
   // },
+  {
+    path: 'pp',
+    loadChildren: () =>
+      import('./rqp-pp-module/pp/pp.module').then((m) => m.PpModule),
+  },
   
 
  
