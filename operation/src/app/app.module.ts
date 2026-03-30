@@ -11,6 +11,7 @@ import { BkTableModule } from 'bk-angular-table';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { LovDialogComponent } from './common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from './common/message-dialog/message-dialog.component';
+import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
 
 
 
@@ -25,6 +26,10 @@ import { MessageDialogComponent } from './common/message-dialog/message-dialog.c
     //CustomSnackBarComponent,
     LovDialogComponent,
     MessageDialogComponent,
+    PmsListComponent,
+    
+  
+   
     
 
     
