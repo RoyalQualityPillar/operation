@@ -92,27 +92,7 @@ onSaveUpdate(requestBody: any) {
       ''
     );
   }
-   geyPaymentTermsList(ff0001: string) {
-    const url = this.API_URL + `gm/payment-terms-list?ff0001=${ff0001}`;
-    return this.http.get(url);
-  }
-  getNextStageList(requestBody: any) {
-    const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
-    return this.http.post(nextStageURL, requestBody);
-  }
-   getInputValue(unitCode: any) {
-     let queryParams = `?unitCode=${unitCode}`;
-    let inputFieldValueURL = this.API_URL + 'sd/input' + queryParams;
-    return this.http.get(inputFieldValueURL);
-  }
-   getUnitCodeDetail(auc0001: any, buc0001: any) {
-    let pageIndex = 0;
-    let size = 5;
-    let orgCode = 'PU'
-    const queryParams = `?auc0001=${auc0001}&buc0001=${buc0001}&pageIndex=${pageIndex}&size=${size}&orgCode=${orgCode}`;
-    let stockListURL = this.API_URL + 'gm/bu-master/get-bu-info' + queryParams;
-    return this.http.post(stockListURL, '');
-  }
+  
    getBuInfo(requestBody: any) {
     const queryParams = `?auc0001=${requestBody.auc0001}&buc0001=${requestBody.buc0001}`;
     const buInfoURL = this.API_URL + 'gm/bu-master/get-bu-info' + queryParams;

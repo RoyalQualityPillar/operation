@@ -15,6 +15,7 @@ import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.co
 import { ProductCreateUpdateComponent } from "../ma/master/product-master/product-create-update/product-create-update.component";
 import { ProductHomePageComponent } from "../ma/master/product-master/product-home-page/product-home-page.component";
 import { AddNewRecordComponent } from "../pp-common/add-new-record/add-new-record.component";
+import { AsCommonFooterComponent } from "../pp-common/as-common-footer/as-common-footer.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AddNewRecordComponent } from "../pp-common/add-new-record/add-new-recor
     ProductCreateUpdateComponent,
     ProductHomePageComponent,
     AddNewRecordComponent,
+    AsCommonFooterComponent,
 
 
 

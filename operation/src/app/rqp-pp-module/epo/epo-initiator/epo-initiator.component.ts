@@ -17,6 +17,7 @@ import { EpoService } from '../epo.service';
 import { DataModel, PaymentTermsCodeList } from '../../models/models';
 import { Router } from '@angular/router';
 import { StockListEpoComponent } from '../../pp-common/stock-list-epo/stock-list-epo.component';
+import { PpService } from '../../pp.service';
 
 @Component({
   selector: 'app-epo-initiator',
@@ -44,6 +45,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private toolbarService: ToolbarService,
     private epoService: EpoService,
+    private ppService: PpService,
     public messageService: MessageService,
     private notificationService: NotificationService,
     private router: Router,
@@ -134,7 +136,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
           result.data.paymentCode
         );
 
-        this.epoService
+        this.ppService
           .geyPaymentTermsList(result.data.paymentCode)
           .pipe(takeUntil(this.destroy$))
           .subscribe((data: DataModel) => {
@@ -152,7 +154,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
       //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
-    this.epoService.getNextStageList(body).subscribe((data: any) => {
+    this.ppService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
     });
   }
@@ -164,7 +166,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
   }
   onLoadInputFieldValue() {
     this.isLoading = true;
-    this.epoService.getInputValue(this.cookieService.get('buCode')).subscribe((data: any) => {
+    this.ppService.getInputValue(this.cookieService.get('buCode')).subscribe((data: any) => {
       console.log(data);
       this.orgUnitCode = data.data.buUnitList;
       this.salesUnitCode = data.data.suUnitList;
@@ -302,7 +304,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
   }
   unitCodeData: any;
   checkUnitCode() {
-    this.epoService
+    this.ppService
       .getUnitCodeDetail(
         this.ViewDetailForm.controls['orgUnitCode'].value,
         this.ViewDetailForm.controls['salesUnitCode'].value

@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class EpoUpdateComponent {
 
+    public updateSaveUrl:string='/rqpoperationui/pp/epo-update-save-submit';
+
 }

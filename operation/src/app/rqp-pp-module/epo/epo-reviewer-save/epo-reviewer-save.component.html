@@ -1,1 +1,408 @@
-<p>epo-reviewer-save works!</p>
+<div class="adjust">
+  <div class="example-table-container">
+    <app-common-header
+      [pageData]="this.pageData"
+      (headerData)="getHeaderData($event)"
+    ></app-common-header>
+    <!--review comments table-->
+    <div>
+      <app-common-title [title]="'Quotation Information'"> </app-common-title>
+      <form [formGroup]="ViewDetailForm">
+        <div class="row no-gutters ms-1 me-1 dense-4 margin-top_5">
+          <mat-form-field appearance="outline" class="col-12 px-1">
+            <mat-label>Quotation No.</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Quotation No."
+              formControlName="quotationNo"
+              [readonly]="isReadonly"
+              [class.isReadonlyFieldForQuotation]="isReadonly"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+      <div class="adjust">
+        <div class="unit-code-container">
+          <div class="unit-code-box">
+            <form [formGroup]="ViewDetailForm">
+              <div class="row no-gutters ms-1 me-1 dense-4 margin-top_5">
+                <mat-form-field appearance="outline" class="col-12 px-1">
+                  <mat-label>Organization Unit Code</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Oarganization Unit Code"
+                    formControlName="orgUnitCode"
+                    [readonly]="isReadonly"
+                    [class.isReadonlyFieldForQuotation]="isReadonly"
+                  />
+                </mat-form-field>
+              </div>
+            </form>
+            <div class="supplier-content-code" *ngIf="this.unitCodeData">
+              <div class="sup-head-code supply-container">
+                <div class="sup-fields heading-font">
+                  Address of organization unit
+                </div>
+              <div class="sup-values padding_4">
+                  {{ unitCodeData[0].ff0003 }}, {{ unitCodeData[0].ff0004 }},
+                  {{ unitCodeData[0].ff0005 }},{{ unitCodeData[0].ff0007 }},{{
+                    unitCodeData[0].ff0007
+                  }},<br />
+                  <span class="heading-font">Pincode:</span>
+                  {{ unitCodeData[0].ff0008 }},<span class="heading-font">
+                    Mobile: </span
+                  >{{ unitCodeData[0].ff0009 }}<br /><span class="heading-font"
+                    >Email: </span
+                  >{{ unitCodeData[0].ff0010 }}, <br /><span
+                    class="heading-font"
+                    >PAN: </span
+                  >{{ unitCodeData[0].ff0011 }},
+                  <span class="heading-font">GST: </span
+                  >{{ unitCodeData[0].ff0012 }},
+                   <span class="heading-font">State Code: </span
+                >{{ unitCodeData[0].ff0013 }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sales-code-container">
+          <div class="unit-code-box">
+            <form [formGroup]="ViewDetailForm">
+              <div class="row no-gutters ms-1 me-1 dense-4">
+                <mat-form-field appearance="outline" class="col-12 px-1">
+                  <mat-label>Sale Unit Code</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Sale Unit Code"
+                    formControlName="salesUnitCode"
+                    [readonly]="isReadonly"
+                    [class.isReadonlyFieldForQuotation]="isReadonly"
+                  />
+                </mat-form-field>
+              </div>
+            </form>
+            <div class="supplier-content-code" *ngIf="unitCodeData">
+              <div class="sup-head-code supply-container">
+                <div class="sup-fields heading-font">Address of sales unit</div>
+              <div class="sup-values padding_4">
+                  {{ unitCodeData[1]?.ff0003 }}, {{ unitCodeData[1]?.ff0004 }},
+                  {{ unitCodeData[1]?.ff0005 }},{{ unitCodeData[1]?.ff0007 }},{{
+                    unitCodeData[1]?.ff0007
+                  }},<br />
+                  <span class="heading-font">Pincode:</span>
+                  {{ unitCodeData[1]?.ff0008 }},<span class="heading-font">
+                    Mobile: </span
+                  >{{ unitCodeData[1]?.ff0017 }}<br /><span class="heading-font"
+                    >Email: </span
+                  >{{ unitCodeData[1]?.ff0015 }}, <br /><span
+                    class="heading-font"
+                    >PAN: </span
+                  >{{ unitCodeData[1]?.ff0011 }},
+                  <span class="heading-font">GST: </span
+                  >{{ unitCodeData[1]?.ff0012 }},
+                   <span class="heading-font">State Code: </span
+                >{{ unitCodeData[1]?.ff0014 }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--item list start-->
+      <div class="container-fluid">
+        <mat-table
+          [dataSource]="qtItemListdataSource"
+          matTableExporter
+          #exporter="matTableExporter"
+          matSort
+        >
+          <ng-container matColumnDef="ff0005">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Product Code</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0002 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0006">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Product Name</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0003 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0018">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Product No</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0015 }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ff0007">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Quantity</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0004 }} </mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="ff0020">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Pack</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0005 }} </mat-cell>
+          </ng-container> -->
+
+          <ng-container matColumnDef="ff0009">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >HSN Code</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0006 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0010">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Rate</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0007 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0011">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >% Discount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0008 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0012">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Discount Amount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0009 }} </mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="ff0012">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Discounted Rate</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0019 }} </mat-cell>
+          </ng-container> -->
+          <ng-container matColumnDef="ff0019">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Total Discount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0022 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0013">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >After Discount Amount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0010 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0015">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >%GST</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0012 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0016">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >GST Amount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0013 }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ff0017">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Amount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row"> {{ row.ff0014 }} </mat-cell>
+          </ng-container>
+          <mat-header-row
+            *matHeaderRowDef="qtListDisplayColumn"
+          ></mat-header-row>
+          <mat-row *matRowDef="let row; columns: qtListDisplayColumn"></mat-row>
+        </mat-table>
+      </div>
+      <!--Item list End-->
+      <div class="container-fluid">
+        <mat-card class="" *ngIf="indexList">
+          <div class="supplier-content">
+            <div class="sup-head row-background-color">
+              <div class="sup-fields">Total Discount :</div>
+              <div class="sup-values">{{ indexList.ff0010 }}</div>
+            </div>
+            <div class="sup-head row-background-color">
+              <div class="sup-fields">After Discount Sub Total Amount :</div>
+              <div class="sup-values">
+                {{ indexList.ff0011 | number : "1.2-2" }}
+              </div>
+            </div>
+
+            <div class="sup-head">
+              <div class="sup-fields">SGST :</div>
+              <div class="sup-values">
+                {{ indexList.ff0012 | number : "1.2-2" }}
+              </div>
+            </div>
+            <div class="sup-head">
+              <div class="sup-fields">CGST</div>
+              <div class="sup-values">
+                {{ indexList.ff0013 | number : "1.2-2" }}
+              </div>
+            </div>
+            <div class="sup-head row-background-color">
+              <div class="sup-fields">IGST</div>
+              <div class="sup-values">
+                {{ indexList.ff0014 | number : "1.2-2" }}
+              </div>
+            </div>
+            <div class="sup-head row-background-color">
+              <div class="sup-fields">Total GST Amount</div>
+              <div class="sup-values">
+                {{ indexList.ff0015 | number : "1.2-2" }}
+              </div>
+            </div>
+            <div class="sup-head">
+              <div class="sup-fields">Total Amount :</div>
+              <div class="sup-values">
+                {{ indexList.ff0022 | number : "1.2-2" }}
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <form [formGroup]="quotationForm">
+        <div class="row no-gutters ms-1 me-1 dense-4">
+          <mat-form-field appearance="outline" class="col-4 px-1">
+            <mat-label>Quotetion Valid To Date</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="quotationValidDate"
+              placeholder="Quotetion Valid  To Date"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-4 px-1">
+            <mat-label>Delivery Date </mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="deliveryDate"
+              placeholder="Delivery Date"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-4 px-1">
+            <mat-label>Payment Terms Code</mat-label>
+            <input
+              type="text"
+              matInput
+              readonly
+              formControlName="paymentTermsCode"
+              placeholder="Payment Terms Code"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div
+        class="margin-top_5 margin-bottom_20 margin-left_5 margin-right_5"
+        *ngIf="paymentCodeList.data.length"
+      >
+        <mat-table matSort [dataSource]="paymentCodeList">
+          <ng-container matColumnDef="ff0001">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >S.No</mat-header-cell
+            >
+            <mat-cell *matCellDef="let element">
+              {{ element.ff0001 }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ff0002">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Description</mat-header-cell
+            >
+            <mat-cell *matCellDef="let element">
+              {{ element.ff0002 }}
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row
+            *matHeaderRowDef="paymentCodeCloumns"
+          ></mat-header-row>
+          <mat-row *matRowDef="let row; columns: paymentCodeCloumns"></mat-row>
+        </mat-table>
+      </div>
+
+      <!-- <form [formGroup]="FooterForm">
+          <div class="row no-gutters ms-1 me-1 dense-4">
+            <mat-form-field appearance="outline" class="col-4 px-1">
+              <mat-label>Next stage</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="nextStage"
+                placeholder="Next Stage"
+              />
+              <img
+                alt="lov img"
+                src="../../../../../../assets/searchfind.svg"
+                class="icon-size lovSearchButton"
+                color="primary"
+                (click)="openNextStageLov()"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-4 px-1">
+              <mat-label>Previous stage</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="previousStage"
+                placeholder="Previous Stage"
+              />
+              <img
+                alt="lov img"
+                src="../../../../../../assets/searchfind.svg"
+                class="icon-size lovSearchButton"
+                color="primary"
+                (click)="openPreviousStageLov()"
+              />
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="containerBTN" *ngIf="buttonHide">
+    <div class="d-flex justify-content-center">
+      <button mat-raised-button submitButton (click)="onSubmit()">
+        Submit
+      </button>
+      <button mat-raised-button submitButton (click)="onReject()">
+        Reject
+      </button>
+    </div>
+  </div> -->
+      <app-as-common-footer
+        [pageData]="this.pageData"
+        (comments)="getCommentsData($event)"
+      >
+        <div class="table-box">
+          <app-comments-table
+            [headerData]="headerData"
+            [ff0005Value]="ff0005"
+          ></app-comments-table>
+        </div>
+      </app-as-common-footer>
+      <!-- <app-common-comments
+        [nextStageListData]="nextStageListData"
+        (commentsData)="handleCommentsForm($event)"
+        [dataSource]="dataSource"
+      ></app-common-comments> -->
+      <app-common-button-bar
+        [buttonConfig]="buttonConfig"
+        (buttonClicked)="onButtonClicked($event)"
+        [redirectUrl]="redirectUrl"
+      >
+      </app-common-button-bar>
+      <div class="min-height_10"></div>
+    </div>
+  </div>
+</div>
