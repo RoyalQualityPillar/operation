@@ -1,0 +1,23 @@
+
+.example-table-container {
+  min-width: 99%;
+  /* overflow-x: scroll; */
+}
+
+.mat-column-ff0001 {
+  flex: 0 0 7%;
+}
+.unit-code-container {
+  min-width: 49%;
+}
+
+.sales-code-container {
+  min-width: 49%;
+}
+.tabOverFlowX {
+  width: 100%;
+  overflow-x: auto;  
+  overflow-y: hidden;
+  white-space: nowrap;
+  border: 1px solid #ddd; 
+}

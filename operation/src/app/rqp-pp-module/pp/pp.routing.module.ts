@@ -5,6 +5,9 @@ import { EpoReviewerSaveComponent } from "../epo/epo-reviewer-save/epo-reviewer-
 import { EpoReviewerComponent } from "../epo/epo-reviewer/epo-reviewer.component";
 import { EpoUpdateSaveSubmitComponent } from "../epo/epo-update-save-submit/epo-update-save-submit.component";
 import { EpoUpdateComponent } from "../epo/epo-update/epo-update.component";
+import { EpoHomeComponent } from "../epo/epo-home/epo-home.component";
+import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.component";
+import { ProductHomePageComponent } from "../ma/master/product-master/product-home-page/product-home-page.component";
 
 const routes: Routes = [
 
@@ -13,6 +16,11 @@ const routes: Routes = [
       { path: 'epo-update-save-submit', component: EpoUpdateSaveSubmitComponent },
       { path: 'epo-reviewer', component: EpoReviewerComponent },
       { path: 'epo-reviewer-save', component: EpoReviewerSaveComponent },
+      { path: 'epo-home', component: EpoHomeComponent },
+      { path: 'ma-module-admin', component: MaModuleAdminComponent },
+      { path: 'product-home-page', component: ProductHomePageComponent },
+      
+
 
 ];
 

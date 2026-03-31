@@ -1,0 +1,37 @@
+<div style="margin-top: 5px; margin-left: 5px">
+  <mat-grid-list cols="4" rowHeight="3:1">
+    <mat-grid-tile>
+      <button
+        mat-raised-button
+        class="tile-view"
+        (click)="LwAssignmentDashBord()"
+      >
+        Pending Assignment Dash Board
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="completedRecords()">
+        Completed Records Dashboard
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="allDeliveryOrder()">
+        Completed Delivery Order
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
+        mat-raised-button
+        class="tile-view"
+        (click)="allInProcessdeliveryorderQuotations()"
+      >
+        InProcess deliveryorder Quotations
+      </button>
+    </mat-grid-tile>
+      <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="SDODashboard()">
+        SDO Dashboard
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

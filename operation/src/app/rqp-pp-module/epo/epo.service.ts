@@ -92,4 +92,10 @@ onSaveUpdate(requestBody: any) {
       ''
     );
   }
+  
+   getBuInfo(requestBody: any) {
+    const queryParams = `?auc0001=${requestBody.auc0001}&buc0001=${requestBody.buc0001}`;
+    const buInfoURL = this.API_URL + 'gm/bu-master/get-bu-info' + queryParams;
+    return this.http.post(buInfoURL, '');
+  }
 }

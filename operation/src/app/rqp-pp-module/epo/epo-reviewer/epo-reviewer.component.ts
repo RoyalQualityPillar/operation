@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './epo-reviewer.component.scss'
 })
 export class EpoReviewerComponent {
+  public reviewerUrl:string='/rqpoperationui/pp/epo-reviewer-save';
 
 }

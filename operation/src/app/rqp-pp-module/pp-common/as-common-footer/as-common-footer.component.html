@@ -1,0 +1,27 @@
+<div class="table-box">
+  <div class="section_header">
+    <div class="float-left">
+      <p class="section_header_title">Comments</p>
+    </div>
+  </div>
+</div>
+<ng-content></ng-content>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="QuotationForm">
+      <div class="row no-gutters ms-1 me-1" style="margin-top: 10px">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Comments</mat-label>
+          <textarea
+            type="text"
+            matInput
+            placeholder="Comments"
+            formControlName="comments"
+            (change)="onChangeCommentsValue()"
+          >
+          </textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>

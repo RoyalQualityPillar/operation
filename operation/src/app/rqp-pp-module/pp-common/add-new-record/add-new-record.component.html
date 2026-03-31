@@ -1,0 +1,124 @@
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="row gx-0 create-update-dialog-header-section">
+  <div class="col-10 d-flex justify-content-start">
+    <h1 class="daialog-title-name p-2">
+      BMR Numbering System {{ this.userData.type }}
+    </h1>
+  </div>
+  <div class="col-2 d-flex justify-content-end">
+    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+      <mat-icon class="close-icon" color="warn">close</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="master_screenOverFlowY">
+  <form [formGroup]="addRecord" class="margin-top_7">
+    <mat-card>
+      <div class="p-2">
+        <div class="section_header">
+          <p class="section_header_title">
+            BMR Numbering System Information
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="p-2">
+            <div class="row no-gutters pb-2 ms-1 me-1">
+              <span clss="padding-left_4 color_mediumblue font-size_12 ">Required Fields are denoted by an
+                asterisk(<span class="color_red">*</span>).</span>
+            </div>
+            <div class="row no-gutters ms-1 me-1 dense-4">
+              <div class="orgCode">
+                <!-- <mat-form-field appearance="outline" class="col-12 px-1">
+                  <mat-label>Organization Unit Code</mat-label>
+                  <input type="text" matInput readonly formControlName="ff0004" (change)="onChangePlantCode()" />
+                </mat-form-field> -->
+                <mat-form-field appearance="outline" class="col-12 px-1">
+                  <mat-label>Unit Code</mat-label>
+                  <input type="text" matInput readonly formControlName="unitcode" (change)="onChangePlantCode()" />
+                </mat-form-field>
+              </div>
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>Product Code</mat-label>
+                <input type="text" matInput formControlName="productNo" placeholder="Product Code"
+                  (change)="onChangeSubject()" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                  color="primary" (click)="openStatusLOV1()" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>Product Type Code</mat-label>
+                <input type="text" matInput formControlName="productTypeCode" placeholder="Product Type Code" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>BMR Code</mat-label>
+                <input type="text" matInput formControlName="bmrCode" maxlength="10" placeholder="BMR Code" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>BMR Serial Number</mat-label>
+                <input type="number" matInput formControlName="bmrSerialNo" maxlength="10"
+                  placeholder="BMR Serial Number" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>BMR Draft Code</mat-label>
+                <input type="text" matInput formControlName="bmrDraftCode" maxlength="10"
+                  placeholder="BMR Draft Code" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>BMR Draft Serial Number</mat-label>
+                <input type="number" matInput maxlength="50" formControlName="bmrDraftSerialNo"
+                  placeholder="BMR Draft Serial Number" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Batch Code</mat-label>
+                <input type="text" matInput formControlName="batchCode" maxlength="10" placeholder="Batch Code" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Batch No</mat-label>
+                <input type="text" matInput formControlName="batchNo" maxlength="10" placeholder="Batch No" />
+              </mat-form-field>
+              <!-- <div class="row no-gutters ms-1 me-1 dense-4"> -->
+              <div *ngIf="isUpdate" class="col-6 px-1">
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-label>Status</mat-label>
+                  <input type="text" matInput formControlName="status" (change)="onChangeStatus()" />
+                  <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                    color="primary" (click)="openStatusLOV()" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="p-2">
+        <div class="section_header">
+          <p class="section_header_title">Comments</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="col-12">
+          <div class="p-2">
+            <div class="row no-gutters ms-1 me-1">
+              <mat-form-field appearance="outline">
+                <mat-label>Comments</mat-label>
+                <textarea type="text" matInput formControlName="comments" placeholder="Comments">
+                </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>
+<div class="containerBTN">
+
+  <div style="display: flex; justify-content: center">
+    <button class="button-container" mat-raised-button mat-primary mat-flat-button color="primary" (click)="onUpdateConfirmation()">
+      Update
+    </button>
+  </div>
+</div>
