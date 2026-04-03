@@ -1,0 +1,133 @@
+<div class="table-box">
+  <mat-table
+    [dataSource]="questionBankTable"
+   
+    matSort
+    id="dataTable"
+    class="table_background_color"
+  >
+    <ng-container matColumnDef="action">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        classs="rqp-life-cycle-table-columns"
+        >Action</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <mat-radio-button
+          name="selectrow"
+          (change)="setSelectedID(row)"
+        ></mat-radio-button
+      ></mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="uc0001">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Price Code
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="ff0001">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Product code
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0003 }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0002">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Product Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0004 }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0003">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Product No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0017 }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0004">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Pack 
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0006 }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0005">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Quantity
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0005 }} </mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="ff0006">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Rate
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0011 }} </mat-cell>
+    </ng-container> -->
+
+    <!-- <ng-container matColumnDef="ff0007">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Topic No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0010 }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0008">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Topic Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0006 }} </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Status
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.status }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="createdon">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Created On
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.createdon | customDatePipe : "dateWithHrMin" }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="createdby">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Created By
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.createdby }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomination">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Nomination
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-icon class="cursor"> toggle_on </mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [pageSizeOptions]="[10, 15, 20, 25]"
+    (page)="pageChanged($event)"
+    showFirstLastButtons
+    aria-label="Select page of periodic rows"
+  >
+  </mat-paginator>
+</div>
+<!-- <button mat-raised-button class="section-add-new-record-btn" (click)="submit()">
+  Submit
+</button> -->

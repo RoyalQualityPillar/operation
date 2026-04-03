@@ -13,7 +13,7 @@ export class EpoService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
 onSaveUpdate(requestBody: any) {
-    const saveUpdateURL = this.API_URL + 'sddo/do-items/save-update';
+    const saveUpdateURL = this.API_URL + 'pp/epo-items/save-update';
     return this.http.post(saveUpdateURL, requestBody);
   }
   getResquestNoID(lc0002: any, lcnum: any) {

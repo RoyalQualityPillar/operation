@@ -16,6 +16,8 @@ import { ProductCreateUpdateComponent } from "../ma/master/product-master/produc
 import { ProductHomePageComponent } from "../ma/master/product-master/product-home-page/product-home-page.component";
 import { AddNewRecordComponent } from "../pp-common/add-new-record/add-new-record.component";
 import { AsCommonFooterComponent } from "../pp-common/as-common-footer/as-common-footer.component";
+import { MasterHomePageComponent } from "../grn/master-home-page/master-home-page.component";
+import { MaterialComponent } from "../grn/material/material.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { AsCommonFooterComponent } from "../pp-common/as-common-footer/as-common
     ProductHomePageComponent,
     AddNewRecordComponent,
     AsCommonFooterComponent,
+    MaterialComponent,
+    MasterHomePageComponent,
 
 
 
