@@ -18,10 +18,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./rqp-lbms-module/lbms/lbms.module').then((m) => m.LbmsModule),
   },
-  {
+  // {
+  //   path: 'wh',
+  //   loadChildren: () =>
+  //     import('./rqp-wh-controller/wh/wh.module').then((m) => m.WhModule),
+  // }
+   {
     path: 'wh',
     loadChildren: () =>
-      import('./rqp-wh-controller/wh/wh.module').then((m) => m.WhModule),
+      import('./rqp-wh-module/wh/wh.module').then((m) => m.WhModule),
   },
   
 
