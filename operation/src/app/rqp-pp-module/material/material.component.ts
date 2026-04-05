@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { GrnService } from "../grn.service";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { GlobalConstants } from "src/app/common/global-constants";
+import { GrnService } from "src/app/rqp-wh-controller/grn/grn.service";
 
 @Component({
   selector: 'app-material',
