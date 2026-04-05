@@ -13,6 +13,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./rqp-pp-module/pp/pp.module').then((m) => m.PpModule),
   },
+  {
+    path: 'lbms',
+    loadChildren: () =>
+      import('./rqp-lbms-module/lbms/lbms.module').then((m) => m.LbmsModule),
+  },
   
 
  
