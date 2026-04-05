@@ -8,8 +8,8 @@ import { EpoUpdateComponent } from "../epo/epo-update/epo-update.component";
 import { EpoHomeComponent } from "../epo/epo-home/epo-home.component";
 import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.component";
 import { ProductHomePageComponent } from "../ma/master/product-master/product-home-page/product-home-page.component";
-import { MasterHomePageComponent } from "../grn/master-home-page/master-home-page.component";
-import { MaterialComponent } from "../grn/material/material.component";
+import { MasterHomePageComponent } from "../master-home-page/master-home-page.component";
+import { MaterialComponent } from "../material/material.component";
 
 const routes: Routes = [
 
@@ -23,8 +23,7 @@ const routes: Routes = [
       { path: 'product-home-page', component: ProductHomePageComponent },
       { path: 'master-home-page', component: MasterHomePageComponent },
       { path: 'material', component: MaterialComponent },
-      
-
+    
 
 ];
 
