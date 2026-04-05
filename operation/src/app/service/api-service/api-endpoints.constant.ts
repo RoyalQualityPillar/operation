@@ -1305,4 +1305,14 @@ export enum apiEndPoints {
   psiWeekWiseData ='pmmpsi/psi-index-fta-Week',
   psiDayWiseData ='pmmpsi/psi-index-fta-Day',
 
+
+   /***************LBMS ***************/
+
+  /*******Area master*********/
+  allAreaMasterTabledata = 'lbms/area_master/get-all',
+  activeAreaMasterTabledata = 'lbms/area_master/get-max-all',
+  areaMasterUserProfileFilterData = 'lbms/area_master/search',
+  areaMasterCreateUpdate = 'lbms/area_master/save-update',
+  areaMasterLoadUpdatePage = 'lbms/area_master/get-by-max-code',
+  areaMasterAllAuditTrail = 'lbms/area_master/get-by-code-all',
 }
