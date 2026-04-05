@@ -1315,4 +1315,22 @@ export enum apiEndPoints {
   areaMasterCreateUpdate = 'lbms/area_master/save-update',
   areaMasterLoadUpdatePage = 'lbms/area_master/get-by-max-code',
   areaMasterAllAuditTrail = 'lbms/area_master/get-by-code-all',
+
+    /***************WmhModule***************/
+
+  /*******Inspection Master*********/
+  allInspectionTabledata = 'wh/it-master/get-all',
+  activeInspectionTabledata = 'wh/it-master/get-max-all',
+  inspectionUserProfileFilterData = 'wh/it-master/search',
+  inspectionCreateUpdate = 'wh/it-master/save-update',
+  inspectionLoadUpdatePage = 'wh/it-master/get-by-max-code',
+  inspectionAllAuditTrail = 'wh/it-master/get-by-code-all',
+
+  /*******Storage Location*********/
+  allStorageTabledata = 'wh/sl_master/get-all',
+  activeStorageTabledata = 'wh/sl_master/get-max-all',
+  storageUserProfileFilterData = 'wh/sl_master/search',
+  storageCreateUpdate = 'wh/sl_master/save-update',
+  storageLoadUpdatePage = 'wh/sl_master/get-by-max-code',
+  StorageAllAuditTrail = 'wh/sl_master/get-by-code-all',
 }
