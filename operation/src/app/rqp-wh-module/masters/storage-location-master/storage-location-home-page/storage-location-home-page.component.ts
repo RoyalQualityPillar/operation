@@ -163,7 +163,7 @@ export class StorageLocationHomePageComponent implements OnInit, AfterViewInit {
       let UC0001 = this.selectedAllRow.uc0001;
       const params = { UC0001 };
       this.apiService
-        .sendRequest(apiEndPoints.StorageAllAuditTrail, 'GET', params)
+        .sendRequest(apiEndPoints.storageAllAuditTrail, 'GET', params)
         .subscribe((data: any) => {
           let newFormatData = this.structureResponse(data.data);
           this.isLoading = false;

@@ -1332,5 +1332,21 @@ export enum apiEndPoints {
   storageUserProfileFilterData = 'wh/sl_master/search',
   storageCreateUpdate = 'wh/sl_master/save-update',
   storageLoadUpdatePage = 'wh/sl_master/get-by-max-code',
-  StorageAllAuditTrail = 'wh/sl_master/get-by-code-all',
+  storageAllAuditTrail = 'wh/sl_master/get-by-code-all',
+
+   /*******Quntity Master*********/
+  allQuantityTabledata = 'wh/qt-master/get-all',
+  activeQuantityTabledata = 'wh/qt-master/get-max-all',
+  quantityUserProfileFilterData = 'wh/qt-master/search',
+  quantityCreateUpdate = 'wh/qt-master/save-update',
+  quantityLoadUpdatePage = 'wh/qt-master/get-by-max-code',
+  quantityAllAuditTrail = 'wh/qt-master/get-by-code-all',
+
+   /*******Quntity Ledger*********/
+  allQuantityLedgTabledata = 'wh/qt_ledger/get-all',
+  activeQuantityLedgTabledata = 'wh/qt_ledger/get-max-all',
+  quantityLedgUserProfileFilterData = 'wh/qt_ledger/search',
+  quantityLedgCreateUpdate = 'wh/qt_ledger/save-update',
+  quantityLedgLoadUpdatePage = 'wh/qt_ledger/get-by-max-code',
+  quantityLedgAllAuditTrail = 'wh/qt_ledger/get-by-code-all',
 }

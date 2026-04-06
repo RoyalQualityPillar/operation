@@ -8,6 +8,8 @@ import { GrnReviewerHomeComponent } from '../grn/grn-reviewer-home/grn-reviewer-
 import { GrnMasterHomePageComponent } from '../masters/grn-master-home-page/grn-master-home-page.component';
 import { InspectionTypeHomePageComponent } from '../masters/inspection-type-master/inspection-type-home-page/inspection-type-home-page.component';
 import { StorageLocationHomePageComponent } from '../masters/storage-location-master/storage-location-home-page/storage-location-home-page.component';
+import { QuantityHomePageComponent } from '../masters/quantity-master/quantity-home-page/quantity-home-page.component';
+import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quantity-ledg-home-page/quantity-ledg-home-page.component';
 
 const routes: Routes = [
     { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
       { path: 'inspection-type-home-page', component: InspectionTypeHomePageComponent },
       { path: 'grn-master-home-page', component: GrnMasterHomePageComponent },
       { path: 'storage-location-home-page', component: StorageLocationHomePageComponent },
+      { path: 'quantity-home-page', component: QuantityHomePageComponent },
+      { path: 'quantity-ledg-home-page', component: QuantityLedgHomePageComponent },
 ];
 
 @NgModule({
