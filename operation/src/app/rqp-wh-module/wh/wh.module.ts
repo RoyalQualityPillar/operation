@@ -15,20 +15,28 @@ import { InspectionTypeCreateUpdateComponent } from '../masters/inspection-type-
 import { InspectionTypeHomePageComponent } from '../masters/inspection-type-master/inspection-type-home-page/inspection-type-home-page.component';
 import { StorageLocationCreateUpdateComponent } from '../masters/storage-location-master/storage-location-create-update/storage-location-create-update.component';
 import { StorageLocationHomePageComponent } from '../masters/storage-location-master/storage-location-home-page/storage-location-home-page.component';
+import { QuantityCreateUpdateComponent } from '../masters/quantity-master/quantity-create-update/quantity-create-update.component';
+import { QuantityHomePageComponent } from '../masters/quantity-master/quantity-home-page/quantity-home-page.component';
+import { QuantityLedgCreateUpdateComponent } from '../masters/quantity-ledger/quantity-ledg-create-update/quantity-ledg-create-update.component';
+import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quantity-ledg-home-page/quantity-ledg-home-page.component';
 
 
 @NgModule({
   declarations: [
-     GrnInitiatorComponent,
+    GrnInitiatorComponent,
     GrnUpdateHomeComponent,
     GrnUpdateComponent,
     GrnReviewerComponent,
     GrnReviewerHomeComponent,
     InspectionTypeCreateUpdateComponent,
-    InspectionTypeHomePageComponent, 
+    InspectionTypeHomePageComponent,
     GrnMasterHomePageComponent,
     StorageLocationCreateUpdateComponent,
     StorageLocationHomePageComponent,
+    QuantityCreateUpdateComponent,
+    QuantityHomePageComponent,
+     QuantityLedgCreateUpdateComponent,
+    QuantityLedgHomePageComponent,
 
   ],
   imports: [

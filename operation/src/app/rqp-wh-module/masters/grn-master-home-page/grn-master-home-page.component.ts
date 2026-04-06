@@ -19,4 +19,10 @@ export class GrnMasterHomePageComponent {
   onStorage() {
     this.router.navigate(['./rqpoperationui/wh/storage-location-home-page']);
   }
+  onQuantity() {
+    this.router.navigate(['./rqpoperationui/wh/quantity-home-page']);
+  }
+  onQuantityLed() {
+    this.router.navigate(['./rqpoperationui/wh/quantity-ledg-home-page']);
+  }
 }
