@@ -5,9 +5,9 @@ import { GrnUpdateHomeComponent } from '../grn/grn-update-home/grn-update-home.c
 import { GrnUpdateComponent } from '../grn/grn-update/grn-update.component';
 import { GrnReviewerComponent } from '../grn/grn-reviewer/grn-reviewer.component';
 import { GrnReviewerHomeComponent } from '../grn/grn-reviewer-home/grn-reviewer-home.component';
-import { GrnMasterHomePageComponent } from 'src/app/rqp-wh-controller/masters/grn-master-home-page/grn-master-home-page.component';
-import { InspectionTypeHomePageComponent } from 'src/app/rqp-wh-controller/masters/inspection-type-master/inspection-type-home-page/inspection-type-home-page.component';
-import { StorageLocationHomePageComponent } from 'src/app/rqp-wh-controller/masters/storage-location-master/storage-location-home-page/storage-location-home-page.component';
+import { GrnMasterHomePageComponent } from '../masters/grn-master-home-page/grn-master-home-page.component';
+import { InspectionTypeHomePageComponent } from '../masters/inspection-type-master/inspection-type-home-page/inspection-type-home-page.component';
+import { StorageLocationHomePageComponent } from '../masters/storage-location-master/storage-location-home-page/storage-location-home-page.component';
 
 const routes: Routes = [
     { path: 'grn-initiator', component: GrnInitiatorComponent },
