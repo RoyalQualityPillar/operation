@@ -7,6 +7,10 @@ import { GrnUpdateHomeComponent } from '../grn/grn-update-home/grn-update-home.c
 import { GrnUpdateComponent } from '../grn/grn-update/grn-update.component';
 import { GrnReviewerComponent } from '../grn/grn-reviewer/grn-reviewer.component';
 import { GrnReviewerHomeComponent } from '../grn/grn-reviewer-home/grn-reviewer-home.component';
+import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
+import { SharedModule } from 'src/app/common/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GoodsReceiptListComponent } from '../grn/goods-receipt-list/goods-receipt-list.component';
 
 
 @NgModule({
@@ -16,9 +20,14 @@ import { GrnReviewerHomeComponent } from '../grn/grn-reviewer-home/grn-reviewer-
     GrnUpdateComponent,
     GrnReviewerComponent,
     GrnReviewerHomeComponent,
+      GoodsReceiptListComponent,       
   ],
   imports: [
     CommonModule,
+      AngularMaterialModule,
+      SharedModule,
+      ReactiveFormsModule,
+    FormsModule,
     WhRoutingModule
   ]
 })
