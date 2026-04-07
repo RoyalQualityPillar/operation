@@ -1315,4 +1315,38 @@ export enum apiEndPoints {
   areaMasterCreateUpdate = 'lbms/area_master/save-update',
   areaMasterLoadUpdatePage = 'lbms/area_master/get-by-max-code',
   areaMasterAllAuditTrail = 'lbms/area_master/get-by-code-all',
+
+    /***************WmhModule***************/
+
+  /*******Inspection Master*********/
+  allInspectionTabledata = 'wh/it-master/get-all',
+  activeInspectionTabledata = 'wh/it-master/get-max-all',
+  inspectionUserProfileFilterData = 'wh/it-master/search',
+  inspectionCreateUpdate = 'wh/it-master/save-update',
+  inspectionLoadUpdatePage = 'wh/it-master/get-by-max-code',
+  inspectionAllAuditTrail = 'wh/it-master/get-by-code-all',
+
+  /*******Storage Location*********/
+  allStorageTabledata = 'wh/sl_master/get-all',
+  activeStorageTabledata = 'wh/sl_master/get-max-all',
+  storageUserProfileFilterData = 'wh/sl_master/search',
+  storageCreateUpdate = 'wh/sl_master/save-update',
+  storageLoadUpdatePage = 'wh/sl_master/get-by-max-code',
+  storageAllAuditTrail = 'wh/sl_master/get-by-code-all',
+
+   /*******Quntity Master*********/
+  allQuantityTabledata = 'wh/qt-master/get-all',
+  activeQuantityTabledata = 'wh/qt-master/get-max-all',
+  quantityUserProfileFilterData = 'wh/qt-master/search',
+  quantityCreateUpdate = 'wh/qt-master/save-update',
+  quantityLoadUpdatePage = 'wh/qt-master/get-by-max-code',
+  quantityAllAuditTrail = 'wh/qt-master/get-by-code-all',
+
+   /*******Quntity Ledger*********/
+  allQuantityLedgTabledata = 'wh/qt_ledger/get-all',
+  activeQuantityLedgTabledata = 'wh/qt_ledger/get-max-all',
+  quantityLedgUserProfileFilterData = 'wh/qt_ledger/search',
+  quantityLedgCreateUpdate = 'wh/qt_ledger/save-update',
+  quantityLedgLoadUpdatePage = 'wh/qt_ledger/get-by-max-code',
+  quantityLedgAllAuditTrail = 'wh/qt_ledger/get-by-code-all',
 }

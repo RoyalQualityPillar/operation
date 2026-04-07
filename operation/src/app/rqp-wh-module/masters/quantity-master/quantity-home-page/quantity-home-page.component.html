@@ -1,0 +1,73 @@
+<mat-tab-group
+  animationDuration="500ms"
+  class="m-1"
+  #tabGroup
+  (selectedTabChange)="tabChanged($event)"
+>
+  <mat-tab aria-label="Tab7">
+    <ng-template mat-tab-label>
+      <div>
+        <div class="section_header_title">All Quantity Master</div>
+      </div>
+    </ng-template>
+    <div class="margin-left_10 margin-right_10">
+      <button
+        mat-raised-button
+        class="add-new-record"
+        (click)="onOpenRolePOPUP()"
+      >
+        Add New Record
+      </button>
+    </div>
+    <ng-template #commonTableContainer></ng-template>
+    <!--
+    <app-common-table-filter
+      [columnConfig]="columnConfig"
+      [filterOptions]="filterOptions"
+      [apiUrl]="allMvMasterTableDataUrl"
+      tableTitle="All Mv Master "
+      [dynamicButtons]="allButtonConfig"
+      (buttonClick)="handleButtonAction($event)"
+      columnClass="rqp-life-cycle-table-columns"
+      [filterApiUrl]="filterApiUrl"
+      [HttpMethod]="HttpMethod"
+      [params]="params"
+      [getLatestData]="getLatestData"
+      downloadFileName=" Mv  Master  "
+    ></app-common-table-filter>-->
+
+    <div style="height: 50px"></div>
+  </mat-tab>
+  <mat-tab aria-label="Tab6">
+    <ng-template mat-tab-label>
+      <div>
+        <div class="section_header_title">Active Quantity Master</div>
+      </div>
+    </ng-template>
+    <div class="margin-left_10 margin-right_10">
+      <button
+        mat-raised-button
+        class="add-new-record"
+        (click)="onOpenRolePOPUP()"
+      >
+        Add New Record
+      </button>
+    </div>
+    <ng-template #activeRoleMasterContainer></ng-template>
+<!--
+    <app-common-table-filter
+      [columnConfig]="columnConfig"
+      [filterOptions]="filterOptions"
+      [apiUrl]="activeMvMasterTableDataUrl"
+      tableTitle="Active Mv Master"
+      [dynamicButtons]="activeButtonConfig"
+      (buttonClick)="activeHandleButtonAction($event)"
+      columnClass="rqp-life-cycle-table-columns"
+      [filterApiUrl]="filterApiUrl"
+      [HttpMethod]="HttpMethod"
+      [params]="params"
+      [getLatestData]="getLatestData"
+      downloadFileName=" Mv  Master  "
+    ></app-common-table-filter>-->
+  </mat-tab>
+</mat-tab-group>

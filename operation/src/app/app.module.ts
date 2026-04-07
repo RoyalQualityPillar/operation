@@ -28,21 +28,21 @@ import { GoodsReceiptListComponent } from './rqp-wh-module/grn/goods-receipt-lis
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-  
-    
-    
-    
-    
+
+
+
+
+
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
     AngularMaterialModule,
-   BkTableModule,
-  //  SharedModule
-   
+    BkTableModule,
+    //  SharedModule
+
     //MatDialogModule,
-    
+
   ],
   providers: [
     provideClientHydration(withEventReplay())
