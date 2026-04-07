@@ -7,6 +7,7 @@ import { GrnUpdateHomeComponent } from '../grn/grn-update-home/grn-update-home.c
 import { GrnUpdateComponent } from '../grn/grn-update/grn-update.component';
 import { GrnReviewerComponent } from '../grn/grn-reviewer/grn-reviewer.component';
 import { GrnReviewerHomeComponent } from '../grn/grn-reviewer-home/grn-reviewer-home.component';
+import { GoodsReceiptListComponent } from '../grn/goods-receipt-list/goods-receipt-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { SharedModule } from 'src/app/common/shared.module';
@@ -28,6 +29,7 @@ import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quanti
     GrnUpdateComponent,
     GrnReviewerComponent,
     GrnReviewerHomeComponent,
+    GoodsReceiptListComponent,
     InspectionTypeCreateUpdateComponent,
     InspectionTypeHomePageComponent,
     GrnMasterHomePageComponent,
@@ -35,7 +37,7 @@ import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quanti
     StorageLocationHomePageComponent,
     QuantityCreateUpdateComponent,
     QuantityHomePageComponent,
-     QuantityLedgCreateUpdateComponent,
+    QuantityLedgCreateUpdateComponent,
     QuantityLedgHomePageComponent,
 
   ],

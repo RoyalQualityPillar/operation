@@ -10,18 +10,20 @@ import { InspectionTypeHomePageComponent } from '../masters/inspection-type-mast
 import { StorageLocationHomePageComponent } from '../masters/storage-location-master/storage-location-home-page/storage-location-home-page.component';
 import { QuantityHomePageComponent } from '../masters/quantity-master/quantity-home-page/quantity-home-page.component';
 import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quantity-ledg-home-page/quantity-ledg-home-page.component';
+import { GoodsReceiptListComponent } from '../grn/goods-receipt-list/goods-receipt-list.component';
 
 const routes: Routes = [
-    { path: 'grn-initiator', component: GrnInitiatorComponent },
-      { path: 'grn-update-home', component: GrnUpdateHomeComponent },
-      { path: 'grn-update', component: GrnUpdateComponent },
-      { path: 'grn-reviewer-home', component: GrnReviewerComponent },
-      { path: 'grn-reviewer', component: GrnReviewerHomeComponent },
-      { path: 'inspection-type-home-page', component: InspectionTypeHomePageComponent },
-      { path: 'grn-master-home-page', component: GrnMasterHomePageComponent },
-      { path: 'storage-location-home-page', component: StorageLocationHomePageComponent },
-      { path: 'quantity-home-page', component: QuantityHomePageComponent },
-      { path: 'quantity-ledg-home-page', component: QuantityLedgHomePageComponent },
+  { path: 'grn-initiator', component: GrnInitiatorComponent },
+  { path: 'grn-update-home', component: GrnUpdateHomeComponent },
+  { path: 'grn-update', component: GrnUpdateComponent },
+  { path: 'grn-reviewer-home', component: GrnReviewerComponent },
+  { path: 'grn-reviewer', component: GrnReviewerHomeComponent },
+  { path: 'goods-receipt-list', component: GoodsReceiptListComponent },
+  { path: 'inspection-type-home-page', component: InspectionTypeHomePageComponent },
+  { path: 'grn-master-home-page', component: GrnMasterHomePageComponent },
+  { path: 'storage-location-home-page', component: StorageLocationHomePageComponent },
+  { path: 'quantity-home-page', component: QuantityHomePageComponent },
+  { path: 'quantity-ledg-home-page', component: QuantityLedgHomePageComponent },
 ];
 
 @NgModule({
