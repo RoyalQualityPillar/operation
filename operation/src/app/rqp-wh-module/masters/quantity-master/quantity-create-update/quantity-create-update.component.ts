@@ -117,7 +117,7 @@ export class QuantityCreateUpdateComponent implements OnInit {
     const params = { UC0001 };
 
     this.apiService
-      .sendRequest(apiEndPoints.MVMasterLoadUpdatePage, 'POST', params)
+      .sendRequest(apiEndPoints.quantityLoadUpdatePage, 'POST', params)
       .subscribe((data: any) => {
         if (data.data == null) {
           this.isLoading = false;

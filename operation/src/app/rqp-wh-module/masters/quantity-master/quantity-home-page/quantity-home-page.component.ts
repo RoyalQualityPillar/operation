@@ -83,8 +83,8 @@ export class QuantityHomePageComponent implements OnInit, AfterViewInit {
       // Set all required inputs
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this. activeQuantityTableDataUrl);
-      compRef.setInput('tableTitle', 'Active Quantity Master');
+      compRef.setInput('apiUrl', this. allQuantityTableDataUrl);
+      compRef.setInput('tableTitle', 'All Quantity Master');
       compRef.setInput('dynamicButtons', this.allButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
       compRef.setInput('filterApiUrl', this.filterApiUrl);
@@ -112,7 +112,7 @@ export class QuantityHomePageComponent implements OnInit, AfterViewInit {
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
       compRef.setInput('apiUrl', this.activeQuantityTableDataUrl);
-      compRef.setInput('tableTitle', 'Active Active Quantity Master');
+      compRef.setInput('tableTitle', 'Active Quantity Master');
       compRef.setInput('dynamicButtons', this.activeButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
       compRef.setInput('filterApiUrl', this.filterApiUrl);
