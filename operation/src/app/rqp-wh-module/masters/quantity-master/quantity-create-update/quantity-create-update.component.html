@@ -6,7 +6,7 @@
 ></mat-spinner>
 <div class="row gx-0 create-update-dialog-header-section">
   <div class="col-10 d-flex justify-content-start">
-    <h1 class="daialog-title-name p-2">Mv Master {{ this.userData.type }}</h1>
+    <h1 class="daialog-title-name p-2">Quantity Master {{ this.userData.type }}</h1>
   </div>
   <div class="col-2 d-flex justify-content-end">
     <button mat-icon-button class="close-button" [mat-dialog-close]="true">
@@ -18,7 +18,7 @@
       <mat-card>
         <div class="p-2">
           <div class="section_header">
-            <p class="section_header_title">Mv Master Information</p>
+            <p class="section_header_title">Quantity Master Information</p>
           </div>
         </div>
         <div class="row">
@@ -32,7 +32,7 @@
                   >).</span
                 >
               </div>
-                <div class="col-6 px-1"></div>
+                <!-- <div class="col-6 px-1"></div>
                 <mat-form-field appearance="outline" class="col-12">
                   <mat-label>Material Vendor No</mat-label>
                   <input
@@ -43,8 +43,8 @@
                     [class.isReadonlyField]="isUpdate"
                     placeholder="Material Vendor No"
                   />
-                </mat-form-field>
-              </div> -->
+                </mat-form-field> -->
+              </div>  
               <div class="row no-gutters ms-1 me-1 dense-4 orgCode"><br />
                 <mat-form-field appearance="outline" class="col-12 px-1">
                   <mat-label>Unit Code</mat-label>
@@ -52,12 +52,15 @@
                 </mat-form-field>
               </div>
             </div>
+           <div class="row no-gutters ms-1 me-1 dense-4">
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>In Hoose Lot No</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="uc0001"
+                    [readonly]="isUpdate"
+                    [class.isReadonlyField]="isUpdate"
                   placeholder="In Hoose Lot No"
                 />
               </mat-form-field>
@@ -162,6 +165,7 @@
                   placeholder="Batch No/ LotNo"
                 />
               </mat-form-field>
+           </div>
             
             <div class="col-3 px-1" *ngIf="isUpdate">
               <mat-form-field appearance="outline" class="col-12">
