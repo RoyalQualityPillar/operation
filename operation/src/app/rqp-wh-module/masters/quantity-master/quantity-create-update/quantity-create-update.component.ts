@@ -63,15 +63,15 @@ export class QuantityCreateUpdateComponent implements OnInit {
       uc0001: ['', Validators.required],
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
-      ff0003: ['', Validators.required],
-      ff0004: ['', Validators.required],
-      ff0005: ['', Validators.required],
-      ff0006: ['', Validators.required],
-      ff0007: ['', Validators.required],
-      ff0008: ['', Validators.required],
-      ff0009: ['', Validators.required],
-      ff0010: ['', Validators.required],
-      ff0011: ['', Validators.required],
+      ff0003: [0, Validators.required],
+      ff0004: [0, Validators.required],
+      ff0005: [0, Validators.required],
+      ff0006: [0, Validators.required],
+      ff0007: [0, Validators.required],
+      ff0008: [0, Validators.required],
+      ff0009: [0, Validators.required],
+      ff0010: [0, Validators.required],
+      ff0011: [0, Validators.required],
       createdby: [''],
       status: [''],
       comments: [''],
@@ -85,7 +85,6 @@ export class QuantityCreateUpdateComponent implements OnInit {
       this.cookieService.get('buCode')
     );
 
-    // this.onloadDropDown();
     if (this.userData.type == 'Update') {
       this.isReadOnly = true;
       this.isUpdate = true;
@@ -95,14 +94,7 @@ export class QuantityCreateUpdateComponent implements OnInit {
       this.isUpdate = false;
     }
   }
-  saleProductList: any;
-  buUnitList: any;
-  suUnitList: any;
-  puUnitList: any;
-  stageMasterList: any;
-
-  mtMasterList: any;
-  utMasterList: any;
+ 
   
   onLoadStatusDropDown() {
     this.isLoading = true;
@@ -252,48 +244,8 @@ export class QuantityCreateUpdateComponent implements OnInit {
   }
   onChangeDosageForm() {}
   openDosageFormLOV() {}
-  openUOMLOV() {
-    this.displayedColumns = [
-      { field: 'utCode', title: 'Code' },
-      { field: 'utName', title: 'Description' },
-    ];
-    const dialogRef = this.dialog.open(LovDialogComponent, {
-      height: '500px',
-      width: '600px',
-      data: {
-        dialogTitle: 'UOM',
-        dialogColumns: this.displayedColumns,
-        dialogData: this.utMasterList,
-        lovName: 'businessUnitList',
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedDialogData = result.data;
-        this.DepartmentMaster.controls['ff0016'].setValue(
-          this.selectedDialogData.utName
-        );
-      }
-    });
-  }
-  onChangeUOM() {
-    if (this.DepartmentMaster.controls['ff0016'].value == '') {
-      this.DepartmentMaster.controls['ff0016'].setValue('');
-    } else {
-      this.isStatusSuccess = false;
-      let statusCurrentValue = this.DepartmentMaster.controls['ff0016'].value;
-      this.utMasterList.forEach((elements) => {
-        if (elements.utCode == statusCurrentValue) {
-          this.isStatusSuccess = true;
-        }
-      });
-      if (this.isStatusSuccess == false) {
-        this.DepartmentMaster.controls['ff0016'].setErrors({ incorrect: true });
-        this.openUOMLOV();
-      }
-    }
-  }
+  
+ 
   onChangeStatus() {
     if (this.DepartmentMaster.controls['status'].value == '') {
       this.DepartmentMaster.controls['status'].setValue('');
