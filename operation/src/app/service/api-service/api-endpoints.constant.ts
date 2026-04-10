@@ -1316,6 +1316,22 @@ export enum apiEndPoints {
   areaMasterLoadUpdatePage = 'lbms/area_master/get-by-max-code',
   areaMasterAllAuditTrail = 'lbms/area_master/get-by-code-all',
 
+  /*******Area Group master*********/
+  allAreaGroupMasterTabledata = 'lbms/area_group_master/get-all',
+  activeAreaGroupMasterTabledata = 'lbms/area_group_master/get-max-all',
+  areaGroupMasterUserProfileFilterData = 'lbms/area_group_master/search',
+  areaGroupMasterCreateUpdate = 'lbms/area_group_master/save-update',
+  areaGroupMasterLoadUpdatePage = 'lbms/area_group_master/get-by-max-code',
+  areaGroupMasterAllAuditTrail = 'lbms/area_group_master/get-by-code-all',
+
+  /*******Clean Room Grade master*********/
+  allCrmMasterTabledata = 'lbms/clean_room_grade_master/get-all',
+  activeCrmMasterTabledata = 'lbms/clean_room_grade_master/get-max-all',
+  crmMasterUserProfileFilterData = 'lbms/clean_room_grade_master/search',
+  crmMasterCreateUpdate = 'lbms/clean_room_grade_master/save-update',
+  crmMasterLoadUpdatePage = 'lbms/clean_room_grade_master/get-by-max-code',
+  crmMasterAllAuditTrail = 'lbms/clean_room_grade_master/get-by-code-all',
+
     /***************WmhModule***************/
 
   /*******Inspection Master*********/
