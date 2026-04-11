@@ -25,8 +25,7 @@ private API_URL = environment.apiBaseURL;
    getDropDownList() {
     let token = this.cookieService.get('token');
     let listURL =
-      this.API_URL +
-      `admin/userprofile/input?unitCode=${this.cookieService.get('buCode')}`;
+      this.API_URL + `gm/input?unitCode=${this.cookieService.get('buCode')}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -34,5 +33,11 @@ private API_URL = environment.apiBaseURL;
       }),
     };
     return this.http.get(listURL, httpOptions);
+  }
+  onAllRoleAuditTrail(uc0001: any) {
+    let queryParams = `?UC0001=${uc0001}`;
+    const ALLSALEPRODUCTURL =
+      this.API_URL + 'wh/it-master/get-by-code-all' + queryParams;
+    return this.http.get(ALLSALEPRODUCTURL);
   }
 }

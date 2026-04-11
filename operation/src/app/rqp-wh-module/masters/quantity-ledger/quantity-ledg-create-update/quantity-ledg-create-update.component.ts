@@ -64,7 +64,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
       ff0003: ['', Validators.required],
-      ff0004: ['', Validators.required],
+      ff0004: [0, Validators.required],
       ff0005: ['', Validators.required],
       ff0006: ['', Validators.required],
       ff0007: ['', Validators.required],
