@@ -16,4 +16,7 @@ constructor(private router: Router, private cookieService: CookieService) { }
   onAreaMaster() {
     this.router.navigate(['./rqpoperationui/lbms/area-home-page']);
   }
+  onCleanRoomGrade() {
+    this.router.navigate(['./rqpoperationui/lbms/clean-room-grade-home-page']);
+  }
 }

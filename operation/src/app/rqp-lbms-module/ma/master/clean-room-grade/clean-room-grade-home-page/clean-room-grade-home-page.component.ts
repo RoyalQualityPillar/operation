@@ -10,17 +10,17 @@ import { changeStatusByCode } from 'src/app/common/removeEmptyStrings';
 import { apiEndPoints } from 'src/app/service/api-service/api-endpoints.constant';
 import { ApiService } from 'src/app/service/api-service/api.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
-import { AreaMasterService } from '../area-master.service';
-import { AreaCreateUpdateComponent } from '../area-create-update/area-create-update.component';
+import { CleanRoomGradeService } from '../clean-room-grade.service';
 import { Router } from '@angular/router';
+import { CleanRoomGradeCreateUpdateComponent } from '../clean-room-grade-create-update/clean-room-grade-create-update.component';
 
 @Component({
-  selector: 'app-area-home-page',
+  selector: 'app-clean-room-grade-home-page',
   standalone: false,
-  templateUrl: './area-home-page.component.html',
-  styleUrl: './area-home-page.component.scss'
+  templateUrl: './clean-room-grade-home-page.component.html',
+  styleUrl: './clean-room-grade-home-page.component.scss'
 })
-export class AreaHomePageComponent implements OnInit, AfterViewInit {
+export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   @ViewChild('commonTableContainer', { read: ViewContainerRef, static: true })
   commonTableContainer!: ViewContainerRef;
   @ViewChild('activeRoleMasterContainer', { read: ViewContainerRef })
@@ -40,16 +40,17 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   activeUserFilterValueError = false;
   tableData: MatTableDataSource<any>;
   isFilterExpanded = false;
-  allAreaTableDataUrl: any;
-  activeAreaTableDataUrl: any;
+  allCleanRoomGradeTableDataUrl: any;
+  activeCleanRoomGradeTableDataUrl: any;
   filterApiUrl: any;
   params: any;
   HttpMethod = 'POST';
   getLatestData = false;
+  allCleanRoomGradeTabledataUrl: apiEndPoints;
 
   constructor(
     private router: Router,
-    private areaMasterService: AreaMasterService,
+    private CleanRoomGradeService: CleanRoomGradeService,
     public dialog: MatDialog,
     public cookieService: CookieService,
     private apiService: ApiService,
@@ -58,14 +59,14 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   filterObject: any;
   activeUserFilterObject: any;
   ngOnInit(): void {
-    this.allAreaTableDataUrl = apiEndPoints.allAreaMasterTabledata;
+    this.allCleanRoomGradeTableDataUrl = apiEndPoints.allCrmMasterTabledata;
     this.pageIndex = 0;
     let size = GlobalConstants.size;
     let pageIndex = this.pageIndex;
     let unitCode = this.cookieService.get('buCode');
     this.params = { pageIndex, size, unitCode };
-    this.filterApiUrl = apiEndPoints.areaMasterUserProfileFilterData;
-    this.activeAreaTableDataUrl = apiEndPoints.activeAreaMasterTabledata;
+    this.filterApiUrl = apiEndPoints.crmMasterUserProfileFilterData;
+    this.activeCleanRoomGradeTableDataUrl = apiEndPoints.activeCrmMasterTabledata;
     this.params = { pageIndex, size, unitCode };
     console.log('Bharat');
     this.loadRoleMasterTableFilter();
@@ -82,15 +83,15 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       // Set all required inputs
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this. activeAreaTableDataUrl);
-      compRef.setInput('tableTitle', 'Active Area Master');
+      compRef.setInput('apiUrl', this. allCleanRoomGradeTableDataUrl);
+      compRef.setInput('tableTitle', 'All Clean Room Grade');
       compRef.setInput('dynamicButtons', this.allButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
       compRef.setInput('filterApiUrl', this.filterApiUrl);
       compRef.setInput('HttpMethod', this.HttpMethod);
       compRef.setInput('params', this.params);
       compRef.setInput('getLatestData', this.getLatestData);
-      compRef.setInput('downloadFileName', ' Area Master');
+      compRef.setInput('downloadFileName', ' Clean Room Grade');
 
       // Subscribe to output
       (compRef.instance as any).buttonClick.subscribe((event: any) => {
@@ -110,15 +111,15 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
 
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this.activeAreaTableDataUrl);
-      compRef.setInput('tableTitle', 'Active Area Master');
+      compRef.setInput('apiUrl', this.activeCleanRoomGradeTableDataUrl);
+      compRef.setInput('tableTitle', 'Active Clean Room Grade');
       compRef.setInput('dynamicButtons', this.activeButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
       compRef.setInput('filterApiUrl', this.filterApiUrl);
       compRef.setInput('HttpMethod', this.HttpMethod);
       compRef.setInput('params', this.params);
       compRef.setInput('getLatestData', this.getLatestData);
-      compRef.setInput('downloadFileName', 'Area Master');
+      compRef.setInput('downloadFileName', 'Clean Room Grade');
 
       // 🔧 Safely subscribe to output
       (compRef.instance as any).buttonClick.subscribe((event: any) => {
@@ -128,6 +129,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       console.error('Error loading Active Role Master table filter:', error);
     }
   }
+  
   ngAfterViewInit(): void {}
   selectedTab = 0;
   toggleFilter() {
@@ -138,7 +140,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
 
   selectedRow: any;
   onOpenRolePOPUP() {
-    const dialogRef = this.dialog.open(AreaCreateUpdateComponent, {
+    const dialogRef = this.dialog.open(CleanRoomGradeCreateUpdateComponent, {
       minWidth: '80%',
       data: { tableData: this.selectedRow, type: 'Registration' },
     });
@@ -164,7 +166,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
         },
       });
     } else {
-      const dialogRef = this.dialog.open(AreaCreateUpdateComponent, {
+      const dialogRef = this.dialog.open(CleanRoomGradeCreateUpdateComponent, {
         minWidth: '80%',
         data: { tableData: this.selectedRow, type: 'Modification' },
       });
@@ -184,15 +186,9 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
         labelName: 'Status',
         value: this.onChangeStatus(this.selectedRow.status),
       },
-      { labelName: 'Area No', value: this.selectedRow.uc0001 },
-      { labelName: 'Area Code', value: this.selectedRow.ff0001 },
-      { labelName: 'Area Name', value: this.selectedRow.ff0002 },
-      { labelName: 'Area Group  ', value: this.selectedRow.ff0003 },
-      { labelName: 'Department', value: this.selectedRow.ff0004 },
-      { labelName: 'Area Type', value: this.selectedRow.ff0005 },
-      { labelName: 'Clean Room Grade ', value: this.selectedRow.ff0006 },
-      { labelName: ' Line Clearance Required', value: this.selectedRow.ff0007 },
-      
+      { labelName: 'Clean Room Grade No', value: this.selectedRow.uc0001 },
+      { labelName: 'Clean Room Grade Code', value: this.selectedRow.ff0001 },
+      { labelName: 'Clean Room Grade Name', value: this.selectedRow.ff0002 },
 
       { labelName: 'Createdon', value: this.selectedRow.createdon },
       { labelName: 'Createdby', value: this.selectedRow.createdby },
@@ -212,7 +208,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       
       const dialogRef = this.dialog.open(component, {
         minWidth: '80%',
-        data: { tableData: tableData, pageTitle: 'Area Master' },
+        data: { tableData: tableData, pageTitle: 'Clean Room Grade' },
       });
       dialogRef.afterClosed().subscribe((result) => {});
     }
@@ -232,7 +228,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
     } else {
       this.isLoading = true;
 
-      this.areaMasterService
+      this.CleanRoomGradeService
         .onAllRoleAuditTrail(this.selectedRow.uc0001)
         .subscribe((data: any) => {
           let newFormatData = this.structureResponse(data.data);
@@ -250,15 +246,9 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
             labelName: 'Status',
             value: this.onChangeStatus(item.status),
           },
-          { labelName: 'Area No', value: item.uc0001 },
-          { labelName: 'Area Code', value: item.ff0001 },
-          { labelName: 'Area Name', value: item.ff0002 },
-          { labelName: 'Area Group ', value: item.ff0003 },
-          { labelName: 'Department', value: item.ff0004 },
-          { labelName: 'Area Type', value: item.ff0005 },
-          { labelName: 'Clean Room Grade ', value: item.ff0006 },
-          { labelName: 'Line Clearance Required ', value: item.ff0007 },          
-
+          { labelName: 'Clean Room Grade No', value: item.uc0001 },
+          { labelName: 'Clean Room Grade Code', value: item.ff0001 },
+          { labelName: 'Clean Room Grade Name', value: item.ff0002 },
           { labelName: 'Createdon', value: item.createdon },
           { labelName: 'Createdby', value: item.createdby },
           { labelName: 'Comments', value: item.comments },
@@ -270,20 +260,15 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
     );
     const dialogRef = this.dialog.open(component, {
       minWidth: '80%',
-      data: { tableData: rows, pageTitle: 'Area Master' },
+      data: { tableData: rows, pageTitle: 'Clean Room Grade' },
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
   columnConfig = {
     action: 'Action',
-    uc0001: 'Area No',
-    ff0001: 'Area Code',
-    ff0002: 'Area Name',
-    ff0003: 'Area Group',
-    ff0004: 'Department',
-    ff0005: 'Area Type',
-    ff0006: 'Clean Room Grade',
-    ff0007: 'Line Clearance Required',
+    uc0001: 'Clean Room Grade No',
+    ff0001: 'Clean Room Grade Code',
+    ff0002: 'Clean Room Grade Name',
     status: 'Status',
     version: 'Version',
     createdon: 'CreatedOn',
@@ -291,7 +276,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   };
 
   filterOptions: string[] = Object.keys(this.columnConfig);
-  tableTitle: string = 'All Area Master';
+  tableTitle: string = 'All Clean Room Grade';
   allButtonConfig = [
     { label: ' Audit Trail', action: 'Audit_Trail', color: 'primary' },
     // { label: 'Save', action: 'save', color: 'accent' }

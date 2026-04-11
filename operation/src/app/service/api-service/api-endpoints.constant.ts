@@ -1365,4 +1365,6 @@ export enum apiEndPoints {
   quantityLedgCreateUpdate = 'wh/qt_ledger/save-update',
   quantityLedgLoadUpdatePage = 'wh/qt_ledger/get-by-max-code',
   quantityLedgAllAuditTrail = 'wh/qt_ledger/get-by-code-all',
+  allCleanRoomGradeTabledata = "allCleanRoomGradeTabledata",
+  cleanRoomGradeUserProfileFilterData = "cleanRoomGradeUserProfileFilterData",
 }
