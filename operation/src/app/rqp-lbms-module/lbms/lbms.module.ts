@@ -7,12 +7,19 @@ import { AreaCreateUpdateComponent } from "../ma/master/area-master/area-create-
 import { AreaHomePageComponent } from "../ma/master/area-master/area-home-page/area-home-page.component";
 import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.component";
 import { SharedModule } from "src/app/common/shared.module";
+import { AreaGroupMasterCreateUpdateComponent } from "../ma/master/area-group-master/area-group-master-create-update/area-group-master-create-update.component";
+import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master/area-group-master-home-page/area-group-master-home-page.component";
+
+
+
 
 @NgModule({
   declarations: [
     MaModuleAdminComponent,
     AreaCreateUpdateComponent,
     AreaHomePageComponent,
+    AreaGroupMasterCreateUpdateComponent,
+    AreaGroupMasterHomePageComponent,
   ],
   imports: [
     CommonModule,
