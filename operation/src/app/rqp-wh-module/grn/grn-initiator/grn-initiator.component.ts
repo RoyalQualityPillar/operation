@@ -45,6 +45,8 @@ export class GrnInitiatorComponent implements OnInit {
   public isSubjectCodeSuccess: boolean;
   public grnAttachmentList: any[] = [];
   public selectedFiles: any;
+  public selectedFileList: File[] = [];
+
   constructor(
     public fb: FormBuilder,
     private cookieService: CookieService,
@@ -105,45 +107,7 @@ this.ContainerRequirementForm = this.fb.group({
       attachmenentCategoryTypes: [''],
     });
   }
-  goodReceiptDTO: any = [
-    {
-      uc0001: null,
-      unitcode: '',
-      ff0001: '',
-      ff0002: '',
-      ff0003: '',
-      ff0004: '',
-      ff0005: '',
-      ff0006: '',
-      ff0007: '',
-      ff0008: '',
-      ff0009: '',
-      ff0010: '',
-      ff0011: '',
-      ff0012: '',
-      ff0013: '',
-      ff0014: '',
-      ff0015: '',
-      ff0016: '',
-      ff0017: '',
-      ff0018: '',
-      ff0019: '',
-      ff0020: '',
-      ff0021: '',
-      ff0022: '',
-      ff0023: '',
-      lc0001: '',
-      lc0002: '',
-      lc0003: '',
-      lc0004: '',
-      lc0005: '',
-      lc0006: '',
-      createdby: '',
-      status: 0,
-      version: 0,
-      comments: '',
-    },
-  ];
+  
   ngOnInit(): void {
     this.pageData = {
       pageName: 'homePage',
@@ -244,7 +208,6 @@ removeContainer(index: number) {
   filterEmptyObjects(objects: any[]): any[] {
     return objects.filter((obj) => Object.keys(obj).length > 0);
   }
-  selectedFileList: File[] = [];
 
   onCreateSelectedDataList() {
 console.log(this.selectedFiles)
@@ -320,21 +283,7 @@ console.log(this.grnAttachmentList)
 const dateValue = this.MaterialRequirementForm.value;
 
     const items = this.items.value;
-    console.log(items[0].manfacuringDate)
-     console.log(items[0].expiryDate)
-     console.log(dateValue.grnDate)
-     console.log(dateValue.invoiceDate)
-
-      console.log(new Date(items[0].manfacuringDate))
-     console.log(new Date(items[0].expiryDate))
-     console.log(new Date(dateValue.grnDate))
-     console.log(new Date(dateValue.invoiceDate))
-
-       console.log(new Date(items[0].manfacuringDate).toISOString())
-     console.log(new Date(items[0].expiryDate).toISOString())
-     console.log(new Date(dateValue.grnDate).toISOString())
-     console.log(new Date(dateValue.invoiceDate).toISOString())
-
+   
     const containers = this.containers.value;
     console.log(items)
     this.body1 = {
@@ -345,7 +294,7 @@ const dateValue = this.MaterialRequirementForm.value;
         lcNumber: this.headerData.lcnum,
         lcStage: this.headerData.stage,
         lcRole: this.headerData.role,
-        stage2: this.nextStageListData,
+        stage2: 0,
         requestType: '',
         createdBy: this.headerData.createdby,
         comments: this.comments,
@@ -354,79 +303,52 @@ const dateValue = this.MaterialRequirementForm.value;
         gmuserDTOList: [],
         draft: this.draftValue,
       },
-      // goodReceiptDTO: this.goodReceiptDTO,
-      // grnAttachmentList: [...this.UserRoleTableAttachment],
-      goodReceiptDTO: {
-        ff0001: items[0]?.poNo,
-        ff0002: items[0]?.materialCode,
-        ff0003: items[0]?.materialName,
-        ff0004: items[0]?.materialNo,
-        ff0005: items[0]?.poQuantity,
-        ff0006: items[0]?.vendorCode,
-        ff0007: items[0]?.poQuantity,
-        ff0008: items[0]?.vendorBatchNo,
-        ff0009: items[0]?.retestRequired,
-        ff0010: items[0]?.packUOM,
-        ff0011: items[0]?.lotSize,
-        // ff0012: this.formatDate(items[0]?.manfacuringDate),
-        // ff0013: this.formatDate(items[0]?.expiryDate),
-        "ff0012": new Date(dateValue.grnDate).toISOString(),
-        "ff0013":new Date(dateValue.invoiceDate).toISOString(),
-        ff0014: items[0]?.inHouseBatchNo,
-        ff0015: items[0]?.noOfPacks,
-        ff0016: items[0]?.wharehouseName,
-        ff0018: items[0]?.wharehouseNo,
-        unitcode: this.cookieService.get('buCode'),
-        createdby: this.cookieService.get('userId'),
-        status: 0,
-        version: 0
-      },
+      
+      goodReceiptDTO:items.map((item:any) => ({
+ uc0001: null,
+      unitcode: this.headerData.unitcode,
+      ff0001: item.poNo,
+      ff0002: item.materialCode,
+      ff0003: item.materialName,
+      ff0004: item.materialNo,
+      ff0005: item.vendorCode,
+      ff0006: item.uom,
+      ff0007: item.poQuantity,
+      ff0008: item.retestRequired,
+      ff0009: item.packUOM,
+      ff0010: item.inHouseBatchNo,
+      ff0011: item.lotSize,
+      ff0012: new Date(dateValue.grnDate).toISOString(),
+      ff0013: new Date(dateValue.invoiceDate).toISOString(),
+      ff0014: item.vendorBatchNo,
+      ff0015: item.noOfPacks,
+      ff0016: item.wharehouseNo,
+      ff0017: 0,
+      ff0018: item.wharehouseName,
+      ff0019: new Date(item.manfacuringDate).toISOString(),
+      ff0020: new Date(item.expiryDate).toISOString(),
+      ff0021: dateValue.invoiceNo,
+      ff0022: '',
+      ff0023: '',
+      lc0001: '',
+      lc0002: '',
+      lc0003: '',
+      lc0004: '',
+      lc0005: '',
+      lc0006: '',
+      createdby: this.headerData.createdby,
+      status: 0,
+      version: 0,
+      comments: this.comments,
+      })),
       grnAttachmentList: this.grnAttachmentList,
-
-      // goodReceiptPacksList: [
-      //   {
-      //     uc0001: null,
-      //     unitcode: this.headerData.unitcode,
-      //     ff0001: '',
-      //     ff0002: '', //start date
-      //     ff0003: '', //end date
-      //     ff0004: '',
-      //     ff0005: 'string',
-      //     ff0006: 'string',
-      //     ff0007: 'string',
-      //     ff0008: 'string',
-      //     ff0009: '',
-      //     ff0010: '',
-      //     ff0011: 'string',
-      //     ff0012: '',
-      //     ff0013: '',
-      //     ff0014: '',
-      //     ff0015: '',
-      //     ff0016: '',
-      //     ff0017: '',
-      //     ff0018: '',
-      //     ff0019: '',
-      //     ff0020: '',
-      //     ff0021: '',
-      //     ff0022: '',
-      //     ff0023: '',
-      //     lc0001: 'string',
-      //     lc0002: 'string',
-      //     lc0003: 'string',
-      //     lc0004: 0,
-      //     lc0005: 'string',
-      //     lc0006: 'string',
-      //     createdby: this.headerData.createdby,
-      //     status: 0,
-      //     version: 0,
-      //     comments: this.comments,
-      //   }
-      // ],
+      
+    
 
   goodReceiptPacksList: containers.map((element: any) => ({
     uc0001: null,
     ff0001: element.containerId,   
-    ff0002: '',              
+    ff0002: element.weightUom,              
     ff0003: '',             
     ff0004: Number(element.weight) || 0, 
     ff0005: 0,              
@@ -465,7 +387,6 @@ const dateValue = this.MaterialRequirementForm.value;
 
   }
   onSubmit(btnStatus: any) {
-    console.log(this.goodReceiptDTO);
     console.log(this.selectedFiles)
     console.log(this.selectedFiles);
     // if (
@@ -546,7 +467,7 @@ console.log(selectedFile)
               poNo: row.ff0001,
               materialCode: row.ff0003,
               materialName: row.ff0004,
-              materialNo: row.ff0009,
+              materialNo: row.ff0017,
               poQuantity: row.ff0005,
               uom: row.ff0006,
               vendorCode: row.ff0002

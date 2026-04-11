@@ -23,6 +23,7 @@ import { CommonAllAuditTrailComponent } from './common-all-audit-trail/common-al
 import { CommonActiveAuditTrailComponent } from './common-active-audit-trail/common-active-audit-trail.component';
 import { CommonTableFilterComponent } from './common-table-filter/common-table-filter.component';
 import { LcWeekDataComponent } from './lc-week-data/lc-week-data.component';
+import { AsCommonFooterComponent } from '../rqp-pp-module/pp-common/as-common-footer/as-common-footer.component';
 //import { CustomDatePipe } from '../pipe/custom-date.pipe'; // ✅ Pipe must be declared, not imported
 
 @NgModule({
@@ -30,6 +31,7 @@ import { LcWeekDataComponent } from './lc-week-data/lc-week-data.component';
     CommonHeaderComponent,
     CommonCommentsComponent,
     LccpComponent,
+    AsCommonFooterComponent,
     CommonTitleComponent,
     ReviewerTemplateComponent,
     CommentsTableComponent,
@@ -45,6 +47,7 @@ import { LcWeekDataComponent } from './lc-week-data/lc-week-data.component';
   exports: [
     CommonHeaderComponent,
     CommonCommentsComponent,
+    AsCommonFooterComponent,
     LccpComponent,
     CommonTitleComponent,
     CustomSnackBarComponent,

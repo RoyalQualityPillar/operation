@@ -30,8 +30,39 @@ export class GrnService {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
   }
+   getResquestNoIDForGRN(lc0002: any, lc0001:any) {
+    const queryParams = `?lc0002=${lc0002}&lc0001=${lc0001}`;
+    const reviewURL = this.API_URL + 'wh/grn-module-request-no' + queryParams;
+    return this.http.get(reviewURL);
+  }
    public grnVerificationList(UnitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/grn-verification-list?UnitCode=${UnitCode} `);
+  }
+   getGoodsReceiptList(lc0003: any) {
+    const queryParams = `?lc0003=${lc0003}`;
+    const reviewURL = this.API_URL + 'wh/GoodReceipt-master-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+   getGoodsReceiptPackList(lc0003: any) {
+    const queryParams = `?lc0003=${lc0003}`;
+    const reviewURL = this.API_URL + 'wh/GoodReceiptPacks-master-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+  getGRNAttachments(lc0003:string, moduleCode:string){
+ const queryParams = `?lc0003=${lc0003}&moduleCode=${moduleCode}`;
+    const reviewURL = this.API_URL + 'gm/attachment-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+    onDownloadDocumet( uc0001: any) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const reviewURL = this.API_URL + 'file/att-download' + queryParams;
+    return this.http.post(reviewURL, '');
+  }
+  onCommentsData(ff0001: any, lcnum: any, ff0005: number) {
+    const queryParams = `?FF0001=${ff0001}&FF0002=${lcnum}&FF0005=${ff0005}`;
+    const reviewURL =
+      this.API_URL + 'gm/gmap-record/review-comments' + queryParams;
+    return this.http.get(reviewURL);
   }
   onGRNSaveUpdate(
     grnAttachments: any[],
