@@ -403,9 +403,11 @@ export class ReviewerTemplateComponent
   public onSubmit(): void {
     this.toolbarService.selectedStage = this.selectedRow.ff0009;
     this.toolbarService.setSelectedLifeCycleCode(this.selectedRow.ff0001);
-    this.router.navigate([this.Url], {
-      queryParams: this.selectedRow,
-    });
+    // this.router.navigate([this.Url], {
+    //   queryParams: this.selectedRow,
+    // });
+    sessionStorage.setItem('selectedRow', JSON.stringify(this.selectedRow));
+    this.router.navigate([this.Url]);
   }
   public copyData() {
     var dataArray = '';

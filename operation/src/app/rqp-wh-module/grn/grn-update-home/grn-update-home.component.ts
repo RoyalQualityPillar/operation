@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './grn-update-home.component.scss'
 })
 export class GrnUpdateHomeComponent {
-
+ public updateSaveUrl = './rqpoperationui/wh/grn-update';
 }
