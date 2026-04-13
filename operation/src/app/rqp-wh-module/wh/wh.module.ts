@@ -20,6 +20,8 @@ import { QuantityCreateUpdateComponent } from '../masters/quantity-master/quanti
 import { QuantityHomePageComponent } from '../masters/quantity-master/quantity-home-page/quantity-home-page.component';
 import { QuantityLedgCreateUpdateComponent } from '../masters/quantity-ledger/quantity-ledg-create-update/quantity-ledg-create-update.component';
 import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quantity-ledg-home-page/quantity-ledg-home-page.component';
+import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.component';
+import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-completed-save.component';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quanti
     QuantityHomePageComponent,
     QuantityLedgCreateUpdateComponent,
     QuantityLedgHomePageComponent,
+     GrnCompletedComponent,
+    GrnCompletedSaveComponent,
 
   ],
   imports: [

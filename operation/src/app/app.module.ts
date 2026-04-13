@@ -16,7 +16,6 @@ import { GoodsReceiptListComponent } from './rqp-wh-module/grn/goods-receipt-lis
 
 
 
-
 // import { SharedModule } from './common/shared.module';
 
 
@@ -29,9 +28,6 @@ import { GoodsReceiptListComponent } from './rqp-wh-module/grn/goods-receipt-lis
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-   
-   
-
 
 
 

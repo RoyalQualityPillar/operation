@@ -1,0 +1,264 @@
+<app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+
+<div>
+    <div>
+        <app-common-title [title]="'Goods Receipt Note'"></app-common-title>
+    </div>
+    <div class="float-right"></div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <form [formGroup]="MaterialRequirementForm">
+            <div class="row no-gutters ms-1 me-1 dense-4 margin-top_5 m-1">
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>GRN Date</mat-label>
+                    <input type="text" matInput formControlName="grnDate"
+                        [value]="MaterialRequirementForm.get('grnDate')?.value | date:'dd-MM-yyyy'" readonly />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Invoice Date</mat-label>
+                    <input type="text" matInput formControlName="invoiceDate"
+                        [value]="MaterialRequirementForm.get('invoiceDate')?.value | date:'yyyy-MM-dd'" readonly />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Invoice No</mat-label>
+                    <input type="text" matInput formControlName="invoiceNo" readonly />
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Material / Lot Details</div>
+    </div>
+</div>
+<div>
+    <ng-container>
+        <form [formGroup]="MaterialLotRequirementForm">
+            <div formArrayName="items">
+                <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                    <div class="table-box">
+                        <div class="section_header_child_1">
+                            <div class="float-start">
+                                <p class="section_header_title">Material Deatails - {{ i + 1 }}</p>
+                            </div>
+                            <div class="float-end">
+                                <!-- <button mat-raised-button class="section-add-new-record-btn" (click)="addRow()">
+                                    Add Material
+                                </button>
+                                <button mat-raised-button class="section-add-remove-record-btn" (click)="removeRow(i)">
+                                    Remove
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-gutters ms-1 me-1 dense-4">
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>PO Number</mat-label>
+                            <input type="text" matInput formControlName="poNo" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Material Code</mat-label>
+                            <input type="text" matInput formControlName="materialCode" placeholder="Material Code"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Material Name</mat-label>
+                            <input type="text" matInput formControlName="materialName" placeholder="Material Name"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Material Number</mat-label>
+                            <input type="text" matInput formControlName="materialNo" placeholder="Material Number"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>PO_Quantity</mat-label>
+                            <input type="text" matInput formControlName="poQuantity" placeholder="PO_Quantity"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>UOM</mat-label>
+                            <input type="text" matInput formControlName="uom" placeholder="UOM" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Vendor Code</mat-label>
+                            <input type="text" matInput formControlName="vendorCode" placeholder="Vendor Code"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Vendor Batch No</mat-label>
+                            <input type="text" matInput formControlName="vendorBatchNo" placeholder="Vendor Batch No"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Lot Size</mat-label>
+                            <input type="text" matInput formControlName="lotSize" placeholder="Lot Size" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Manfacuring Date</mat-label>
+                            <input type="text" matInput formControlName="manfacuringDate" placeholder="Manfacuring Date"
+                                [value]="item.get('manfacuringDate')?.value | date:'dd-MM-yyyy'" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Expiry / Retest Date</mat-label>
+                            <input type="text" matInput formControlName="expiryDate" placeholder="Expiry / Retest Date"
+                                [value]="item.get('expiryDate')?.value | date:'dd-MM-yyyy'" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Retest Required</mat-label>
+                            <input type="text" matInput formControlName="retestRequired" placeholder="Retest Required"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>No of Packs</mat-label>
+                            <input type="text" matInput formControlName="noOfPacks" placeholder="No of Packs"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Pack UOM</mat-label>
+                            <input type="text" matInput formControlName="packUOM" placeholder="Pack UOM" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>In House Batch No</mat-label>
+                            <input type="text" matInput formControlName="inHouseBatchNo" placeholder="In House Batch No"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Wharehouse name</mat-label>
+                            <input type="text" matInput formControlName="wharehouseName" placeholder="Wharehouse name"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>Wharehouse No</mat-label>
+                            <input type="text" matInput formControlName="wharehouseNo" placeholder="Wharehouse No"
+                                readonly />
+                        </mat-form-field>
+                    </div>
+
+
+                    <!--Table start-->
+
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="ContainerRequirementForm">
+            <div formArrayName="containers">
+                <div *ngFor="let item of containers.controls; let i = index" [formGroupName]="i">
+                    <div class="table-box">
+                        <div class="section_header_child_1">
+                            <div class="float-start">Container Details (Lot Level)</div>
+                            <div class="float-left d-flex gap-2">
+                                <!-- <button mat-raised-button class="add-new-record-btn" (click)="addContainer()">
+                                    Add Container
+                                </button>
+                                <button mat-raised-button class="section-add-remove-record-btn"
+                                    (click)="removeContainer(i)">
+                                    Delete Container
+                                </button> -->
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row no-gutters ms-1 me-1 dense-4">
+                        <mat-form-field appearance="outline" class="col-4 px-1">
+                            <mat-label>Container ID</mat-label>
+                            <input type="text" formControlName="containerId" matInput placeholder="Container ID"
+                                readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-4 px-1">
+                            <mat-label>Weight</mat-label>
+                            <input type="text" formControlName="weight" matInput placeholder="Weight" readonly />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-3 px-1">
+                            <mat-label>UOM</mat-label>
+                            <input type="text" matInput formControlName="weightUom" placeholder="Weight Uom" readonly />
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </ng-container>
+    <!--Table end-->
+    <div class="table-box">
+        <div class="section_header">
+            <div class="float-left">
+                <p class="section_header_title">GRN Attachments </p>
+            </div>
+            <div class="float-right"></div>
+        </div>
+    </div>
+    <!--File Upload start-->
+    <div class="m-2">
+        <div *ngIf="this.lc0003">
+            <div *ngIf="grnAttachmentListData">
+                <mat-table [dataSource]="grnAttachmentListTableData" matSort id="dataTable"
+                    class="bg-color_ghost_White">
+                    <ng-container matColumnDef="uc0001">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Document No</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.uc0001 }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="ff0007">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Document Name</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.ff0001 }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="createdby">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Created By
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{ row.createdby }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="createdon">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            {{ row.createdon | customDatePipe : "dateWithHrMin" }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="ff0005">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Category Types
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{ row.ff0005 }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="removeRow">
+                        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button *ngIf="row.uc0001" mat-icon-button color="primary" (click)="downloadDocument(row)">
+                                <mat-icon>download</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="grnAttachListdisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: grnAttachListdisplayedColumns"></mat-row>
+                </mat-table>
+            </div>
+            <div *ngIf="!grnAttachmentListData">
+                <p style="color: red">No Record Found</p>
+            </div>
+        </div>
+    </div>
+    <!--file Upload End-->
+</div>
+<app-as-common-footer [pageData]="this.pageData" (comments)="getCommentsData($event)">
+    <div class="table-box">
+        <app-comments-table [headerData]="this.headerData" [ff0005Value]="ff0005"
+            [commentType]="commentType"></app-comments-table>
+    </div>
+</app-as-common-footer>
+<div class="containerBTN margin-top_2 margin-bottom_35">
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="submitButton" (click)="getComments()">
+            Comments
+        </button>
+        <!-- <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()">
+          Rivision
+        </button> -->
+        <button mat-raised-button class="submitButton" (click)="downloadGRNReport()">GRN Report</button>
+
+    </div>
+</div>
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="height_5"></div>
