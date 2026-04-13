@@ -1,31 +1,30 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject, timer, takeUntil } from 'rxjs';
 import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
+import { changeStatusByCode, changeStatusByDescription } from 'src/app/common/removeEmptyStrings';
+import { AdminService } from 'src/app/rqp-dms-module/dms/service/admin.service';
 import { apiEndPoints } from 'src/app/service/api-service/api-endpoints.constant';
 import { ApiService } from 'src/app/service/api-service/api.service';
 import { ButtonLabelService } from 'src/app/service/button-label.service';
 import { MessageService } from 'src/app/service/message.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
-import { AreaMasterService } from '../area-master.service';
+import { CleanRoomGradeService } from '../clean-room-grade.service';
 export interface userData {
   userData: any;
   type: any;
   tableData: any;
-} 
-
+}
 @Component({
-  selector: 'app-area-create-update',
+  selector: 'app-clean-room-grade-create-update',
   standalone: false,
-  templateUrl: './area-create-update.component.html',
-  styleUrl: './area-create-update.component.scss'
+  templateUrl: './clean-room-grade-create-update.component.html',
+  styleUrl: './clean-room-grade-create-update.component.scss'
 })
-export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
+export class CleanRoomGradeCreateUpdateComponent implements OnInit {
   isReadOnly = true;
   isUpdate = false;
   DepartmentMaster: FormGroup;
@@ -39,47 +38,45 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   selectedDialogData: any;
   isStatusSuccess = false;
   isPlantCodeSuccess = false;
-  private destroy$ = new Subject<void>();
+  pmmMaterialList: {
+    materialcode: string;
+    materialname: string;
+    materialnumber: string;
+  }[];
 
   constructor(
     public fb: FormBuilder,
-    public buttonLabelService: ButtonLabelService,
+    private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private areaMasterService: AreaMasterService,
-    private remoteLoader: RemoteComponentLoaderService,
-    private cookieService: CookieService,
-    private apiService: ApiService,
-    private route: Router,
     private notificationService: NotificationService,
-    public dialogRef: MatDialogRef<AreaCreateUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public userData: userData
+    public buttonLabelService: ButtonLabelService,
+    private cookieService: CookieService,
+    private cleanRoomGradeService: CleanRoomGradeService,
+    private apiService: ApiService,
+    public dialogRef: MatDialogRef<CleanRoomGradeCreateUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public userData: userData,
+    private remoteLoader: RemoteComponentLoaderService,
   ) {
     this.DepartmentMaster = this.fb.group({
-      unitcode: [''],
-      uc0001: [''],
+      uc0001: ['', Validators.required],
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
-      ff0003: ['', Validators.required],
-      ff0004: ['', Validators.required],
-      ff0005: ['', Validators.required],
-      ff0006: ['', Validators.required],
-      ff0007: ['', Validators.required],
-      
       createdby: [''],
       status: [''],
       comments: [''],
+      unitcode: ['']
     });
   }
 
- ngOnInit(): void {
+  ngOnInit(): void {
+    this.onLoadStatusDropDown();
     this.DepartmentMaster.controls['unitcode'].patchValue(
       this.cookieService.get('buCode')
     );
-    this.onloadDropDown();
-    this.onLoadStatusDropDown();
-    console.log(this.userData.type);
-    if (this.userData.type == 'Modification') {
+
+    // this.onloadDropDown();
+    if (this.userData.type == 'Update') {
       this.isReadOnly = true;
       this.isUpdate = true;
       this.onLoadFormValue();
@@ -88,66 +85,62 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.isUpdate = false;
     }
   }
+  saleProductList: any;
+  buUnitList: any;
+  suUnitList: any;
+  puUnitList: any;
+  stageMasterList: any;
 
-  onloadDropDown() {
-    this.isLoading = true;
-    let unitCode = this.cookieService.get('buCode');
-    let params = { unitCode };
-    //this.businessUnitService.getDropDownList().subscribe((data: any) => {
-    this.apiService
-      .sendRequest(apiEndPoints.dropDownInputList, 'GET', params)
-      .subscribe((data: any) => {
-        this.orgList = data.data.orgList;
-        this.buTypeList = data.data.buTypeList;
-        this.unitList = data.data.unitList;
-        this.isLoading = false;
-      });
-  }
+  mtMasterList: any;
+  utMasterList: any;
+  
   onLoadStatusDropDown() {
     this.isLoading = true;
-    this.areaMasterService.getDropDownList().subscribe((data: any) => {
+    this.adminService.getDropDownList().subscribe((data: any) => {
       this.statusList = data.data.statusInfo;
       this.isLoading = false;
     });
   }
   onLoadFormValue() {
-    console.log(this.userData);
     this.isLoading = true;
-    // this.organizationService
-    //   .onLoadUpdatePage(this.userData.tableData.uc0001)
-    //   .subscribe((data: any) => {
     let UC0001 = this.userData.tableData.uc0001;
     const params = { UC0001 };
+
     this.apiService
-      .sendRequest(apiEndPoints.areaMasterLoadUpdatePage, 'POST', params)
+      .sendRequest(apiEndPoints.crmMasterLoadUpdatePage, 'POST', params)
       .subscribe((data: any) => {
-        this.formData = data.data;
-        this.isLoading = false;
-        this.setFormValue();
+        if (data.data == null) {
+          this.isLoading = false;
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+        } else {
+          this.formData = data.data;
+          this.isLoading = false;
+          this.setFormValue();
+        }
       });
   }
   setFormValue() {
-    this.DepartmentMaster.controls['unitcode'].setValue(this.formData.unitcode);
     this.DepartmentMaster.controls['uc0001'].setValue(this.formData.uc0001);
     this.DepartmentMaster.controls['ff0001'].setValue(this.formData.ff0001);
     this.DepartmentMaster.controls['ff0002'].setValue(this.formData.ff0002);
-    this.DepartmentMaster.controls['ff0003'].setValue(this.formData.ff0003);
-    this.DepartmentMaster.controls['ff0004'].setValue(this.formData.ff0004);
-    this.DepartmentMaster.controls['ff0005'].setValue(this.formData.ff0005);
-    this.DepartmentMaster.controls['ff0006'].setValue(this.formData.ff0006);
-    this.DepartmentMaster.controls['ff0007'].setValue(this.formData.ff0007);
-    this.DepartmentMaster.controls['status'].setValue(this.formData.status);
     this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
+    let statusByValue = changeStatusByCode(this.formData.status);
+    this.DepartmentMaster.controls['status'].setValue(statusByValue);
   }
   onUpdate() {
     this.isLoading = true;
-    this.DepartmentMaster.controls['createdby'].setValue(
-      this.cookieService.get('userId')
+    this.DepartmentMaster.controls['status'].setValue(
+      changeStatusByDescription(this.DepartmentMaster.controls['status'].value)
     );
-    let params = {};
-    this.areaMasterService
-      .onCreate(this.DepartmentMaster.value)
-      .subscribe((data: any) => {
+
+    this.cleanRoomGradeService
+    .onCreate(this.DepartmentMaster.value)
+    .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
@@ -160,16 +153,14 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.messageService.sendSnackbar(
             'success',
-            'Record Created Successfully'
+            'Record Updated Successfully'
           );
           this.dialogRef.close();
         }
       });
   }
-  public async onSaveConfirmation() {
-    const component = await this.remoteLoader.loadComponentByKey(
-      'CommonESignatureComponent'
-    );
+ async  onSaveConfirmation() {
+    const component = await this.remoteLoader.loadComponentByKey('CommonESignatureComponent');
     const dialogRef = this.dialog.open(component, {
       height: '300px',
       width: '600px',
@@ -190,10 +181,10 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
     this.DepartmentMaster.controls['createdby'].setValue(
       this.cookieService.get('userId')
     );
-    let params = {};
-    this.areaMasterService
-      .onCreate(this.DepartmentMaster.value)
-      .subscribe((data: any) => {
+
+    this.cleanRoomGradeService
+    .onCreate(this.DepartmentMaster.value)
+    .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
@@ -204,73 +195,21 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
           });
         } else {
           this.isLoading = false;
-          this.notificationService.showSuccess(data.status, () => { });
-          timer(2000)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-              this.route.navigateByUrl('/rqpoperationui/lbms/ma-module-admin');
-            });
+          this.notificationService.showSuccess(data.status, () => {
+            console.log('Success Snackbar Closed');
+          });
+          this.dialogRef.close();
         }
-
-
-
       });
-    this.dialogRef.close();
   }
   onClear() {
     this.DepartmentMaster.reset();
   }
 
-  openBusinessUnitCodeLOV() {
-    this.displayedColumns = [
-      { field: 'unitCode', title: 'Code' },
-      { field: 'unitName', title: 'Description' },
-    ];
-    const dialogRef = this.dialog.open(LovDialogComponent, {
-      height: '500px',
-      width: '600px',
-      data: {
-        dialogTitle: 'Business Unit',
-        dialogColumns: this.displayedColumns,
-        dialogData: this.unitList,
-        lovName: 'businessUnitList',
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedDialogData = result.data;
-        this.DepartmentMaster.controls['unitcode'].setValue(
-          this.selectedDialogData.unitCode
-        );
-      }
-    });
-  }
-
-  onChangePlantCode() {
-    if (this.DepartmentMaster.controls['unitcode'].value == '') {
-      this.DepartmentMaster.controls['unitcode'].setValue('');
-    } else {
-      let currentPlantCodeValue =
-        this.DepartmentMaster.controls['unitcode'].value;
-      this.isPlantCodeSuccess = false;
-      this.unitList.forEach((elements) => {
-        if (elements.unitCode == currentPlantCodeValue) {
-          this.isPlantCodeSuccess = true;
-        }
-      });
-      if (this.isPlantCodeSuccess == false) {
-        this.DepartmentMaster.controls['unitcode'].setErrors({
-          incorrect: true,
-        });
-        this.openBusinessUnitCodeLOV();
-      }
-    }
-  }
   openStatusLOV() {
     this.displayedColumns = [
-      { field: 'code', title: 'Code' },
-      { field: 'description', title: 'Descritption' },
+      { field: 'code', title: 'Status Code' },
+      { field: 'description', title: 'Status Name' },
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
@@ -292,7 +231,50 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  onChangeDosageForm() {}
+  openDosageFormLOV() {}
+  openUOMLOV() {
+    this.displayedColumns = [
+      { field: 'utCode', title: 'Code' },
+      { field: 'utName', title: 'Description' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'UOM',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.utMasterList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0016'].setValue(
+          this.selectedDialogData.utName
+        );
+      }
+    });
+  }
+  onChangeUOM() {
+    if (this.DepartmentMaster.controls['ff0016'].value == '') {
+      this.DepartmentMaster.controls['ff0016'].setValue('');
+    } else {
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0016'].value;
+      this.utMasterList.forEach((elements) => {
+        if (elements.utCode == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0016'].setErrors({ incorrect: true });
+        this.openUOMLOV();
+      }
+    }
+  }
   onChangeStatus() {
     if (this.DepartmentMaster.controls['status'].value == '') {
       this.DepartmentMaster.controls['status'].setValue('');
@@ -310,9 +292,52 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       }
     }
   }
-  ngOnDestroy(): void {
-    this.destroy$.next(undefined);
-    this.destroy$.complete();
+
+
+  onChangePlantCode2() {
+    if (this.DepartmentMaster.controls['unitcode'].value == '') {
+      this.DepartmentMaster.controls['unitcode'].setValue('');
+    } else {
+      let currentPlantCodeValue =
+        this.DepartmentMaster.controls['unitcode'].value;
+      this.isPlantCodeSuccess = false;
+      this.unitList.forEach((elements) => {
+        if (elements.unitCode == currentPlantCodeValue) {
+          this.isPlantCodeSuccess = true;
+        }
+      });
+      if (this.isPlantCodeSuccess == false) {
+        this.DepartmentMaster.controls['unitcode'].setErrors({
+          incorrect: true,
+        });
+        this.openBusinessUnitCodeLOV2();
+      }
+    }
+  }
+  openBusinessUnitCodeLOV2() {
+    this.displayedColumns = [
+      { field: 'unitCode', title: 'Code' },
+      { field: 'unitName', title: 'Description' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Mv Master',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.unitList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['unitcode'].setValue(
+          this.selectedDialogData.unitCode
+        );
+      }
+    });
   }
 }
 
