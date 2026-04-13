@@ -9,6 +9,8 @@ import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.co
 import { SharedModule } from "src/app/common/shared.module";
 import { AreaGroupMasterCreateUpdateComponent } from "../ma/master/area-group-master/area-group-master-create-update/area-group-master-create-update.component";
 import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master/area-group-master-home-page/area-group-master-home-page.component";
+import { CleanRoomGradeCreateUpdateComponent } from "../ma/master/clean-room-grade/clean-room-grade-create-update/clean-room-grade-create-update.component";
+import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
 
 
 
@@ -20,6 +22,8 @@ import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master
     AreaHomePageComponent,
     AreaGroupMasterCreateUpdateComponent,
     AreaGroupMasterHomePageComponent,
+    CleanRoomGradeCreateUpdateComponent,
+    CleanRoomGradeHomePageComponent
   ],
   imports: [
     CommonModule,
