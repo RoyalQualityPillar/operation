@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './grn-reviewer-home.component.scss'
 })
 export class GrnReviewerHomeComponent {
-
+public reviewerUrl: string = './rqpoperationui/wh/grn-reviewer';
 }

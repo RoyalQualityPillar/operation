@@ -7,7 +7,7 @@
   <mat-tab aria-label="Tab7">
     <ng-template mat-tab-label>
       <div>
-        <div class="section_header_title">All Inspection Type</div>
+        <div class="section_header_title">All Area Group Master</div>
       </div>
     </ng-template>
     <div class="margin-left_10 margin-right_10">
@@ -19,13 +19,13 @@
         Add New Record
       </button>
     </div>
-        <ng-template #commonTableContainer></ng-template>
-
-    <!-- <app-common-table-filter
+    <ng-template #commonTableContainer></ng-template>
+    <!--
+    <app-common-table-filter
       [columnConfig]="columnConfig"
       [filterOptions]="filterOptions"
-      [apiUrl]="allPriceTypeTableDataUrl"
-      tableTitle="All Price Type "
+      [apiUrl]="allMvMasterTableDataUrl"
+      tableTitle="All Mv Master "
       [dynamicButtons]="allButtonConfig"
       (buttonClick)="handleButtonAction($event)"
       columnClass="rqp-life-cycle-table-columns"
@@ -33,15 +33,15 @@
       [HttpMethod]="HttpMethod"
       [params]="params"
       [getLatestData]="getLatestData"
-      downloadFileName="  Price Type  "
-    ></app-common-table-filter> -->
+      downloadFileName=" Mv  Master  "
+    ></app-common-table-filter>-->
 
     <div style="height: 50px"></div>
   </mat-tab>
   <mat-tab aria-label="Tab6">
     <ng-template mat-tab-label>
       <div>
-        <div class="section_header_title">Active Inspection Type</div>
+        <div class="section_header_title">Active Area Group Master</div>
       </div>
     </ng-template>
     <div class="margin-left_10 margin-right_10">
@@ -53,13 +53,13 @@
         Add New Record
       </button>
     </div>
-        <ng-template #activeRoleMasterContainer></ng-template>
-
-    <!-- <app-common-table-filter
+    <ng-template #activeRoleMasterContainer></ng-template>
+<!--
+    <app-common-table-filter
       [columnConfig]="columnConfig"
       [filterOptions]="filterOptions"
-      [apiUrl]="activePriceTypeTableDataUrl"
-      tableTitle="Active Price Type"
+      [apiUrl]="activeMvMasterTableDataUrl"
+      tableTitle="Active Mv Master"
       [dynamicButtons]="activeButtonConfig"
       (buttonClick)="activeHandleButtonAction($event)"
       columnClass="rqp-life-cycle-table-columns"
@@ -67,7 +67,7 @@
       [HttpMethod]="HttpMethod"
       [params]="params"
       [getLatestData]="getLatestData"
-      downloadFileName=" Price Type "
-    ></app-common-table-filter> -->
+      downloadFileName=" Mv  Master  "
+    ></app-common-table-filter>-->
   </mat-tab>
 </mat-tab-group>

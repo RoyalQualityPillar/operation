@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
@@ -12,7 +12,7 @@ import { ApiService } from 'src/app/service/api-service/api.service';
 import { ButtonLabelService } from 'src/app/service/button-label.service';
 import { MessageService } from 'src/app/service/message.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
-import { QuantityLedgService } from '../quantity-ledg.service';
+import { AreaGroupMasterService } from '../area-group-master-service.service';
 
 export interface userData {
   userData: any;
@@ -20,12 +20,12 @@ export interface userData {
   tableData: any;
 }
 @Component({
-  selector: 'app-quantity-ledg-create-update',
+  selector: 'app-area-group-master-create-update',
   standalone: false,
-  templateUrl: './quantity-ledg-create-update.component.html',
-  styleUrl: './quantity-ledg-create-update.component.scss'
+  templateUrl: './area-group-master-create-update.component.html',
+  styleUrl: './area-group-master-create-update.component.scss'
 })
-export class QuantityLedgCreateUpdateComponent implements OnInit {
+export class AreaGroupMasterCreateUpdateComponent implements OnInit {
   isReadOnly = true;
   isUpdate = false;
   DepartmentMaster: FormGroup;
@@ -53,9 +53,9 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
     private notificationService: NotificationService,
     public buttonLabelService: ButtonLabelService,
     private cookieService: CookieService,
-    private quantityLedgService: QuantityLedgService,
+    private areaGroupMasterService: AreaGroupMasterService,
     private apiService: ApiService,
-    public dialogRef: MatDialogRef<QuantityLedgCreateUpdateComponent>,
+    public dialogRef: MatDialogRef<AreaGroupMasterCreateUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: userData,
     private remoteLoader: RemoteComponentLoaderService,
   ) {
@@ -63,12 +63,6 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       uc0001: ['', Validators.required],
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
-      ff0003: ['', Validators.required],
-      ff0004: [0, Validators.required],
-      ff0005: ['', Validators.required],
-      ff0006: ['', Validators.required],
-      ff0007: ['', Validators.required],
-      ff0008: ['', Validators.required],
       createdby: [''],
       status: [''],
       comments: [''],
@@ -82,7 +76,6 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       this.cookieService.get('buCode')
     );
 
-    // this.onloadDropDown();
     if (this.userData.type == 'Update') {
       this.isReadOnly = true;
       this.isUpdate = true;
@@ -92,14 +85,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       this.isUpdate = false;
     }
   }
-  saleProductList: any;
-  buUnitList: any;
-  suUnitList: any;
-  puUnitList: any;
-  stageMasterList: any;
-
-  mtMasterList: any;
-  utMasterList: any;
+ 
   
   onLoadStatusDropDown() {
     this.isLoading = true;
@@ -114,7 +100,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
     const params = { UC0001 };
 
     this.apiService
-      .sendRequest(apiEndPoints.quantityLedgLoadUpdatePage, 'POST', params)
+      .sendRequest(apiEndPoints.areaGroupMasterLoadUpdatePage, 'POST', params)
       .subscribe((data: any) => {
         if (data.data == null) {
           this.isLoading = false;
@@ -135,12 +121,6 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
     this.DepartmentMaster.controls['uc0001'].setValue(this.formData.uc0001);
     this.DepartmentMaster.controls['ff0001'].setValue(this.formData.ff0001);
     this.DepartmentMaster.controls['ff0002'].setValue(this.formData.ff0002);
-    this.DepartmentMaster.controls['ff0003'].setValue(this.formData.ff0003);
-    this.DepartmentMaster.controls['ff0004'].setValue(this.formData.ff0004);
-    this.DepartmentMaster.controls['ff0005'].setValue(this.formData.ff0005);
-    this.DepartmentMaster.controls['ff0006'].setValue(this.formData.ff0006);
-    this.DepartmentMaster.controls['ff0007'].setValue(this.formData.ff0007);
-    this.DepartmentMaster.controls['ff0008'].setValue(this.formData.ff0008);
     this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
     let statusByValue = changeStatusByCode(this.formData.status);
     this.DepartmentMaster.controls['status'].setValue(statusByValue);
@@ -151,7 +131,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       changeStatusByDescription(this.DepartmentMaster.controls['status'].value)
     );
 
-    this.quantityLedgService
+    this.areaGroupMasterService
     .onCreate(this.DepartmentMaster.value)
     .subscribe((data: any) => {
         if (data.errorInfo != null) {
@@ -195,7 +175,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       this.cookieService.get('userId')
     );
 
-    this.quantityLedgService
+    this.areaGroupMasterService
     .onCreate(this.DepartmentMaster.value)
     .subscribe((data: any) => {
         if (data.errorInfo != null) {
@@ -246,48 +226,8 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
   }
   onChangeDosageForm() {}
   openDosageFormLOV() {}
-  openUOMLOV() {
-    this.displayedColumns = [
-      { field: 'utCode', title: 'Code' },
-      { field: 'utName', title: 'Description' },
-    ];
-    const dialogRef = this.dialog.open(LovDialogComponent, {
-      height: '500px',
-      width: '600px',
-      data: {
-        dialogTitle: 'UOM',
-        dialogColumns: this.displayedColumns,
-        dialogData: this.utMasterList,
-        lovName: 'businessUnitList',
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedDialogData = result.data;
-        this.DepartmentMaster.controls['ff0016'].setValue(
-          this.selectedDialogData.utName
-        );
-      }
-    });
-  }
-  onChangeUOM() {
-    if (this.DepartmentMaster.controls['ff0016'].value == '') {
-      this.DepartmentMaster.controls['ff0016'].setValue('');
-    } else {
-      this.isStatusSuccess = false;
-      let statusCurrentValue = this.DepartmentMaster.controls['ff0016'].value;
-      this.utMasterList.forEach((elements) => {
-        if (elements.utCode == statusCurrentValue) {
-          this.isStatusSuccess = true;
-        }
-      });
-      if (this.isStatusSuccess == false) {
-        this.DepartmentMaster.controls['ff0016'].setErrors({ incorrect: true });
-        this.openUOMLOV();
-      }
-    }
-  }
+  
+ 
   onChangeStatus() {
     if (this.DepartmentMaster.controls['status'].value == '') {
       this.DepartmentMaster.controls['status'].setValue('');
@@ -353,4 +293,3 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
     });
   }
 }
-

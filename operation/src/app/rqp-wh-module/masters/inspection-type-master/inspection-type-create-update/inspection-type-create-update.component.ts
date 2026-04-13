@@ -13,6 +13,7 @@ import { MessageService } from 'src/app/service/message.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 import { InspectionTypeService } from '../inspection-type.service';
 import { Router } from '@angular/router';
+import { changeStatusByCode, changeStatusByDescription } from 'src/app/common/removeEmptyStrings';
 
 export interface userData {
   userData: any;
@@ -25,7 +26,7 @@ export interface userData {
   templateUrl: './inspection-type-create-update.component.html',
   styleUrl: './inspection-type-create-update.component.scss'
 })
-export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
+export class InspectionTypeCreateUpdateComponent implements OnInit {
   isReadOnly = true;
   isUpdate = false;
   DepartmentMaster: FormGroup;
@@ -39,40 +40,38 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
   selectedDialogData: any;
   isStatusSuccess = false;
   isPlantCodeSuccess = false;
-  private destroy$ = new Subject<void>();
 
   constructor(
     public fb: FormBuilder,
     public buttonLabelService: ButtonLabelService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private inspectionTypeService: InspectionTypeService,
-    private remoteLoader: RemoteComponentLoaderService,
+    private notificationService: NotificationService,
     private cookieService: CookieService,
     private apiService: ApiService,
-    private route: Router,
-    private notificationService: NotificationService,
     public dialogRef: MatDialogRef<InspectionTypeCreateUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public userData: userData
+    @Inject(MAT_DIALOG_DATA) public userData: userData,
+    private inspectionTypeService: InspectionTypeService,
+        private remoteLoader: RemoteComponentLoaderService,
+    
   ) {
     this.DepartmentMaster = this.fb.group({
-      unitcode: [''],
-      uc0001: [''],
+      uc0001: [],
       ff0001: ['', Validators.required],
-    
+      version: [''],
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
+      unitcode: ['']
     });
   }
 
- ngOnInit(): void {
+  ngOnInit(): void {
     this.DepartmentMaster.controls['unitcode'].patchValue(
       this.cookieService.get('buCode')
     );
-    this.onloadDropDown();
     this.onLoadStatusDropDown();
-    console.log(this.userData.type);
+    // this.onloadDropDown();
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
       this.isUpdate = true;
@@ -82,21 +81,16 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
       this.isUpdate = false;
     }
   }
-
-  onloadDropDown() {
-    this.isLoading = true;
-    let unitCode = this.cookieService.get('buCode');
-    let params = { unitCode };
-    //this.businessUnitService.getDropDownList().subscribe((data: any) => {
-    this.apiService
-      .sendRequest(apiEndPoints.dropDownInputList, 'GET', params)
-      .subscribe((data: any) => {
-        // this.orgList = data.data.orgList;
-        // this.buTypeList = data.data.buTypeList;
-        this.unitList = data.data.unitList;
-        this.isLoading = false;
-      });
-  }
+ 
+  // onloadDropDown() {
+  //   this.isLoading = true;
+  //   this.businessUnitService.getDropDownList().subscribe((data: any) => {
+  //     this.orgList = data.data.orgList;
+  //     this.buTypeList = data.data.buTypeList;
+  //     this.unitList = data.data.unitList;
+  //     this.isLoading = false;
+  //   });
+  // }
   onLoadStatusDropDown() {
     this.isLoading = true;
     this.inspectionTypeService.getDropDownList().subscribe((data: any) => {
@@ -105,35 +99,15 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
     });
   }
   onLoadFormValue() {
-    console.log(this.userData);
     this.isLoading = true;
     let UC0001 = this.userData.tableData.uc0001;
+
     const params = { UC0001 };
+
     this.apiService
       .sendRequest(apiEndPoints.inspectionLoadUpdatePage, 'POST', params)
       .subscribe((data: any) => {
-        this.formData = data.data;
-        this.isLoading = false;
-        this.setFormValue();
-      });
-  }
-  setFormValue() {
-    this.DepartmentMaster.controls['unitcode'].setValue(this.formData.unitcode);
-    this.DepartmentMaster.controls['uc0001'].setValue(this.formData.uc0001);
-    this.DepartmentMaster.controls['ff0001'].setValue(this.formData.ff0001);
-    this.DepartmentMaster.controls['status'].setValue(this.formData.status);
-    this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
-  }
-  onUpdate() {
-    this.isLoading = true;
-    this.DepartmentMaster.controls['createdby'].setValue(
-      this.cookieService.get('userId')
-    );
-    let params = {};
-    this.inspectionTypeService
-      .onCreate(this.DepartmentMaster.value)
-      .subscribe((data: any) => {
-        if (data.errorInfo != null) {
+        if (data.data == null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
             data: {
@@ -142,19 +116,61 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
             },
           });
         } else {
+          this.formData = data.data;
           this.isLoading = false;
-          this.messageService.sendSnackbar(
-            'success',
-            'Record Created Successfully'
-          );
-          this.dialogRef.close();
+          this.setFormValue();
         }
       });
   }
-  public async onSaveConfirmation() {
-    const component = await this.remoteLoader.loadComponentByKey(
-      'CommonESignatureComponent'
+  setFormValue() {
+    this.DepartmentMaster.controls['uc0001'].setValue(this.formData.uc0001);
+    this.DepartmentMaster.controls['ff0001'].setValue(this.formData.ff0001);
+    this.DepartmentMaster.controls['version'].setValue(this.formData.version);
+    this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
+    let statusByValue = changeStatusByCode(this.formData.status);
+    this.DepartmentMaster.controls['status'].setValue(statusByValue);
+  }
+  onUpdate() {
+    this.isLoading = true;
+    this.DepartmentMaster.controls['status'].setValue(
+      changeStatusByDescription(this.DepartmentMaster.controls['status'].value)
     );
+    console.log(this.DepartmentMaster.value);
+
+    this.inspectionTypeService
+    .onCreate(this.DepartmentMaster.value)
+    .subscribe((data: any) => {
+        if (data.errorInfo != null) {
+          this.isLoading = false;
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+          this.DepartmentMaster.controls['status'].setValue(
+            changeStatusByCode(this.DepartmentMaster.controls['status'].value)
+          );
+        } else {
+          this.isLoading = false;
+          this.messageService.sendSnackbar(
+            'success',
+            'Record Updated Successfully'
+          );
+          this.dialogRef.close();
+        }
+      }),
+      (error) => {
+        console.log(error);
+        this.DepartmentMaster.controls['status'].setValue(
+          changeStatusByCode(this.DepartmentMaster.controls['status'].value)
+        );
+      };
+  }
+ async onSaveConfirmation() {
+    //  if(this.documentDtoList.length > 0){
+          const component = await this.remoteLoader.loadComponentByKey('CommonESignatureComponent');
+
     const dialogRef = this.dialog.open(component, {
       height: '300px',
       width: '600px',
@@ -175,10 +191,10 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
     this.DepartmentMaster.controls['createdby'].setValue(
       this.cookieService.get('userId')
     );
-    let params = {};
+
     this.inspectionTypeService
-      .onCreate(this.DepartmentMaster.value)
-      .subscribe((data: any) => {
+    .onCreate(this.DepartmentMaster.value)
+    .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
@@ -189,73 +205,21 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
           });
         } else {
           this.isLoading = false;
-          this.notificationService.showSuccess(data.status, () => { });
-          timer(2000)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-              this.route.navigateByUrl('/rqpquailtyui/dms/sop-module-home-page');
-            });
+          this.notificationService.showSuccess(data.status, () => {
+            console.log('Success Snackbar Closed');
+          });
+          this.dialogRef.close();
         }
-
-
-
       });
-    this.dialogRef.close();
   }
   onClear() {
     this.DepartmentMaster.reset();
   }
 
-  openBusinessUnitCodeLOV() {
-    this.displayedColumns = [
-      { field: 'unitCode', title: 'Code' },
-      { field: 'unitName', title: 'Description' },
-    ];
-    const dialogRef = this.dialog.open(LovDialogComponent, {
-      height: '500px',
-      width: '600px',
-      data: {
-        dialogTitle: 'Business Unit',
-        dialogColumns: this.displayedColumns,
-        dialogData: this.unitList,
-        lovName: 'businessUnitList',
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedDialogData = result.data;
-        this.DepartmentMaster.controls['unitcode'].setValue(
-          this.selectedDialogData.unitCode
-        );
-      }
-    });
-  }
-
-  onChangePlantCode() {
-    if (this.DepartmentMaster.controls['unitcode'].value == '') {
-      this.DepartmentMaster.controls['unitcode'].setValue('');
-    } else {
-      let currentPlantCodeValue =
-        this.DepartmentMaster.controls['unitcode'].value;
-      this.isPlantCodeSuccess = false;
-      this.unitList.forEach((elements) => {
-        if (elements.unitCode == currentPlantCodeValue) {
-          this.isPlantCodeSuccess = true;
-        }
-      });
-      if (this.isPlantCodeSuccess == false) {
-        this.DepartmentMaster.controls['unitcode'].setErrors({
-          incorrect: true,
-        });
-        this.openBusinessUnitCodeLOV();
-      }
-    }
-  }
   openStatusLOV() {
     this.displayedColumns = [
-      { field: 'code', title: 'Code' },
-      { field: 'description', title: 'Descritption' },
+      { field: 'code', title: 'Status Code' },
+      { field: 'description', title: 'Status Name' },
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
@@ -272,7 +236,7 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
       if (result) {
         this.selectedDialogData = result.data;
         this.DepartmentMaster.controls['status'].setValue(
-          this.selectedDialogData.code
+          this.selectedDialogData.description
         );
       }
     });
@@ -285,7 +249,7 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
       this.isStatusSuccess = false;
       let statusCurrentValue = this.DepartmentMaster.controls['status'].value;
       this.statusList.forEach((elements) => {
-        if (elements.code == statusCurrentValue) {
+        if (elements.description == statusCurrentValue) {
           this.isStatusSuccess = true;
         }
       });
@@ -295,9 +259,51 @@ export class InspectionTypeCreateUpdateComponent implements OnInit, OnDestroy {
       }
     }
   }
-  ngOnDestroy(): void {
-    this.destroy$.next(undefined);
-    this.destroy$.complete();
+ 
+ 
+  onChangePlantCode2() {
+    if (this.DepartmentMaster.controls['unitcode'].value == '') {
+      this.DepartmentMaster.controls['unitcode'].setValue('');
+    } else {
+      let currentPlantCodeValue =
+        this.DepartmentMaster.controls['unitcode'].value;
+      this.isPlantCodeSuccess = false;
+      this.unitList.forEach((elements) => {
+        if (elements.unitCode == currentPlantCodeValue) {
+          this.isPlantCodeSuccess = true;
+        }
+      });
+      if (this.isPlantCodeSuccess == false) {
+        this.DepartmentMaster.controls['unitcode'].setErrors({
+          incorrect: true,
+        });
+        this.openBusinessUnitCodeLOV2();
+      }
+    }
+  }
+  openBusinessUnitCodeLOV2() {
+    this.displayedColumns = [
+      { field: 'unitCode', title: 'Code' },
+      { field: 'unitName', title: 'Description' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Price Type Master',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.unitList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['unitcode'].setValue(
+          this.selectedDialogData.unitCode
+        );
+      }
+    });
   }
 }
-
