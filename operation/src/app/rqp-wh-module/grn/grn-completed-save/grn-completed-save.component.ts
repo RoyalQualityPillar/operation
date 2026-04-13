@@ -9,36 +9,33 @@ import { MatTableDataSource } from '@angular/material/table';
 import { getFileExtension } from 'src/app/common/removeEmptyStrings';
 
 @Component({
-  selector: 'app-grn-reviewer',
+  selector: 'app-grn-completed-save',
   standalone: false,
-  templateUrl: './grn-reviewer.component.html',
-  styleUrl: './grn-reviewer.component.scss'
+  templateUrl: './grn-completed-save.component.html',
+  styleUrl: './grn-completed-save.component.scss'
 })
-export class GrnReviewerComponent implements OnInit {
-
-  public redirectUrl: string = '/rqpoperationui/wh/sop-module-home-page';
+export class GrnCompletedSaveComponent implements OnInit {
   public MaterialRequirementForm: FormGroup;
   public MaterialLotRequirementForm: FormGroup;
   public GRNRequirementForm: FormGroup;
   public ContainerRequirementForm: FormGroup;
   public headerData: any;
   public pageData: any;
-  public list: any[] = [];
-  public isLoading = false;
-  public disableButtons = false;
   public ff0005: number;
   public ff0001: any;
   public lc0001: any;
-  public lc0003:any;
-  public ff0002:any;
-  public nextStageListData: any;
+  public ff0002: any;
+  public lc0003: any;
   public headerRequestBody: any;
+  public nextStageListData: any;
   public previousStageListData: any;
+  public grnAttachmentListData: any[] = [];
+  public grnAttachmentListTableData: any;
+  public goodsReceiptValue: any;
+  public goodsReceiptPackValue: any;
+  public isLoading = false;
   public userCurrentComments: any;
-  public goodsReceiptValue:any;
-  public goodsReceiptPackValue:any;
-  public grnAttachmentListData:any[] = [];
-  public grnAttachmentListTableData:any;
+  commentType = 'completedRecord';
   grnAttachListdisplayedColumns: string[] = [
     'uc0001',
     'ff0007',
@@ -77,7 +74,7 @@ export class GrnReviewerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.pageData = {
-      pageName: 'homePage',
+      pageName: 'wh',
     };
     const reviewData = sessionStorage.getItem('selectedRow');
     let params: any = null;
@@ -103,7 +100,7 @@ export class GrnReviewerComponent implements OnInit {
       // });
     }
     if (this.ff0001) {
-     this.getGRNRequestNo();
+      this.getGRNRequestNo();
     }
     this.headerRequestBody = this.lifeCycleDataService.getSelectedRowData();
     this.onLoadNextStageData();
@@ -111,10 +108,6 @@ export class GrnReviewerComponent implements OnInit {
   onLoadNextStageData() {
     let body: any;
     body = {
-      // lcNumber: this.headerRequestBody.lifeCycleCode,
-      //       lcStage: this.toolbarService.currentStage,
-
-      //lcStage:this.headerRequestBody.stage
       lcNumber: this.shareHostDataService.lcNumber,
       lcStage: this.shareHostDataService.currentStage
     };
@@ -123,7 +116,7 @@ export class GrnReviewerComponent implements OnInit {
       this.previousStageListData = data.data.pstage;
       console.log(this.nextStageListData);
     });
-  }  
+  }
   public getHeaderData(event: any) {
     this.headerData = event;
   }
@@ -162,40 +155,43 @@ export class GrnReviewerComponent implements OnInit {
   get containers(): FormArray {
     return this.ContainerRequirementForm.get('containers') as FormArray;
   }
+  public getCommentsData(event: any): void {
+    this.userCurrentComments = event;
+  }
   getGRNRequestNo() {
     this.grnService.getResquestNoIDForGRN(this.ff0001, this.lc0001).subscribe((data: any) => {
-this.lc0003 = data.data[0].lc0003;
-if(this.lc0003){
-this.getGoodsReceiptList(this.lc0003);
-this.getGoodsReceiptPackList(this.lc0003);
-this.getGRNAttachchmentList(this.lc0003);
-}
+      this.lc0003 = data.data[0].lc0003;
+      if (this.lc0003) {
+        this.getGoodsReceiptList(this.lc0003);
+        this.getGoodsReceiptPackList(this.lc0003);
+        this.getGRNAttachchmentList(this.lc0003);
+      }
     });
   }
-  getGRNAttachchmentList(lc0003:any){
+  getGRNAttachchmentList(lc0003: any) {
     // let modulecode = this.headerData.modulecode;
     // console.log(modulecode);
-    this.grnService.getGRNAttachments(lc0003,this.ff0002).subscribe((data:any) => {
-console.log(data);
-   this.grnAttachmentListData = data.data;
-        this.grnAttachmentListTableData = new MatTableDataSource(data.data);
-        console.log(this.grnAttachmentListTableData)
+    this.grnService.getGRNAttachments(lc0003, this.ff0002).subscribe((data: any) => {
+      console.log(data);
+      this.grnAttachmentListData = data.data;
+      this.grnAttachmentListTableData = new MatTableDataSource(data.data);
+      console.log(this.grnAttachmentListTableData)
     });
   }
-  getGoodsReceiptList(lc0003:any){
-this.grnService.getGoodsReceiptList(lc0003).subscribe((data:any) => {
-  this.goodsReceiptValue = data.data;
-const value = this.goodsReceiptValue[0];
-  this.MaterialRequirementForm.patchValue({
-    grnDate:value.ff0019,
-    invoiceDate:value.ff0020,
-    invoiceNo:value.ff0021
-  });
+  getGoodsReceiptList(lc0003: any) {
+    this.grnService.getGoodsReceiptList(lc0003).subscribe((data: any) => {
+      this.goodsReceiptValue = data.data;
+      const value = this.goodsReceiptValue[0];
+      this.MaterialRequirementForm.patchValue({
+        grnDate: value.ff0019,
+        invoiceDate: value.ff0020,
+        invoiceNo: value.ff0021
+      });
 
- this.goodsReceiptValue.forEach((element:any, i:number) => {
- const item = this.items.at(i) as FormGroup;
-  item.patchValue({
-     poNo: element.ff0001,
+      this.goodsReceiptValue.forEach((element: any, i: number) => {
+        const item = this.items.at(i) as FormGroup;
+        item.patchValue({
+          poNo: element.ff0001,
           materialCode: element.ff0002,
           materialName: element.ff0003,
           materialNo: element.ff0009,
@@ -212,29 +208,68 @@ const value = this.goodsReceiptValue[0];
           inHouseBatchNo: element.ff0010,
           wharehouseName: element.ff0018,
           wharehouseNo: element.ff0016,
-  });
- 
-  
- });
+        });
 
-});
+
+      });
+
+    });
   }
-   getGoodsReceiptPackList(lc0003:any){
-    this.grnService.getGoodsReceiptPackList(lc0003).subscribe((data:any) => {
-      console.log(data);
+  getGoodsReceiptPackList(lc0003: any) {
+    this.grnService.getGoodsReceiptPackList(lc0003).subscribe((data: any) => {
       this.goodsReceiptPackValue = data.data;
-      console.log(this.goodsReceiptPackValue)
       this.goodsReceiptPackValue.forEach((pack: any, i: number) => {
         const container = this.containers.at(i) as FormGroup;
-  container.patchValue({   
+        container.patchValue({
           containerId: pack.ff0001,
           weight: pack.ff0004,
           weightUom: pack.ff0002,
-  });
+        });
       });
     });
   }
-   downloadDocument(row) {
+  getComments() {
+    const lcRequestnumber = this.headerData.requestNo;
+    const lcnum = this.headerData.lcnum;
+    const templateName = 'ch.html';
+    const stage = 1;
+    const userid = this.headerData.createdby;
+    const moduleCode = this.headerData.modulecode;
+    this.grnService
+      .onGetCommentsData(
+        lcRequestnumber,
+        lcnum,
+        templateName,
+        stage,
+        userid,
+        moduleCode
+      )
+      .subscribe((data: any) => {
+        console.log(data);
+        let fileExtension = 'pdf';
+        const binaryData = atob(data.data);
+        const arrayBuffer = new ArrayBuffer(binaryData.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < binaryData.length; i++) {
+          uint8Array[i] = binaryData.charCodeAt(i);
+        }
+        let blob: any;
+        blob = new Blob([uint8Array], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = lcRequestnumber + '.' + fileExtension;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      });
+    this.isLoading = false;
+  }
+  public downloadGRNReport() {
+
+  }
+  downloadDocument(row) {
     let fileExtension = getFileExtension(row.ff0013);
     this.grnService
       .onDownloadDocumet(row.uc0001)
@@ -261,49 +296,5 @@ const value = this.goodsReceiptValue[0];
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
       });
-  }
-  public getCommentsData(event: any): void {
-    this.userCurrentComments = event;
-  }
-  buttonConfig = [
-    { label: 'Return', getPayload: () => this.calculateReturnPayload() },
-    { label: 'Submit', getPayload: () => this.calculateReturnPayload() },
-    // { label: 'Clear', getPayload: () => this.calculateReturnPayload() },
-    { label: 'Comments', getPayload: () => this.calculateCommentsPayload() },
-  ];
-  calculateReturnPayload() {
-    return {
-      data: 'returnData',
-      calculatedValue: this.headerData,
-      requestFieldData: 'specific',
-      commentsFieldData: this.userCurrentComments,
-      pageData: this.pageData,
-      list: this.list,
-    };
-  }
-
-  calculateCommentsPayload() {
-    return {
-      data: 'returnData',
-      calculatedValue: this.headerData,
-      lcRequestnumber: this.headerData.requestNo,
-      lcnum: this.headerData.lcnum,
-      templateName: 'ch.html',
-      stage: this.headerData.stage,
-      userid: this.headerData.createdby,
-      moduleCode: this.headerData.modulecode,
-    };
-  }
-  onButtonClicked(event: { buttonName: string; success: boolean }) {
-    console.log('Button: ${event.buttonName}, Success: ${event.success}');
-    this.disableButtons = true;
-    if (event.success && event.buttonName == 'Return') {
-    }
-    if (event.success && event.buttonName == 'Submit') {
-    }
-    if (event.success && event.buttonName == 'Comments') {
-    }
-    // if (event.success && event.buttonName == 'Clear') {
-    // }
   }
 }

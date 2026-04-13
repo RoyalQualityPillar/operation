@@ -10,6 +10,13 @@ import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.co
 import { ProductHomePageComponent } from "../ma/master/product-master/product-home-page/product-home-page.component";
 import { MasterHomePageComponent } from "../master-home-page/master-home-page.component";
 import { MaterialComponent } from "../material/material.component";
+import { BomInitiatorComponent } from "../bom/bom-initiator/bom-initiator.component";
+import { BomUpdateHomeComponent } from "../bom/bom-update-home/bom-update-home.component";
+import { BomUpdateComponent } from "../bom/bom-update/bom-update.component";
+import { BomReviewerHomeComponent } from "../bom/bom-reviewer-home/bom-reviewer-home.component";
+import { BomReviewerComponent } from "../bom/bom-reviewer/bom-reviewer.component";
+import { BomCompletedComponent } from "../bom/bom-completed/bom-completed.component";
+import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-completed-save.component";
 
 const routes: Routes = [
 
@@ -23,7 +30,13 @@ const routes: Routes = [
       { path: 'product-home-page', component: ProductHomePageComponent },
       { path: 'master-home-page', component: MasterHomePageComponent },
       { path: 'material', component: MaterialComponent },
-    
+    { path: 'bom-initiator', component: BomInitiatorComponent },
+      { path: 'bom-update-home', component: BomUpdateHomeComponent },
+      { path: 'bom-update', component: BomUpdateComponent },
+      { path: 'bom-reviewer-home', component: BomReviewerHomeComponent },
+      { path: 'bom-reviewer', component: BomReviewerComponent },
+      { path: 'bom-completed', component: BomCompletedComponent },
+      { path: 'bom-completed-save', component: BomCompletedSaveComponent },
 
 ];
 

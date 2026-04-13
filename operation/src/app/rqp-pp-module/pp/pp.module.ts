@@ -17,6 +17,13 @@ import { ProductHomePageComponent } from "../ma/master/product-master/product-ho
 import { AddNewRecordComponent } from "../pp-common/add-new-record/add-new-record.component";
 import { MasterHomePageComponent } from "../master-home-page/master-home-page.component";
 import { MaterialComponent } from "../material/material.component";
+import { BomInitiatorComponent } from "../bom/bom-initiator/bom-initiator.component";
+import { BomUpdateComponent } from "../bom/bom-update/bom-update.component";
+import { BomUpdateHomeComponent } from "../bom/bom-update-home/bom-update-home.component";
+import { BomReviewerHomeComponent } from "../bom/bom-reviewer-home/bom-reviewer-home.component";
+import { BomReviewerComponent } from "../bom/bom-reviewer/bom-reviewer.component";
+import { BomCompletedComponent } from "../bom/bom-completed/bom-completed.component";
+import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-completed-save.component";
 
 @NgModule({
   declarations: [
@@ -33,10 +40,17 @@ import { MaterialComponent } from "../material/material.component";
     AddNewRecordComponent,
     MaterialComponent,
     MasterHomePageComponent,
-   
+    BomInitiatorComponent,
+    BomUpdateComponent,
+    BomUpdateHomeComponent,
+    BomReviewerHomeComponent,
+    BomReviewerComponent,
+    BomCompletedComponent,
+    BomCompletedSaveComponent,
+
 
   ],
-   imports: [
+  imports: [
     CommonModule,
     AngularMaterialModule,
     ReactiveFormsModule,
@@ -44,9 +58,9 @@ import { MaterialComponent } from "../material/material.component";
     SharedModule,
     PpRoutingModule
     // CustomDatePipe,
-    
+
   ],
   providers: [],
 })
 
-export class PpModule {}
+export class PpModule { }
