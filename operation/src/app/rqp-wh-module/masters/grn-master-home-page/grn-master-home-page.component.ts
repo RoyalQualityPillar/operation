@@ -25,4 +25,7 @@ export class GrnMasterHomePageComponent {
   onQuantityLed() {
     this.router.navigate(['./rqpoperationui/wh/quantity-ledg-home-page']);
   }
+  onGRNCompletedRecords() {
+    this.router.navigate(['./rqpoperationui/wh/grn-completed']);
+  }
 }

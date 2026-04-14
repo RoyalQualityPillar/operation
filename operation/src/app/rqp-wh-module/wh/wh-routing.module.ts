@@ -11,6 +11,8 @@ import { StorageLocationHomePageComponent } from '../masters/storage-location-ma
 import { QuantityHomePageComponent } from '../masters/quantity-master/quantity-home-page/quantity-home-page.component';
 import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quantity-ledg-home-page/quantity-ledg-home-page.component';
 import { GoodsReceiptListComponent } from '../grn/goods-receipt-list/goods-receipt-list.component';
+import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-completed-save.component';
+import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'grn-update', component: GrnUpdateComponent },
   { path: 'grn-reviewer', component: GrnReviewerComponent },
   { path: 'grn-reviewer-home', component: GrnReviewerHomeComponent },
+  { path: 'grn-completed', component: GrnCompletedComponent },
+  { path: 'grn-completed-save', component: GrnCompletedSaveComponent },
   { path: 'goods-receipt-list', component: GoodsReceiptListComponent },
   { path: 'inspection-type-home-page', component: InspectionTypeHomePageComponent },
   { path: 'grn-master-home-page', component: GrnMasterHomePageComponent },

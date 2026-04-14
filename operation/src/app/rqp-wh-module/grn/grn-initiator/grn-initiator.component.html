@@ -37,11 +37,11 @@
 <div class="table-box">
   <div class="section_header_child_1">
     <div class="float-start">Material / Lot Details</div>
-    <!-- <div class="float-end">
-            <button mat-raised-button class="section-add-new-record-btn" (click)="addNewRow()">
+    <div class="float-end">
+            <button mat-raised-button class="section-add-new-record-btn" (click)="addRow()">
               Add Material
             </button>
-          </div> -->
+          </div>
   </div>
 </div>
 <div>
@@ -55,10 +55,10 @@
                 <p class="section_header_title">Material Deatails - {{ i + 1 }}</p>
               </div>
               <div class="float-end">
-                <button mat-raised-button class="section-add-new-record-btn" (click)="addRow()">
+                <!-- <button mat-raised-button class="section-add-new-record-btn" (click)="addRow()">
                   Add Material
-                </button>
-                <button mat-raised-button class="section-add-remove-record-btn" (click)="removeRow(i)">
+                </button> -->
+                <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0" (click)="removeRow(i)">
                   Remove
                 </button>
               </div>
@@ -160,23 +160,32 @@
         </div>
       </div>
     </form>
+      <div class="table-box">
+            <div class="section_header_child_1">
+              <div class="float-start">Container Details (Lot Level)</div>
+              <div class="float-end">
+                <button mat-raised-button class="section-add-new-record-btn" (click)="addContainer()">
+                  Add Container
+                </button>               
+              </div>
+            </div>
+          </div>
     <form [formGroup]="ContainerRequirementForm">
       <div formArrayName="containers">
         <div *ngFor="let item of containers.controls; let i = index"
          [formGroupName]="i">
           <div class="table-box">
             <div class="section_header_child_1">
-              <div class="float-start">Container Details (Lot Level)</div>
-              <div class="float-left d-flex gap-2">
-                <button mat-raised-button class="add-new-record-btn" (click)="addContainer()">
-                  Add Container
-                </button>
-                <button mat-raised-button class="section-add-remove-record-btn" (click)="removeContainer(i)">
+              <div class="float-start">
+                <p class="section_header_title">Container Details (Lot Level)s - {{ i + 1 }}</p>
+              </div>
+              <!-- <div class="float-left d-flex gap-2">               -->
+                <div class="float-end">
+                <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0" (click)="removeContainer(i)">
                   Delete Container
                 </button>
               </div>
             </div>
-
           </div>
 
 
