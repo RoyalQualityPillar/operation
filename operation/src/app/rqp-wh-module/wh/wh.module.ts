@@ -24,7 +24,6 @@ import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.compon
 import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-completed-save.component';
 import { SmModuleAdminComponent } from '../sm/sm-module-admin/sm-module-admin.component';
 import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-sampling-list-home-page/under-sampling-list-home-page.component';
-//import { UnderSamplingListHomePageComponent } from '../sm/under-sampling-list-home-page/under-sampling-list-home-page.component';
 
 
 @NgModule({
