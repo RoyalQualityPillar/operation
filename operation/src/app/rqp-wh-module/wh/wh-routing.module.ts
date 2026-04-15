@@ -15,7 +15,6 @@ import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-complet
 import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.component';
 import { SmModuleAdminComponent } from '../sm/sm-module-admin/sm-module-admin.component';
 import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-sampling-list-home-page/under-sampling-list-home-page.component';
-//import { UnderSamplingListHomePageComponent } from '../sm/under-sampling-list-home-page/under-sampling-list-home-page.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },

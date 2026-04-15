@@ -12,7 +12,7 @@ export class WhService {
  private API_URL = environment.apiBaseURL;
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-   public questionBankTable(unitcode: string): Observable<any> {
-    return this.http.get(this.API_URL + `wh/Under-sampling-list?unitcode=${unitcode} `);
+   public questionBankTable(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `wh/Under-sampling-list?Unitcode=${unitCode} `);
   }
-}
+ }

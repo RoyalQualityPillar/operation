@@ -12,9 +12,6 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { LovDialogComponent } from './common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from './common/message-dialog/message-dialog.component';
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
-import { SmModuleAdminComponent } from './rqp-wh-module/sm/sm-module-admin/sm-module-admin.component';
-//import { UnderSamplingListHomePageComponent } from './rqp-wh-module/sm/under-sampling-list-home-page/under-sampling-list-home-page.component';
-import { UnderSamplingListHomePageComponent } from './rqp-wh-module/sm/sm-module-admin/under-sampling-list-home-page/under-sampling-list-home-page.component';
 
 
 
