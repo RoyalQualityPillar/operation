@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './bom-update-home.component.scss'
 })
 export class BomUpdateHomeComponent {
-
+ public updateSaveUrl = './rqpoperationui/pp/bom-update';
 }

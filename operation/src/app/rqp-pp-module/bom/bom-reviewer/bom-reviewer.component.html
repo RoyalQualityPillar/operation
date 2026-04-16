@@ -1,1 +1,256 @@
-<p>bom-reviewer works!</p>
+<app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+<!-- <app-common-title [title]="'Product Information'"></app-common-title> -->
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Product Information</div>
+        <div class="float-end">
+            <!-- <button mat-raised-button class="section-add-new-record-btn" (click)="addProduct()">
+                Add Product
+            </button> -->
+        </div>
+    </div>
+</div>
+<form [formGroup]="BOMRequirementForm">
+    <div formArrayName="products">
+
+        <div *ngFor="let item of products.controls; let i = index" [formGroupName]="i">
+
+            <!-- Header -->
+            <div class="table-box">
+                <div class="section_header_child_1">
+                    <div class="float-start">
+                        Product - {{ i + 1 }}
+                    </div>
+                    <div class="float-end">
+                        <!-- <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0"
+                            (click)="removeProduct(i)">
+                            Delete
+                        </button> -->
+                    </div>
+                </div>
+            </div>       
+
+            <!-- Row 1 -->
+            <div class="row no-gutters ms-1 me-1 dense-4">
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Number</mat-label>
+                    <input matInput formControlName="productNo">
+                    <!-- <img src="assets/searchfind.svg" class="lovSearchButton" (click)="openStatusLOV(i)"> -->
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Name</mat-label>
+                    <input type="text" matInput formControlName="productName" placeholder="Product Name" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Market</mat-label>
+                    <input type="text" matInput formControlName="market" placeholder="Market" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Code</mat-label>
+                    <input type="text" matInput formControlName="productCode" placeholder="Product Code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>UOM</mat-label>
+                    <input type="text" matInput formControlName="uom" placeholder="UOM" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Shelf Life in Months</mat-label>
+                    <input type="text" matInput formControlName="shelfLifeMonths" placeholder="Shelf Life in Months" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Type</mat-label>
+                    <input type="text" matInput formControlName="productType" placeholder="Product Type" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Dosage Form</mat-label>
+                    <input type="text" matInput formControlName="dosageForm" placeholder="Dosage Form" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Input Code</mat-label>
+                    <input type="text" matInput formControlName="inputCode" placeholder="Input Code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Tracking Code</mat-label>
+                    <input type="text" matInput formControlName="productTrackingCode"
+                        placeholder="Product Tracking Code" />
+                </mat-form-field>
+            </div>          
+        </div>
+
+    </div>
+</form>
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Container Details (Lot Level)</div>
+        <div class="float-end">
+            <!-- <button mat-raised-button class="section-add-new-record-btn" (click)="addContainer()">
+                Add Container
+            </button> -->
+        </div>
+    </div>
+</div>
+<form [formGroup]="ContainerRequirementForm">
+    <div formArrayName="containers">
+        <div *ngFor="let item of containers.controls; let i = index" [formGroupName]="i">
+            <div class="table-box">
+                <div class="section_header_child_1">
+                    <div class="float-start">
+                        <p class="section_header_title">Container Details (Lot Level)s - {{ i + 1 }}</p>
+                    </div>
+                    <!-- <div class="float-left d-flex gap-2">               -->
+                    <div class="float-end">
+                        <!-- <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0"
+                            (click)="removeContainer(i)">
+                            Delete Container
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters ms-1 me-1 dense-4">
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Material Number</mat-label>
+                    <input type="text" matInput formControlName="materialNo" placeholder="Material Number"
+                         />                    
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Material Name</mat-label>
+                    <input type="text" matInput formControlName="materialName" 
+                        placeholder="Material Name" />                    
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Material Code</mat-label>
+                    <input type="text" matInput formControlName="materialCode" 
+                        placeholder="Material Code" />                  
+                </mat-form-field>                
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Weight</mat-label>
+                    <input type="text" formControlName="weight" matInput placeholder="Weight" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>UOM</mat-label>
+                    <input type="text" matInput formControlName="weightUom" placeholder="UOM" readonly/>                    
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>
+<!--Table end-->
+<div class="table-box">
+    <div class="section_header">
+        <div class="float-left">
+            <p class="section_header_title">BOM Attachments </p>
+        </div>
+        <div class="float-right"></div>
+    </div>
+</div>
+<!--File Upload start-->
+<!-- <div class="adjust">
+    <div class="example-input-container">
+        <form [formGroup]="BOMAttachmentRequirementForm">
+            <div class="row no-gutters ms-1 me-1 dense-4 padding-top_5">
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Document Name</mat-label>
+                    <input type="text" matInput formControlName="documentName" placeholder="Document Name" />
+                </mat-form-field>           
+
+                <div class="col-5 px-1 margin-top_5">
+                    <input type="file" id="file1" (change)="handleFileInput($event)" accept=".doc, .docx, .pdf" />
+                </div>
+            </div>
+        </form>
+        <div class="add-btn-container ">
+            <button mat-raised-button class="submitButton" (click)="onCreateSelectedDataList()">
+                Add Row
+            </button>
+        </div>
+    </div>
+    <div class="example-input-container">
+        <mat-card class="" *ngIf="bomAttachmentList.length > 0">
+            <table class="display-table">
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Category Types</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of bomAttachmentList; let idx = index">
+                        <td>
+                            {{ row.ff0001 }}
+                        </td>
+                        <td>
+                            {{ row.ff0005 }}
+                        </td>
+                        <td>
+                            <button mat-icon-button color="warn" (click)="removeRow(idx)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card>
+    </div>
+</div> -->
+<!--file Upload End-->
+
+ <div class="m-2">
+            <div *ngIf="this.lc0003">
+                <div *ngIf="bomAttachmentListData">
+                    <mat-table [dataSource]="bomAttachmentListTableData" matSort id="dataTable"
+                        class="bg-color_ghost_White">
+                        <ng-container matColumnDef="uc0001">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Document No</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.uc0001 }} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="ff0007">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Document Name</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.ff0001 }} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="createdby">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Created By
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{ row.createdby }}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="createdon">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                {{ row.createdon | customDatePipe : "dateWithHrMin" }}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="ff0005">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Category Types
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{ row.ff0005 }}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="removeRow">
+                            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button *ngIf="row.uc0001" mat-icon-button color="primary"
+                                    (click)="downloadDocument(row)">
+                                    <mat-icon>download</mat-icon>
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="bomAttachListdisplayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: bomAttachListdisplayedColumns"></mat-row>
+                    </mat-table>
+                </div>
+                <div *ngIf="!bomAttachmentListData">
+                    <p style="color: red">No Record Found</p>
+                </div>
+            </div>
+        </div>
+
+<app-as-common-footer [pageData]="this.pageData" (comments)="getCommentsData($event)">
+    <div class="table-box">
+        <app-comments-table [headerData]="headerData" [ff0005Value]="ff0005"></app-comments-table>
+    </div>
+</app-as-common-footer>
+<app-common-button-bar [buttonConfig]="buttonConfig" (buttonClicked)="onButtonClicked($event)"
+    [redirectUrl]="redirectUrl">
+</app-common-button-bar>
+
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="height_5"></div>

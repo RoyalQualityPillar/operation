@@ -89,19 +89,14 @@ export class BomInitiatorComponent implements OnInit {
 
     this.bomService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
-      console.log(this.nextStageListData);
     });
   }
   getHeaderData(event: any) {
     this.headerData = event;
     let uc0001 = this.headerData.unitcode;
     this.bomService.bmrInput(uc0001).subscribe(({ data }) => {
-      console.log(data);
       this.psmList = data.pmsList;
-    });
-    this.bomService.getDropDownList(uc0001).subscribe(( data: any ) => {
-console.log(data);
-    });
+    });  
   }
   createProduct(): FormGroup {
     return this.fb.group({
@@ -162,7 +157,6 @@ console.log(data);
   onloadDropDownList() {
     this.isLoading = true;
     this.bomService.getDropDownList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.pmmMaterialList = data.data.pmmMaterialList;
       this.saleProductList = data.data.saleProductList;
       this.isLoading = false;
@@ -172,10 +166,7 @@ console.log(data);
     return objects.filter((obj) => Object.keys(obj).length > 0);
   }
   onCreateSelectedDataList() {
-    console.log(this.selectedFiles)
     this.selectedFileList.push(this.selectedFiles);
-    console.log(this.selectedFiles)
-    console.log(this.bomAttachmentList);
     // Check if the document name is provided before proceeding
     if (this.BOMAttachmentRequirementForm.controls['documentName'].value) {
       // Add new action attachment object
@@ -240,10 +231,7 @@ console.log(data);
     });
   }
   formatRequestBody() {
-    console.log(this.selectedFiles)
-    console.log(this.bomAttachmentList)
     const products = this.products.value;
-
     const containers = this.containers.value;
     this.body1 = {
       lcRequest: {
@@ -319,8 +307,6 @@ console.log(data);
 
   }
   onSubmit(btnStatus: any) {
-    console.log(this.selectedFiles)
-    console.log(this.selectedFiles);   
     if (btnStatus == 1) {
       this.draftValue = false;
     } else {
@@ -328,31 +314,17 @@ console.log(data);
     }
 
     this.isLoading = true;
-    let bodyData = this.formatRequestBody();
-    console.log(bodyData);
-    console.log(this.body1);
-
-
-    console.log(this.bomAttachmentList);
+    let bodyData = this.formatRequestBody();    
     let attachmentList: any[] = [];
     this.body1.bomAttachmentList.forEach((obj) => {
       console.log(obj.selectedFileList);
       if (obj.selectedFileList) {
         attachmentList.push(obj.selectedFileList);
       }
-    });
-    //  let selectedFile: any[] = [];
-    // this.bomAttachmentList.forEach((elements: any) => {
-    //   selectedFile.push(elements.selectedFileList);
-    // });
-    console.log(attachmentList)
-    console.log(this.bomAttachmentList)
-    // console.log(selectedFile)
+    });  
     this.bomService
       .onBOMSaveUpdate(attachmentList, this.body1)
       .subscribe((data: any) => {
-        console.log(data)
-        console.log(this.body1);
         if (data.errorInfo != null) {
           this.dialog.open(MessageDialogComponent, {
             data: {
@@ -362,7 +334,6 @@ console.log(data);
           });
         } else {
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
           timer(2000)
             .pipe(takeUntil(this.destroy$))
