@@ -17,16 +17,13 @@ export class UnderSamplingListHomePageComponent implements OnInit {
 
   public displayedColumns = [
     'action',
-    'uc0001',
+    'lc0002',
     'ff0001',
-    'ff0002',
-    'ff0003',
     'ff0004',
-    'ff0005',
-    'ff0006',
-    'ff0007',
-    'ff0008',
-    'status',
+    'ff0002',
+    'gr_ff0004',
+    'gr_ff0003',
+    'gr_ff0002',
     'createdon',
     'createdby',
   ];
@@ -67,5 +64,14 @@ export class UnderSamplingListHomePageComponent implements OnInit {
     // this.router.navigate(['./rqpquailtyui/lms/lms-question-init'], {queryParams: this.selectedRow,});
    sessionStorage.setItem('selectedRow', JSON.stringify(this.selectedRow));
     this.router.navigate(['./rqpquailtyui/lms/lms-question-init']);
+  }
+  onDownload(row:any){
+
+  }
+  onEdit(row:any){
+
+  }
+  onView(row:any){
+
   }
 }
