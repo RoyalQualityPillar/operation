@@ -267,7 +267,39 @@ export class GrnCompletedSaveComponent implements OnInit {
     this.isLoading = false;
   }
   public downloadGRNReport() {
-
+const lcNumber = this.headerData?.lcnum;
+    const templateName = 'grnReport.html';
+    const moduleCode = this.headerData?.modulecode;
+    const lcrnumber = this.headerData.requestNo;
+    this.isLoading = true;
+    this.grnService
+      .downloadGRNreport(
+        lcNumber,
+        templateName,
+        moduleCode,
+        lcrnumber
+      )
+      .subscribe((data: any) => {
+        console.log(data);
+        let fileExtension = 'pdf';
+        const binaryData = atob(data.data);
+        const arrayBuffer = new ArrayBuffer(binaryData.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < binaryData.length; i++) {
+          uint8Array[i] = binaryData.charCodeAt(i);
+        }
+        let blob: any;
+        blob = new Blob([uint8Array], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = lcrnumber + '.' + fileExtension;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      });
+    this.isLoading = false;
   }
   downloadDocument(row) {
     let fileExtension = getFileExtension(row.ff0013);

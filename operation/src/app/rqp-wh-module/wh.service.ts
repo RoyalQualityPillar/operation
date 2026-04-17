@@ -15,4 +15,5 @@ export class WhService {
    public questionBankTable(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/Under-sampling-list?Unitcode=${unitCode} `);
   }
+  
  }
