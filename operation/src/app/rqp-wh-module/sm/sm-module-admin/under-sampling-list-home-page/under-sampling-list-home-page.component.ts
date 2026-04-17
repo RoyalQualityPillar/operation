@@ -16,23 +16,24 @@ export class UnderSamplingListHomePageComponent implements OnInit {
   public selectedRow: any;
 
   public displayedColumns = [
-    'action',
     'lc0002',
     'ff0001',
     'ff0004',
     'ff0002',
     'gr_ff0004',
-    'gr_ff0003',
+    // 'gr_ff0003',
     'gr_ff0002',
     'createdon',
     'createdby',
+    'action'
+
   ];
 
   constructor(
     private whService: WhService,
     private cookieService: CookieService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const userId = this.cookieService.get('unitCode');
@@ -60,18 +61,7 @@ export class UnderSamplingListHomePageComponent implements OnInit {
     //todo
   }
 
-  public submit(): void {
-    // this.router.navigate(['./rqpquailtyui/lms/lms-question-init'], {queryParams: this.selectedRow,});
-   sessionStorage.setItem('selectedRow', JSON.stringify(this.selectedRow));
-    this.router.navigate(['./rqpquailtyui/lms/lms-question-init']);
+  public submit(row: any): void {
   }
-  onDownload(row:any){
 
-  }
-  onEdit(row:any){
-
-  }
-  onView(row:any){
-
-  }
 }
