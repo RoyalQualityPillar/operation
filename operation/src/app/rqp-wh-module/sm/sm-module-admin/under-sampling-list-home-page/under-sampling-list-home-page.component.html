@@ -1,14 +1,7 @@
 <div class="table-box">
-  <mat-table
-    [dataSource]="questionBankTable"
-   
-    matSort
-    id="dataTable"
-    class="table_background_color"
-  >
+  <mat-table [dataSource]="questionBankTable" matSort id="dataTable" class="table_background_color">
     <ng-container matColumnDef="lc0002">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Request Number
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Request Number
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.lc0002 }} </mat-cell>
     </ng-container>
@@ -21,8 +14,7 @@
     </ng-container>
 
     <ng-container matColumnDef="ff0004">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Quantity
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0004 }} </mat-cell>
     </ng-container>
@@ -35,8 +27,7 @@
     </ng-container>
 
     <ng-container matColumnDef="gr_ff0004">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Material Number
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Number
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.gr_ff0004 }} </mat-cell>
     </ng-container>
@@ -49,30 +40,26 @@
     </ng-container> -->
 
     <ng-container matColumnDef="gr_ff0002">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Material Code
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.gr_ff0002 }} </mat-cell>
     </ng-container>
 
- <ng-container matColumnDef="ff0005">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Current Status
+    <ng-container matColumnDef="ff0005">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Current Status
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.ff0005 }} </mat-cell>
-    </ng-container> 
+    </ng-container>
 
     <ng-container matColumnDef="createdon">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Created On
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         {{ row.createdon | customDatePipe : "dateWithHrMin" }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="createdby">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Created By
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created By
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         {{ row.createdby }}
@@ -80,30 +67,22 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-  <mat-header-cell
-    *matHeaderCellDef
-    mat-sort-header
-    class="rqp-life-cycle-table-columns">
-    Action
-  </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="rqp-life-cycle-table-columns">
+        Action
+      </mat-header-cell>
 
-  <mat-cell *matCellDef="let row">
+      <mat-cell *matCellDef="let row">
         <mat-icon (click)="submit(row)">
           toggle_on
         </mat-icon>
       </mat-cell>
-</ng-container>
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 
-  <mat-paginator
-    [pageSizeOptions]="[10, 15, 20, 25]"
-    (page)="pageChanged($event)"
-    showFirstLastButtons
-    aria-label="Select page of periodic rows"
-  >
+  <mat-paginator [pageSizeOptions]="[10, 15, 20, 25]" (page)="pageChanged($event)" showFirstLastButtons
+    aria-label="Select page of periodic rows">
   </mat-paginator>
 </div>
-
