@@ -12,4 +12,8 @@ export class SmModuleAdminComponent {
   UnderSamplinglist(): void {
     this.router.navigate(['./rqpoperationui/wh/under-sampling-list-home-page']);
   }
+  UnderTestingList():void {
+    this.router.navigate(['./rqpoperationui/wh/under-testing-list']);
+  }
+
 }

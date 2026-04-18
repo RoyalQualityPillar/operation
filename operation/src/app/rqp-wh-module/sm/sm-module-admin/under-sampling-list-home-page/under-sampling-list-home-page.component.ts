@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalConstants } from 'src/app/common/global-constants';
+import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { NotificationService } from 'src/app/common/notification.service';
 import { LmsService } from 'src/app/rqp-lms-module/lms.service';
 import { WhService } from 'src/app/rqp-wh-module/wh.service';
 
@@ -14,6 +17,7 @@ import { WhService } from 'src/app/rqp-wh-module/wh.service';
 export class UnderSamplingListHomePageComponent implements OnInit {
   public questionBankTable: any;
   public selectedRow: any;
+  public isLoading = false;
 
   public displayedColumns = [
     'lc0002',
@@ -32,7 +36,9 @@ export class UnderSamplingListHomePageComponent implements OnInit {
   constructor(
     private whService: WhService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +68,25 @@ export class UnderSamplingListHomePageComponent implements OnInit {
   }
 
   public submit(row: any): void {
+    console.log(row)
+    this.whService.saveSampling(row.uc0001).subscribe((data: any) => {
+      console.log(data);
+      if (data.errorInfo != null) {
+        this.isLoading = false;
+        this.dialog.open(MessageDialogComponent, {
+          data: {
+            message: data.errorInfo.message,
+            heading: 'Error Information',
+          },
+        });
+      } else {
+        this.isLoading = false;
+        this.notificationService.showSuccess(data.status, () => {
+          console.log('Success Snackbar Closed');
+        });
+      }
+    });
   }
+
 
 }

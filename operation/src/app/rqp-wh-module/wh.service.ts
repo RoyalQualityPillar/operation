@@ -15,5 +15,26 @@ export class WhService {
    public questionBankTable(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/Under-sampling-list?Unitcode=${unitCode} `);
   }
+   public underTestingList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `wh/Under-testing-list?Unitcode=${unitCode} `);
+  }
+    public qualityStatusList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `wh/Quality-status-list?Unitcode=${unitCode} `);
+  }
+  public saveSampling(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const samplingURL = this.API_URL + 'wh/sampling-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+   public saveTestList(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const testingURL = this.API_URL + 'wh/tasting-save' +queryParams;
+   return this.http.post(testingURL, '');
+  }
+   public saveQualityStatusList(uc0001:string,status:any){
+   const queryParams = `?uc0001=${uc0001}&status=${status}`;
+   const qualityStatusURL = this.API_URL + 'wh/Quality-save' +queryParams;
+   return this.http.post(qualityStatusURL, '');
+  }
   
  }

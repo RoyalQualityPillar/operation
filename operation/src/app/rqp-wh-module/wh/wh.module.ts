@@ -24,6 +24,9 @@ import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.compon
 import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-completed-save.component';
 import { SmModuleAdminComponent } from '../sm/sm-module-admin/sm-module-admin.component';
 import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-sampling-list-home-page/under-sampling-list-home-page.component';
+import { UnderTestingListComponent } from '../sm/under-testing-list/under-testing-list.component';
+import { QsmModuleAdminComponent } from '../qsm/qsm-module-admin/qsm-module-admin.component';
+import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-status-list.component';
 
 
 @NgModule({
@@ -43,10 +46,13 @@ import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-
     QuantityHomePageComponent,
     QuantityLedgCreateUpdateComponent,
     QuantityLedgHomePageComponent,
-     GrnCompletedComponent,
+    GrnCompletedComponent,
     GrnCompletedSaveComponent,
     SmModuleAdminComponent,
     UnderSamplingListHomePageComponent,
+    UnderTestingListComponent,
+    QsmModuleAdminComponent,
+    QualityStatusListComponent,
 
   ],
   imports: [
