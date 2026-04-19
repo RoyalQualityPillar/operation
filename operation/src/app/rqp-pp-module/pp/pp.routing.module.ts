@@ -17,6 +17,7 @@ import { BomReviewerHomeComponent } from "../bom/bom-reviewer-home/bom-reviewer-
 import { BomReviewerComponent } from "../bom/bom-reviewer/bom-reviewer.component";
 import { BomCompletedComponent } from "../bom/bom-completed/bom-completed.component";
 import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-completed-save.component";
+import { BomModuleAdminComponent } from "../bom/bom-module-admin/bom-module-admin.component";
 
 const routes: Routes = [
 
@@ -37,7 +38,7 @@ const routes: Routes = [
   { path: 'bom-reviewer', component: BomReviewerComponent },
   { path: 'bom-completed', component: BomCompletedComponent },
   { path: 'bom-completed-save', component: BomCompletedSaveComponent },
-
+  { path: 'bom-module-admin', component: BomModuleAdminComponent },
 ];
 
 @NgModule({
