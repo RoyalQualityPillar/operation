@@ -24,6 +24,7 @@ import { BomReviewerHomeComponent } from "../bom/bom-reviewer-home/bom-reviewer-
 import { BomReviewerComponent } from "../bom/bom-reviewer/bom-reviewer.component";
 import { BomCompletedComponent } from "../bom/bom-completed/bom-completed.component";
 import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-completed-save.component";
+import { BomModuleAdminComponent } from "../bom/bom-module-admin/bom-module-admin.component";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-complet
     BomReviewerComponent,
     BomCompletedComponent,
     BomCompletedSaveComponent,
+    BomModuleAdminComponent,
 
 
   ],

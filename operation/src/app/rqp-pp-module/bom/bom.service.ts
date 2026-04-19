@@ -57,6 +57,18 @@ public bmrInput(unitCode: string): Observable<any> {
       this.API_URL + 'gm/gmap-record/review-comments' + queryParams;
     return this.http.get(reviewURL);
   }
+    onGetCommentsData(
+    lcRequestnumber: string,
+    lcnum: string,
+    templateName: string,
+    stage: any,
+    userid: string,
+    moduleCode: string
+  ) {
+    const queryParams = `?lcRequestnumber=${lcRequestnumber}&lcnum=${lcnum}&templateName=${templateName}&stage=${stage}&userid=${userid}&moduleCode=${moduleCode}`;
+    const reviewURL = this.API_URL + 'gmapr/gmap-comment/get-all' + queryParams;
+    return this.http.post(reviewURL, '');
+  }
   onBOMSaveUpdate(
     bomAttachmentList: any[],
     body: any
@@ -85,5 +97,17 @@ public bmrInput(unitCode: string): Observable<any> {
     };
 
     return this.http.post(createUserURL, formData, httpOptions);
+  }
+  downloadBOMreport(
+    lcnum: string,
+    templateName: string,
+    moduleCode: string,
+    lcrnumber: string
+  ) {
+    return this.http.post(
+      this.API_URL +
+      `pp/bom-report/get-all?lcnum=${lcnum}&templateName=${templateName}&moduleCode=${moduleCode}&lcrnumber=${lcrnumber}`,
+      ''
+    );
   }
 }

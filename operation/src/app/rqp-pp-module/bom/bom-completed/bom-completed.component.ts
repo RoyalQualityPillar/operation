@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './bom-completed.component.scss'
 })
 export class BomCompletedComponent {
-
+  public reviewerUrl: string = './rqpoperationui/pp/bom-completed-save';
+  public isCompleted: string = 'completed';
 }
