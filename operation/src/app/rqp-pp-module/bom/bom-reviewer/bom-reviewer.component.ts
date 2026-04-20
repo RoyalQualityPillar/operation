@@ -13,7 +13,7 @@ import { getFileExtension } from 'src/app/common/removeEmptyStrings';
   styleUrl: './bom-reviewer.component.scss'
 })
 export class BomReviewerComponent  implements OnInit {
-  public redirectUrl: string = '/rqpoperationui/wh/sop-module-home-page';
+  public redirectUrl: string = '/rqpoperationui/pp/bom-module-admin';
  public BOMRequirementForm: FormGroup;
   public ContainerRequirementForm: FormGroup;
   public BOMAttachmentRequirementForm: FormGroup;
@@ -171,24 +171,16 @@ this.getBOMAttachments(this.lc0003);
     this.bomItemValue = data.data;
   const value = this.bomItemValue[0];
   
-   this.bomItemValue.forEach((element:any, i:number) => {
-   const product = this.products.at(i) as FormGroup;
-    product.patchValue({
-       productNo: element.ff0001,
-            productName: element.ff0002,
-            market: element.ff0003,
-            productCode: element.ff0004,
-            uom: element.ff0005,
-            shelfLifeMonths: element.ff0006,
-            productType: element.ff0007,
-            dosageForm: element.ff0008,
-            inputCode: element.ff0009,
-            productTrackingCode: element.ff0010,
-           
-    });
-   
-    
-   });
+          this.bomItemValue.forEach((pack: any, i: number) => {
+        const container = this.containers.at(i) as FormGroup;
+        container.patchValue({
+          materialNo: pack.ff0001,
+          materialName: pack.ff0002,
+          materialCode: pack.ff0003,
+          weight: pack.ff0004,
+          weightUom: pack.ff0005,
+        });
+      });
   
   });
     }
@@ -197,16 +189,24 @@ this.getBOMAttachments(this.lc0003);
         console.log(data);
         this.bomIndexValue = data.data;
         console.log(this.bomIndexValue)
-        this.bomIndexValue.forEach((pack: any, i: number) => {
-          const container = this.containers.at(i) as FormGroup;
-    container.patchValue({   
-            materialNo: pack.ff0001,
-            materialName: pack.ff0002,
-            materialCode: pack.ff0003,
-            weight: pack.ff0004,
-            weightUom: pack.ff0005,
-    });
+       this.bomIndexValue.forEach((element: any, i: number) => {
+        const product = this.products.at(i) as FormGroup;
+        product.patchValue({
+          productNo: element.ff0001,
+          productName: element.ff0002,
+          market: element.ff0003,
+          productCode: element.ff0004,
+          uom: element.ff0005,
+          shelfLifeMonths: element.ff0006,
+          productType: element.ff0007,
+          dosageForm: element.ff0008,
+          inputCode: element.ff0009,
+          productTrackingCode: element.ff0010,
+
         });
+
+
+      });
       });
     }
      downloadDocument(row) {

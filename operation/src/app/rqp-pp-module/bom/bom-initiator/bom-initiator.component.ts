@@ -96,7 +96,7 @@ export class BomInitiatorComponent implements OnInit {
     let uc0001 = this.headerData.unitcode;
     this.bomService.bmrInput(uc0001).subscribe(({ data }) => {
       this.psmList = data.pmsList;
-    });  
+    });
   }
   createProduct(): FormGroup {
     return this.fb.group({
@@ -251,19 +251,18 @@ export class BomInitiatorComponent implements OnInit {
         draft: this.draftValue,
       },
 
-      bomItemItems: products.map((item: any) => ({
+      bomItemItems: containers.map((item: any) => ({
         uc0001: null,
+        ff0001: item.materialNo,
+        ff0002: item.materialName,
+        ff0003: item.materialCode,
+        ff0004: item.weight,
+        ff0005: item.weightUom,
+        ff0007: "string",
+        ff0008: "string",
+        ff0009: "string",
+        ff0010: "string",
         unitcode: this.headerData.unitcode,
-        ff0001: item.productNo,
-        ff0002: item.productName,
-        ff0003: item.market,
-        ff0004: item.productCode,
-        ff0005: item.uom,
-        ff0006: item.shelfLifeMonths,
-        ff0007: item.productType,
-        ff0008: item.dosageForm,
-        ff0009: item.inputCode,
-        ff0010: item.productTrackingCode,
         lc0001: '',
         lc0002: '',
         lc0003: '',
@@ -272,22 +271,22 @@ export class BomInitiatorComponent implements OnInit {
         lc0006: '',
         createdby: this.headerData.createdby,
         status: 0,
-        // version: 0,
         comments: this.comments,
       })),
 
-      bomIndexIndex: containers.map((element: any) => ({
+      bomIndexIndex: products.map((element: any) => ({
         uc0001: null,
-        ff0001: element.materialNo,
-        ff0002: element.materialName,
-        ff0003: element.materialCode,
-        ff0004: element.weight,
-        ff0005: element.weightUom,
-        ff0007: "string",
-        ff0008: "string",
-        ff0009: "string",
-        ff0010: "string",
         unitcode: this.headerData.unitcode,
+        ff0001: element.productNo,
+        ff0002: element.productName,
+        ff0003: element.market,
+        ff0004: element.productCode,
+        ff0005: element.uom,
+        ff0006: element.shelfLifeMonths,
+        ff0007: element.productType,
+        ff0008: element.dosageForm,
+        ff0009: element.inputCode,
+        ff0010: element.productTrackingCode,
         lc0001: "string",
         lc0002: "string",
         lc0003: "string",
@@ -314,14 +313,14 @@ export class BomInitiatorComponent implements OnInit {
     }
 
     this.isLoading = true;
-    let bodyData = this.formatRequestBody();    
+    let bodyData = this.formatRequestBody();
     let attachmentList: any[] = [];
     this.body1.bomAttachmentList.forEach((obj) => {
       console.log(obj.selectedFileList);
       if (obj.selectedFileList) {
         attachmentList.push(obj.selectedFileList);
       }
-    });  
+    });
     this.bomService
       .onBOMSaveUpdate(attachmentList, this.body1)
       .subscribe((data: any) => {
@@ -333,6 +332,7 @@ export class BomInitiatorComponent implements OnInit {
             },
           });
         } else {
+          this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
           });
           timer(2000)
@@ -341,7 +341,6 @@ export class BomInitiatorComponent implements OnInit {
               this.route.navigateByUrl('/rqpquailtyui/qms/cc-home');
             });
         }
-        this.isLoading = false;
       });
   }
   onChangeSubject(index: number) {
