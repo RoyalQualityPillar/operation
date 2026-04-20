@@ -169,7 +169,25 @@ export class BomCompletedSaveComponent implements OnInit {
       this.bomItemValue = data.data;
       const value = this.bomItemValue[0];
 
-      this.bomItemValue.forEach((element: any, i: number) => {
+        this.bomItemValue.forEach((pack: any, i: number) => {
+        const container = this.containers.at(i) as FormGroup;
+        container.patchValue({
+          materialNo: pack.ff0001,
+          materialName: pack.ff0002,
+          materialCode: pack.ff0003,
+          weight: pack.ff0004,
+          weightUom: pack.ff0005,
+        });
+      });
+
+    });
+  }
+  getBOMIndexMasterList(lc0003: any) {
+    this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
+      console.log(data);
+      this.bomIndexValue = data.data;
+      console.log(this.bomIndexValue)
+       this.bomIndexValue.forEach((element: any, i: number) => {
         const product = this.products.at(i) as FormGroup;
         product.patchValue({
           productNo: element.ff0001,
@@ -186,24 +204,6 @@ export class BomCompletedSaveComponent implements OnInit {
         });
 
 
-      });
-
-    });
-  }
-  getBOMIndexMasterList(lc0003: any) {
-    this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
-      console.log(data);
-      this.bomIndexValue = data.data;
-      console.log(this.bomIndexValue)
-      this.bomIndexValue.forEach((pack: any, i: number) => {
-        const container = this.containers.at(i) as FormGroup;
-        container.patchValue({
-          materialNo: pack.ff0001,
-          materialName: pack.ff0002,
-          materialCode: pack.ff0003,
-          weight: pack.ff0004,
-          weightUom: pack.ff0005,
-        });
       });
     });
   }
@@ -273,9 +273,9 @@ export class BomCompletedSaveComponent implements OnInit {
       });
     this.isLoading = false;
   }
-  public downloadGRNReport() {
+  public downloadBOMReport() {
     const lcNumber = this.headerData?.lcnum;
-    const templateName = 'grnReport.html';
+    const templateName = 'bom.html';
     const moduleCode = this.headerData?.modulecode;
     const lcrnumber = this.headerData.requestNo;
     this.isLoading = true;
