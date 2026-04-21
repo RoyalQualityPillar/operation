@@ -133,7 +133,6 @@ export class BomUpdateComponent implements OnInit {
     this.bomService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
-      console.log(this.nextStageListData);
     });
   }
   public getHeaderData(event: any) {
@@ -260,7 +259,6 @@ export class BomUpdateComponent implements OnInit {
   }
   getBOMAttachments(lc0003: any) {
     this.bomService.getBOMAttachments(lc0003, this.ff0002).subscribe((data: any) => {
-      console.log(data);
       if (data.data) {
         data.data.forEach((element: any) => {
           if (
@@ -276,16 +274,15 @@ export class BomUpdateComponent implements OnInit {
       }
       this.bomAttachmentListData = data.data;
       this.bomAttachmentListTableData = new MatTableDataSource(data.data);
-      console.log(this.bomAttachmentListTableData)
     });
   }
   getBOMItemMasterList(lc0003: any) {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
-      console.log(data);
       this.bomItemValue = data.data;
+      this.containers.clear();
       const value = this.bomItemValue[0];
-             this.bomItemValue.forEach((pack: any, i: number) => {
-        const container = this.containers.at(i) as FormGroup;
+      this.bomItemValue.forEach((pack: any) => {
+        const container = this.createContainer();
         container.patchValue({
           materialNo: pack.ff0001,
           materialName: pack.ff0002,
@@ -293,17 +290,17 @@ export class BomUpdateComponent implements OnInit {
           weight: pack.ff0004,
           weightUom: pack.ff0005,
         });
+        this.containers.push(container);
       });
 
     });
   }
   getBOMIndexMasterList(lc0003: any) {
     this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
-      console.log(data);
       this.bomIndexValue = data.data;
-      console.log(this.bomIndexValue)
-       this.bomIndexValue.forEach((element: any, i: number) => {
-        const product = this.products.at(i) as FormGroup;
+      this.products.clear();
+      this.bomIndexValue.forEach((element: any) => {
+        const product = this.createProduct();
         product.patchValue({
           productNo: element.ff0001,
           productName: element.ff0002,
@@ -315,9 +312,8 @@ export class BomUpdateComponent implements OnInit {
           dosageForm: element.ff0008,
           inputCode: element.ff0009,
           productTrackingCode: element.ff0010,
-
         });
-
+        this.products.push(product);
 
       });
     });
