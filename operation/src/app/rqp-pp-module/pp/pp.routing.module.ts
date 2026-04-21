@@ -18,6 +18,8 @@ import { BomReviewerComponent } from "../bom/bom-reviewer/bom-reviewer.component
 import { BomCompletedComponent } from "../bom/bom-completed/bom-completed.component";
 import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-completed-save.component";
 import { BomModuleAdminComponent } from "../bom/bom-module-admin/bom-module-admin.component";
+import { EpoModuleAdminComponent } from "../epo/epo-module-admin/epo-module-admin.component";
+import { ExecutionProductOrderListComponent } from "../epo/execution-product-order-list/execution-product-order-list.component";
 
 const routes: Routes = [
 
@@ -39,6 +41,8 @@ const routes: Routes = [
   { path: 'bom-completed', component: BomCompletedComponent },
   { path: 'bom-completed-save', component: BomCompletedSaveComponent },
   { path: 'bom-module-admin', component: BomModuleAdminComponent },
+  { path: 'epo-module-admin', component: EpoModuleAdminComponent },
+  { path: 'execution-product-order-list', component: ExecutionProductOrderListComponent },
 ];
 
 @NgModule({
