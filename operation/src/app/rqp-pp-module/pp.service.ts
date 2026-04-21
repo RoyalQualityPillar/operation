@@ -45,6 +45,14 @@ export class PpService {
     const saveUpdateURL = this.API_URL + 'sdqt/qt-item/save-update';
     return this.http.post(saveUpdateURL, requestBody);
   }
+  public qualityStatusList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/slt-list?unitCode=${unitCode} `);
+  }
+   public saveExecutionProductOrderList(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const samplingURL = this.API_URL + 'pp/relase-order-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
   getNextStageList(requestBody: any) {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
