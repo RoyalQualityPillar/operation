@@ -65,7 +65,7 @@ export class AreaGroupMasterCreateUpdateComponent implements OnInit {
       ff0002: ['', Validators.required],
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
       unitCode: ['']
     });
   }

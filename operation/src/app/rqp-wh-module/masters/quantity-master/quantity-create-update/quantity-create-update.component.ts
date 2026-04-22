@@ -74,7 +74,7 @@ export class QuantityCreateUpdateComponent implements OnInit {
       ff0011: [0, Validators.required],
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
       unitCode: ['']
     });
   }
