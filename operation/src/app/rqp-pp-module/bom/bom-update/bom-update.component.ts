@@ -23,44 +23,44 @@ import { getFileExtension } from 'src/app/common/removeEmptyStrings';
   styleUrl: './bom-update.component.scss'
 })
 export class BomUpdateComponent implements OnInit {
-   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   public BOMRequirementForm: FormGroup;
   public ContainerRequirementForm: FormGroup;
   public BOMAttachmentRequirementForm: FormGroup;
   public headerData: any;
   public pageData: any;
-   public nextStageListData: any;
+  public nextStageListData: any;
   public headerRequestBody: any;
   public previousStageListData: any;
-    public ff0005: number;
+  public ff0005: number;
   public ff0001: any;
   public lc0001: any;
-   public lc0003: any;
-   public ff0002: any;
-    public tableData: any;
- public isStatusSuccess = false;
+  public lc0003: any;
+  public ff0002: any;
+  public tableData: any;
+  public isStatusSuccess = false;
   public selectedDialogData: any;
   public isSubjectCodeSuccess: boolean;
   public displayedColumns: any;
-   public bomIndexValue:any;
-  public bomItemValue:any;
-   public isLoading = false;
-   public uploadedDocfileName: any;
-    private comments: string;
-   public selectedFiles: any;
-    public dataSource: any;
-     public body1: any;
+  public bomIndexValue: any;
+  public bomItemValue: any;
+  public isLoading = false;
+  public uploadedDocfileName: any;
+  private comments: string;
+  public selectedFiles: any;
+  public dataSource: any;
+  public body1: any;
   public draftValue: boolean;
-    destroy$ = new Subject<void>();
-    public reviewCommentsData: any;
-     public selectedFileList: File[] = [];
-     public psmList: any[] = [];
-     public pmmMaterialList: any[] = [];
+  destroy$ = new Subject<void>();
+  public reviewCommentsData: any;
+  public selectedFileList: File[] = [];
+  public psmList: any[] = [];
+  public pmmMaterialList: any[] = [];
   public saleProductList: any[] = [];
-    public bomAttachmentList: any[] = [];
-  public bomAttachmentListData:any[] = [];
-  public bomAttachmentListTableData:any;
-   bomAttachListdisplayedColumns: string[] = [
+  public bomAttachmentList: any[] = [];
+  public bomAttachmentListData: any[] = [];
+  public bomAttachmentListTableData: any;
+  bomAttachListdisplayedColumns: string[] = [
     'uc0001',
     'ff0007',
     'createdby',
@@ -69,17 +69,17 @@ export class BomUpdateComponent implements OnInit {
     'removeRow',
   ];
   constructor(
-public fb: FormBuilder,
+    public fb: FormBuilder,
     private bomService: BomService,
     public dialog: MatDialog,
-      private shareHostDataService: ShareHostDataService,
-   private lifeCycleDataService: LifeCycleDataService,
-  private cookieService: CookieService, 
-  private remoteLoader: RemoteComponentLoaderService,
-   private notificationService: NotificationService,
+    private shareHostDataService: ShareHostDataService,
+    private lifeCycleDataService: LifeCycleDataService,
+    private cookieService: CookieService,
+    private remoteLoader: RemoteComponentLoaderService,
+    private notificationService: NotificationService,
     private route: Router,
-  ){
-     this.BOMRequirementForm = fb.group({
+  ) {
+    this.BOMRequirementForm = fb.group({
       products: fb.array([this.createProduct()])
     });
     this.ContainerRequirementForm = this.fb.group({
@@ -96,7 +96,7 @@ public fb: FormBuilder,
   }
 
   ngOnInit(): void {
-     const updateData = sessionStorage.getItem('selectedRow');
+    const updateData = sessionStorage.getItem('selectedRow');
     let params: any = null;
     if (updateData) {
       params = JSON.parse(updateData);
@@ -118,33 +118,32 @@ public fb: FormBuilder,
       this.ff0002 = params.ff0005;
     }
     if (this.ff0001) {
-     this.getBOMRequestNo();
+      this.getBOMRequestNo();
     }
     this.headerRequestBody = this.lifeCycleDataService.getSelectedRowData();
     this.onLoadNextStageData();
   }
-   
-   onLoadNextStageData() {
+
+  onLoadNextStageData() {
     let body: any;
-    body = {    
+    body = {
       lcNumber: this.shareHostDataService.lcNumber,
       lcStage: this.shareHostDataService.currentStage
     };
     this.bomService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
-      console.log(this.nextStageListData);
     });
-  } 
+  }
   public getHeaderData(event: any) {
     this.headerData = event;
-     let uc0001 = this.headerData.unitcode;
+    let uc0001 = this.headerData.unitcode;
     this.bomService.bmrInput(uc0001).subscribe(({ data }) => {
       this.psmList = data.pmsList;
-    });  
-   this.onReviewData();
+    });
+    this.onReviewData();
   }
-   onReviewData() {
+  onReviewData() {
     this.bomService
       .onCommentsData(this.ff0001, this.headerData.lcnum, this.ff0005)
       .subscribe((data: any) => {
@@ -153,7 +152,7 @@ public fb: FormBuilder,
         this.dataSource.sort = this.sort;
       });
   }
-  
+
   createProduct(): FormGroup {
     return this.fb.group({
       productNo: [''],
@@ -209,16 +208,16 @@ public fb: FormBuilder,
       this.isLoading = false;
     });
   }
-   handleFileInput(event: any) {
+  handleFileInput(event: any) {
     this.selectedFiles = event.target.files[0];
     if (this.selectedFiles) {
       this.uploadedDocfileName = this.selectedFiles.name;
     }
   }
-   public handleCommentsForm(event: any) {
+  public handleCommentsForm(event: any) {
     this.comments = event.comments;
   }
-   filterEmptyObjects(objects: any[]): any[] {
+  filterEmptyObjects(objects: any[]): any[] {
     return objects.filter((obj) => Object.keys(obj).length > 0);
   }
   onCreateSelectedDataList() {
@@ -248,83 +247,79 @@ public fb: FormBuilder,
       console.log('Document name is empty, not adding bomAttachmentList');
     }
   }
-   getBOMRequestNo(){
-   this.bomService.getResquestNoIDForBOM(this.ff0001, this.lc0001).subscribe((data: any) => {
-  this.lc0003 = data.data[0].lc0003;
-  if(this.lc0003){
-  this.getBOMItemMasterList(this.lc0003);
-  this.getBOMIndexMasterList(this.lc0003);
-  this.getBOMAttachments(this.lc0003);
-  }
-      });
-    }
-     getBOMAttachments(lc0003:any){ 
-        this.bomService.getBOMAttachments(lc0003,this.ff0002).subscribe((data:any) => {
-    console.log(data);
-     if (data.data) {
-          data.data.forEach((element: any) => {
-            if (
-              element.documentAction == null ||
-              element.documentAction == '' ||
-              element.documentAction == undefined
-            ) {
-              element.documentAction = 'IGNORE';
-            } else {
-              element.documentAction = element.documentAction;
-            }
-          });
-        }
-       this.bomAttachmentListData = data.data;
-            this.bomAttachmentListTableData = new MatTableDataSource(data.data);
-            console.log(this.bomAttachmentListTableData)
-        });
+  getBOMRequestNo() {
+    this.bomService.getResquestNoIDForBOM(this.ff0001, this.lc0001).subscribe((data: any) => {
+      this.lc0003 = data.data[0].lc0003;
+      if (this.lc0003) {
+        this.getBOMItemMasterList(this.lc0003);
+        this.getBOMIndexMasterList(this.lc0003);
+        this.getBOMAttachments(this.lc0003);
       }
-      getBOMItemMasterList(lc0003:any){
-    this.bomService.getBOMItemMasterList(lc0003).subscribe((data:any) => {
-      console.log(data);
-      this.bomItemValue = data.data;
-    const value = this.bomItemValue[0];
-    
-     this.bomItemValue.forEach((element:any, i:number) => {
-     const product = this.products.at(i) as FormGroup;
-      product.patchValue({
-         productNo: element.ff0001,
-              productName: element.ff0002,
-              market: element.ff0003,
-              productCode: element.ff0004,
-              uom: element.ff0005,
-              shelfLifeMonths: element.ff0006,
-              productType: element.ff0007,
-              dosageForm: element.ff0008,
-              inputCode: element.ff0009,
-              productTrackingCode: element.ff0010,
-             
-      });
-     
-      
-     });
-    
     });
-      }
-       getBOMIndexMasterList(lc0003:any){
-        this.bomService.getBOMIndexMasterList(lc0003).subscribe((data:any) => {
-          console.log(data);
-          this.bomIndexValue = data.data;
-          console.log(this.bomIndexValue)
-          this.bomIndexValue.forEach((pack: any, i: number) => {
-            const container = this.containers.at(i) as FormGroup;
-      container.patchValue({   
-              materialNo: pack.ff0001,
-              materialName: pack.ff0002,
-              materialCode: pack.ff0003,
-              weight: pack.ff0004,
-              weightUom: pack.ff0005,
-      });
-          });
+  }
+  getBOMAttachments(lc0003: any) {
+    this.bomService.getBOMAttachments(lc0003, this.ff0002).subscribe((data: any) => {
+      if (data.data) {
+        data.data.forEach((element: any) => {
+          if (
+            element.documentAction == null ||
+            element.documentAction == '' ||
+            element.documentAction == undefined
+          ) {
+            element.documentAction = 'IGNORE';
+          } else {
+            element.documentAction = element.documentAction;
+          }
         });
       }
+      this.bomAttachmentListData = data.data;
+      this.bomAttachmentListTableData = new MatTableDataSource(data.data);
+    });
+  }
+  getBOMItemMasterList(lc0003: any) {
+    this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
+      this.bomItemValue = data.data;
+      this.containers.clear();
+      const value = this.bomItemValue[0];
+      this.bomItemValue.forEach((pack: any) => {
+        const container = this.createContainer();
+        container.patchValue({
+          materialNo: pack.ff0001,
+          materialName: pack.ff0002,
+          materialCode: pack.ff0003,
+          weight: pack.ff0004,
+          weightUom: pack.ff0005,
+        });
+        this.containers.push(container);
+      });
 
-async onSaveConfirmation(btnStatus: any) {
+    });
+  }
+  getBOMIndexMasterList(lc0003: any) {
+    this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
+      this.bomIndexValue = data.data;
+      this.products.clear();
+      this.bomIndexValue.forEach((element: any) => {
+        const product = this.createProduct();
+        product.patchValue({
+          productNo: element.ff0001,
+          productName: element.ff0002,
+          market: element.ff0003,
+          productCode: element.ff0004,
+          uom: element.ff0005,
+          shelfLifeMonths: element.ff0006,
+          productType: element.ff0007,
+          dosageForm: element.ff0008,
+          inputCode: element.ff0009,
+          productTrackingCode: element.ff0010,
+        });
+        this.products.push(product);
+
+      });
+    });
+  }
+
+  async onSaveConfirmation(btnStatus: any) {
     const component = await this.remoteLoader.loadComponentByKey(
       'CommonESignatureComponent'
     );
@@ -432,10 +427,10 @@ async onSaveConfirmation(btnStatus: any) {
         comments: this.comments
       })),
       // bomAttachmentList: this.bomAttachmentListData,
- bomAttachmentList: [  
-    ...this.bomAttachmentList,
-      ...this.bomAttachmentListData
-  ]
+      bomAttachmentList: [
+        ...this.bomAttachmentList,
+        ...this.bomAttachmentListData
+      ]
 
 
     };
@@ -449,14 +444,14 @@ async onSaveConfirmation(btnStatus: any) {
     }
 
     this.isLoading = true;
-    let bodyData = this.formatRequestBody();    
+    let bodyData = this.formatRequestBody();
     let attachmentList: any[] = [];
     this.body1.bomAttachmentList.forEach((obj) => {
       console.log(obj.selectedFileList);
       if (obj.selectedFileList) {
         attachmentList.push(obj.selectedFileList);
       }
-    });  
+    });
     this.bomService
       .onBOMSaveUpdate(attachmentList, this.body1)
       .subscribe((data: any) => {
@@ -468,208 +463,208 @@ async onSaveConfirmation(btnStatus: any) {
             },
           });
         } else {
+          this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
           });
           timer(2000)
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
-              this.route.navigateByUrl('/rqpquailtyui/qms/cc-home');
+              this.route.navigateByUrl('/rqpoperationui/pp/bom-module-admin');
             });
         }
-        this.isLoading = false;
       });
   }
-   downloadDocument(row) {
-        let fileExtension = getFileExtension(row.ff0013);
-        this.bomService
-          .onDownloadDocumet(row.uc0001)
-          .subscribe((data: any) => {
-            const binaryData = atob(data.data);
-            const arrayBuffer = new ArrayBuffer(binaryData.length);
-            const uint8Array = new Uint8Array(arrayBuffer);
-            for (let i = 0; i < binaryData.length; i++) {
-              uint8Array[i] = binaryData.charCodeAt(i);
-            }
-            let blob: any;
-            console.log(fileExtension);
-            if (fileExtension == 'pdf' || fileExtension == 'PDF') {
-              blob = new Blob([uint8Array], { type: 'application/pdf' });
-            } else {
-              blob = new Blob([uint8Array], { type: 'application/msword' });
-            }
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = row.uc0001 + fileExtension;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
-          });
-      }
-  onChangeSubject(index: number) {
-      const productNumber = this.products.at(index).get('productNo');
-      if (!productNumber.value) {
-        productNumber.setValue('');
-      } else {
-        let statusCurrentValue = productNumber.value;
-        this.psmList.forEach((elements) => {
-          if (elements.mdGName == statusCurrentValue) {
-            this.isSubjectCodeSuccess = true;
-          }
-        });
-        if (this.isSubjectCodeSuccess == false) {
-          productNumber.setErrors({
-            incorrect: true,
-          });
-          this.openStatusLOV(index);
+  downloadDocument(row) {
+    let fileExtension = getFileExtension(row.ff0013);
+    this.bomService
+      .onDownloadDocumet(row.uc0001)
+      .subscribe((data: any) => {
+        const binaryData = atob(data.data);
+        const arrayBuffer = new ArrayBuffer(binaryData.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < binaryData.length; i++) {
+          uint8Array[i] = binaryData.charCodeAt(i);
         }
+        let blob: any;
+        console.log(fileExtension);
+        if (fileExtension == 'pdf' || fileExtension == 'PDF') {
+          blob = new Blob([uint8Array], { type: 'application/pdf' });
+        } else {
+          blob = new Blob([uint8Array], { type: 'application/msword' });
+        }
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = row.uc0001 + fileExtension;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      });
+  }
+  onChangeSubject(index: number) {
+    const productNumber = this.products.at(index).get('productNo');
+    if (!productNumber.value) {
+      productNumber.setValue('');
+    } else {
+      let statusCurrentValue = productNumber.value;
+      this.psmList.forEach((elements) => {
+        if (elements.mdGName == statusCurrentValue) {
+          this.isSubjectCodeSuccess = true;
+        }
+      });
+      if (this.isSubjectCodeSuccess == false) {
+        productNumber.setErrors({
+          incorrect: true,
+        });
+        this.openStatusLOV(index);
       }
     }
-  
-    openStatusLOV(index: number) {
-      this.displayedColumns = [
-        { field: 'productNO', title: 'Product No' },
-        { field: 'productName', title: 'Product Name' },
-      ];
-      const dialogRef = this.dialog.open(PmsListComponent, {
-        height: '500px',
-        width: '600px',
-        data: {
-          dialogTitle: 'Status',
-          dialogColumns: this.displayedColumns,
-          dialogData: this.psmList,
-          lovName: 'statusList',
-        },
-        disableClose: true,
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.selectedDialogData = result.data;
-          this.products.at(index).patchValue({
-            productNo: this.selectedDialogData.productNO
-          });
-  
-          this.bomService
-            .productList(this.selectedDialogData.productNO)
-            .subscribe(({ data }) => {
-              data.forEach((element) => {
-                this.products.at(index).patchValue({
-                  dosageForm: element.ff0009,
-                  productName: element.ff0001,
-                  productCode: element.ff0002,
-                  market: element.ff0003,
-                  uom: element.ff0007,
-                  shelfLifeMonths: element.ff0005,
-                  productType: element.ff0008,
-                  inputCode: element.ff0010,
-                  productTrackingCode: element.ff0011,
-                  requestNo: element.ff0007,
-                  version: element.ff0008,
-                });
+  }
+
+  openStatusLOV(index: number) {
+    this.displayedColumns = [
+      { field: 'productNO', title: 'Product No' },
+      { field: 'productName', title: 'Product Name' },
+    ];
+    const dialogRef = this.dialog.open(PmsListComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Status',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.psmList,
+        lovName: 'statusList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.products.at(index).patchValue({
+          productNo: this.selectedDialogData.productNO
+        });
+
+        this.bomService
+          .productList(this.selectedDialogData.productNO)
+          .subscribe(({ data }) => {
+            data.forEach((element) => {
+              this.products.at(index).patchValue({
+                dosageForm: element.ff0009,
+                productName: element.ff0001,
+                productCode: element.ff0002,
+                market: element.ff0003,
+                uom: element.ff0007,
+                shelfLifeMonths: element.ff0005,
+                productType: element.ff0008,
+                inputCode: element.ff0010,
+                productTrackingCode: element.ff0011,
+                requestNo: element.ff0007,
+                version: element.ff0008,
               });
             });
-        }
-      });
-    }
-    openMaterialListLOV(index: number) {
-      this.displayedColumns = [
-        { field: 'materialnumber', title: 'Material Number' },
-        { field: 'materialcode', title: 'Material Code' },
-        { field: 'materialname', title: 'Material Name' },
-      ];
-      const dialogRef = this.dialog.open(LovDialogComponent, {
-        height: '500px',
-        width: '600px',
-        data: {
-          dialogTitle: 'Sales Product List',
-          dialogColumns: this.displayedColumns,
-          dialogData: this.pmmMaterialList,
-          lovName: 'businessUnitList',
-        },
-        disableClose: true,
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.selectedDialogData = result.data;
-          this.containers.at(index).patchValue({
-            materialNo: this.selectedDialogData.materialnumber,
-            materialName: this.selectedDialogData.materialname,
-            materialCode: this.selectedDialogData.materialcode
           });
+      }
+    });
+  }
+  openMaterialListLOV(index: number) {
+    this.displayedColumns = [
+      { field: 'materialnumber', title: 'Material Number' },
+      { field: 'materialcode', title: 'Material Code' },
+      { field: 'materialname', title: 'Material Name' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Sales Product List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.pmmMaterialList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.containers.at(index).patchValue({
+          materialNo: this.selectedDialogData.materialnumber,
+          materialName: this.selectedDialogData.materialname,
+          materialCode: this.selectedDialogData.materialcode
+        });
+      }
+    });
+  }
+  onChangeByMaterialCode(index: number) {
+    const materialNo = this.containers.at(index).get('materialNo');
+    const materialName = this.containers.at(index).get('materialName');
+    const materialCode = this.containers.at(index).get('materialCode');
+    if (materialCode.value == '') {
+      materialNo.setValue('');
+      materialName.setValue('');
+      materialCode.setValue('');
+    } else {
+      this.isStatusSuccess = false;
+      let statusCurrentValue = materialCode.value;
+      this.saleProductList.forEach((elements) => {
+        if (elements.puunitcode == statusCurrentValue) {
+          this.isStatusSuccess = true;
         }
       });
-    }
-    onChangeByMaterialCode(index: number) {
-      const materialNo = this.containers.at(index).get('materialNo');
-      const materialName = this.containers.at(index).get('materialName');
-      const materialCode = this.containers.at(index).get('materialCode');
-      if (materialCode.value == '') {
-        materialNo.setValue('');
-        materialName.setValue('');
-        materialCode.setValue('');
-      } else {
-        this.isStatusSuccess = false;
-        let statusCurrentValue = materialCode.value;
-        this.saleProductList.forEach((elements) => {
-          if (elements.puunitcode == statusCurrentValue) {
-            this.isStatusSuccess = true;
-          }
-        });
-        if (this.isStatusSuccess == false) {
-          materialNo.setErrors({ incorrect: true });
-          materialName.setErrors({ incorrect: true });
-          materialCode.setErrors({ incorrect: true });
-          this.openMaterialListLOV(index);
-        }
+      if (this.isStatusSuccess == false) {
+        materialNo.setErrors({ incorrect: true });
+        materialName.setErrors({ incorrect: true });
+        materialCode.setErrors({ incorrect: true });
+        this.openMaterialListLOV(index);
       }
     }
-    onChangeMaterialNo(index: number) {
-      const materialNo = this.containers.at(index).get('materialNo');
-      const materialName = this.containers.at(index).get('materialName');
-      const materialCode = this.containers.at(index).get('materialCode');
-      if (materialNo.value == '') {
-        materialNo.setValue('');
-        materialName.setValue('');
-        materialCode.setValue('');
-      } else {
-        this.isStatusSuccess = false;
-        let statusCurrentValue = materialNo.value;
-        this.saleProductList.forEach((elements) => {
-          if (elements.punumber == statusCurrentValue) {
-            this.isStatusSuccess = true;
-          }
-        });
-        if (this.isStatusSuccess == false) {
-          materialNo.setErrors({ incorrect: true });
-          materialName.setErrors({ incorrect: true });
-          materialCode.setErrors({ incorrect: true });
-          this.openMaterialListLOV(index);
+  }
+  onChangeMaterialNo(index: number) {
+    const materialNo = this.containers.at(index).get('materialNo');
+    const materialName = this.containers.at(index).get('materialName');
+    const materialCode = this.containers.at(index).get('materialCode');
+    if (materialNo.value == '') {
+      materialNo.setValue('');
+      materialName.setValue('');
+      materialCode.setValue('');
+    } else {
+      this.isStatusSuccess = false;
+      let statusCurrentValue = materialNo.value;
+      this.saleProductList.forEach((elements) => {
+        if (elements.punumber == statusCurrentValue) {
+          this.isStatusSuccess = true;
         }
+      });
+      if (this.isStatusSuccess == false) {
+        materialNo.setErrors({ incorrect: true });
+        materialName.setErrors({ incorrect: true });
+        materialCode.setErrors({ incorrect: true });
+        this.openMaterialListLOV(index);
       }
     }
-    onChangeMaterialName(index: number) {
-      const materialNo = this.containers.at(index).get('materialNo');
-      const materialName = this.containers.at(index).get('materialName');
-      const materialCode = this.containers.at(index).get('materialCode');
-      if (materialName.value == '') {
-        materialNo.setValue('');
-        materialName.setValue('');
-        materialCode.setValue('');
-      } else {
-        this.isStatusSuccess = false;
-        let statusCurrentValue = materialName.value;
-        this.saleProductList.forEach((elements) => {
-          if (elements.puunitname == statusCurrentValue) {
-            this.isStatusSuccess = true;
-          }
-        });
-        if (this.isStatusSuccess == false) {
-          materialNo.setErrors({ incorrect: true });
-          materialName.setErrors({ incorrect: true });
-          materialCode.setErrors({ incorrect: true });
-          this.openMaterialListLOV(index);
+  }
+  onChangeMaterialName(index: number) {
+    const materialNo = this.containers.at(index).get('materialNo');
+    const materialName = this.containers.at(index).get('materialName');
+    const materialCode = this.containers.at(index).get('materialCode');
+    if (materialName.value == '') {
+      materialNo.setValue('');
+      materialName.setValue('');
+      materialCode.setValue('');
+    } else {
+      this.isStatusSuccess = false;
+      let statusCurrentValue = materialName.value;
+      this.saleProductList.forEach((elements) => {
+        if (elements.puunitname == statusCurrentValue) {
+          this.isStatusSuccess = true;
         }
+      });
+      if (this.isStatusSuccess == false) {
+        materialNo.setErrors({ incorrect: true });
+        materialName.setErrors({ incorrect: true });
+        materialCode.setErrors({ incorrect: true });
+        this.openMaterialListLOV(index);
       }
     }
+  }
 }

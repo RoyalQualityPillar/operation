@@ -68,9 +68,7 @@ export class UnderSamplingListHomePageComponent implements OnInit {
   }
 
   public submit(row: any): void {
-    console.log(row)
     this.whService.saveSampling(row.uc0001).subscribe((data: any) => {
-      console.log(data);
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {

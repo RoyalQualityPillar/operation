@@ -167,10 +167,29 @@ export class BomCompletedSaveComponent implements OnInit {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
       console.log(data);
       this.bomItemValue = data.data;
+      this.containers.clear();
       const value = this.bomItemValue[0];
+      this.bomItemValue.forEach((pack: any) => {
+        const container = this.createContainer();
+        container.patchValue({
+          materialNo: pack.ff0001,
+          materialName: pack.ff0002,
+          materialCode: pack.ff0003,
+          weight: pack.ff0004,
+          weightUom: pack.ff0005,
+        });
+        this.containers.push(container);
+      });
 
-      this.bomItemValue.forEach((element: any, i: number) => {
-        const product = this.products.at(i) as FormGroup;
+    });
+  }
+  getBOMIndexMasterList(lc0003: any) {
+    this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
+      console.log(data);
+      this.bomIndexValue = data.data;
+      this.products.clear();
+      this.bomIndexValue.forEach((element: any) => {
+        const product = this.createProduct();
         product.patchValue({
           productNo: element.ff0001,
           productName: element.ff0002,
@@ -182,28 +201,8 @@ export class BomCompletedSaveComponent implements OnInit {
           dosageForm: element.ff0008,
           inputCode: element.ff0009,
           productTrackingCode: element.ff0010,
-
         });
-
-
-      });
-
-    });
-  }
-  getBOMIndexMasterList(lc0003: any) {
-    this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
-      console.log(data);
-      this.bomIndexValue = data.data;
-      console.log(this.bomIndexValue)
-      this.bomIndexValue.forEach((pack: any, i: number) => {
-        const container = this.containers.at(i) as FormGroup;
-        container.patchValue({
-          materialNo: pack.ff0001,
-          materialName: pack.ff0002,
-          materialCode: pack.ff0003,
-          weight: pack.ff0004,
-          weightUom: pack.ff0005,
-        });
+        this.products.push(product);
       });
     });
   }
@@ -273,9 +272,9 @@ export class BomCompletedSaveComponent implements OnInit {
       });
     this.isLoading = false;
   }
-  public downloadGRNReport() {
+  public downloadBOMReport() {
     const lcNumber = this.headerData?.lcnum;
-    const templateName = 'grnReport.html';
+    const templateName = 'bom.html';
     const moduleCode = this.headerData?.modulecode;
     const lcrnumber = this.headerData.requestNo;
     this.isLoading = true;
