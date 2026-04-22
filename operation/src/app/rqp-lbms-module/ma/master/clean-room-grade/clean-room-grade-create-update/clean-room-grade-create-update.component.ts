@@ -64,7 +64,7 @@ export class CleanRoomGradeCreateUpdateComponent implements OnInit {
       ff0002: ['', Validators.required],
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
       unitcode: ['']
     });
   }
