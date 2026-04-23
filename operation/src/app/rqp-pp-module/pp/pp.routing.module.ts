@@ -20,6 +20,8 @@ import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-complet
 import { BomModuleAdminComponent } from "../bom/bom-module-admin/bom-module-admin.component";
 import { EpoModuleAdminComponent } from "../epo/epo-module-admin/epo-module-admin.component";
 import { ExecutionProductOrderListComponent } from "../epo/execution-product-order-list/execution-product-order-list.component";
+import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
+import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
 
 const routes: Routes = [
 
@@ -43,7 +45,9 @@ const routes: Routes = [
   { path: 'bom-module-admin', component: BomModuleAdminComponent },
   { path: 'epo-module-admin', component: EpoModuleAdminComponent },
   { path: 'execution-product-order-list', component: ExecutionProductOrderListComponent },
-];
+   { path: 'eplo-module-admin', component: EploModuleAdminComponent },
+{ path: 'planning-order-list', component: PlanningOrderListComponent },
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

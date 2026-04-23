@@ -27,6 +27,8 @@ import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-complet
 import { BomModuleAdminComponent } from "../bom/bom-module-admin/bom-module-admin.component";
 import { EpoModuleAdminComponent } from "../epo/epo-module-admin/epo-module-admin.component";
 import { ExecutionProductOrderListComponent } from "../epo/execution-product-order-list/execution-product-order-list.component";
+import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
+import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
 
 @NgModule({
   declarations: [
@@ -53,6 +55,10 @@ import { ExecutionProductOrderListComponent } from "../epo/execution-product-ord
     BomModuleAdminComponent,
     EpoModuleAdminComponent,
     ExecutionProductOrderListComponent,
+        EploModuleAdminComponent,
+            PlanningOrderListComponent,
+ 
+
 
   ],
   imports: [

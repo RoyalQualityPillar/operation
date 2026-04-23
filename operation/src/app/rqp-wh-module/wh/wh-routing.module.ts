@@ -18,6 +18,8 @@ import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-
 import { UnderTestingListComponent } from '../sm/under-testing-list/under-testing-list.component';
 import { QsmModuleAdminComponent } from '../qsm/qsm-module-admin/qsm-module-admin.component';
 import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-status-list.component';
+import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.component';
+import { QmModuleAdminComponent } from '../qm/qm-module-admin/qm-module-admin.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -38,6 +40,9 @@ const routes: Routes = [
   { path: 'under-testing-list', component: UnderTestingListComponent },
   { path: 'qsm-module-admin', component: QsmModuleAdminComponent },
   { path: 'quality-status-list', component: QualityStatusListComponent },
+{ path: 'quarantine-list', component: QuarantineListComponent },
+{ path: 'qm-module-admin', component: QmModuleAdminComponent },
+
 ];
 
 @NgModule({
