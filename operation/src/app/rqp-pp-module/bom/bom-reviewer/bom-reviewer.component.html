@@ -97,12 +97,7 @@
                     <div class="float-start">
                         <p class="section_header_title">Container Details (Lot Level)s - {{ i + 1 }}</p>
                     </div>
-                    <!-- <div class="float-left d-flex gap-2">               -->
-                    <div class="float-end">
-                        <!-- <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0"
-                            (click)="removeContainer(i)">
-                            Delete Container
-                        </button> -->
+                    <div class="float-end">                      
                     </div>
                 </div>
             </div>
@@ -135,6 +130,64 @@
     </div>
 </form>
 <!--Table end-->
+<!-- <form [formGroup]="ContainerRequirementForm">
+    <div formArrayName="containers">       
+        <table class="display-table  no-gutters ms-1 me-1 dense-4" id="dataTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Material Number</th>
+                    <th>Material Name</th>
+                    <th>Material Code</th>
+                    <th>Weight</th>
+                    <th>UOM</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of containers.controls; let idx = index"  [formGroupName]="idx">
+                    <td class="">
+                        <img src="/assets/delete.png" (click)="removeContainer(idx)" />
+                    </td>
+                    <td>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Material Number</mat-label>
+                            <input type="text" matInput formControlName="materialNo" placeholder="Material Number"
+                               />                            
+                        </mat-form-field>
+                    </td>
+                    <td class="">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Material Name</mat-label>
+                            <input type="text" matInput formControlName="materialName"
+                                 placeholder="Material Name" />                            
+                        </mat-form-field>
+                    </td>
+                    <td class="">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Material Code</mat-label>
+                            <input type="text" matInput formControlName="materialCode"
+                                placeholder="Material Code" />                           
+                        </mat-form-field>
+                    </td>
+                    <td class="">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Weight</mat-label>
+                            <input type="text" formControlName="weight" matInput placeholder="Weight" />
+                        </mat-form-field>
+                    </td>
+                    <td class="">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>UOM</mat-label>                           
+                            <input type="text" formControlName="weightUom" matInput placeholder="WeightUom" />
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</form> -->
 <div class="table-box">
     <div class="section_header">
         <div class="float-left">

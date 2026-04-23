@@ -48,9 +48,17 @@ export class PpService {
   public qualityStatusList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/slt-list?unitCode=${unitCode} `);
   }
+  public planningOrderList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/planning-order-list?unitCode=${unitCode} `);
+  }
    public saveExecutionProductOrderList(uc0001:string){
    const queryParams = `?uc0001=${uc0001}`;
    const samplingURL = this.API_URL + 'pp/relase-order-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+  public saveExecutionPlaningOrderList(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const samplingURL = this.API_URL + 'pp/planning-order-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
   getNextStageList(requestBody: any) {

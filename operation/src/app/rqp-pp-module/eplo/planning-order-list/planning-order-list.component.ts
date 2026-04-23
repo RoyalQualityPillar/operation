@@ -1,24 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalConstants } from 'src/app/common/global-constants';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { PpService } from '../../pp.service';
 import { CookieService } from 'ngx-cookie-service';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { GlobalConstants } from 'src/app/common/global-constants';
+import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 
 @Component({
-  selector: 'app-execution-product-order-list',
+  selector: 'app-planning-order-list',
   standalone: false,
-  templateUrl: './execution-product-order-list.component.html',
-  styleUrl: './execution-product-order-list.component.scss'
+  templateUrl: './planning-order-list.component.html',
+  styleUrl: './planning-order-list.component.scss'
 })
-export class ExecutionProductOrderListComponent implements OnInit {
+export class PlanningOrderListComponent implements OnInit {
    @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-public executionProductData: any;
+public planningOrderListData: any;
 public dataSource: any;
  public isLoading = false;
  displayedColumns = [
@@ -38,15 +38,15 @@ private ppService:PpService,
 ){}
   ngOnInit(): void {
      let unitCode = this.cookieService.get('buCode');
-   this.ppService.qualityStatusList(unitCode).subscribe((data: any) => {
+   this.ppService.planningOrderList(unitCode).subscribe((data: any) => {
         this.dataSource = data.data;
-        this.executionProductData = new MatTableDataSource(this.dataSource);
-        this.executionProductData.sort = this.sort;
-        this.executionProductData.paginator = this.paginator;
+        this.planningOrderListData = new MatTableDataSource(this.dataSource);
+        this.planningOrderListData.sort = this.sort;
+        this.planningOrderListData.paginator = this.paginator;
       });
 }
  public pageChanged(event): void {
-    if (this.executionProductData.length == GlobalConstants.size) {
+    if (this.planningOrderListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize

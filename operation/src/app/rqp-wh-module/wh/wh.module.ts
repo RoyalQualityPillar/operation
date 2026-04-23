@@ -27,6 +27,8 @@ import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-
 import { UnderTestingListComponent } from '../sm/under-testing-list/under-testing-list.component';
 import { QsmModuleAdminComponent } from '../qsm/qsm-module-admin/qsm-module-admin.component';
 import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-status-list.component';
+import { QmModuleAdminComponent } from '../qm/qm-module-admin/qm-module-admin.component';
+import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-s
     UnderTestingListComponent,
     QsmModuleAdminComponent,
     QualityStatusListComponent,
+       QmModuleAdminComponent,
+    QuarantineListComponent,
 
   ],
   imports: [
