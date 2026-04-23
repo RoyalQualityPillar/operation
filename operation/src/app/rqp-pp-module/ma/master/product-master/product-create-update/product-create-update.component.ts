@@ -61,9 +61,9 @@ export class ProductCreateUpdateComponent implements OnInit, OnDestroy {
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
       ff0003: ['', Validators.required],
-      ff0004: ['', Validators.required],
+      ff0004: [0, Validators.required],
       ff0005: ['', Validators.required],
-      ff0006: ['', Validators.required],
+      ff0006: [0, Validators.required],
       ff0007: ['', Validators.required],
       ff0008: ['', Validators.required],
       ff0009: ['', Validators.required],
@@ -71,7 +71,7 @@ export class ProductCreateUpdateComponent implements OnInit, OnDestroy {
       ff0011: ['', Validators.required],
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
     });
   }
 

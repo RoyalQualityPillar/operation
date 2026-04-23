@@ -68,7 +68,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
     });
   }
 
