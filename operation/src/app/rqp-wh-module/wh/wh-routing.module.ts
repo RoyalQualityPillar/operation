@@ -20,6 +20,7 @@ import { QsmModuleAdminComponent } from '../qsm/qsm-module-admin/qsm-module-admi
 import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-status-list.component';
 import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.component';
 import { QmModuleAdminComponent } from '../qm/qm-module-admin/qm-module-admin.component';
+import { QuarantinePackDisplayComponent } from '../qm/quarantine-list/quarantine-pack-display/quarantine-pack-display.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'quality-status-list', component: QualityStatusListComponent },
 { path: 'quarantine-list', component: QuarantineListComponent },
 { path: 'qm-module-admin', component: QmModuleAdminComponent },
+{path: 'quarantine-display-list',component: QuarantinePackDisplayComponent}
 
 ];
 

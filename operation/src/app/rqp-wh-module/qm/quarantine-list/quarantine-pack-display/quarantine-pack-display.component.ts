@@ -1,22 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { WhService } from '../../wh.service';
-import { CookieService } from 'ngx-cookie-service';
-import { NotificationService } from 'src/app/common/notification.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { GlobalConstants } from 'src/app/common/global-constants';
-import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { GlobalConstants } from 'src/app/common/global-constants';
+import { NotificationService } from 'src/app/common/notification.service';
+import { WhService } from 'src/app/rqp-wh-module/wh.service';
 
 @Component({
-  selector: 'app-quarantine-list',
+  selector: 'app-quarantine-pack-display',
   standalone: false,
-  templateUrl: './quarantine-list.component.html',
-  styleUrl: './quarantine-list.component.scss'
+  templateUrl: './quarantine-pack-display.component.html',
+  styleUrl: './quarantine-pack-display.component.scss'
 })
-export class QuarantineListComponent implements OnInit {
+export class QuarantinePackDisplayComponent implements OnInit {
    @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 public quarantineListData: any;
@@ -25,7 +24,7 @@ public dataSource: any;
  public selectedRow: any;
  public selectRow: any;
  displayedColumns = [
-    'selectAction',
+    //'selectAction',
     'ff0001',
     'ff0003',
     'ff0004',
@@ -36,19 +35,18 @@ public dataSource: any;
   ];
 constructor(
 private whService:WhService,
- private cookieService: CookieService,
-  public dialog: MatDialog,
-     private notificationService: NotificationService,
-     private router: Router
+private cookieService: CookieService,
+public dialog: MatDialog,
+private notificationService: NotificationService,
+private router: Router
 ){}
   ngOnInit(): void {
-
-     let unitCode = this.cookieService.get('buCode');
-   this.whService.quarantineList(unitCode).subscribe((data: any) => {
+  const lc0003 = this.cookieService.get('lc0003');
+  this.whService.quarantineDisplayList(lc0003).subscribe((data: any) => {
         this.dataSource = data.data;
         this.quarantineListData = new MatTableDataSource(this.dataSource);
-        this.quarantineListData.sort = this.sort;
-        this.quarantineListData.paginator = this.paginator;
+        // this.quarantineListData.sort = this.sort;
+        // this.quarantineListData.paginator = this.paginator;
       });      
 }
 
@@ -78,10 +76,10 @@ setSelectedID(row: any) {
   }
 
 public submit(value:any){
-  //console.log(value);
-  console.log('Submitted:', this.selectRow);
+  console.log(value);
+  // console.log('Submitted:', this.selectRow);
 
-  this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
+  // this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
   //  sessionStorage.setItem('selectRow', JSON.stringify(this.selectRow));
   //   this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
 //  this.whService.savequarantineList(value.uc0001).subscribe((data: any) => {

@@ -12,6 +12,7 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { LovDialogComponent } from './common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from './common/message-dialog/message-dialog.component';
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
+import { QuarantinePackDisplayComponent } from './rqp-wh-module/qm/quarantine-list/quarantine-pack-display/quarantine-pack-display.component';
 
 
 
@@ -27,7 +28,11 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
+<<<<<<< HEAD
+   
+=======
     
+>>>>>>> 245d7bcdd1e513749b2973a6e46c3c9041fab1b1
     
 
 
