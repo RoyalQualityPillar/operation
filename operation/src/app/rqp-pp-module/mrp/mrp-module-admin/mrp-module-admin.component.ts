@@ -12,4 +12,7 @@ export class MrpModuleAdminComponent {
   MaterialRequirementPlanning(): void {
     this.router.navigate(['./rqpoperationui/pp/material-requ-planning']);
   }
+  MaterialRequirementVerification(): void {
+    this.router.navigate(['./rqpoperationui/pp/material-requ-verf']);
+  }
 }
