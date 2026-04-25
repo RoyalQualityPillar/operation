@@ -26,8 +26,8 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     //CustomSnackBarComponent,
     LovDialogComponent,
     MessageDialogComponent,
-    PmsListComponent, 
-    
+    PmsListComponent,
+ 
 
 
 

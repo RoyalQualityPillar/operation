@@ -22,6 +22,7 @@ import { EpoModuleAdminComponent } from "../epo/epo-module-admin/epo-module-admi
 import { ExecutionProductOrderListComponent } from "../epo/execution-product-order-list/execution-product-order-list.component";
 import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
 import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
+import { MaterialIssuanceComponent } from "../mrp/material-issuance/material-issuance.component";
 
 const routes: Routes = [
 
@@ -45,9 +46,10 @@ const routes: Routes = [
   { path: 'bom-module-admin', component: BomModuleAdminComponent },
   { path: 'epo-module-admin', component: EpoModuleAdminComponent },
   { path: 'execution-product-order-list', component: ExecutionProductOrderListComponent },
-   { path: 'eplo-module-admin', component: EploModuleAdminComponent },
-{ path: 'planning-order-list', component: PlanningOrderListComponent },
-  ];
+  { path: 'eplo-module-admin', component: EploModuleAdminComponent },
+  { path: 'planning-order-list', component: PlanningOrderListComponent },
+  { path: 'material-issuance', component: MaterialIssuanceComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
