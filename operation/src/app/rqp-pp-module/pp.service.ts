@@ -51,6 +51,12 @@ export class PpService {
   public planningOrderList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/planning-order-list?unitCode=${unitCode} `);
   }
+  public planningOrderLists(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/Process-order-item-list?unitCode=${unitCode} `);
+  }
+  public MaterialReqPlanning(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/plan-order-mrp-list?unitCode=${unitCode} `);
+  }
    public saveExecutionProductOrderList(uc0001:string){
    const queryParams = `?uc0001=${uc0001}`;
    const samplingURL = this.API_URL + 'pp/relase-order-save' +queryParams;
@@ -59,6 +65,16 @@ export class PpService {
   public saveExecutionPlaningOrderList(uc0001:string){
    const queryParams = `?uc0001=${uc0001}`;
    const samplingURL = this.API_URL + 'pp/planning-order-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+  public saveExecutionPlaningOrderLists(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const samplingURL = this.API_URL + 'pp/Process-order-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+  public saveMaterialReqPlanningOrderList(ff0012:string){
+   const queryParams = `?ff0012=${ff0012}`;
+   const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
   getNextStageList(requestBody: any) {

@@ -38,7 +38,7 @@ private ppService:PpService,
 ){}
   ngOnInit(): void {
      let unitCode = this.cookieService.get('buCode');
-   this.ppService.planningOrderList(unitCode).subscribe((data: any) => {
+   this.ppService.planningOrderLists(unitCode).subscribe((data: any) => {
         this.dataSource = data.data;
         this.planningOrderListData = new MatTableDataSource(this.dataSource);
         this.planningOrderListData.sort = this.sort;
