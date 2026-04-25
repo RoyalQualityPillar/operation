@@ -26,6 +26,7 @@ import { MrpModuleAdminComponent } from "../mrp/mrp-module-admin/mrp-module-admi
 import { MaterialRequPlanningComponent } from "../mrp/material-requ-planning/material-requ-planning.component";
 import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-admin.component";
 import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
+import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
 
 const routes: Routes = [
 
@@ -54,7 +55,8 @@ const routes: Routes = [
 { path: 'mrp-module-admin', component:MrpModuleAdminComponent },
 { path: 'material-requ-planning', component:MaterialRequPlanningComponent },
 { path: 'epro-module-admin', component:EproModuleAdminComponent },
-{ path: 'execution-process-order', component: ExecutionProcessOrderComponent, },
+{ path: 'execution-process-order', component: ExecutionProcessOrderComponent },
+{ path: 'material-requ-verf', component: MaterialRequVerfComponent },
   ];
 
 @NgModule({
