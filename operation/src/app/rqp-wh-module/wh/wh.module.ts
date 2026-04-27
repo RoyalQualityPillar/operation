@@ -29,6 +29,11 @@ import { QsmModuleAdminComponent } from '../qsm/qsm-module-admin/qsm-module-admi
 import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-status-list.component';
 import { QmModuleAdminComponent } from '../qm/qm-module-admin/qm-module-admin.component';
 import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.component';
+import { QuarantinePackDisplayComponent } from '../qm/quarantine-list/quarantine-pack-display/quarantine-pack-display.component';
+import { MdmModuleAdminComponent } from '../mdm/mdm-module-admin/mdm-module-admin.component';
+import { MaterialDispensingComponent } from '../mdm/material-dispensing/material-dispensing.component';
+import { MaterialReservedListComponent } from '../mdm/material-reserved-list/material-reserved-list.component';
+import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack-list/material-reserved-pack-list.component';
 
 
 @NgModule({
@@ -55,8 +60,14 @@ import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.c
     UnderTestingListComponent,
     QsmModuleAdminComponent,
     QualityStatusListComponent,
-       QmModuleAdminComponent,
+    QmModuleAdminComponent,
     QuarantineListComponent,
+    QuarantinePackDisplayComponent,
+    MdmModuleAdminComponent,
+    MaterialDispensingComponent,
+     MaterialReservedListComponent,
+    MaterialReservedPackListComponent,
+
 
   ],
   imports: [

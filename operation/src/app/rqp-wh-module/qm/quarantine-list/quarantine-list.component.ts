@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quarantine-list',
@@ -21,23 +22,25 @@ export class QuarantineListComponent implements OnInit {
 public quarantineListData: any;
 public dataSource: any;
  public isLoading = false;
+ public selectedRow: any;
+ public selectRow: any;
  displayedColumns = [
+    'action',
     'ff0001',
     'ff0003',
     'ff0004',
     'ff0006',
     'createdon',
     'createdby',
-    'action',
   ];
 constructor(
 private whService:WhService,
  private cookieService: CookieService,
   public dialog: MatDialog,
      private notificationService: NotificationService,
+     private router: Router
 ){}
   ngOnInit(): void {
-
      let unitCode = this.cookieService.get('buCode');
    this.whService.quarantineList(unitCode).subscribe((data: any) => {
         this.dataSource = data.data;
@@ -46,6 +49,10 @@ private whService:WhService,
         this.quarantineListData.paginator = this.paginator;
       });      
 }
+setSelectedID(row: any) {
+  this.selectRow = row;
+}
+
  public pageChanged(event): void {
     if (this.quarantineListData.length == GlobalConstants.size) {
       if (
@@ -62,23 +69,10 @@ private whService:WhService,
   }
 
 public submit(value:any){
-  console.log(value);
-//  this.whService.savequarantineList(value.uc0001).subscribe((data: any) => {
-//       if (data.errorInfo != null) {
-//         this.isLoading = false;
-//         this.dialog.open(MessageDialogComponent, {
-//           data: {
-//             message: data.errorInfo.message,
-//             heading: 'Error Information',
-//           },
-//         });
-//       } else {
-//         this.isLoading = false;
-//         this.notificationService.showSuccess(data.status, () => {
-//           console.log('Success Snackbar Closed');
-//         });
-//       }
-//     });
+value = this.selectRow  
+   sessionStorage.setItem('selectRow', JSON.stringify(value));
+    this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
 }
+ 
 
 }

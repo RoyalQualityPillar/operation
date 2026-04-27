@@ -46,7 +46,14 @@ export class PpService {
     return this.http.post(saveUpdateURL, requestBody);
   }
   public qualityStatusList(unitCode: string): Observable<any> {
-    return this.http.get(this.API_URL + `pp/slt-list?unitCode=${unitCode} `);
+    return this.http.get(this.API_URL + `pp/sso-Product-list?unitCode=${unitCode} `);
+  }
+  // public qualityStatusLists(uc0001: string): Observable<any> {
+  //   return this.http.get(this.API_URL + `pp/Product-order-save?uc0001=${uc0001} `);
+  // }
+  qualityStatusLists(uc0001: string): Observable<any> {
+    const saveUpdateURL = this.API_URL + `pp/Product-order-save?uc0001=${uc0001} `
+    return this.http.post(saveUpdateURL, uc0001);
   }
   public planningOrderList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/planning-order-list?unitCode=${unitCode} `);
@@ -55,6 +62,9 @@ export class PpService {
     return this.http.get(this.API_URL + `pp/Process-order-item-list?unitCode=${unitCode} `);
   }
   public MaterialReqPlanning(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/planning-order-list?unitCode=${unitCode} `);
+  }
+  public PlanOrderMrpList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/plan-order-mrp-list?unitCode=${unitCode} `);
   }
    public saveExecutionProductOrderList(uc0001:string){
@@ -69,14 +79,20 @@ export class PpService {
   }
   public saveExecutionPlaningOrderLists(uc0001:string){
    const queryParams = `?uc0001=${uc0001}`;
-   const samplingURL = this.API_URL + 'pp/Process-order-save' +queryParams;
+   const samplingURL = this.API_URL + 'Product-order-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
-  public saveMaterialReqPlanningOrderList(ff0012:string){
-   const queryParams = `?ff0012=${ff0012}`;
+  public saveMaterialReqPlanningOrderList(ff0010:string){
+   const queryParams = `?ff0012=${ff0010}`;
    const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
+   public savePlanOrderMrpList(uc0001:string){
+   const queryParams = `?Uc0001=${uc0001}`;
+   const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+  
   getNextStageList(requestBody: any) {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
@@ -252,6 +268,12 @@ export class PpService {
    const queryParams = `?Uc0001=${Uc0001}`;
    const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' +queryParams;
    return this.http.post(samplingURL, '');
+  }
+  public materialReservedList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-reserved-list?unitCode=${unitCode} `);
+  }
+   public materialReservedPackList(lc0005: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-reserved-pack-list?lc0005=${lc0005} `);
   }
   
 }
