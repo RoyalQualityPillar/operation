@@ -30,6 +30,10 @@ import { ExecutionProductOrderListComponent } from "../epo/execution-product-ord
 import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
 import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
 import { MaterialIssuanceComponent } from "../mrp/material-issuance/material-issuance.component";
+import { MrpModuleAdminComponent } from "../mrp/mrp-module-admin/mrp-module-admin.component";
+import { MaterialRequPlanningComponent } from "../mrp/material-requ-planning/material-requ-planning.component";
+import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-admin.component";
+import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
 
 @NgModule({
   declarations: [
@@ -59,6 +63,11 @@ import { MaterialIssuanceComponent } from "../mrp/material-issuance/material-iss
     EploModuleAdminComponent,
     PlanningOrderListComponent,
     MaterialIssuanceComponent,
+    MrpModuleAdminComponent,
+    MaterialRequPlanningComponent,
+    EproModuleAdminComponent,
+    ExecutionProcessOrderComponent,
+
 
 
 

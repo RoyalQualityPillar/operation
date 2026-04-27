@@ -23,6 +23,10 @@ import { ExecutionProductOrderListComponent } from "../epo/execution-product-ord
 import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
 import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
 import { MaterialIssuanceComponent } from "../mrp/material-issuance/material-issuance.component";
+import { MrpModuleAdminComponent } from "../mrp/mrp-module-admin/mrp-module-admin.component";
+import { MaterialRequPlanningComponent } from "../mrp/material-requ-planning/material-requ-planning.component";
+import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-admin.component";
+import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
 
 const routes: Routes = [
 
@@ -48,7 +52,12 @@ const routes: Routes = [
   { path: 'execution-product-order-list', component: ExecutionProductOrderListComponent },
   { path: 'eplo-module-admin', component: EploModuleAdminComponent },
   { path: 'planning-order-list', component: PlanningOrderListComponent },
+  { path: 'mrp-module-admin', component: MrpModuleAdminComponent },
+  { path: 'material-requ-planning', component: MaterialRequPlanningComponent },
+  { path: 'epro-module-admin', component: EproModuleAdminComponent },
+  { path: 'execution-process-order', component: ExecutionProcessOrderComponent, },
   { path: 'material-issuance', component: MaterialIssuanceComponent },
+
 ];
 
 @NgModule({
