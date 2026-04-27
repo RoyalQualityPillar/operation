@@ -1,20 +1,32 @@
 <div class="table-box">
-  <mat-table [dataSource]="planningOrderListData" matSort id="dataTable" class="table_background_color">
+  <mat-table [dataSource]="materialReservedPackListData" matSort id="dataTable" class="table_background_color">
+    <!-- <ng-container matColumnDef="selectAction">
+  <mat-header-cell *matHeaderCellDef>
+    Action
+  </mat-header-cell>
+  <mat-cell *matCellDef="let row">
+    <mat-radio-button
+      name="selectedRow"
+      [value]="row"
+      (change)="setSelectedID(row)">
+    </mat-radio-button>
+  </mat-cell>
+</ng-container> -->
           <ng-container matColumnDef="ff0001">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         Material Number
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0004 }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ff0003">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Name
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0002}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ff0004">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Name
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0003 }} </mat-cell>
     </ng-container>    
@@ -22,13 +34,7 @@
     <ng-container matColumnDef="ff0006">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
       </mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.ff0004 }}</mat-cell>
-    </ng-container>
-
-     <ng-container matColumnDef="ff0007">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>UOM
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.ff0004 }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0006 }}</mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="createdon">
@@ -47,12 +53,28 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Submit
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Batch
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <mat-icon class="cursor" (click)="submit(row)" > toggle_on </mat-icon>
       </mat-cell>
     </ng-container>   
+    <!-- <ng-container matColumnDef="action">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>
+    Batch
+  </mat-header-cell>
+
+  <mat-cell *matCellDef="let row">
+    <mat-icon
+      class="cursor"
+      [class.disabled]="selectedRow !== row"
+      (click)="submit(row)">
+      
+      {{ row.batch ? 'toggle_on' : 'toggle_off' }}
+      
+    </mat-icon>
+  </mat-cell>
+</ng-container> -->
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
@@ -62,3 +84,8 @@
     aria-label="Select page of periodic rows">
   </mat-paginator>
 </div>
+<!-- <div class="submit-container">
+  <button mat-raised-button color="primary" (click)="submit(selectedRow)">
+    Submit
+  </button>
+</div> -->

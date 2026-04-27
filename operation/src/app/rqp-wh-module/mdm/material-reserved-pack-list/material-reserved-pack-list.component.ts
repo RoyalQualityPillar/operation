@@ -1,29 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { WhService } from '../../wh.service';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalConstants } from 'src/app/common/global-constants';
+import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
-import { WhService } from 'src/app/rqp-wh-module/wh.service';
+import { Router } from '@angular/router';
+import { GlobalConstants } from 'src/app/common/global-constants';
+import { MatTableDataSource } from '@angular/material/table';
+import { PpService } from 'src/app/rqp-pp-module/pp.service';
 
 @Component({
-  selector: 'app-quarantine-pack-display',
+  selector: 'app-material-reserved-pack-list',
   standalone: false,
-  templateUrl: './quarantine-pack-display.component.html',
-  styleUrl: './quarantine-pack-display.component.scss'
+  templateUrl: './material-reserved-pack-list.component.html',
+  styleUrl: './material-reserved-pack-list.component.scss'
 })
-export class QuarantinePackDisplayComponent implements OnInit {
+export class MaterialReservedPackListComponent implements OnInit {
    @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-public quarantineListData: any;
+public materialReservedPackListData: any;
 public dataSource: any;
  public isLoading = false;
  public selectedRow: any;
  public selectRow: any;
- lc0003:any
+ lc0005:any
  displayedColumns = [
     //'selectAction',
     'ff0001',
@@ -35,7 +36,7 @@ public dataSource: any;
     'action',
   ];
 constructor(
-private whService:WhService,
+private ppService:PpService,
 private cookieService: CookieService,
 public dialog: MatDialog,
 private notificationService: NotificationService,
@@ -44,12 +45,12 @@ private router: Router
   ngOnInit(): void {
      const storedData = sessionStorage.getItem('selectRow');
     this.selectRow = JSON.parse(storedData);
-    this.lc0003 = this.selectRow.lc0003;
-  this.whService.quarantineDisplayList(this.lc0003).subscribe((data: any) => {
-        // this.dataSource = data;
-        // this.quarantineListData = new MatTableDataSource(this.dataSource);
-        // this.quarantineListData.sort = this.sort;
-        // this.quarantineListData.paginator = this.paginator;
+    this.lc0005 = this.selectRow.lc0005;
+  this.ppService.materialReservedPackList(this.lc0005).subscribe((data: any) => {
+        this.dataSource = data.data;
+        this.materialReservedPackListData = new MatTableDataSource(this.dataSource);
+        this.materialReservedPackListData.sort = this.sort;
+        this.materialReservedPackListData.paginator = this.paginator;
          
       
       });      
@@ -60,7 +61,7 @@ setSelectedID(row: any) {
 }
 
  public pageChanged(event): void {
-    if (this.quarantineListData.length == GlobalConstants.size) {
+    if (this.materialReservedPackListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize

@@ -22,10 +22,15 @@ public planningOrderListData: any;
 public dataSource: any;
  public isLoading = false;
  displayedColumns = [
+    'lc0005',
     'ff0001',
+    'ff0002',
     'ff0003',
-    'ff0004',
-    'ff0006',
+     'ff0004',
+    'ff0005',
+    'ff0012',
+    'ff0014',
+    'lc0003',
     'createdon',
     'createdby',
     'action',
