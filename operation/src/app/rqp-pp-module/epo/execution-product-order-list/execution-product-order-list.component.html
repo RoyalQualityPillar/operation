@@ -2,19 +2,19 @@
   <mat-table [dataSource]="executionProductData" matSort id="dataTable" class="table_background_color">
           <ng-container matColumnDef="ff0001">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Material Number
+        Product Number
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ff0003">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Product Code
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ff0004">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Name
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0016 }} </mat-cell>
     </ng-container>    
@@ -23,6 +23,11 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.ff0010 }}</mat-cell>
+    </ng-container>
+     <ng-container matColumnDef="ff0007">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>UOM
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0011 }}</mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="createdon">

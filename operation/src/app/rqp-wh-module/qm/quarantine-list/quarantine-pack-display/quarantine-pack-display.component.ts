@@ -23,6 +23,7 @@ public dataSource: any;
  public isLoading = false;
  public selectedRow: any;
  public selectRow: any;
+ lc0003:any
  displayedColumns = [
     //'selectAction',
     'ff0001',
@@ -41,12 +42,14 @@ private notificationService: NotificationService,
 private router: Router
 ){}
   ngOnInit(): void {
-  const lc0003 = this.cookieService.get('lc0003');
-  this.whService.quarantineDisplayList(lc0003).subscribe((data: any) => {
-        this.dataSource = data.data;
+  this.whService.quarantineDisplayList(this.lc0003).subscribe((data: any) => {
+        // this.dataSource = data.data;
+        this.lc0003 = data.data;
         this.quarantineListData = new MatTableDataSource(this.dataSource);
         // this.quarantineListData.sort = this.sort;
         // this.quarantineListData.paginator = this.paginator;
+         
+      
       });      
 }
 
