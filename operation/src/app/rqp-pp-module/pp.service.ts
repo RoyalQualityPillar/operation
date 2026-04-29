@@ -82,8 +82,8 @@ export class PpService {
    const samplingURL = this.API_URL + 'Product-order-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
-  public saveMaterialReqPlanningOrderList(ff0010:string){
-   const queryParams = `?ff0012=${ff0010}`;
+  public saveMaterialReqPlanningOrderList(ff0002:string){
+   const queryParams = `?ff0012=${ff0002}`;
    const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
