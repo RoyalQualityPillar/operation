@@ -25,6 +25,9 @@ import { MdmModuleAdminComponent } from '../mdm/mdm-module-admin/mdm-module-admi
 import { MaterialDispensingComponent } from '../mdm/material-dispensing/material-dispensing.component';
 import { MaterialReservedListComponent } from '../mdm/material-reserved-list/material-reserved-list.component';
 import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack-list/material-reserved-pack-list.component';
+import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admin.component';
+import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
+import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -50,8 +53,11 @@ const routes: Routes = [
   { path: 'quarantine-display-list', component: QuarantinePackDisplayComponent },
   { path: 'mdm-module-admin', component: MdmModuleAdminComponent },
   { path: 'material-dispensing', component: MaterialDispensingComponent },
- { path: 'material-reserved-list', component: MaterialReservedListComponent },
+  { path: 'material-reserved-list', component: MaterialReservedListComponent },
   { path: 'material-reserved-pack-list', component: MaterialReservedPackListComponent },
+  { path: 'slc-module-admin', component: SlcModuleAdminComponent },
+  { path: 'approved-material-list', component: ApprovedMaterialListComponent },
+  { path: 'location-update', component: LocationUpdateComponent }
 ];
 
 @NgModule({

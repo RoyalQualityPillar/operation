@@ -1,25 +1,25 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { GlobalConstants } from 'src/app/common/global-constants';
+import { WhService } from '../../wh.service';
+import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
-import { ShowMaterialIssuanceComponent } from 'src/app/rqp-pp-module/mrp/show-material-issuance/show-material-issuance.component';
-import { PpService } from 'src/app/rqp-pp-module/pp.service';
+import { Router } from '@angular/router';
+import { LocationUpdateComponent } from '../location-update/location-update.component';
 
 @Component({
-  selector: 'app-material-reserved-list',
+  selector: 'app-approved-material-list',
   standalone: false,
-  templateUrl: './material-reserved-list.component.html',
-  styleUrl: './material-reserved-list.component.scss'
+  templateUrl: './approved-material-list.component.html',
+  styleUrl: './approved-material-list.component.scss'
 })
-export class MaterialReservedListComponent implements OnInit {
+export class ApprovedMaterialListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-  public materialReservedListData: any;
+  public approvedMaterialListData: any;
   public dataSource: any;
   public isLoading = false;
   public selectRow: any;
@@ -39,29 +39,26 @@ export class MaterialReservedListComponent implements OnInit {
     'createdby',
   ];
   constructor(
-    private ppService: PpService,
+    private whService: WhService,
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
      private router: Router,
   ) { }
-  ngOnInit(): void {
-    const storedValue = sessionStorage.getItem('selectRow');
-    let value = JSON.parse(storedValue);
+  ngOnInit(): void {   
     let unitCode = this.cookieService.get('buCode');
-    let lc0005 = value.lc0005;
-    this.ppService.materialReservedList(unitCode, lc0005).subscribe((data: any) => {
+    this.whService.approverList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
-      this.materialReservedListData = new MatTableDataSource(this.dataSource);
-      this.materialReservedListData.sort = this.sort;
-      this.materialReservedListData.paginator = this.paginator;
+      this.approvedMaterialListData = new MatTableDataSource(this.dataSource);
+      this.approvedMaterialListData.sort = this.sort;
+      this.approvedMaterialListData.paginator = this.paginator;
     });
   }
   setSelectedID(row: any) {
   this.selectRow = row;
 }
   public pageChanged(event): void {
-    if (this.materialReservedListData.length == GlobalConstants.size) {
+    if (this.approvedMaterialListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize
@@ -80,9 +77,9 @@ export class MaterialReservedListComponent implements OnInit {
   //  sessionStorage.setItem('selectRow', JSON.stringify(value));
   //   this.router.navigate(['./rqpoperationui/wh/material-reserved-pack-list']);
    
-this.dialog.open(ShowMaterialIssuanceComponent, {
+this.dialog.open(LocationUpdateComponent, {
   minWidth: '80%',
-  data: { tableData:value, pageTitle: 'Material Weights'}
+  data: { tableData:value, pageTitle: 'Approved Material Location'}
 });
 
   }

@@ -80,7 +80,7 @@ public submit(value:any){
   // this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
   //  sessionStorage.setItem('selectRow', JSON.stringify(this.selectRow));
   //   this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
-//  this.whService.savequarantineList(value.uc0001).subscribe((data: any) => {
+//  this.whService.saveQuarantineList(value.uc0001).subscribe((data: any) => {
 //       if (data.errorInfo != null) {
 //         this.isLoading = false;
 //         this.dialog.open(MessageDialogComponent, {

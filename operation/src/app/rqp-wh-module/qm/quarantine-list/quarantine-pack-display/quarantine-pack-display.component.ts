@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalConstants } from 'src/app/common/global-constants';
+import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
 import { WhService } from 'src/app/rqp-wh-module/wh.service';
 
@@ -26,10 +27,16 @@ public dataSource: any;
  lc0003:any
  displayedColumns = [
     //'selectAction',
+    'lc0005',
     'ff0001',
+    'ff0002',
     'ff0003',
     'ff0004',
     'ff0006',
+    'ff0007',
+    'ff0005',
+    'lc0003',
+    'status',
     'createdon',
     'createdby',
     'action',
@@ -46,10 +53,10 @@ private router: Router
     this.selectRow = JSON.parse(storedData);
     this.lc0003 = this.selectRow.lc0003;
   this.whService.quarantineDisplayList(this.lc0003).subscribe((data: any) => {
-        // this.dataSource = data;
-        // this.quarantineListData = new MatTableDataSource(this.dataSource);
-        // this.quarantineListData.sort = this.sort;
-        // this.quarantineListData.paginator = this.paginator;
+        this.dataSource = data.data.mergedList;
+        this.quarantineListData = new MatTableDataSource(this.dataSource);
+        this.quarantineListData.sort = this.sort;
+        this.quarantineListData.paginator = this.paginator;
          
       
       });      
@@ -75,26 +82,24 @@ setSelectedID(row: any) {
   }
 
 public submit(value:any){
-
-  // this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
-  //  sessionStorage.setItem('selectRow', JSON.stringify(this.selectRow));
-  //   this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
-//  this.whService.savequarantineList(value.uc0001).subscribe((data: any) => {
-//       if (data.errorInfo != null) {
-//         this.isLoading = false;
-//         this.dialog.open(MessageDialogComponent, {
-//           data: {
-//             message: data.errorInfo.message,
-//             heading: 'Error Information',
-//           },
-//         });
-//       } else {
-//         this.isLoading = false;
-//         this.notificationService.showSuccess(data.status, () => {
-//           console.log('Success Snackbar Closed');
-//         });
-//       }
-//     });
+let quarantineValue = value;
+let uc0001 = quarantineValue.uc0001;
+ this.whService.saveQuarantine(uc0001).subscribe((data: any) => {
+      if (data.errorInfo != null) {
+        this.isLoading = false;
+        this.dialog.open(MessageDialogComponent, {
+          data: {
+            message: data.errorInfo.message,
+            heading: 'Error Information',
+          },
+        });
+      } else {
+        this.isLoading = false;
+        this.notificationService.showSuccess(data.status, () => {
+          console.log('Success Snackbar Closed');
+        });
+      }
+    });
 }
  
 

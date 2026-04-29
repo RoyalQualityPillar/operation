@@ -49,6 +49,14 @@
         {{ row.createdby }}
       </mat-cell>
     </ng-container>
+
+     <ng-container matColumnDef="quarantineAction">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quarantine action
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-icon class="cursor" (click)="submit(row)" > toggle_on </mat-icon>
+      </mat-cell>
+    </ng-container>  
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
