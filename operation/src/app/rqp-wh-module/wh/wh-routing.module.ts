@@ -21,6 +21,10 @@ import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-s
 import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.component';
 import { QmModuleAdminComponent } from '../qm/qm-module-admin/qm-module-admin.component';
 import { QuarantinePackDisplayComponent } from '../qm/quarantine-list/quarantine-pack-display/quarantine-pack-display.component';
+import { MdmModuleAdminComponent } from '../mdm/mdm-module-admin/mdm-module-admin.component';
+import { MaterialDispensingComponent } from '../mdm/material-dispensing/material-dispensing.component';
+import { MaterialReservedListComponent } from '../mdm/material-reserved-list/material-reserved-list.component';
+import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack-list/material-reserved-pack-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -41,10 +45,13 @@ const routes: Routes = [
   { path: 'under-testing-list', component: UnderTestingListComponent },
   { path: 'qsm-module-admin', component: QsmModuleAdminComponent },
   { path: 'quality-status-list', component: QualityStatusListComponent },
-{ path: 'quarantine-list', component: QuarantineListComponent },
-{ path: 'qm-module-admin', component: QmModuleAdminComponent },
-{path: 'quarantine-display-list',component: QuarantinePackDisplayComponent}
-
+  { path: 'quarantine-list', component: QuarantineListComponent },
+  { path: 'qm-module-admin', component: QmModuleAdminComponent },
+  { path: 'quarantine-display-list', component: QuarantinePackDisplayComponent },
+  { path: 'mdm-module-admin', component: MdmModuleAdminComponent },
+  { path: 'material-dispensing', component: MaterialDispensingComponent },
+ { path: 'material-reserved-list', component: MaterialReservedListComponent },
+  { path: 'material-reserved-pack-list', component: MaterialReservedPackListComponent },
 ];
 
 @NgModule({

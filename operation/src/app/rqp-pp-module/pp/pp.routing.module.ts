@@ -22,6 +22,7 @@ import { EpoModuleAdminComponent } from "../epo/epo-module-admin/epo-module-admi
 import { ExecutionProductOrderListComponent } from "../epo/execution-product-order-list/execution-product-order-list.component";
 import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
 import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
+import { MaterialIssuanceComponent } from "../mrp/material-issuance/material-issuance.component";
 import { MrpModuleAdminComponent } from "../mrp/mrp-module-admin/mrp-module-admin.component";
 import { MaterialRequPlanningComponent } from "../mrp/material-requ-planning/material-requ-planning.component";
 import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-admin.component";
@@ -50,14 +51,16 @@ const routes: Routes = [
   { path: 'bom-module-admin', component: BomModuleAdminComponent },
   { path: 'epo-module-admin', component: EpoModuleAdminComponent },
   { path: 'execution-product-order-list', component: ExecutionProductOrderListComponent },
-   { path: 'eplo-module-admin', component: EploModuleAdminComponent },
-{ path: 'planning-order-list', component: PlanningOrderListComponent },
-{ path: 'mrp-module-admin', component:MrpModuleAdminComponent },
-{ path: 'material-requ-planning', component:MaterialRequPlanningComponent },
-{ path: 'epro-module-admin', component:EproModuleAdminComponent },
-{ path: 'execution-process-order', component: ExecutionProcessOrderComponent },
-{ path: 'material-requ-verf', component: MaterialRequVerfComponent },
-  ];
+  { path: 'eplo-module-admin', component: EploModuleAdminComponent },
+  { path: 'planning-order-list', component: PlanningOrderListComponent },
+  { path: 'mrp-module-admin', component: MrpModuleAdminComponent },
+  { path: 'material-requ-planning', component: MaterialRequPlanningComponent },
+  { path: 'epro-module-admin', component: EproModuleAdminComponent },
+  { path: 'execution-process-order', component: ExecutionProcessOrderComponent, },
+  { path: 'material-issuance', component: MaterialIssuanceComponent },
+  { path: 'material-requ-verf', component: MaterialRequVerfComponent },
+];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

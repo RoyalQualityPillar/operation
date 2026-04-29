@@ -82,8 +82,8 @@ export class PpService {
    const samplingURL = this.API_URL + 'Product-order-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
-  public saveMaterialReqPlanningOrderList(ff0002:string){
-   const queryParams = `?ff0012=${ff0002}`;
+  public saveMaterialReqPlanningOrderList(uc0001:string, ff0012:string){
+   const queryParams = `?uc0001=${uc0001}&ff0012=${ff0012}`;
    const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
@@ -260,6 +260,20 @@ export class PpService {
   }
   public questionBankTable(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pmmppo/get-ppo-item-list?unitcode=${unitCode} `);
+  }
+  public getPlanOrderMRPList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/plan-order-mrp-list?unitCode=${unitCode} `);
+  }
+   public savePlanOrderMRPList(Uc0001:string){
+   const queryParams = `?Uc0001=${Uc0001}`;
+   const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+  public materialReservedList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-reserved-list?unitCode=${unitCode} `);
+  }
+   public materialReservedPackList(lc0005: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-reserved-pack-list?lc0005=${lc0005} `);
   }
   
 }

@@ -47,5 +47,5 @@ export class WhService {
    const samplingURL = this.API_URL + 'wh/quarantine-save-update' +queryParams;
    return this.http.post(samplingURL, '');
   }
-  
+     
  }
