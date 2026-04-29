@@ -32,6 +32,7 @@ public dataSource: any;
     'ff0006',
     'createdon',
     'createdby',
+    'quarantineAction'
   ];
 constructor(
 private whService:WhService,

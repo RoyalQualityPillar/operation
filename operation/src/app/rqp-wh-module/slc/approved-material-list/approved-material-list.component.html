@@ -1,5 +1,5 @@
 <div class="table-box">
-  <mat-table [dataSource]="materialReservedListData" matSort id="dataTable" class="table_background_color">
+  <mat-table [dataSource]="approvedMaterialListData" matSort id="dataTable" class="table_background_color">
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef>
         Action
@@ -77,7 +77,7 @@
     </ng-container>
 
     <ng-container matColumnDef="createdon">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Created ON
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         {{ row.createdon | customDatePipe : "dateWithHrMin" }}
