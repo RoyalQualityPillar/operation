@@ -1,3 +1,17 @@
+<div style="margin-top: 5px;">
+  <form [formGroup]="quarantineListForm">
+    <div class="row no-gutters ms-1 me-1 dense-4">
+      <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="">Select</mat-option>
+          <mat-option value="3008">Approved</mat-option>
+          <mat-option value="3009">Rejected</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
 <div class="table-box">
   <mat-table [dataSource]="quarantineListData" matSort id="dataTable" class="table_background_color">
     <!-- <ng-container matColumnDef="selectAction">
@@ -12,7 +26,7 @@
     </mat-radio-button>
   </mat-cell>
 </ng-container> -->
-         <ng-container matColumnDef="lc0005">
+    <ng-container matColumnDef="lc0005">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         Pack Number
       </mat-header-cell>
@@ -42,13 +56,13 @@
       <mat-cell *matCellDef="let row">{{ row.gr_ff0007 }}</mat-cell>
     </ng-container>
 
-     <ng-container matColumnDef="ff0006">
+    <ng-container matColumnDef="ff0006">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Available Quantity
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.gr_ff0022 }}</mat-cell>
     </ng-container>
 
-     <ng-container matColumnDef="ff0007">
+    <ng-container matColumnDef="ff0007">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Available Pack Quantity
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.ff0004 }}</mat-cell>
@@ -66,13 +80,13 @@
       <mat-cell *matCellDef="let row">{{ row.lc0003 }}</mat-cell>
     </ng-container>
 
-       <ng-container matColumnDef="status">
+    <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.gr_ff0017 }}</mat-cell>
     </ng-container>
 
-    
+
     <ng-container matColumnDef="createdon">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
       </mat-header-cell>
@@ -92,9 +106,9 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Batch
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-icon class="cursor" (click)="submit(row)" > toggle_on </mat-icon>
+        <mat-icon class="cursor" (click)="submit(row)"> toggle_on </mat-icon>
       </mat-cell>
-    </ng-container>   
+    </ng-container>
     <!-- <ng-container matColumnDef="action">
   <mat-header-cell *matHeaderCellDef mat-sort-header>
     Batch
