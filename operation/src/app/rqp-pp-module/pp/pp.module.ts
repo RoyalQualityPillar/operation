@@ -36,8 +36,6 @@ import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-
 import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
 import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
 import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/show-material-issuance.component";
-import { CreateUpdateColumnPerfmTestRegComponent } from "../ma/master/column-performance-test-regestration/create-update-column-perfm-test-reg/create-update-column-perfm-test-reg.component";
-import { HomePageColumnPerfmTestRegComponent } from "../ma/master/column-performance-test-regestration/home-page-column-perfm-test-reg/home-page-column-perfm-test-reg.component";
 
 @NgModule({
   declarations: [
@@ -73,8 +71,6 @@ import { HomePageColumnPerfmTestRegComponent } from "../ma/master/column-perform
     ExecutionProcessOrderComponent,
     MaterialRequVerfComponent,
     ShowMaterialIssuanceComponent,  
-    CreateUpdateColumnPerfmTestRegComponent,
-    HomePageColumnPerfmTestRegComponent,
 
 
 
