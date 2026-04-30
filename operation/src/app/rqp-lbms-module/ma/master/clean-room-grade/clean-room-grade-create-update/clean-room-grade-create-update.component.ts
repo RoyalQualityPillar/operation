@@ -59,7 +59,7 @@ export class CleanRoomGradeCreateUpdateComponent implements OnInit {
     private remoteLoader: RemoteComponentLoaderService,
   ) {
     this.DepartmentMaster = this.fb.group({
-      uc0001: ['', Validators.required],
+      uc0001: [''],
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
       createdby: [''],
@@ -76,7 +76,7 @@ export class CleanRoomGradeCreateUpdateComponent implements OnInit {
     );
 
     // this.onloadDropDown();
-    if (this.userData.type == 'Update') {
+    if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
       this.isUpdate = true;
       this.onLoadFormValue();
@@ -323,7 +323,7 @@ export class CleanRoomGradeCreateUpdateComponent implements OnInit {
       height: '500px',
       width: '600px',
       data: {
-        dialogTitle: 'Mv Master',
+        dialogTitle: 'crg Master',
         dialogColumns: this.displayedColumns,
         dialogData: this.unitList,
         lovName: 'businessUnitList',

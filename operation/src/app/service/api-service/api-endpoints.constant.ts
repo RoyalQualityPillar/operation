@@ -1367,4 +1367,7 @@ export enum apiEndPoints {
   quantityLedgAllAuditTrail = 'wh/qt_ledger/get-by-code-all',
   allCleanRoomGradeTabledata = "allCleanRoomGradeTabledata",
   cleanRoomGradeUserProfileFilterData = "cleanRoomGradeUserProfileFilterData",
+
+
+  
 }

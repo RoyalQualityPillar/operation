@@ -28,6 +28,7 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     MessageDialogComponent,
     PmsListComponent,
    
+   
 
   ],
   imports: [
