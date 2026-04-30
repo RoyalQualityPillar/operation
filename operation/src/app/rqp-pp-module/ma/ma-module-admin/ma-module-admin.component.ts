@@ -19,4 +19,7 @@ constructor(private router: Router, private cookieService: CookieService) { }
    public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
+   onColumnPerformanceTestRegestration() {
+    this.router.navigate(['./rqpoperationui/pp/home-page-column-perfm-test-reg']);
+  }
 }

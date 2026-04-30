@@ -1367,4 +1367,12 @@ export enum apiEndPoints {
   quantityLedgAllAuditTrail = 'wh/qt_ledger/get-by-code-all',
   allCleanRoomGradeTabledata = "allCleanRoomGradeTabledata",
   cleanRoomGradeUserProfileFilterData = "cleanRoomGradeUserProfileFilterData",
+
+    /*********ColumnPerfmTestRegMaster******/
+  allCptrMasterTabledata = 'limscm/cptr-master/get-all',
+  activeCptrMasterTabledata = 'limscm/cptr-master/get-max-all',
+  cptrMasterUserProfileFilterData = 'limscm/cptr-master/search',
+  cptrMasterCreateUpdate = 'limscm/cptr-master/save-update',
+  cptrMasterLoadUpdatePage = 'limscm/cptr-master/get-by-max-code',
+  cptrMasterAllAuditTrail = 'limscm/cptr-master/get-by-code-all',
 }
