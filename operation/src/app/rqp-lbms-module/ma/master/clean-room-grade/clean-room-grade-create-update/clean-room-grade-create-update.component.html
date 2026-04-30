@@ -52,7 +52,7 @@
                 </mat-form-field>
               </div>
             </div>
-           <div class="row no-gutters ms-1 me-1 dense-4">
+            <div class="row no-gutters ms-1 me-1 dense-4" *ngIf="isUpdate">
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Clean Room Grade No</mat-label>
                 <input
@@ -64,6 +64,8 @@
                   placeholder="Clean Room Grade No"
                 />
               </mat-form-field>
+            </div>
+            <div class="row no-gutters ms-1 me-1 dense-4">
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label> Clean Room Grade Code</mat-label>
                 <input
