@@ -61,7 +61,7 @@ private ppService:PpService,
   }
 
 public submit(value:any){
- this.ppService.saveMaterialReqPlanningOrderList(value.uc0001, value.ff0010).subscribe((data: any) => {
+ this.ppService.saveMaterialReqPlanningOrderList(value.uc0001, value.ff0002).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
