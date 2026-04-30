@@ -43,8 +43,8 @@ export class WhService {
   public quarantineDisplayList(lc0003: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/quarantine-display-list?lc0003=${lc0003} `);
   }
-   public saveQuarantineList(uc0001:string){
-   const queryParams = `?uc0001=${uc0001}`;
+   public saveQuarantineList(uc0001:string, status:any){
+   const queryParams = `?uc0001=${uc0001}&status=${status}`;
    const samplingURL = this.API_URL + 'wh/quarantine-save-update' +queryParams;
    return this.http.post(samplingURL, '');
   }
