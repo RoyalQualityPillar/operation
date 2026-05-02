@@ -33,6 +33,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   buTypeList: any;
   unitList: any;
   formData: any;
+  pmsList:any;
   isLoading = false;
   statusList: any;
   displayedColumns: any;
@@ -266,6 +267,90 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
         this.openBusinessUnitCodeLOV();
       }
     }
+  }
+   onChangeAreaGroup() {
+    if (this.DepartmentMaster.controls['ff0003'].value == '') {
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0003'].value;
+      this.pmsList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.openAreaGroupLOV();
+      }
+    }
+  }
+   openAreaGroupLOV() {
+    this.displayedColumns = [
+      { field: 'productNO', title: 'Product No' },
+      { field: 'productCode', title: 'Product Code' },
+      { field: 'productName', title: 'Product Name' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Product List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.pmsList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0003'].setValue(
+          this.selectedDialogData.productNO
+        );
+      }
+    });
+  }
+   onChangeDepartment() {
+    if (this.DepartmentMaster.controls['ff0004'].value == '') {
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0004'].value;
+      this.pmsList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.openDepartmentLOV();
+      }
+    }
+  }
+   openDepartmentLOV() {
+    this.displayedColumns = [
+      { field: 'productNO', title: 'Product No' },
+      { field: 'productCode', title: 'Product Code' },
+      { field: 'productName', title: 'Product Name' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Product List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.pmsList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0004'].setValue(
+          this.selectedDialogData.productNO
+        );
+      }
+    });
   }
   openStatusLOV() {
     this.displayedColumns = [
