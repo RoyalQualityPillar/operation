@@ -146,6 +146,8 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
     });
     this.getLatestData = false;
   }
@@ -172,9 +174,17 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
       });
       this.getLatestData = false;
     }
+  }
+    refreshData(){
+    this.loadRoleMasterTableFilter();
+    this.loadActiveRoleMasterTableFilter();
+      this.commonTableContainer.clear()
+      this.activeRoleMasterContainer.clear()
   }
   onChangeStatus(data: any) {
     return changeStatusByCode(data);
