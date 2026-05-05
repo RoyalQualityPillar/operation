@@ -12,4 +12,10 @@ constructor(private router: Router) { }
   ExecutionProcessOrder(): void {
     this.router.navigate(['./rqpoperationui/pp/execution-process-order']);
   }
+  public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }
