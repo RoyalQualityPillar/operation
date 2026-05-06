@@ -12,6 +12,11 @@ export class QsmModuleAdminComponent {
   qualityStatusList(): void {
     this.router.navigate(['./rqpoperationui/wh/quality-status-list']);
   }
- 
+ public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 
 }
