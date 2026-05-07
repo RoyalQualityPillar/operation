@@ -1,0 +1,14 @@
+.iframe {
+  height: 450px; /* Set height of iframe to 100% to fill its container */
+}
+
+/* Hide the download and print buttons in the PDF viewer toolbar */
+// .pdf-viewer .toolbar .download,
+// .pdf-viewer .toolbar .print {
+//   display: none !important;
+// }
+
+.pdf-container {
+  height: 80vh;
+  overflow-y: auto;
+}

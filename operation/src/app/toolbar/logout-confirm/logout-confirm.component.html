@@ -1,0 +1,28 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+
+  <div class='content-heading' cdkDragHandle
+style="outline: none; margin-right: 10px; cursor: move;">{{title}}</div>
+<div class='content-container'>
+    <span>{{message}} </span>
+</div>
+
+<div style="display: flex;">
+<button  class="button-container yes-button" mat-raised-button mat-primary mat-flat-button id="yes-button" (click)="onConfirm()">YES</button>
+
+ <button class="button-container no-button" mat-raised-button mat-primary mat-flat-button id="no-button" (click)="onDismiss()">NO</button>
+</div>
+</div>
+<!-- 
+<h1 mat-dialog-title >
+    {{title}}
+  </h1>
+  
+  
+  <div mat-dialog-content>
+    <p>{{message}}</p>
+  </div>
+  
+  <div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">No</button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+  </div> -->

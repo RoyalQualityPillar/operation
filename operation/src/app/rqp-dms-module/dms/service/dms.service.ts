@@ -51,7 +51,6 @@ export class DmsService {
     });
     formData.append('stpDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/stp/save-update';
 
@@ -82,7 +81,6 @@ export class DmsService {
     });
     formData.append('ursDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/urs/save-update';
 
@@ -112,7 +110,6 @@ export class DmsService {
     });
     formData.append('sopDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/sop/save-update';
 
@@ -143,7 +140,6 @@ export class DmsService {
     });
     formData.append('spcDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/spc/save-update';
 
@@ -205,7 +201,6 @@ export class DmsService {
     });
     formData.append('pvrDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/pvr/save-update';
 
@@ -236,7 +231,6 @@ export class DmsService {
     });
     formData.append('pvpDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/pvp/save-update';
 
@@ -267,7 +261,6 @@ export class DmsService {
     });
     formData.append('awsDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/aws/save-update';
 
@@ -298,7 +291,6 @@ export class DmsService {
     });
     formData.append('bmrDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/bmr/save-update';
 
@@ -329,7 +321,6 @@ export class DmsService {
     });
     formData.append('bprDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/bpr/save-update';
 
@@ -360,7 +351,6 @@ export class DmsService {
     });
     formData.append('coaDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/coa/save-update';
 
@@ -391,7 +381,6 @@ export class DmsService {
     });
     formData.append('cvpDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/cvp/save-update';
 
@@ -422,7 +411,6 @@ export class DmsService {
     });
     formData.append('cvrDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/cvr/save-update';
 

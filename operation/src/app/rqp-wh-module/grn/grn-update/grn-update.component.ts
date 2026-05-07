@@ -218,10 +218,7 @@ export class GrnUpdateComponent implements OnInit {
     return objects.filter((obj) => Object.keys(obj).length > 0);
   }
   onCreateSelectedDataList() {
-    console.log(this.selectedFiles)
-    this.selectedFileList.push(this.selectedFiles);
-    console.log(this.selectedFiles)
-    console.log(this.grnAttachmentList);
+    this.selectedFileList.push(this.selectedFiles);   
     // Check if the document name is provided before proceeding
     if (this.GRNRequirementForm.controls['documentName'].value) {
       // Add new action attachment object
@@ -265,7 +262,6 @@ export class GrnUpdateComponent implements OnInit {
   //       this.createUpdateDocumentList = result;
   //       if (this.createUpdateDocumentList.result) {
   //         this.documentListData = this.createUpdateDocumentList.result;
-  //         console.log(this.documentListData);
   //         this.documentListTableData = new MatTableDataSource(
   //           this.documentListData
   //         );
@@ -286,10 +282,8 @@ export class GrnUpdateComponent implements OnInit {
   }
   getGRNAttachchmentList(lc0003: any) {
     this.grnService.getGRNAttachments(lc0003, this.ff0002).subscribe((data: any) => {
-      console.log(data);
       this.grnAttachmentListData = data.data;
       this.grnAttachmentListTableData = new MatTableDataSource(data.data);
-      console.log(this.grnAttachmentListTableData)
     });
   }
   getGoodsReceiptList(lc0003: any) {
@@ -380,15 +374,10 @@ export class GrnUpdateComponent implements OnInit {
       }
     });
   }
-  formatRequestBody() {
-    console.log(this.selectedFiles)
-    console.log(this.grnAttachmentList)
+  formatRequestBody() {   
     const dateValue = this.MaterialRequirementForm.value;
-
     const items = this.items.value;
-
     const containers = this.containers.value;
-    console.log(items)
     this.body1 = {
       lcRequest: {
         unitCode: this.headerData.unitcode,
@@ -490,8 +479,6 @@ export class GrnUpdateComponent implements OnInit {
 
   }
   onSubmit(btnStatus: any) {
-    console.log(this.selectedFiles);
-
     if (btnStatus == 1) {
       this.draftValue = false;
     } else {
@@ -501,7 +488,6 @@ export class GrnUpdateComponent implements OnInit {
     this.isLoading = true;
     let bodyData = this.formatRequestBody();
 
-    console.log(this.grnAttachmentList);
     let attachmentList: any[] = [];
     this.body1.grnAttachmentList.forEach((obj) => {
       console.log(obj.selectedFileList);
@@ -513,12 +499,9 @@ export class GrnUpdateComponent implements OnInit {
     this.grnAttachmentList.forEach((elements: any) => {
       selectedFile.push(elements.selectedFileList);
     });
-    console.log(attachmentList)
     this.grnService
       .onGRNSaveUpdate(attachmentList, this.body1)
       .subscribe((data: any) => {
-        console.log(data)
-        console.log(this.body1);
         if (data.errorInfo != null) {
           this.dialog.open(MessageDialogComponent, {
             data: {
@@ -578,7 +561,6 @@ export class GrnUpdateComponent implements OnInit {
           uint8Array[i] = binaryData.charCodeAt(i);
         }
         let blob: any;
-        console.log(fileExtension);
         if (fileExtension == 'pdf' || fileExtension == 'PDF') {
           blob = new Blob([uint8Array], { type: 'application/pdf' });
         } else {

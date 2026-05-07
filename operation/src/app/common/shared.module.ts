@@ -57,7 +57,7 @@ import { AsCommonFooterComponent } from '../rqp-pp-module/pp-common/as-common-fo
     CustomDatePipe, // ✅ Exported to use in other modules
     CommonTableFilterComponent,
     NgApexchartsModule,
-       CommonActiveAuditTrailComponent,
+    CommonActiveAuditTrailComponent,
     CommonAllAuditTrailComponent,
     LcWeekDataComponent
 
@@ -73,4 +73,4 @@ import { AsCommonFooterComponent } from '../rqp-pp-module/pp-common/as-common-fo
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
-export class SharedModule {}
+export class SharedModule { }
