@@ -12,7 +12,6 @@ export class CleanRoomGradeService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
   
     onCreate(body: any) {
-        console.log(body);
         let token = this.cookieService.get('token');
         let createUserURL = this.API_URL + 'lbms/clean_room_grade_master/save-update';
         const httpOptions = {

@@ -65,14 +65,11 @@ export class AddNewRecordComponent implements OnInit {
       public dialogRef: MatDialogRef<AddNewRecordComponent>,
   ) { }
   ngOnInit(): void {
-    console.log(this.userData)
     this.bmrNumberData = this.userData.tableData;
-    console.log(this.bmrNumberData);
     this.addRecord.controls['unitcode'].patchValue(
       this.cookieService.get('buCode')
     );
     this.dmsService.bmrInput(this.cookieService.get('buCode')).subscribe(({ data }) => {
-      console.log(data);
       this.psmList = data.pmsList;
     });
     this.onLoadStatusDropDown();
@@ -173,7 +170,6 @@ export class AddNewRecordComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selectedDialogData = result.data;
-        console.log(this.selectedDialogData);
         this.marketValue = this.selectedDialogData.market;
         this.bmrProductNumber = this.selectedDialogData.productNO;
         this.addRecord.controls['productNo'].setValue(
@@ -261,7 +257,6 @@ export class AddNewRecordComponent implements OnInit {
     });
   }
   public submit(): void {
-    console.log(this.marketValue);
     const { productNo, bmrCode, bmrSerialNo, bmrDraftCode, batchNo, batchCode, bmrDraftSerialNo, comments } =
       this.addRecord.value;
 

@@ -66,7 +66,7 @@ private ppService:PpService,
   }
 
 public submit(value:any){
- this.ppService.savePlanOrderMrpList(value.uc0001).subscribe((data: any) => {
+ this.ppService.savePlanOrderMrpList(value.uc0001,value.lc0005).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -78,7 +78,6 @@ public submit(value:any){
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
-          console.log('Success Snackbar Closed');
         });
       }
     });

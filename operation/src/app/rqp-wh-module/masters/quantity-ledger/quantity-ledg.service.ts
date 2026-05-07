@@ -11,7 +11,6 @@ export class QuantityLedgService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
   
   onCreate(body: any) {
-        console.log(body);
         let token = this.cookieService.get('token');
         let createUserURL = this.API_URL + 'wh/qt_ledger/save-update';
         const httpOptions = {

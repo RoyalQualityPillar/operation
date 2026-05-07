@@ -80,7 +80,6 @@ export class GrnService {
     grnAttachments: any[],
     body: any
   ) {
-    console.log(grnAttachments);
     let token = this.cookieService.get('token');
     let formData: FormData = new FormData();
 
@@ -100,7 +99,6 @@ export class GrnService {
     });
     formData.append('grnDTO', jsonBlob, 'data.json');
 
-    console.log(formData); // Check the FormData structure in the browser's console
 
     let createUserURL = this.API_URL + 'wh/grn-save-update';
 

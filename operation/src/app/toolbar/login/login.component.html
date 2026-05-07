@@ -1,0 +1,115 @@
+<mat-spinner
+  *ngIf="isLoading"
+  class="global-loading-spinner"
+  color="primary"
+  mode="indeterminate"
+></mat-spinner>
+<div
+  class="bg-image d-flex justify-content-center align-items-center"
+  style="
+    background-image: url('../../../assets/test1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden; /* Prevent scrolling */
+  "
+>
+  <div class="mat-card-cvr">
+    <mat-card class="login_card" style="margin-top: 10px">
+      <mat-card-content>
+        <div class="logo1">
+          <span>
+            <img src="../../../assets/logo1.png" />
+          </span>
+        </div>
+
+        <form
+          class="example-form"
+          [formGroup]="LoginForm"
+          style="margin-top: 15px"
+        >
+          <div class="dense-2">
+            <mat-form-field
+              class="example-full-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Username</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="userid"
+                placeholder="Please enter username"
+                required
+              />
+              <mat-icon matSuffix>account_circle</mat-icon>
+              <mat-hint class="global-field-error" *ngIf="userid.invalid"
+                >Username is Required</mat-hint
+              >
+            </mat-form-field>
+          </div>
+          <div class="dense-2">
+            <mat-form-field
+              class="example-full-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Password</mat-label>
+              <!-- <input type="password" matInput formControlName="password" required
+                       placeholder="Please enter password" > -->
+              <!-- <mat-icon matSuffix>lock</mat-icon> -->
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                required
+                formControlName="password"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-hint class="global-field-error" *ngIf="password.invalid"
+                >Password is Required</mat-hint
+              >
+            </mat-form-field>
+          </div>
+        </form>
+        <div mat-dialog-actions style="margin-top: 2px">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 100%; height: 45px"
+            (click)="onLogin()"
+          >
+            Log In
+          </button>
+          <!-- <button mat-raised-button  style="width:100%;height: 45px; margin-top: 10px;" (click)="onForgetPassword()">Forgot Password</button> -->
+        </div>
+        <div style="margin: 4px; display: flex; justify-content: space-between">
+          <div>
+            Don't have an account?
+            <a class="custom-link" (click)="onSelectSignUp()">Sign up</a>
+          </div>
+          <div>
+            <a class="custom-link" (click)="onForgotPassword()"
+              >Forgot password</a
+            >
+          </div>
+        </div>
+        <div>
+          <h4 style="color: red; font-family: ui-monospace">
+            Pharma Compliance
+          </h4>
+          <h4 style="color: red; font-family: ui-monospace">Platform</h4>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

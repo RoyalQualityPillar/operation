@@ -11,7 +11,6 @@ export class EpoHomeComponent {
 
    constructor(private router: Router) {}
   onAllPaAssignmentDashBord() {
-    console.log('paaa');
     this.router.navigate(['./rqpadminui/sd/do-pa-dash-bord']);
   }
   public allDeliveryOrder() {

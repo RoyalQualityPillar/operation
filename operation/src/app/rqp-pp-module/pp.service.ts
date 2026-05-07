@@ -87,8 +87,8 @@ export class PpService {
     const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
-  public savePlanOrderMrpList(uc0001: string) {
-    const queryParams = `?Uc0001=${uc0001}`;
+  public savePlanOrderMrpList(Uc0001: string, lc0005:string) {
+    const queryParams = `?Uc0001=${Uc0001}&lc0005=${lc0005}`;
     const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' + queryParams;
     return this.http.post(samplingURL, '');
   }

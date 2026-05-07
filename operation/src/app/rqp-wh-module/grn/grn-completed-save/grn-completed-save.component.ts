@@ -96,7 +96,6 @@ export class GrnCompletedSaveComponent implements OnInit {
       this.lc0001 = params.ff0001;
       this.ff0005 = params.ff0007;
       this.ff0002 = params.ff0005;
-      console.log(this.pageData);
       // });
     }
     if (this.ff0001) {
@@ -114,7 +113,6 @@ export class GrnCompletedSaveComponent implements OnInit {
     this.grnService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
-      console.log(this.nextStageListData);
     });
   }
   public getHeaderData(event: any) {
@@ -169,13 +167,9 @@ export class GrnCompletedSaveComponent implements OnInit {
     });
   }
   getGRNAttachchmentList(lc0003: any) {
-    // let modulecode = this.headerData.modulecode;
-    // console.log(modulecode);
     this.grnService.getGRNAttachments(lc0003, this.ff0002).subscribe((data: any) => {
-      console.log(data);
       this.grnAttachmentListData = data.data;
       this.grnAttachmentListTableData = new MatTableDataSource(data.data);
-      console.log(this.grnAttachmentListTableData)
     });
   }
   getGoodsReceiptList(lc0003: any) {
@@ -245,7 +239,6 @@ export class GrnCompletedSaveComponent implements OnInit {
         moduleCode
       )
       .subscribe((data: any) => {
-        console.log(data);
         let fileExtension = 'pdf';
         const binaryData = atob(data.data);
         const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -280,7 +273,6 @@ const lcNumber = this.headerData?.lcnum;
         lcrnumber
       )
       .subscribe((data: any) => {
-        console.log(data);
         let fileExtension = 'pdf';
         const binaryData = atob(data.data);
         const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -313,7 +305,6 @@ const lcNumber = this.headerData?.lcnum;
           uint8Array[i] = binaryData.charCodeAt(i);
         }
         let blob: any;
-        console.log(fileExtension);
         if (fileExtension == 'pdf' || fileExtension == 'PDF') {
           blob = new Blob([uint8Array], { type: 'application/pdf' });
         } else {

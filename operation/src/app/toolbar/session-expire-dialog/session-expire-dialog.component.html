@@ -1,0 +1,15 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+
+    <div class='content-heading' cdkDragHandle
+  style="outline: none; margin-right: 10px; cursor: move;">{{title}}</div>
+  <div class='content-container'>
+      <span>your session will timeout in {{ secondsDisplay }} seconds </span>
+  </div>
+  
+  <div style="display: flex;">
+  <button *ngIf="totalSeconds > 0" class="button-container yes-button" mat-raised-button mat-primary mat-flat-button id="yes-button" (click)="onConfirm()">EXTEND MY SESSION</button>
+  
+   <button class="button-container no-button" mat-raised-button mat-primary mat-flat-button id="no-button" (click)="onDismiss()">LOGOUT NOW</button>
+  </div>
+  </div>
+  

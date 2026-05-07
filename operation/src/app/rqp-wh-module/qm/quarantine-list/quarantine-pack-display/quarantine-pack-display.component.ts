@@ -109,7 +109,6 @@ export class QuarantinePackDisplayComponent implements OnInit {
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
-          console.log('Success Snackbar Closed');
         });
       }
     });

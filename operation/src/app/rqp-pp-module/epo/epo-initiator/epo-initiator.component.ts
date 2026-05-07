@@ -109,7 +109,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
     this.onLoadNextStageData();
   }
   public handleCommentsForm(event: any) {
-    console.log(event);
     this.comments = event.comments;
   }
   public paymentTermsCode() {
@@ -160,14 +159,12 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
   }
   headerData: any;
   getHeaderData(event: any) {
-    console.log(event);
     this.headerData = event;
     this.ViewDetailForm.controls['orgUnitCode'].setValue(event.unitcode);
   }
   onLoadInputFieldValue() {
     this.isLoading = true;
     this.ppService.getInputValue(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.orgUnitCode = data.data.buUnitList;
       this.salesUnitCode = data.data.suUnitList;
       this.paymentTermsCodeList = data.data.paymentTermsMasterList;
@@ -193,9 +190,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
   }
   stockList = [];
   addSelectedRows(selectedRow: any) {
-    console.log(selectedRow);
     selectedRow.data.forEach((elements, index: number) => {
-      console.log(elements);
       let getPriceCode = elements.ff0016;
       let getProductCode = elements.ff0002;
       let getProductName = elements.ff0003;
@@ -264,7 +259,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
     let afterDiscountAmount = 0;
     let totalAmountWithGST = 0;
     let totalGstAmount = 0;
-    console.log(this.stockList);
     this.stockList.forEach((ele) => {
       if (ele.totalDiscount > 0) {
         totalDiscountAmount = totalDiscountAmount + ele.totalDiscount;
@@ -279,9 +273,7 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
         totalGstAmount = totalGstAmount + ele.gstAmount;
       }
     });
-    this.totalGst = totalGstAmount;
-    console.log(this.totalGst);
-    console.log(totalDiscountAmount);
+    this.totalGst = totalGstAmount; 
     this.QuotationForm.controls['quantity'].setValue(totalDiscountAmount);
     this.totalDisAmt = totalDiscountAmount;
     this.QuotationForm.controls['ff0008'].setValue(afterDiscountAmount);
@@ -310,7 +302,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
         this.ViewDetailForm.controls['salesUnitCode'].value
       )
       .subscribe((data: any) => {
-        console.log(data);
         this.unitCodeData = data.data.content;
         this.setGSTData(this.unitCodeData);
       });
@@ -624,7 +615,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
   getBuInfo;
   /***********************************SAVE UPDATE API *************************************/
   onSaveUpdate(btnStatus: any) {
-    console.log(btnStatus);
     if (
       this.QuotationForm.controls['nextStage'].value == '' ||
       this.QuotationForm.controls['nextStage'].value == undefined
@@ -677,12 +667,10 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
       ).format('DD-MM-YYYY HH:mm:ss.SSS'),
     };
 
-    console.log(requestBody);
     this.isLoading = true;
     this.epoService
       .onSaveUpdate(requestBody)
       .subscribe((data: any) => {
-        // console.log(data)
         if (data.errorInfo != null) {
           this.dialog.open(MessageDialogComponent, {
             data: {
@@ -707,7 +695,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
 
   /*************************************ONSUBMIT ******************************************/
  async onSubmit(btnStatus: any) {
-    console.log(btnStatus);
     const component = await this.remoteLoader.loadComponentByKey('CommonESignatureComponent');
 
     const dialogRef = this.dialog.open(component, {
@@ -726,7 +713,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
     });
   }
  async onSaveConfirmation(btnStatus: any) {
-    console.log(btnStatus);
     const component = await this.remoteLoader.loadComponentByKey('CommonESignatureComponent');
 
     const dialogRef = this.dialog.open(component, {
