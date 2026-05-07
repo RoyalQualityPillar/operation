@@ -81,7 +81,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       // Set all required inputs
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this. activeAreaTableDataUrl);
+      compRef.setInput('apiUrl', this. allAreaTableDataUrl);
       compRef.setInput('tableTitle', 'Active Area Master');
       compRef.setInput('dynamicButtons', this.allButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
@@ -143,6 +143,8 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
     });
     this.getLatestData = false;
   }
@@ -168,9 +170,17 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
       });
       this.getLatestData = false;
     }
+  }
+    refreshData(){
+    this.loadRoleMasterTableFilter();
+    this.loadActiveRoleMasterTableFilter();
+      this.commonTableContainer.clear()
+      this.activeRoleMasterContainer.clear()
   }
   onChangeStatus(data: any) {
     return changeStatusByCode(data);

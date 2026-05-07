@@ -12,4 +12,10 @@ export class MdmModuleAdminComponent {
   getMaterialDispensing(): void {
     this.router.navigate(['./rqpoperationui/wh/material-dispensing']);
   }
+  public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

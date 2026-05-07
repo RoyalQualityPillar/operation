@@ -12,4 +12,10 @@ export class EpoModuleAdminComponent {
   executionProductOrderList(): void {
     this.router.navigate(['./rqpoperationui/pp/execution-product-order-list']);
   } 
+  public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

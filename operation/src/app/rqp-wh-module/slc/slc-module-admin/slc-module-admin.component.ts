@@ -12,4 +12,10 @@ export class SlcModuleAdminComponent {
   approvedMaterialList(): void {
     this.router.navigate(['./rqpoperationui/wh/approved-material-list']);
   }
+  public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

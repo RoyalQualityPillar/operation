@@ -60,13 +60,13 @@ export class AreaGroupMasterCreateUpdateComponent implements OnInit {
     private remoteLoader: RemoteComponentLoaderService,
   ) {
     this.DepartmentMaster = this.fb.group({
-      uc0001: ['', Validators.required],
+      uc0001: [''],
       ff0001: ['', Validators.required],
       ff0002: ['', Validators.required],
       createdby: [''],
       status: [''],
       comments: ['', Validators.required],
-      unitCode: ['']
+      unitcode: ['']
     });
   }
 
@@ -76,7 +76,7 @@ export class AreaGroupMasterCreateUpdateComponent implements OnInit {
       this.cookieService.get('buCode')
     );
 
-    if (this.userData.type == 'Update') {
+    if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
       this.isUpdate = true;
       this.onLoadFormValue();
@@ -102,19 +102,9 @@ export class AreaGroupMasterCreateUpdateComponent implements OnInit {
     this.apiService
       .sendRequest(apiEndPoints.areaGroupMasterLoadUpdatePage, 'POST', params)
       .subscribe((data: any) => {
-        if (data.data == null) {
-          this.isLoading = false;
-          this.dialog.open(MessageDialogComponent, {
-            data: {
-              message: data.errorInfo.message,
-              heading: 'Error Information',
-            },
-          });
-        } else {
           this.formData = data.data;
           this.isLoading = false;
           this.setFormValue();
-        }
       });
   }
   setFormValue() {
@@ -122,18 +112,18 @@ export class AreaGroupMasterCreateUpdateComponent implements OnInit {
     this.DepartmentMaster.controls['ff0001'].setValue(this.formData.ff0001);
     this.DepartmentMaster.controls['ff0002'].setValue(this.formData.ff0002);
     this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
-    let statusByValue = changeStatusByCode(this.formData.status);
-    this.DepartmentMaster.controls['status'].setValue(statusByValue);
+     this.DepartmentMaster.controls['status'].setValue(this.formData.status);
+    this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
   }
   onUpdate() {
     this.isLoading = true;
-    this.DepartmentMaster.controls['status'].setValue(
-      changeStatusByDescription(this.DepartmentMaster.controls['status'].value)
+    this.DepartmentMaster.controls['createdby'].setValue(
+      this.cookieService.get('userId')
     );
-
+    let params = {};
     this.areaGroupMasterService
-    .onCreate(this.DepartmentMaster.value)
-    .subscribe((data: any) => {
+      .onCreate(this.DepartmentMaster.value)
+      .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
@@ -146,7 +136,7 @@ export class AreaGroupMasterCreateUpdateComponent implements OnInit {
           this.isLoading = false;
           this.messageService.sendSnackbar(
             'success',
-            'Record Updated Successfully'
+            'Record Created Successfully'
           );
           this.dialogRef.close();
         }
