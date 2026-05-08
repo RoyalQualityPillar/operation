@@ -54,6 +54,12 @@
       <mat-cell *matCellDef="let row">{{ row.lc0003 }}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="lc0004">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Material Avilable Status
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0015 }}</mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="createdon">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
       </mat-header-cell>
