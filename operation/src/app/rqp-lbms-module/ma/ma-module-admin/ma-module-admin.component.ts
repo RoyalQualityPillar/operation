@@ -33,6 +33,6 @@ constructor(private router: Router, private cookieService: CookieService) { }
     this.router.navigate(['./rqpoperationui/lbms/home-page-equipment-master']);
   }
    public onEquipmentInustumentMaster(): void {
-    this.router.navigate(['./rqpoperationui/lbms/area-home-page']);
+    this.router.navigate(['./rqpoperationui/lbms/home-page-equip-inst-master']);
   }
 }

@@ -13,6 +13,8 @@ import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/c
 import { SharedModule } from "src/app/common/shared.module";
 import { CreateUpdateEquipmentMasterComponent } from "../ma/master/equipment-master/create-update-equipment-master/create-update-equipment-master.component";
 import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
+import { CreateUpdateEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/create-update-equip-inst-master/create-update-equip-inst-master.component";
+import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/home-page-equip-inst-master/home-page-equip-inst-master.component";
 
 
 
@@ -28,6 +30,8 @@ import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/
     CleanRoomGradeHomePageComponent,
      CreateUpdateEquipmentMasterComponent,
     HomePageEquipmentMasterComponent,
+    CreateUpdateEquipInstMasterComponent,
+    HomePageEquipInstMasterComponent,
   ],
   imports: [
     CommonModule,
