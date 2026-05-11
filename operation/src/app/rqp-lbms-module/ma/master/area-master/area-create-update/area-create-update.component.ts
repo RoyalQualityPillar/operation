@@ -33,7 +33,8 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   buTypeList: any;
   unitList: any;
   formData: any;
-  pmsList:any;
+  agmList:any;
+  deptCodeList:any;
   isLoading = false;
   statusList: any;
   displayedColumns: any;
@@ -78,6 +79,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.cookieService.get('buCode')
     );
     this.onloadDropDown();
+    this.onloadAGListDropDown();
     this.onLoadStatusDropDown();
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
@@ -107,6 +109,15 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.areaMasterService.getDropDownList().subscribe((data: any) => {
       this.statusList = data.data.statusInfo;
+      this.isLoading = false;
+    });
+  }
+  onloadAGListDropDown() {
+    this.isLoading = true;
+    this.areaMasterService.getDropDownAGList(this.cookieService.get('buCode')).subscribe((data: any) => {
+      console.log(data);
+      this.agmList = data.data.agmList;
+      this.deptCodeList = data.data.deptCodeList;
       this.isLoading = false;
     });
   }
@@ -271,7 +282,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.DepartmentMaster.controls['ff0003'].setValue('');
       this.isStatusSuccess = false;
       let statusCurrentValue = this.DepartmentMaster.controls['ff0003'].value;
-      this.pmsList.forEach((elements) => {
+      this.agmList.forEach((elements) => {
         if (elements.productNO == statusCurrentValue) {
           this.isStatusSuccess = true;
         }
@@ -284,17 +295,16 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   }
    openAreaGroupLOV() {
     this.displayedColumns = [
-      { field: 'productNO', title: 'Product No' },
-      { field: 'productCode', title: 'Product Code' },
-      { field: 'productName', title: 'Product Name' },
+      { field: 'name', title: 'Area Name' },
+      { field: 'code', title: 'Area Code' },
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
       width: '600px',
       data: {
-        dialogTitle: 'Product List',
+        dialogTitle: 'Area Group List',
         dialogColumns: this.displayedColumns,
-        dialogData: this.pmsList,
+        dialogData: this.agmList,
         lovName: 'businessUnitList',
       },
       disableClose: true,
@@ -303,7 +313,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       if (result) {
         this.selectedDialogData = result.data;
         this.DepartmentMaster.controls['ff0003'].setValue(
-          this.selectedDialogData.productNO
+          this.selectedDialogData.name
         );
       }
     });
@@ -313,7 +323,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.DepartmentMaster.controls['ff0004'].setValue('');
       this.isStatusSuccess = false;
       let statusCurrentValue = this.DepartmentMaster.controls['ff0004'].value;
-      this.pmsList.forEach((elements) => {
+      this.deptCodeList.forEach((elements) => {
         if (elements.productNO == statusCurrentValue) {
           this.isStatusSuccess = true;
         }
@@ -326,17 +336,16 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   }
    openDepartmentLOV() {
     this.displayedColumns = [
-      { field: 'productNO', title: 'Product No' },
-      { field: 'productCode', title: 'Product Code' },
-      { field: 'productName', title: 'Product Name' },
+      { field: 'unitName', title: 'Department Name' },
+      { field: 'unitCode', title: 'Department Code' },
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
       width: '600px',
       data: {
-        dialogTitle: 'Product List',
+        dialogTitle: 'Department List',
         dialogColumns: this.displayedColumns,
-        dialogData: this.pmsList,
+        dialogData: this.deptCodeList,
         lovName: 'businessUnitList',
       },
       disableClose: true,
@@ -345,7 +354,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       if (result) {
         this.selectedDialogData = result.data;
         this.DepartmentMaster.controls['ff0004'].setValue(
-          this.selectedDialogData.productNO
+          this.selectedDialogData.unitCode
         );
       }
     });
