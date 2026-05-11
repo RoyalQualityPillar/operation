@@ -41,4 +41,9 @@ private API_URL = environment.apiBaseURL;
       this.API_URL + 'lbms/area_master/get-by-code-all' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
+   getDropDownAGList(unitCode: any) {
+   let queryParams = `?unitCode=${unitCode}`;
+    const ALLSALEPRODUCTURL = this.API_URL + 'lbms/input' + queryParams;
+    return this.http.get(ALLSALEPRODUCTURL);
+  }
 }
