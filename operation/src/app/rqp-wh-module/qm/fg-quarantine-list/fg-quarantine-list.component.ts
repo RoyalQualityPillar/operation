@@ -3,62 +3,50 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
-import { ShowMaterialIssuanceComponent } from 'src/app/rqp-pp-module/mrp/show-material-issuance/show-material-issuance.component';
 import { PpService } from 'src/app/rqp-pp-module/pp.service';
 
 @Component({
-  selector: 'app-material-dispensing',
+  selector: 'app-fg-quarantine-list',
   standalone: false,
-  templateUrl: './material-dispensing.component.html',
-  styleUrl: './material-dispensing.component.scss'
+  templateUrl: './fg-quarantine-list.component.html',
+  styleUrl: './fg-quarantine-list.component.scss'
 })
-export class MaterialDispensingComponent implements OnInit {
+export class FgQuarantineListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-  public materialDispensingListData: any;
+  public planningOrderListData: any;
   public dataSource: any;
   public isLoading = false;
-  public selectRow: any;
   displayedColumns = [
-        'action',
-    'lc0005',
     'ff0001',
-    'ff0002',
     'ff0003',
     'ff0004',
-    'ff0005',
-    'ff0012',
-    'ff0014',
-    'lc0003',
+    'ff0006',
     'createdon',
     'createdby',
+    'action',
   ];
   constructor(
     private ppService: PpService,
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-     private router: Router
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.PlanOrderMrpList(unitCode).subscribe((data: any) => {
+    this.ppService.getFgQuarantineList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
-      this.materialDispensingListData = new MatTableDataSource(this.dataSource);
-      this.materialDispensingListData.sort = this.sort;
-      this.materialDispensingListData.paginator = this.paginator;
+      this.planningOrderListData = new MatTableDataSource(this.dataSource);
+      this.planningOrderListData.sort = this.sort;
+      this.planningOrderListData.paginator = this.paginator;
     });
   }
-  setSelectedID(row: any) {
-  this.selectRow = row;
-}
   public pageChanged(event): void {
-    if (this.materialDispensingListData.length == GlobalConstants.size) {
+    if (this.planningOrderListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize
@@ -73,16 +61,7 @@ export class MaterialDispensingComponent implements OnInit {
   }
 
   public submit(value: any) {
-    value = this.selectRow  
-  //  sessionStorage.setItem('selectRow', JSON.stringify(value));
-  //   this.router.navigate(['./rqpoperationui/wh/material-reserved-list']);
-   
-  this.dialog.open(ShowMaterialIssuanceComponent, {
-    minWidth: '80%',
-    data: { tableData:value, pageTitle: 'Material Weights'}
-  });
-  
-  // this.ppService.savePlanOrderMrpList(value.uc0001).subscribe((data: any) => {
+    // this.ppService.saveFgQuarantineList(value.uc0001).subscribe((data: any) => {
     //   if (data.errorInfo != null) {
     //     this.isLoading = false;
     //     this.dialog.open(MessageDialogComponent, {
@@ -100,5 +79,4 @@ export class MaterialDispensingComponent implements OnInit {
   }
 
 }
-
 

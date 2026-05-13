@@ -28,6 +28,7 @@ import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack
 import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admin.component';
 import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
 import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
+import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'qsm-module-admin', component: QsmModuleAdminComponent },
   { path: 'quality-status-list', component: QualityStatusListComponent },
   { path: 'quarantine-list', component: QuarantineListComponent },
+  { path: 'fg-quarantine-list', component: FgQuarantineListComponent },
   { path: 'qm-module-admin', component: QmModuleAdminComponent },
   { path: 'quarantine-display-list', component: QuarantinePackDisplayComponent },
   { path: 'mdm-module-admin', component: MdmModuleAdminComponent },

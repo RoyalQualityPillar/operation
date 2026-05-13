@@ -37,6 +37,7 @@ import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack
 import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admin.component';
 import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
 import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
+import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { LocationUpdateComponent } from '../slc/location-update/location-update.
     QualityStatusListComponent,
     QmModuleAdminComponent,
     QuarantineListComponent,
+        FgQuarantineListComponent,
     QuarantinePackDisplayComponent,
     MdmModuleAdminComponent,
     MaterialDispensingComponent,
