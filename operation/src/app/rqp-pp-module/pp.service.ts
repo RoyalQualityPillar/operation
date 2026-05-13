@@ -87,8 +87,8 @@ export class PpService {
     const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
-  public savePlanOrderMrpList(Uc0001: string, lc0005:string) {
-    const queryParams = `?Uc0001=${Uc0001}&lc0005=${lc0005}`;
+  public savePlanOrderMrpList(Uc0001: string, lc0005:string, ApprovallotNumber:string) {
+    const queryParams = `?Uc0001=${Uc0001}&lc0005=${lc0005}&ApprovallotNumber=${ApprovallotNumber}`;
     const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
@@ -279,6 +279,12 @@ export class PpService {
   public saveMaterialIssuance(body: any) {
     const issuanceURL = this.API_URL + 'pp/material-issuance-save';
     return this.http.post(issuanceURL, body);
+  }
+
+   getApprovedMaterialListData(unitCode: any, ff0004: any) {
+    const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}`;
+    const reviwerURL = this.API_URL + 'pp/approved-material-list' + queryParams;
+    return this.http.get(reviwerURL);
   }
 }
 

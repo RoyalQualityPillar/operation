@@ -36,6 +36,7 @@ import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-
 import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
 import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
 import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/show-material-issuance.component";
+import { ApprovedMaterialListComponent } from "../mrp/approved-material-list/approved-material-list.component";
 
 @NgModule({
   declarations: [
@@ -70,8 +71,8 @@ import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/sho
     EproModuleAdminComponent,
     ExecutionProcessOrderComponent,
     MaterialRequVerfComponent,
-    ShowMaterialIssuanceComponent,  
-
+    ShowMaterialIssuanceComponent,
+    ApprovedMaterialListComponent,
 
 
 
