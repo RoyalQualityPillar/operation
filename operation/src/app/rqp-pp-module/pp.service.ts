@@ -286,5 +286,14 @@ export class PpService {
     const reviwerURL = this.API_URL + 'pp/approved-material-list' + queryParams;
     return this.http.get(reviwerURL);
   }
+
+  public getFgQuarantineList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-quarantine-list?Unitcode=${Unitcode} `);
+  }
+   public saveFgQuarantineList(uc0001: string, Status:any) {
+    const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
+    const samplingURL = this.API_URL + 'pp/planning-order-save' + queryParams;
+    return this.http.post(samplingURL, '');
+  }
 }
 

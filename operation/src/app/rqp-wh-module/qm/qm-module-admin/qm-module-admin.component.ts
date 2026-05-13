@@ -12,6 +12,9 @@ export class QmModuleAdminComponent {
   quarantineListData(): void {
     this.router.navigate(['./rqpoperationui/wh/quarantine-list']);
   }
+   fgQuarantineListData(): void {
+    this.router.navigate(['./rqpoperationui/wh/fg-quarantine-list']);
+  }  
   public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
