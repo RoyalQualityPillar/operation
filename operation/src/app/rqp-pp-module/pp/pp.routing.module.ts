@@ -29,6 +29,7 @@ import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-
 import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
 import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
 import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/show-material-issuance.component";
+import { ApprovedMaterialListComponent } from "../mrp/approved-material-list/approved-material-list.component";
 
 const routes: Routes = [
 
@@ -61,7 +62,7 @@ const routes: Routes = [
   { path: 'material-issuance', component: MaterialIssuanceComponent },
   { path: 'material-requ-verf', component: MaterialRequVerfComponent },
   { path: 'show-material-issuance', component: ShowMaterialIssuanceComponent },
-  
+  { path: 'approved-material-list', component: ApprovedMaterialListComponent },
 
 ];
 

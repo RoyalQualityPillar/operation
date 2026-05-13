@@ -17,14 +17,14 @@ import { Router } from '@angular/router';
   styleUrl: './quarantine-list.component.scss'
 })
 export class QuarantineListComponent implements OnInit {
-   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-public quarantineListData: any;
-public dataSource: any;
- public isLoading = false;
- public selectedRow: any;
- public selectRow: any;
- displayedColumns = [
+  public quarantineListData: any;
+  public dataSource: any;
+  public isLoading = false;
+  public selectedRow: any;
+  public selectRow: any;
+  displayedColumns = [
     'action',
     'ff0001',
     'ff0003',
@@ -34,27 +34,27 @@ public dataSource: any;
     'createdby',
     'quarantineAction'
   ];
-constructor(
-private whService:WhService,
- private cookieService: CookieService,
-  public dialog: MatDialog,
-     private notificationService: NotificationService,
-     private router: Router
-){}
+  constructor(
+    private whService: WhService,
+    private cookieService: CookieService,
+    public dialog: MatDialog,
+    private notificationService: NotificationService,
+    private router: Router
+  ) { }
   ngOnInit(): void {
-     let unitCode = this.cookieService.get('buCode');
-   this.whService.quarantineList(unitCode).subscribe((data: any) => {
-        this.dataSource = data.data;
-        this.quarantineListData = new MatTableDataSource(this.dataSource);
-        this.quarantineListData.sort = this.sort;
-        this.quarantineListData.paginator = this.paginator;
-      });      
-}
-setSelectedID(row: any) {
-  this.selectRow = row;
-}
+    let unitCode = this.cookieService.get('buCode');
+    this.whService.quarantineList(unitCode).subscribe((data: any) => {
+      this.dataSource = data.data;
+      this.quarantineListData = new MatTableDataSource(this.dataSource);
+      this.quarantineListData.sort = this.sort;
+      this.quarantineListData.paginator = this.paginator;
+    });
+  }
+  setSelectedID(row: any) {
+    this.selectRow = row;
+  }
 
- public pageChanged(event): void {
+  public pageChanged(event): void {
     if (this.quarantineListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
@@ -69,11 +69,11 @@ setSelectedID(row: any) {
     //todo
   }
 
-public submit(value:any){
-value = this.selectRow  
-   sessionStorage.setItem('selectRow', JSON.stringify(value));
+  public submit(value: any) {
+    value = this.selectRow
+    sessionStorage.setItem('selectRow', JSON.stringify(value));
     this.router.navigate(['./rqpoperationui/wh/quarantine-display-list']);
-}
- 
+  }
+
 
 }
