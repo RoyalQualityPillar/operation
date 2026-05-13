@@ -29,4 +29,10 @@ constructor(private router: Router, private cookieService: CookieService) { }
    public onallPendingRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
   }
+   public onEquipmentMaster(): void {
+    this.router.navigate(['./rqpoperationui/lbms/home-page-equipment-master']);
+  }
+   public onEquipmentInustumentMaster(): void {
+    this.router.navigate(['./rqpoperationui/lbms/home-page-equip-inst-master']);
+  }
 }

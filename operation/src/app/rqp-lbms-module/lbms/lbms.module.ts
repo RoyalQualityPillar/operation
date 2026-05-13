@@ -11,6 +11,10 @@ import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master
 import { CleanRoomGradeCreateUpdateComponent } from "../ma/master/clean-room-grade/clean-room-grade-create-update/clean-room-grade-create-update.component";
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
 import { SharedModule } from "src/app/common/shared.module";
+import { CreateUpdateEquipmentMasterComponent } from "../ma/master/equipment-master/create-update-equipment-master/create-update-equipment-master.component";
+import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
+import { CreateUpdateEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/create-update-equip-inst-master/create-update-equip-inst-master.component";
+import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/home-page-equip-inst-master/home-page-equip-inst-master.component";
 
 
 
@@ -23,7 +27,11 @@ import { SharedModule } from "src/app/common/shared.module";
     AreaGroupMasterCreateUpdateComponent,
     AreaGroupMasterHomePageComponent,
     CleanRoomGradeCreateUpdateComponent,
-    CleanRoomGradeHomePageComponent
+    CleanRoomGradeHomePageComponent,
+     CreateUpdateEquipmentMasterComponent,
+    HomePageEquipmentMasterComponent,
+    CreateUpdateEquipInstMasterComponent,
+    HomePageEquipInstMasterComponent,
   ],
   imports: [
     CommonModule,

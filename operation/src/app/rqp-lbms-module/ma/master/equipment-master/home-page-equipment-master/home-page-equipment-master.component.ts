@@ -10,17 +10,17 @@ import { changeStatusByCode } from 'src/app/common/removeEmptyStrings';
 import { apiEndPoints } from 'src/app/service/api-service/api-endpoints.constant';
 import { ApiService } from 'src/app/service/api-service/api.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
-import { CleanRoomGradeService } from '../clean-room-grade.service';
+import { EquipmentMasterService } from '../equipment-master.service';
+import { CreateUpdateEquipmentMasterComponent } from '../create-update-equipment-master/create-update-equipment-master.component';
 import { Router } from '@angular/router';
-import { CleanRoomGradeCreateUpdateComponent } from '../clean-room-grade-create-update/clean-room-grade-create-update.component';
 
 @Component({
-  selector: 'app-clean-room-grade-home-page',
+  selector: 'app-home-page-equipment-master',
   standalone: false,
-  templateUrl: './clean-room-grade-home-page.component.html',
-  styleUrl: './clean-room-grade-home-page.component.scss'
+  templateUrl: './home-page-equipment-master.component.html',
+  styleUrl: './home-page-equipment-master.component.scss'
 })
-export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
+export class HomePageEquipmentMasterComponent implements OnInit, AfterViewInit {
   @ViewChild('commonTableContainer', { read: ViewContainerRef, static: true })
   commonTableContainer!: ViewContainerRef;
   @ViewChild('activeRoleMasterContainer', { read: ViewContainerRef })
@@ -40,17 +40,16 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   activeUserFilterValueError = false;
   tableData: MatTableDataSource<any>;
   isFilterExpanded = false;
-  allCleanRoomGradeTableDataUrl: any;
-  activeCleanRoomGradeTableDataUrl: any;
+  allEquipmentTableDataUrl: any;
+  activeEquipmentTableDataUrl: any;
   filterApiUrl: any;
   params: any;
   HttpMethod = 'POST';
   getLatestData = false;
-  allCleanRoomGradeTabledataUrl: apiEndPoints;
 
   constructor(
     private router: Router,
-    private CleanRoomGradeService: CleanRoomGradeService,
+    private equipmentMasterService: EquipmentMasterService,
     public dialog: MatDialog,
     public cookieService: CookieService,
     private apiService: ApiService,
@@ -59,14 +58,14 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   filterObject: any;
   activeUserFilterObject: any;
   ngOnInit(): void {
-    this.allCleanRoomGradeTableDataUrl = apiEndPoints.allCrmMasterTabledata;
+    this.allEquipmentTableDataUrl = apiEndPoints.allEquipmentMasterTabledata;
     this.pageIndex = 0;
     let size = GlobalConstants.size;
     let pageIndex = this.pageIndex;
     let unitCode = this.cookieService.get('buCode');
     this.params = { pageIndex, size, unitCode };
-    this.filterApiUrl = apiEndPoints.crmMasterUserProfileFilterData;
-    this.activeCleanRoomGradeTableDataUrl = apiEndPoints.activeCrmMasterTabledata;
+    this.filterApiUrl = apiEndPoints.areaEquipmentUserProfileFilterData;
+    this.activeEquipmentTableDataUrl = apiEndPoints.activeEquipmentMasterTabledata;
     this.params = { pageIndex, size, unitCode };
     this.loadRoleMasterTableFilter();
     this.loadActiveRoleMasterTableFilter();
@@ -82,15 +81,15 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
       // Set all required inputs
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this. allCleanRoomGradeTableDataUrl);
-      compRef.setInput('tableTitle', 'All Clean Room Grade');
+      compRef.setInput('apiUrl', this. allEquipmentTableDataUrl);
+      compRef.setInput('tableTitle', 'Active Equipment Master');
       compRef.setInput('dynamicButtons', this.allButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
       compRef.setInput('filterApiUrl', this.filterApiUrl);
       compRef.setInput('HttpMethod', this.HttpMethod);
       compRef.setInput('params', this.params);
       compRef.setInput('getLatestData', this.getLatestData);
-      compRef.setInput('downloadFileName', ' Clean Room Grade');
+      compRef.setInput('downloadFileName', ' Equipment Master');
 
       // Subscribe to output
       (compRef.instance as any).buttonClick.subscribe((event: any) => {
@@ -110,25 +109,24 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
 
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this.activeCleanRoomGradeTableDataUrl);
-      compRef.setInput('tableTitle', 'Active Clean Room Grade');
+      compRef.setInput('apiUrl', this.activeEquipmentTableDataUrl);
+      compRef.setInput('tableTitle', 'Active Equipment Master');
       compRef.setInput('dynamicButtons', this.activeButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
       compRef.setInput('filterApiUrl', this.filterApiUrl);
       compRef.setInput('HttpMethod', this.HttpMethod);
       compRef.setInput('params', this.params);
       compRef.setInput('getLatestData', this.getLatestData);
-      compRef.setInput('downloadFileName', 'Clean Room Grade');
+      compRef.setInput('downloadFileName', 'Equipment Master');
 
       // 🔧 Safely subscribe to output
       (compRef.instance as any).buttonClick.subscribe((event: any) => {
         this.activeHandleButtonAction(event);
       });
     } catch (error) {
-      console.error('Error loading Active Role Master table filter:', error);
+      console.error('Error loading Active Equipment Master table filter:', error);
     }
   }
-  
   ngAfterViewInit(): void {}
   selectedTab = 0;
   toggleFilter() {
@@ -139,7 +137,7 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
 
   selectedRow: any;
   onOpenRolePOPUP() {
-    const dialogRef = this.dialog.open(CleanRoomGradeCreateUpdateComponent, {
+    const dialogRef = this.dialog.open(CreateUpdateEquipmentMasterComponent, {
       minWidth: '80%',
       data: { tableData: this.selectedRow, type: 'Registration' },
     });
@@ -166,7 +164,7 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
         },
       });
     } else {
-      const dialogRef = this.dialog.open(CleanRoomGradeCreateUpdateComponent, {
+      const dialogRef = this.dialog.open(CreateUpdateEquipmentMasterComponent, {
         minWidth: '80%',
         data: { tableData: this.selectedRow, type: 'Modification' },
       });
@@ -194,14 +192,22 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
         labelName: 'Status',
         value: this.onChangeStatus(this.selectedRow.status),
       },
-      { labelName: 'Clean Room Grade No', value: this.selectedRow.uc0001 },
-      { labelName: 'Clean Room Grade Code', value: this.selectedRow.ff0001 },
-      { labelName: 'Clean Room Grade Name', value: this.selectedRow.ff0002 },
-      { labelName: 'Condition', value: this.selectedRow.ff0003 },
-      { labelName: 'ISO Class', value: this.selectedRow.ff0004 },
-      { labelName: '≥0.5 µm (particles/m³)', value: this.selectedRow.ff0005 },
-      { labelName: '≥5.0 µm (particles/m³)', value: this.selectedRow.ff0006 },
-
+      { labelName: 'Equipment No', value: this.selectedRow.uc0001 },
+      { labelName: 'Equopment Name', value: this.selectedRow.ff0001 },
+      { labelName: 'Department', value: this.selectedRow.ff0002 },
+      { labelName: 'Category Code', value: this.selectedRow.ff0003 },
+      { labelName: 'Category Name', value: this.selectedRow.ff0004 },
+      { labelName: 'Category Type', value: this.selectedRow.ff0005 },
+      { labelName: 'Clasification', value: this.selectedRow.ff0006 },
+      { labelName: 'Make', value: this.selectedRow.ff0007 },
+      { labelName: 'Modle', value: this.selectedRow.ff0008 },
+      { labelName: 'Manufacturer S. No', value: this.selectedRow.ff0009 },
+      { labelName: 'Vendor Name', value: this.selectedRow.ff0010 },
+      { labelName: 'Supplier Name', value: this.selectedRow.ff0011 },
+      { labelName: 'Installed On', value: this.selectedRow.ff0012 },
+      { labelName: 'Warraty Exipire On', value: this.selectedRow.ff0013 },
+      { labelName: 'SOP No', value: this.selectedRow.ff0014 },
+      { labelName: 'Softwere', value: this.selectedRow.ff0015 },
       { labelName: 'Createdon', value: this.selectedRow.createdon },
       { labelName: 'Createdby', value: this.selectedRow.createdby },
       { labelName: 'Comments', value: this.selectedRow.comments },
@@ -220,7 +226,7 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
       
       const dialogRef = this.dialog.open(component, {
         minWidth: '80%',
-        data: { tableData: tableData, pageTitle: 'Clean Room Grade' },
+        data: { tableData: tableData, pageTitle: 'Equipment Master' },
       });
       dialogRef.afterClosed().subscribe((result) => {});
     }
@@ -239,7 +245,7 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
     } else {
       this.isLoading = true;
 
-      this.CleanRoomGradeService
+      this.equipmentMasterService
         .onAllRoleAuditTrail(this.selectedRow.uc0001)
         .subscribe((data: any) => {
           let newFormatData = this.structureResponse(data.data);
@@ -257,13 +263,22 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
             labelName: 'Status',
             value: this.onChangeStatus(item.status),
           },
-          { labelName: 'Clean Room Grade No', value: item.uc0001 },
-          { labelName: 'Clean Room Grade Code', value: item.ff0001 },
-          { labelName: 'Clean Room Grade Name', value: item.ff0002 },
-          { labelName: 'Condition', value: item.ff0003 },
-          { labelName: 'ISO Class', value: item.ff0004 },
-          { labelName: '≥0.5 µm (particles/m³)', value: item.ff0005 },
-          { labelName: '≥5.0 µm (particles/m³)', value: item.ff0006 },
+          { labelName: 'Equipment No', value: item.uc0001 },
+          { labelName: 'Equopment Name', value: item.ff0001 },
+          { labelName: 'Department', value: item.ff0002 },
+          { labelName: 'Category Code ', value: item.ff0003 },
+          { labelName: 'Category Name', value: item.ff0004 },
+          { labelName: 'Category Type', value: item.ff0005 },
+          { labelName: 'Clasification ', value: item.ff0006 },
+          { labelName: 'Make', value: item.ff0007 },          
+          { labelName: 'Modle', value: item.ff0008 },          
+          { labelName: 'Manufacturer S. No', value: item.ff0009 },          
+          { labelName: 'Vendor Name', value: item.ff0010 },          
+          { labelName: 'Supplier Name', value: item.ff0011 },          
+          { labelName: 'Installed On', value: item.ff0012 },          
+          { labelName: 'Warraty Exipire On', value: item.ff0013 },          
+          { labelName: 'SOP No', value: item.ff0014 },          
+          { labelName: 'Softwere', value: item.ff0015 },          
           { labelName: 'Createdon', value: item.createdon },
           { labelName: 'Createdby', value: item.createdby },
           { labelName: 'Comments', value: item.comments },
@@ -275,16 +290,18 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
     );
     const dialogRef = this.dialog.open(component, {
       minWidth: '80%',
-      data: { tableData: rows, pageTitle: 'Clean Room Grade' },
+      data: { tableData: rows, pageTitle: 'Area Master' },
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
   columnConfig = {
     action: 'Action',
-    uc0001: 'Clean Room Grade No',
-    ff0001: 'Clean Room Grade Code',
-    ff0002: 'Clean Room Grade Name',
-    ff0003: 'Condition',
+    uc0001: 'Equipment No',
+    ff0001: 'Equopment Name',
+    ff0002: 'Department',
+    ff0003: 'Category Code',
+    ff0004: 'Category Name',
+    ff0005: 'Category Type',
     status: 'Status',
     version: 'Version',
     createdon: 'CreatedOn',
@@ -292,7 +309,7 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   };
 
   filterOptions: string[] = Object.keys(this.columnConfig);
-  tableTitle: string = 'All Clean Room Grade';
+  tableTitle: string = 'All Area Master';
   allButtonConfig = [
     { label: ' Audit Trail', action: 'Audit_Trail', color: 'primary' },
     // { label: 'Save', action: 'save', color: 'accent' }

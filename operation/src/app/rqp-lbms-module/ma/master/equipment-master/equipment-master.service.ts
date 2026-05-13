@@ -6,13 +6,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AreaMasterService {
-private API_URL = environment.apiBaseURL;
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+export class EquipmentMasterService {
+  private API_URL = environment.apiBaseURL;
+ constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   onCreate(body: any) {
     let token = this.cookieService.get('token');
-    let createUserURL = this.API_URL + 'lbms/area_master/save-update';
+    let createUserURL = this.API_URL + 'lbms/equipment_master/save-update';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -38,12 +38,7 @@ private API_URL = environment.apiBaseURL;
     onAllRoleAuditTrail(uc0001: any) {
     let queryParams = `?UC0001=${uc0001}`;
     const ALLSALEPRODUCTURL =
-      this.API_URL + 'lbms/area_master/get-by-code-all' + queryParams;
-    return this.http.get(ALLSALEPRODUCTURL);
-  }
-   getDropDownAGList(unitCode: any) {
-   let queryParams = `?unitCode=${unitCode}`;
-    const ALLSALEPRODUCTURL = this.API_URL + 'lbms/input' + queryParams;
+      this.API_URL + 'lbms/equipment_master/get-by-code-all' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
 }

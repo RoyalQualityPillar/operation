@@ -1,7 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, timer, takeUntil } from 'rxjs';
 import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.component';
@@ -12,20 +11,21 @@ import { ApiService } from 'src/app/service/api-service/api.service';
 import { ButtonLabelService } from 'src/app/service/button-label.service';
 import { MessageService } from 'src/app/service/message.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
-import { AreaMasterService } from '../area-master.service';
+import { Router } from '@angular/router';
+import { EquipInstMasterService } from '../equip-inst-master.service';
+
 export interface userData {
   userData: any;
   type: any;
   tableData: any;
 } 
-
 @Component({
-  selector: 'app-area-create-update',
+  selector: 'app-create-update-equip-inst-master',
   standalone: false,
-  templateUrl: './area-create-update.component.html',
-  styleUrl: './area-create-update.component.scss'
+  templateUrl: './create-update-equip-inst-master.component.html',
+  styleUrl: './create-update-equip-inst-master.component.scss'
 })
-export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
+export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
   isReadOnly = true;
   isUpdate = false;
   DepartmentMaster: FormGroup;
@@ -33,8 +33,6 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   buTypeList: any;
   unitList: any;
   formData: any;
-  agmList:any;
-  deptCodeList:any;
   isLoading = false;
   statusList: any;
   displayedColumns: any;
@@ -48,13 +46,13 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
     public buttonLabelService: ButtonLabelService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private areaMasterService: AreaMasterService,
+    private equipInstMasterService: EquipInstMasterService,
     private remoteLoader: RemoteComponentLoaderService,
     private cookieService: CookieService,
     private apiService: ApiService,
     private route: Router,
     private notificationService: NotificationService,
-    public dialogRef: MatDialogRef<AreaCreateUpdateComponent>,
+    public dialogRef: MatDialogRef<CreateUpdateEquipInstMasterComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: userData
   ) {
     this.DepartmentMaster = this.fb.group({
@@ -67,7 +65,16 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       ff0005: ['', Validators.required],
       ff0006: ['', Validators.required],
       ff0007: ['', Validators.required],
-      
+      ff0008: ['', Validators.required],
+      ff0009: ['', Validators.required],
+      ff0010: ['', Validators.required],
+      ff0011: ['', Validators.required],
+      ff0012: ['', Validators.required],
+      ff0013: ['', Validators.required],
+      ff0014: ['', Validators.required],
+      ff0015: ['', Validators.required],
+      ff0016: ['', Validators.required],
+      ff0017: ['', Validators.required],
       createdby: [''],
       status: [''],
       comments: ['', Validators.required],
@@ -79,7 +86,6 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.cookieService.get('buCode')
     );
     this.onloadDropDown();
-    this.onloadAGListDropDown();
     this.onLoadStatusDropDown();
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
@@ -95,7 +101,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     let unitCode = this.cookieService.get('buCode');
     let params = { unitCode };
-    //this.businessUnitService.getDropDownList().subscribe((data: any) => {
+   
     this.apiService
       .sendRequest(apiEndPoints.dropDownInputList, 'GET', params)
       .subscribe((data: any) => {
@@ -107,29 +113,17 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   }
   onLoadStatusDropDown() {
     this.isLoading = true;
-    this.areaMasterService.getDropDownList().subscribe((data: any) => {
+    this.equipInstMasterService.getDropDownList().subscribe((data: any) => {
       this.statusList = data.data.statusInfo;
-      this.isLoading = false;
-    });
-  }
-  onloadAGListDropDown() {
-    this.isLoading = true;
-    this.areaMasterService.getDropDownAGList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
-      this.agmList = data.data.agmList;
-      this.deptCodeList = data.data.deptCodeList;
       this.isLoading = false;
     });
   }
   onLoadFormValue() {
     this.isLoading = true;
-    // this.organizationService
-    //   .onLoadUpdatePage(this.userData.tableData.uc0001)
-    //   .subscribe((data: any) => {
     let UC0001 = this.userData.tableData.uc0001;
     const params = { UC0001 };
     this.apiService
-      .sendRequest(apiEndPoints.areaMasterLoadUpdatePage, 'POST', params)
+      .sendRequest(apiEndPoints.equipmentInustumentMasterLoadUpdatePage, 'POST', params)
       .subscribe((data: any) => {
         this.formData = data.data;
         this.isLoading = false;
@@ -146,6 +140,16 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
     this.DepartmentMaster.controls['ff0005'].setValue(this.formData.ff0005);
     this.DepartmentMaster.controls['ff0006'].setValue(this.formData.ff0006);
     this.DepartmentMaster.controls['ff0007'].setValue(this.formData.ff0007);
+    this.DepartmentMaster.controls['ff0008'].setValue(this.formData.ff0008);
+    this.DepartmentMaster.controls['ff0009'].setValue(this.formData.ff0009);
+    this.DepartmentMaster.controls['ff0010'].setValue(this.formData.ff0010);
+    this.DepartmentMaster.controls['ff0011'].setValue(this.formData.ff0011);
+    this.DepartmentMaster.controls['ff0012'].setValue(this.formData.ff0012);
+    this.DepartmentMaster.controls['ff0013'].setValue(this.formData.ff0013);
+    this.DepartmentMaster.controls['ff0014'].setValue(this.formData.ff0014);
+    this.DepartmentMaster.controls['ff0015'].setValue(this.formData.ff0015);
+    this.DepartmentMaster.controls['ff0016'].setValue(this.formData.ff0016);
+    this.DepartmentMaster.controls['ff0017'].setValue(this.formData.ff0017);
     this.DepartmentMaster.controls['status'].setValue(this.formData.status);
     this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
   }
@@ -155,7 +159,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.cookieService.get('userId')
     );
     let params = {};
-    this.areaMasterService
+    this.equipInstMasterService
       .onCreate(this.DepartmentMaster.value)
       .subscribe((data: any) => {
         if (data.errorInfo != null) {
@@ -195,13 +199,12 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       }
     });
   }
-  onCreate() {
+   onCreate() {
     this.isLoading = true;
     this.DepartmentMaster.controls['createdby'].setValue(
       this.cookieService.get('userId')
     );
-    let params = {};
-    this.areaMasterService
+    this.equipInstMasterService
       .onCreate(this.DepartmentMaster.value)
       .subscribe((data: any) => {
         if (data.errorInfo != null) {
@@ -214,18 +217,12 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
           });
         } else {
           this.isLoading = false;
-          this.notificationService.showSuccess(data.status, () => { });
-          timer(2000)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-              this.route.navigateByUrl('/rqpoperationui/lbms/ma-module-admin');
-            });
+          this.notificationService.showSuccess(data.status, () => {
+            console.log('Success Snackbar Closed');
+          });
+          this.dialogRef.close();
         }
-
-
-
       });
-    this.dialogRef.close();
   }
   onClear() {
     this.DepartmentMaster.reset();
@@ -276,88 +273,6 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
         this.openBusinessUnitCodeLOV();
       }
     }
-  }
-   onChangeAreaGroup() {
-    if (this.DepartmentMaster.controls['ff0003'].value == '') {
-      this.DepartmentMaster.controls['ff0003'].setValue('');
-      this.isStatusSuccess = false;
-      let statusCurrentValue = this.DepartmentMaster.controls['ff0003'].value;
-      this.agmList.forEach((elements) => {
-        if (elements.productNO == statusCurrentValue) {
-          this.isStatusSuccess = true;
-        }
-      });
-      if (this.isStatusSuccess == false) {
-        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
-        this.openAreaGroupLOV();
-      }
-    }
-  }
-   openAreaGroupLOV() {
-    this.displayedColumns = [
-      { field: 'name', title: 'Area Name' },
-      { field: 'code', title: 'Area Code' },
-    ];
-    const dialogRef = this.dialog.open(LovDialogComponent, {
-      height: '500px',
-      width: '600px',
-      data: {
-        dialogTitle: 'Area Group List',
-        dialogColumns: this.displayedColumns,
-        dialogData: this.agmList,
-        lovName: 'businessUnitList',
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedDialogData = result.data;
-        this.DepartmentMaster.controls['ff0003'].setValue(
-          this.selectedDialogData.name
-        );
-      }
-    });
-  }
-   onChangeDepartment() {
-    if (this.DepartmentMaster.controls['ff0004'].value == '') {
-      this.DepartmentMaster.controls['ff0004'].setValue('');
-      this.isStatusSuccess = false;
-      let statusCurrentValue = this.DepartmentMaster.controls['ff0004'].value;
-      this.deptCodeList.forEach((elements) => {
-        if (elements.productNO == statusCurrentValue) {
-          this.isStatusSuccess = true;
-        }
-      });
-      if (this.isStatusSuccess == false) {
-        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
-        this.openDepartmentLOV();
-      }
-    }
-  }
-   openDepartmentLOV() {
-    this.displayedColumns = [
-      { field: 'unitName', title: 'Department Name' },
-      { field: 'unitCode', title: 'Department Code' },
-    ];
-    const dialogRef = this.dialog.open(LovDialogComponent, {
-      height: '500px',
-      width: '600px',
-      data: {
-        dialogTitle: 'Department List',
-        dialogColumns: this.displayedColumns,
-        dialogData: this.deptCodeList,
-        lovName: 'businessUnitList',
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedDialogData = result.data;
-        this.DepartmentMaster.controls['ff0004'].setValue(
-          this.selectedDialogData.unitCode
-        );
-      }
-    });
   }
   openStatusLOV() {
     this.displayedColumns = [

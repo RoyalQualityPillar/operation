@@ -32,18 +32,7 @@
                   >).</span
                 >
               </div>
-                <!-- <div class="col-6 px-1"></div>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-label>Material Vendor No</mat-label>
-                  <input
-                    type="text"
-                    matInput
-                    formControlName="uc0001"
-                    [readonly]="!isUpdate ? true : false"
-                    [class.isReadonlyField]="isUpdate"
-                    placeholder="Material Vendor No"
-                  />
-                </mat-form-field> -->
+               
               </div>  
               <div class="row no-gutters ms-1 me-1 dense-4 orgCode"><br />
                 <mat-form-field appearance="outline" class="col-12 px-1">
@@ -84,8 +73,43 @@
                   formControlName="ff0002"
                   placeholder="Clean Room Grade Name"
                 />
-               
-              </mat-form-field>
+               </mat-form-field>
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>Condition</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="ff0003"
+                  placeholder="Condition"
+                />
+               </mat-form-field>
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>ISO Class</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="ff0004"
+                  placeholder="ISO Class"
+                />
+               </mat-form-field>
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>≥0.5 µm (particles/m³)</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="ff0005"
+                  placeholder="≥0.5 µm (particles/m³)"
+                />
+               </mat-form-field>
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>≥5.0 µm (particles/m³)</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="ff0006"
+                  placeholder="≥5.0 µm (particles/m³)"
+                />
+               </mat-form-field>
                </div>
             
             <div class="col-3 px-1" *ngIf="isUpdate">
