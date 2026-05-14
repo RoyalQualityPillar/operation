@@ -276,9 +276,10 @@ export class PpService {
     return this.http.get(this.API_URL + `pp/material-reserved-pack-list?lc0005=${lc0005} `);
   }
 
-  public saveMaterialIssuance(body: any) {
-    const issuanceURL = this.API_URL + 'pp/material-issuance-save';
-    return this.http.post(issuanceURL, body);
+  public saveMaterialIssuance(uc0001: string, ff0006:number, ff0007:number, ff0008:number ) {
+    const queryParams = `?uc0001=${uc0001}&ff0006=${ff0006}&ff0007=${ff0007}&ff0008=${ff0008}`;
+    const issuanceURL = this.API_URL + 'pp/material-issuance-save' + queryParams;
+    return this.http.post(issuanceURL, '');
   }
 
    getApprovedMaterialListData(unitCode: any, ff0004: any) {

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,6 +29,7 @@ export class ShowMaterialIssuanceComponent implements OnInit {
     private remoteLoader: RemoteComponentLoaderService,
     public dialog: MatDialog,
     private ppService: PpService,
+     public dialogRef: MatDialogRef<ShowMaterialIssuanceComponent>,
     private notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data,
 
@@ -65,15 +66,12 @@ export class ShowMaterialIssuanceComponent implements OnInit {
   }
   Submit() {
     const materialweights = this.MaterialIssuanceForm.value;
-    const payload = {
-      uc0001: this.materialValue.uc0001,
-      ff0006: materialweights.nareWeight,
-      ff0007: materialweights.grossWeight,
-      ff0008: materialweights.netWeight,
-      lc0003: this.materialValue.lc0003,
-      lc0005: this.materialValue.gr_lc0005
-    }
-    this.ppService.saveMaterialIssuance(payload).subscribe((data: any) => {
+    const uc0001 = this.materialValue.uc0001;
+      const ff0006 = materialweights.nareWeight;
+      const ff0007 = materialweights.grossWeight;
+      const ff0008 = materialweights.netWeight;  
+   
+    this.ppService.saveMaterialIssuance(uc0001, ff0006, ff0007, ff0008).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -86,6 +84,7 @@ export class ShowMaterialIssuanceComponent implements OnInit {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
         });
+        this.dialogRef.close();
       }
     });
   }
