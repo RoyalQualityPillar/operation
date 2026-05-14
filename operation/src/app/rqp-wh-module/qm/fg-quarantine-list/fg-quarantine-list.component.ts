@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -16,6 +17,7 @@ import { PpService } from 'src/app/rqp-pp-module/pp.service';
   styleUrl: './fg-quarantine-list.component.scss'
 })
 export class FgQuarantineListComponent implements OnInit {
+   public fgQuarantineStatusListForm:FormGroup;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   public planningOrderListData: any;
@@ -34,8 +36,14 @@ export class FgQuarantineListComponent implements OnInit {
     private ppService: PpService,
     private cookieService: CookieService,
     public dialog: MatDialog,
+     private fb:FormBuilder,
     private notificationService: NotificationService,
-  ) { }
+  ) {
+    this.fgQuarantineStatusListForm = fb.group({
+      documentName: [''],
+      status:['']
+    });
+   }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
     this.ppService.getFgQuarantineList(unitCode).subscribe((data: any) => {
@@ -61,21 +69,22 @@ export class FgQuarantineListComponent implements OnInit {
   }
 
   public submit(value: any) {
-    // this.ppService.saveFgQuarantineList(value.uc0001).subscribe((data: any) => {
-    //   if (data.errorInfo != null) {
-    //     this.isLoading = false;
-    //     this.dialog.open(MessageDialogComponent, {
-    //       data: {
-    //         message: data.errorInfo.message,
-    //         heading: 'Error Information',
-    //       },
-    //     });
-    //   } else {
-    //     this.isLoading = false;
-    //     this.notificationService.showSuccess(data.status, () => {
-    //     });
-    //   }
-    // });
+     const quarantineStatus = this.fgQuarantineStatusListForm.value;
+    this.ppService.saveFgQuarantineList(value.uc0001,quarantineStatus.status ).subscribe((data: any) => {
+      if (data.errorInfo != null) {
+        this.isLoading = false;
+        this.dialog.open(MessageDialogComponent, {
+          data: {
+            message: data.errorInfo.message,
+            heading: 'Error Information',
+          },
+        });
+      } else {
+        this.isLoading = false;
+        this.notificationService.showSuccess(data.status, () => {
+        });
+      }
+    });
   }
 
 }
