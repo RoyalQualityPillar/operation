@@ -1,0 +1,122 @@
+<div class="adjust">
+    <div class="example-table-container">
+        <app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+    </div>
+</div>
+
+
+<app-common-title [title]="'Product Information'"></app-common-title>
+<div class="row no-gutters ms-1 me-1 dense-4">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Parameter Number</mat-label>
+        <input type="number" matInput  [(ngModel)]="parameterNo" placeholder="Parameter Number" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Set Point Number</mat-label>
+        <input type="number" matInput [(ngModel)]="setPointNo" placeholder="Set Point Number" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Parameter Name</mat-label>
+        <mat-select [(ngModel)]="parameterName">
+            <mat-option value="">Select</mat-option>
+            <mat-option value="conducted">Conducted</mat-option>
+            <!-- <mat-option value="GM">GM</mat-option>
+                        <mat-option value="L">L</mat-option> -->
+        </mat-select>
+    </mat-form-field>
+     <div class="float-left">
+          <button mat-raised-button class="submitButton" [disabled]="disableButtons"
+            (click)="onGenerateParameters()">
+            Generate Fields
+          </button>
+        </div>
+</div>
+
+<div class="parameter-card" *ngFor="let parameter of parameters">
+
+  <h3>{{parameter.parameterName}} Parameter {{ parameter.parameterNo }}</h3>
+
+  <div class="setpoint-card"
+       *ngFor="let sp of parameter.setPoints; let j = index">
+
+    <div class="row no-gutters ms-1 me-1 dense-4">
+
+      <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Set Point {{ j + 1 }}</mat-label>
+        <input type="text" matInput
+               [(ngModel)]="sp.setPoint"
+               (input)="checkResult(sp)">
+       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Min</mat-label>
+        <input type="text" matInput
+               [(ngModel)]="sp.min"
+               (input)="checkResult(sp)">
+     </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Max</mat-label>
+        <input type="text" matInput
+               [(ngModel)]="sp.max"
+               (input)="checkResult(sp)">
+     </mat-form-field>
+
+     <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>UOM</mat-label>
+
+        <mat-select [(ngModel)]="sp.uom">
+
+          <mat-option value="">Select UOM</mat-option>
+
+          <mat-option *ngFor="let uom of uomList"
+                  [value]="uom">
+            {{ uom }}
+          </mat-option>
+
+        </mat-select>
+    </mat-form-field>
+
+    </div>
+
+    <div class="result-section">
+
+      <mat-form-field>
+        <mat-label>Result</mat-label>
+
+        <input type="text" matInput
+               [value]="sp.result"
+               [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
+               readonly>
+      </mat-form-field>
+
+    </div>
+
+    <div class="pass-limit">
+
+      <label>Pass Limit Description</label>
+
+      <input type="text"
+             [(ngModel)]="sp.passLimit">
+
+    </div>
+
+  </div>
+
+</div>
+
+<app-common-comments [nextStageListData]="nextStageListData"
+    (commentsData)="handleCommentsForm($event)"></app-common-comments>
+<div class="containerBTN margin-top_2 margin-bottom_35">
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()" [disabled]="disableButtons">
+            Save
+        </button>
+        <button mat-raised-button class="submitButton" (click)="onSubmitConfirmation()" [disabled]="disableButtons">
+            Submit
+        </button>
+        <!-- <button mat-raised-button class="submitButton">Clear</button> -->
+    </div>
+</div>
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="height_5"></div>
