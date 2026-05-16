@@ -15,6 +15,14 @@ import { CreateUpdateEquipmentMasterComponent } from "../ma/master/equipment-mas
 import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
 import { CreateUpdateEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/create-update-equip-inst-master/create-update-equip-inst-master.component";
 import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/home-page-equip-inst-master/home-page-equip-inst-master.component";
+import { IwsModuleAdminComponent } from "../iws/iws-module-admin/iws-module-admin.component";
+import { IwsInitiatorComponent } from "../iws/iws-initiator/iws-initiator.component";
+import { IwsUpdateComponent } from "../iws/iws-update/iws-update.component";
+import { IwsUpdateSaveComponent } from "../iws/iws-update-save/iws-update-save.component";
+import { IwsReviewerComponent } from "../iws/iws-reviewer/iws-reviewer.component";
+import { IwsReviewerSaveComponent } from "../iws/iws-reviewer-save/iws-reviewer-save.component";
+import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.component";
+import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
 
 
 
@@ -28,10 +36,18 @@ import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustum
     AreaGroupMasterHomePageComponent,
     CleanRoomGradeCreateUpdateComponent,
     CleanRoomGradeHomePageComponent,
-     CreateUpdateEquipmentMasterComponent,
+    CreateUpdateEquipmentMasterComponent,
     HomePageEquipmentMasterComponent,
     CreateUpdateEquipInstMasterComponent,
     HomePageEquipInstMasterComponent,
+    IwsModuleAdminComponent,
+    IwsInitiatorComponent,
+    IwsUpdateComponent,
+    IwsUpdateSaveComponent,
+    IwsReviewerComponent,
+    IwsReviewerSaveComponent,
+    IwsCompletedComponent,
+    IwsCompletedSaveComponent,
   ],
   imports: [
     CommonModule,
@@ -41,9 +57,9 @@ import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustum
     SharedModule,
     LbmsRoutingModule
     // CustomDatePipe,
-    
+
   ],
   providers: [],
 })
 
-export class LbmsModule {}
+export class LbmsModule { }
