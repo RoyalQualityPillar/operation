@@ -1348,6 +1348,14 @@ export enum apiEndPoints {
   equipmentInustumentMasterLoadUpdatePage = 'lbms/equipment_Inus_master/get-by-max-code',
   equipmentInustumentMasterAllAuditTrail = 'lbms/equipment_inus_master/get-by-code-all',
 
+   /***Instrument Category  Master***/
+  allinstrumentcatMasterTabledata = 'limsm-im/ic-master/get-all',
+  activeinstrumentcatMasterTabledata = 'limsm-im/ic-master/get-max-all',
+  instrumentcatMasterUserProfileFilterData = 'limsm-im/ic-master/search',
+  instrumentcatMasterCreateUpdate = 'limsm-im/ic-master/save-update',
+  instrumentcatMasterLoadUpdatePage = 'limsm-im/ic-master/get-by-max-code',
+  instrumentcatMasterAllAuditTrail = 'limsm-im/ic-master/get-by-code-all',
+
     /***************WmhModule***************/
 
   /*******Inspection Master*********/
