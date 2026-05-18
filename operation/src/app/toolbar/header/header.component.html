@@ -1,0 +1,160 @@
+<mat-toolbar style="max-width: 100%; padding: 0px; background-color: #ecedf4" class="maintoolbar">
+  <div class="logo1">
+    <span *ngIf="!sessionService.getLogoState()">
+      <img src="../../../assets/logo1.png" style="height: 50px; width: 170px; margin-top:12px;margin-left:12px" />
+    </span>
+    <span *ngIf="sessionService.getLogoState()">
+      <img src="../../../assets/logo2.jpeg" style="height: 57px; width: 319px;" />
+    </span>
+  </div>
+  <div class="logo3" *ngIf="this.cookieService.get('isLogo') == 'true'">
+    <div style="margin-left: 250%" *ngIf="this.cookieService.get('isLogin') == 'loginSuccess'">
+      <img [src]="logoURL" alt="Logo" style="height: 50px; width: 170px; margin-top:12px" />
+    </div>
+  </div>
+  <div class="logo2">
+    <span>
+      <div class="Top-rightid">
+        <table cellpadding="0" cellspacing="0" *ngIf="this.cookieService.get('isLogin') == 'loginSuccess'">
+          <tr>
+            <td>
+              <div class="userid_title">
+                <mat-icon matSuffix>account_circle</mat-icon> &nbsp;
+              </div>
+            </td>
+            <td>
+              <div class="userid_title" [matMenuTriggerFor]="userMenu">
+                {{ this.cookieService.get("userId") }}
+              </div>
+            </td>
+          </tr>
+        </table>
+        <mat-menu #userMenu="matMenu" style="background-color: #474668">
+          <!-- <button mat-menu-item *ngFor="let action of toolbarActions" (click)="onAction(action)"> -->
+          <button mat-menu-item (click)="onChangePassword()">
+            <span>Change Password</span>
+          </button>
+          <button mat-menu-item (click)="confirmDialog()">
+            <span>Log Out </span>
+          </button>
+
+          <span class="margin-left_15">{{ cookieService.get("buCode") }}</span>
+        </mat-menu>
+      </div>
+    </span>
+  </div>
+</mat-toolbar>
+<mat-toolbar class="toolbar" *ngIf="this.cookieService.get('isLogin') == 'loginSuccess'">
+  <div class="menu-template">
+    <button mat-button class="menu" class="basic" (click)="navigatehome()">
+      Home
+    </button>
+
+    <button *ngIf="this.cookieService.get('subMenuFlag') == 'true'" mat-button [matMenuTriggerFor]="belowMenu">
+      {{ this.cookieService.get("menuHeader") }}
+    </button>
+    <!-- <mat-menu #belowMenu="matMenu" yPosition="below" class="dropdown1" >
+      <button class="mat-menu-item" style=" color: #fff;text-align: start;" (click)="submenu1(this.cookieService.get('subMenu1'))">{{this.cookieService.get('subMenu1')}}</button>
+    </mat-menu> -->
+    <mat-menu #belowMenu="matMenu" yPosition="below" class="dropdown1">
+      <div *ngFor="let submenu of this.lifeCycleDataService.subMenuList">
+        <button class="mat-menu-item" style="color: #fff; text-align: start"
+          (click)="onSelectSubMenu(submenu.lcrole, submenu.stage)">
+          {{ submenu.lcrole }}
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+<!--Menu Without login-->
+<mat-toolbar class="toolbar" *ngIf="this.cookieService.get('isLogin') != 'loginSuccess'">
+  <div class="menu-template">
+    <button mat-button class="menu" class="basic" (click)="onHome()">
+      Home
+    </button>
+    <button mat-button class="menu" [matMenuTriggerFor]="belowMenu" style="padding: 0px !important">
+      Service
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below" class="dropdown1" st>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Excel Sheet Validation
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Computer System Validation (CSV)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Training & Certification
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Implementation
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Customer Support
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Evolution For Compliance
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Supplier Qualification
+      </button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="belowMenu1">RQP APPS</button>
+    <mat-menu #belowMenu1="matMenu" yPosition="below" class="dropdown1">
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Document Management System (DMS)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Change Management
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Non-Conformance Investigation (NCI)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        CAPA Managemnt
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Training Management System (TMS)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Manufacturing Execution System (MES)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Laboratory Management System (LMS)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        LogBook Management
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Eqipment Management System (EMS)
+      </button>
+      <button class="mat-menu-item" style="color: #fff; text-align: start" (click)="onHome()">
+        Audit Management
+      </button>
+    </mat-menu>
+    <button mat-button class="menu" class="basic" (click)="onHome()">
+      About
+    </button>
+    <button mat-button class="menu" class="basic" (click)="onHome()">
+      Contact
+    </button>
+    <button mat-button class="menu" class="basic" (click)="onHome()">
+      Careers
+    </button>
+    <button mat-button class="menu" class="basic" (click)="onHome()">
+      Demo Request
+    </button>
+    <button mat-button class="menu" class="basic" (click)="onGuildeLines()">
+      Guidelines
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="belowMenu">
+      {{ this.cookieService.get("menuHeader") }}
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below" class="dropdown1">
+      <button class="mat-menu-item1" style="color: #fff" (click)="submenu1(this.cookieService.get('subMenu1'))">
+        {{ this.cookieService.get("subMenu1") }}
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

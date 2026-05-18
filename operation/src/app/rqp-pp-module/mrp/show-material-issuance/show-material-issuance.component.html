@@ -1,0 +1,36 @@
+<div class="row gx-0 create-update-dialog-header-section">
+    <div class="col-10 d-flex justify-content-start">
+        <h1 class="daialog-title-name p-2">
+            Material Issuance
+        </h1>
+    </div>
+    <div class="col-2 d-flex justify-content-end">
+        <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <form [formGroup]="MaterialIssuanceForm">
+            <div class="row no-gutters ms-1 me-1 dense-4 margin-top_5 m-1">
+
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Nare Weight</mat-label>
+                    <input type="number" matInput formControlName="nareWeight" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Gross Weight</mat-label>
+                    <input type="number" matInput formControlName="grossWeight" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Net Weight</mat-label>
+                    <input type="number" matInput formControlName="netWeight" />
+                </mat-form-field>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center">       
+        <button mat-raised-button class="submitButton" (click)="onSubmitConfirmation()">
+            Submit
+        </button>
+    </div>

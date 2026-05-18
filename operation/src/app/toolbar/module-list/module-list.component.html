@@ -1,0 +1,9 @@
+<div class="margin-top_5_px margin-left_5_px">
+  <mat-grid-list cols="4" rowHeight="3:1" class="mastermatgridlist">
+    <mat-grid-tile *ngFor="let tile of tileData">
+      <button mat-raised-button class="tile-view" (click)="onClickTile(tile)">
+        {{ tile.idCode }} ( {{ tile.idName }} )
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -87,7 +87,6 @@ export class BomReviewerComponent implements OnInit {
       this.lc0001 = params.ff0001;
       this.ff0005 = params.ff0007;
       this.ff0002 = params.ff0005;
-      console.log(this.pageData);
       // });
     }
     if (this.ff0001) {
@@ -105,7 +104,6 @@ export class BomReviewerComponent implements OnInit {
     this.bomService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
-      console.log(this.nextStageListData);
     });
   }
   createProduct(): FormGroup {
@@ -159,15 +157,12 @@ export class BomReviewerComponent implements OnInit {
   }
   getBOMAttachments(lc0003: any) {
     this.bomService.getBOMAttachments(lc0003, this.ff0002).subscribe((data: any) => {
-      console.log(data);
       this.bomAttachmentListData = data.data;
       this.bomAttachmentListTableData = new MatTableDataSource(data.data);
-      console.log(this.bomAttachmentListTableData)
     });
   }
   getBOMItemMasterList(lc0003: any) {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
-      console.log(data);
       this.bomItemValue = data.data;
       this.containers.clear();
       const value = this.bomItemValue[0];
@@ -187,7 +182,6 @@ export class BomReviewerComponent implements OnInit {
   }
   getBOMIndexMasterList(lc0003: any) {
     this.bomService.getBOMIndexMasterList(lc0003).subscribe((data: any) => {
-      console.log(data);
       this.bomIndexValue = data.data;
       this.products.clear();
       this.bomIndexValue.forEach((element: any) => {
@@ -220,7 +214,6 @@ export class BomReviewerComponent implements OnInit {
           uint8Array[i] = binaryData.charCodeAt(i);
         }
         let blob: any;
-        console.log(fileExtension);
         if (fileExtension == 'pdf' || fileExtension == 'PDF') {
           blob = new Blob([uint8Array], { type: 'application/pdf' });
         } else {

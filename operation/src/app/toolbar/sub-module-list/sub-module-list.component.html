@@ -1,0 +1,9 @@
+<div style="margin-top: 5px; margin-left: 5px">
+    <mat-grid-list cols="4" rowHeight="3:1" class="mastermatgridlist">
+      <mat-grid-tile *ngFor="let tile of subtileData">
+        <button mat-raised-button class="tile-view" (click)="onClickTile(tile)">
+          {{tile.idCode}} ( {{tile.idMainCode}} )
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>

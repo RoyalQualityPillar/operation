@@ -79,7 +79,6 @@ export class QualityStatusListComponent implements OnInit {
        } else {
          this.isLoading = false;
          this.notificationService.showSuccess(data.status, () => {
-           console.log('Success Snackbar Closed');
          });
          this.qualityStatusListForm.reset();
          timer(2000)

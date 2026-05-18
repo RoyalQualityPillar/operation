@@ -137,7 +137,6 @@ export class StorageLocationCreateUpdateComponent implements OnInit {
     this.DepartmentMaster.controls['status'].setValue(
       changeStatusByDescription(this.DepartmentMaster.controls['status'].value)
     );
-    console.log(this.DepartmentMaster.value);
 
     const params = {};
     this.apiService
@@ -207,7 +206,6 @@ export class StorageLocationCreateUpdateComponent implements OnInit {
         } else {
           this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
           this.dialogRef.close();
         }

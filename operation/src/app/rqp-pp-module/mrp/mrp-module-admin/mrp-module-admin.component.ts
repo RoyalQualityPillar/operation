@@ -15,4 +15,10 @@ export class MrpModuleAdminComponent {
   MaterialRequirementVerification(): void {
     this.router.navigate(['./rqpoperationui/pp/material-requ-verf']);
   }
+  public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

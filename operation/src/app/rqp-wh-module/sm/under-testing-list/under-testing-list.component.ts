@@ -55,9 +55,7 @@ export class UnderTestingListComponent implements OnInit {
    
   }
   public onSubmit(row: any): void {
-     console.log(row)
      this.whService.saveTestList(row.uc0001).subscribe((data: any) => {
-       console.log(data);
        if (data.errorInfo != null) {
          this.isLoading = false;
          this.dialog.open(MessageDialogComponent, {
@@ -69,7 +67,6 @@ export class UnderTestingListComponent implements OnInit {
        } else {
          this.isLoading = false;
          this.notificationService.showSuccess(data.status, () => {
-           console.log('Success Snackbar Closed');
          });
        }
      });

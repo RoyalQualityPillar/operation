@@ -95,7 +95,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isReadonly = true;
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
       this.ff0003 = params.ff0003;
       this.pageData = {
         pageName: 'qt-review',
@@ -130,7 +129,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
       lcNumber: this.headerRequestBody.lifeCycleCode,
       lcStage: this.toolbarService.currentStage,
     };
-    console.log(body);
     this.ppService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
@@ -138,11 +136,9 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
   }
   public getCommentsData(event: any): void {
     this.userCurrentComments = event;
-    console.log(event);
   }
   headerData: any;
   getHeaderData(event: any) {
-    console.log(event);
     this.headerData = event;
     this.onGetRequestNo();
     // this.onReviewData();
@@ -151,7 +147,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
   reviewCommentsData: any;
   public handleCommentsForm(event: any) {
     this.comments = event.comments;
-    console.log(event);
   }
   
   qtItemListdataSource: any;
@@ -159,7 +154,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
     this.epoService
       .onQTList(this.requestNoID)
       .subscribe((data: any) => {
-        console.log(data);
         //this.qtItemListdataSource=data;
         this.qtItemListdataSource = new MatTableDataSource(data.data);
       });
@@ -171,7 +165,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
     this.epoService
       .getResquestNoID(this.pageData.requestNo, this.headerData.lcnum)
       .subscribe((data: any) => {
-        console.log(data);
         this.requestNoID = data.data[0].uc0001;
         if (this.requestNoID) {
           this.onQTList();
@@ -184,7 +177,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
     this.epoService
       .getQTIndexList(this.requestNoID)
       .subscribe((data: any) => {
-        console.log(data);
         this.indexList = data.data[0];
         if (this.indexList) {
           this.ViewDetailForm.controls['orgUnitCode'].setValue(
@@ -226,7 +218,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
         this.ViewDetailForm.controls['salesUnitCode'].value
       )
       .subscribe((data: any) => {
-        console.log(data);
         this.unitCodeData = data.data.content;
         this.setGSTData(this.unitCodeData);
       });
@@ -236,7 +227,6 @@ export class EpoReviewerSaveComponent implements OnInit, OnDestroy {
   IGST: any;
   totalGst: any;
   setGSTData(data) {
-    console.log(data);
     if (data[0]?.ff0014 == data[1]?.ff0014) {
       this.CGST = this.totalGst / 2;
       this.SGST = this.totalGst / 2;

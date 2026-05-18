@@ -15,5 +15,10 @@ export class SmModuleAdminComponent {
   UnderTestingList():void {
     this.router.navigate(['./rqpoperationui/wh/under-testing-list']);
   }
-
+public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

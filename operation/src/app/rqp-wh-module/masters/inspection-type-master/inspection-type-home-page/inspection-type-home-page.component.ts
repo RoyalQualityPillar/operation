@@ -51,9 +51,9 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
     private inspectionTypeService: InspectionTypeService,
     public dialog: MatDialog,
     private cookieService: CookieService,
-      private remoteLoader: RemoteComponentLoaderService
-    
-  ) {}
+    private remoteLoader: RemoteComponentLoaderService
+
+  ) { }
   filterObject: any;
   activeUserFilterObject: any;
   ngOnInit(): void {
@@ -127,13 +127,13 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
       console.error('Error loading Active Inspection Master table filter:', error);
     }
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
   selectedTab = 0;
 
   toggleFilter() {
     this.isFilterExpanded = !this.isFilterExpanded;
   }
-  tabChanged(tabChangeEvent: any) {}
+  tabChanged(tabChangeEvent: any) { }
 
   selectedRow: any;
   onOpenRolePOPUP() {
@@ -148,7 +148,6 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
     this.getLatestData = false;
   }
   setSelectedID(row: any) {
-    console.log(row);
     this.setSelectedID = row;
   }
   selectedAllId: any;
@@ -169,23 +168,23 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
         data: { tableData: this.selectedRow, type: 'Modification' },
       });
       dialogRef.afterClosed().subscribe((result) => {
-      this.getLatestData = true;
-      this.refreshData(); 
-    });
+        this.getLatestData = true;
+        this.refreshData();
+      });
       this.getLatestData = false;
 
     }
   }
-  refreshData(){
+  refreshData() {
     this.loadRoleMasterTableFilter();
     this.loadActiveRoleMasterTableFilter();
-      this.commonTableContainer.clear()
-      this.activeRoleMasterContainer.clear()
+    this.commonTableContainer.clear()
+    this.activeRoleMasterContainer.clear()
   }
   onChangeStatus(data: any) {
     return changeStatusByCode(data);
   }
- async onActiveSelectAuditRow() {
+  async onActiveSelectAuditRow() {
     let tableData = [
       { labelName: 'Version', value: this.selectedRow.version },
       {
@@ -208,20 +207,19 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
       });
     } else {
       const component = await this.remoteLoader.loadComponentByKey(
-      'CommonActiveAuditTrailComponent'
-    );
+        'CommonActiveAuditTrailComponent'
+      );
       const dialogRef = this.dialog.open(component, {
         minWidth: '80%',
         data: { tableData: tableData, pageTitle: 'Inspection Type' },
       });
-      dialogRef.afterClosed().subscribe((result) => {});
+      dialogRef.afterClosed().subscribe((result) => { });
     }
   }
 
 
 
   onSearchAllAuditTrail() {
-    console.log(this.selectedRow);
     if (this.selectedRow.length == 0) {
       this.dialog.open(MessageDialogComponent, {
         data: {
@@ -241,7 +239,7 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
     }
   }
   formatedData: any;
- async structureResponse(apiResponse: any) {
+  async structureResponse(apiResponse: any) {
     const rows = apiResponse.map((item) => {
       return {
         fields: [
@@ -262,7 +260,7 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
       minWidth: '80%',
       data: { tableData: rows, pageTitle: 'Inspection' },
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
   columnConfig = {
     action: 'Action',
@@ -291,7 +289,6 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
   handleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onSearchAllAuditTrail();
@@ -304,7 +301,6 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
   activeHandleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onActiveSelectAuditRow();
@@ -316,7 +312,6 @@ export class InspectionTypeHomePageComponent implements OnInit, AfterViewInit {
   }
 
   handleSubmit(row: any) {
-    console.log(row);
     console.log('submitBtn');
   }
 }

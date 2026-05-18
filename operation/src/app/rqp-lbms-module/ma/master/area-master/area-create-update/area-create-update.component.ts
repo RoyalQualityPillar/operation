@@ -33,6 +33,8 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   buTypeList: any;
   unitList: any;
   formData: any;
+  agmList:any;
+  deptCodeList:any;
   isLoading = false;
   statusList: any;
   displayedColumns: any;
@@ -77,8 +79,8 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.cookieService.get('buCode')
     );
     this.onloadDropDown();
+    this.onloadAGListDropDown();
     this.onLoadStatusDropDown();
-    console.log(this.userData.type);
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
       this.isUpdate = true;
@@ -110,8 +112,16 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       this.isLoading = false;
     });
   }
+  onloadAGListDropDown() {
+    this.isLoading = true;
+    this.areaMasterService.getDropDownAGList(this.cookieService.get('buCode')).subscribe((data: any) => {
+      console.log(data);
+      this.agmList = data.data.agmList;
+      this.deptCodeList = data.data.deptCodeList;
+      this.isLoading = false;
+    });
+  }
   onLoadFormValue() {
-    console.log(this.userData);
     this.isLoading = true;
     // this.organizationService
     //   .onLoadUpdatePage(this.userData.tableData.uc0001)
@@ -266,6 +276,88 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
         this.openBusinessUnitCodeLOV();
       }
     }
+  }
+   onChangeAreaGroup() {
+    if (this.DepartmentMaster.controls['ff0003'].value == '') {
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0003'].value;
+      this.agmList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.openAreaGroupLOV();
+      }
+    }
+  }
+   openAreaGroupLOV() {
+    this.displayedColumns = [
+      { field: 'name', title: 'Area Name' },
+      { field: 'code', title: 'Area Code' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Area Group List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.agmList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0003'].setValue(
+          this.selectedDialogData.name
+        );
+      }
+    });
+  }
+   onChangeDepartment() {
+    if (this.DepartmentMaster.controls['ff0004'].value == '') {
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0004'].value;
+      this.deptCodeList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.openDepartmentLOV();
+      }
+    }
+  }
+   openDepartmentLOV() {
+    this.displayedColumns = [
+      { field: 'unitName', title: 'Department Name' },
+      { field: 'unitCode', title: 'Department Code' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Department List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.deptCodeList,
+        lovName: 'businessUnitList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0004'].setValue(
+          this.selectedDialogData.unitCode
+        );
+      }
+    });
   }
   openStatusLOV() {
     this.displayedColumns = [

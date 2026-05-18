@@ -82,6 +82,14 @@
                   matInput
                   formControlName="ff0003"
                   placeholder="Area Group"
+                  (change)="onChangeAreaGroup()"
+                />
+                <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openAreaGroupLOV()"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
@@ -91,6 +99,14 @@
                   matInput
                   formControlName="ff0004"
                   placeholder="Department"
+                (change)="onChangeDepartment()"
+                />
+                <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openDepartmentLOV()"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">

@@ -9,10 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class PpService {
 
- public commentsCurrentValue: any;
+  public commentsCurrentValue: any;
   private API_URL = environment.apiBaseURL;
   // private API_URL='http://103.10.234.106:8081/';
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getStockList(orgUnitCode: any, pageIndex: any, size: any) {
     let body = {
@@ -23,7 +23,7 @@ export class PpService {
     return this.http.get(stockListURL);
   }
   getInputValue(unitCode: any) {
-     let queryParams = `?unitCode=${unitCode}`;
+    let queryParams = `?unitCode=${unitCode}`;
     let inputFieldValueURL = this.API_URL + 'sd/input' + queryParams;
     return this.http.get(inputFieldValueURL);
   }
@@ -67,32 +67,32 @@ export class PpService {
   public PlanOrderMrpList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/plan-order-mrp-list?unitCode=${unitCode} `);
   }
-   public saveExecutionProductOrderList(uc0001:string){
-   const queryParams = `?uc0001=${uc0001}`;
-   const samplingURL = this.API_URL + 'pp/relase-order-save' +queryParams;
-   return this.http.post(samplingURL, '');
+  public saveExecutionProductOrderList(uc0001: string) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const samplingURL = this.API_URL + 'pp/relase-order-save' + queryParams;
+    return this.http.post(samplingURL, '');
   }
-  public saveExecutionPlaningOrderList(uc0001:string){
-   const queryParams = `?uc0001=${uc0001}`;
-   const samplingURL = this.API_URL + 'pp/planning-order-save' +queryParams;
-   return this.http.post(samplingURL, '');
+  public saveExecutionPlaningOrderList(uc0001: string) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const samplingURL = this.API_URL + 'pp/planning-order-save' + queryParams;
+    return this.http.post(samplingURL, '');
   }
-  public saveExecutionPlaningOrderLists(uc0001:string){
-   const queryParams = `?uc0001=${uc0001}`;
-   const samplingURL = this.API_URL + 'Product-order-save' +queryParams;
-   return this.http.post(samplingURL, '');
+  public saveExecutionPlaningOrderLists(uc0001: string) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const samplingURL = this.API_URL + 'Product-order-save' + queryParams;
+    return this.http.post(samplingURL, '');
   }
-  public saveMaterialReqPlanningOrderList(ff0010:string){
-   const queryParams = `?ff0012=${ff0010}`;
-   const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' +queryParams;
-   return this.http.post(samplingURL, '');
+  public saveMaterialReqPlanningOrderList(uc0001: string, ff0012: string) {
+    const queryParams = `?uc0001=${uc0001}&ff0012=${ff0012}`;
+    const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' + queryParams;
+    return this.http.post(samplingURL, '');
   }
-   public savePlanOrderMrpList(uc0001:string){
-   const queryParams = `?Uc0001=${uc0001}`;
-   const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' +queryParams;
-   return this.http.post(samplingURL, '');
+  public savePlanOrderMrpList(Uc0001: string, lc0005:string, ApprovallotNumber:string) {
+    const queryParams = `?Uc0001=${Uc0001}&lc0005=${lc0005}&ApprovallotNumber=${ApprovallotNumber}`;
+    const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' + queryParams;
+    return this.http.post(samplingURL, '');
   }
-  
+
   getNextStageList(requestBody: any) {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
@@ -202,9 +202,9 @@ export class PpService {
   ) {
     return this.http.post(
       this.API_URL +
-        `sd/sdq-list-for-sfq/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
-          'buCode'
-        )}&ff0002=${salesUnitCode}`,
+      `sd/sdq-list-for-sfq/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
+        'buCode'
+      )}&ff0002=${salesUnitCode}`,
       ''
     );
   }
@@ -212,9 +212,9 @@ export class PpService {
   getSsiList(pageIndex: string, size: string, ff0003: string) {
     return this.http.post(
       this.API_URL +
-        `sd/sdo-list-for-si/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
-          'buCode'
-        )}`,
+      `sd/sdo-list-for-si/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
+        'buCode'
+      )}`,
       ''
     );
   }
@@ -228,9 +228,9 @@ export class PpService {
   ) {
     return this.http.post(
       this.API_URL +
-        `sd/sqt-list-for-so/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
-          'buCode'
-        )}&ff0022=${salesUnitCode}`,
+      `sd/sqt-list-for-so/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
+        'buCode'
+      )}&ff0022=${salesUnitCode}`,
       ''
     );
   }
@@ -238,7 +238,7 @@ export class PpService {
   getSdoList(pageIndex: string, size: string, salesUnitCode: string) {
     return this.http.post(
       this.API_URL +
-        `sd/sso-list-for-sdo/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${salesUnitCode}`,
+      `sd/sso-list-for-sdo/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${salesUnitCode}`,
       ''
     );
   }
@@ -252,15 +252,49 @@ export class PpService {
   ) {
     return this.http.post(
       this.API_URL +
-        `sd/sfqt-list-for-spo/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
-          'buCode'
-        )}&ff0022=${salesUnitCode}`,
+      `sd/sfqt-list-for-spo/get-max-all?pageIndex=${pageIndex}&size=${size}&ff0003=${this.cookieService.get(
+        'buCode'
+      )}&ff0022=${salesUnitCode}`,
       ''
     );
   }
   public questionBankTable(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pmmppo/get-ppo-item-list?unitcode=${unitCode} `);
   }
-  
+  public getPlanOrderMRPList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/plan-order-mrp-list?unitCode=${unitCode} `);
+  }
+  public savePlanOrderMRPList(Uc0001: string) {
+    const queryParams = `?Uc0001=${Uc0001}`;
+    const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' + queryParams;
+    return this.http.post(samplingURL, '');
+  }
+  public materialReservedList(unitCode: string, lc0005: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-reserved-list?unitCode=${unitCode}&lc0005=${lc0005} `);
+  }
+  public materialReservedPackList(lc0005: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-reserved-pack-list?lc0005=${lc0005} `);
+  }
+
+  public saveMaterialIssuance(uc0001: string, ff0006:number, ff0007:number, ff0008:number ) {
+    const queryParams = `?uc0001=${uc0001}&ff0006=${ff0006}&ff0007=${ff0007}&ff0008=${ff0008}`;
+    const issuanceURL = this.API_URL + 'pp/material-issuance-save' + queryParams;
+    return this.http.post(issuanceURL, '');
+  }
+
+   getApprovedMaterialListData(unitCode: any, ff0004: any) {
+    const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}`;
+    const reviwerURL = this.API_URL + 'pp/approved-material-list' + queryParams;
+    return this.http.get(reviwerURL);
+  }
+
+  public getFgQuarantineList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-quarantine-list?Unitcode=${Unitcode} `);
+  }
+   public saveFgQuarantineList(uc0001: string, Status:any) {
+    const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
+    const samplingURL = this.API_URL + 'pp/planning-order-save' + queryParams;
+    return this.http.post(samplingURL, '');
+  }
 }
 

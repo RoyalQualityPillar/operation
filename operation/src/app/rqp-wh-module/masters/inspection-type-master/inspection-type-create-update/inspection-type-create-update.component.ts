@@ -135,7 +135,6 @@ export class InspectionTypeCreateUpdateComponent implements OnInit {
     this.DepartmentMaster.controls['status'].setValue(
       changeStatusByDescription(this.DepartmentMaster.controls['status'].value)
     );
-    console.log(this.DepartmentMaster.value);
 
     this.inspectionTypeService
     .onCreate(this.DepartmentMaster.value)
@@ -206,7 +205,6 @@ export class InspectionTypeCreateUpdateComponent implements OnInit {
         } else {
           this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
           this.dialogRef.close();
         }

@@ -36,16 +36,30 @@ export class WhService {
    const qualityStatusURL = this.API_URL + 'wh/Quality-save' +queryParams;
    return this.http.post(qualityStatusURL, '');
   }
+  
   public quarantineList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/quarantine-list?Unitcode=${Unitcode} `);
   }
   public quarantineDisplayList(lc0003: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/quarantine-display-list?lc0003=${lc0003} `);
   }
-   public savequarantineList(uc0001:string){
-   const queryParams = `?uc0001=${uc0001}`;
+   public saveQuarantineList(uc0001:string, status:any){
+   const queryParams = `?uc0001=${uc0001}&status=${status}`;
    const samplingURL = this.API_URL + 'wh/quarantine-save-update' +queryParams;
    return this.http.post(samplingURL, '');
   }
-  
+   public saveQuarantine(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const qualityStatusURL = this.API_URL + 'wh/quarantine-save' +queryParams;
+   return this.http.post(qualityStatusURL, '');
+  }
+   public approverList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `wh/Approver-list?Unitcode=${Unitcode}`);
+  }
+   public saveLocationUpdate(uc0001:string, ff0011:string){
+   const queryParams = `?uc0001=${uc0001}&ff0011=${ff0011}`;
+   const samplingURL = this.API_URL + 'wh/location-update-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+     
  }
