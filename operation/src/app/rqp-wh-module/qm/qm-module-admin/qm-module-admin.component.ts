@@ -8,17 +8,20 @@ import { Router } from '@angular/router';
   styleUrl: './qm-module-admin.component.scss'
 })
 export class QmModuleAdminComponent {
- constructor(private router: Router) { }
-  quarantineListData(): void {
+  constructor(private router: Router) { }
+  public quarantineListData(): void {
     this.router.navigate(['./rqpoperationui/wh/quarantine-list']);
   }
-   fgQuarantineListData(): void {
+  public fgQuarantineListData(): void {
     this.router.navigate(['./rqpoperationui/wh/fg-quarantine-list']);
-  }  
+  }
+  public sfgQuarantineListData(): void {
+    this.router.navigate(['./rqpoperationui/wh/sfg-quarantine-list']);
+  }
   public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
-    public onallPendingRecord(): void {
+  public onallPendingRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
   }
 }
