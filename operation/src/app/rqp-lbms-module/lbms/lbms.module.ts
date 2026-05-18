@@ -23,6 +23,8 @@ import { IwsReviewerComponent } from "../iws/iws-reviewer/iws-reviewer.component
 import { IwsReviewerSaveComponent } from "../iws/iws-reviewer-save/iws-reviewer-save.component";
 import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.component";
 import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
+import { InstrumentCatCreateUpdateComponent } from "../ma/master/instrument-cat/instrument-cat-create-update/instrument-cat-create-update.component";
+import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/instrument-cat-home-page/instrument-cat-home-page.component";
 
 
 
@@ -48,6 +50,9 @@ import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-complet
     IwsReviewerSaveComponent,
     IwsCompletedComponent,
     IwsCompletedSaveComponent,
+    InstrumentCatCreateUpdateComponent,
+    InstrumentCatHomePageComponent 
+
   ],
   imports: [
     CommonModule,

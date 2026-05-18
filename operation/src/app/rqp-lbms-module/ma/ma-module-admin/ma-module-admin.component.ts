@@ -35,4 +35,7 @@ constructor(private router: Router, private cookieService: CookieService) { }
    public onEquipmentInustumentMaster(): void {
     this.router.navigate(['./rqpoperationui/lbms/home-page-equip-inst-master']);
   }
+  onInstrumentCategory() {
+    this.router.navigate(['./rqpoperationui/lbms/instrument-cat-home-page'])
+  }
 }
