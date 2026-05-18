@@ -87,7 +87,7 @@ export class PpService {
     const samplingURL = this.API_URL + 'pp/plan-order-mrp-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
-  public savePlanOrderMrpList(Uc0001: string, lc0005:string, ApprovallotNumber:string) {
+  public savePlanOrderMrpList(Uc0001: string, lc0005: string, ApprovallotNumber: string) {
     const queryParams = `?Uc0001=${Uc0001}&lc0005=${lc0005}&ApprovallotNumber=${ApprovallotNumber}`;
     const samplingURL = this.API_URL + 'pp/plan-order-reserve-save' + queryParams;
     return this.http.post(samplingURL, '');
@@ -276,13 +276,13 @@ export class PpService {
     return this.http.get(this.API_URL + `pp/material-reserved-pack-list?lc0005=${lc0005} `);
   }
 
-  public saveMaterialIssuance(uc0001: string, ff0006:number, ff0007:number, ff0008:number ) {
+  public saveMaterialIssuance(uc0001: string, ff0006: number, ff0007: number, ff0008: number) {
     const queryParams = `?uc0001=${uc0001}&ff0006=${ff0006}&ff0007=${ff0007}&ff0008=${ff0008}`;
     const issuanceURL = this.API_URL + 'pp/material-issuance-save' + queryParams;
     return this.http.post(issuanceURL, '');
   }
 
-   getApprovedMaterialListData(unitCode: any, ff0004: any) {
+  getApprovedMaterialListData(unitCode: any, ff0004: any) {
     const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}`;
     const reviwerURL = this.API_URL + 'pp/approved-material-list' + queryParams;
     return this.http.get(reviwerURL);
@@ -291,10 +291,36 @@ export class PpService {
   public getFgQuarantineList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/fg-quarantine-list?Unitcode=${Unitcode} `);
   }
-   public saveFgQuarantineList(uc0001: string, Status:any) {
+  public getSFGQuarantineList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-quarantine-list?Unitcode=${Unitcode} `);
+  }
+  public saveFgQuarantineList(uc0001: string, Status: any) {
     const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
     const samplingURL = this.API_URL + 'pp/planning-order-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
+  
+
+  public getProductionCompletedList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/production-completed-list?Unitcode=${Unitcode} `);
+  }
+  public saveProductionCompletedList(uc0001: string) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const samplingURL = this.API_URL + 'pp/production-completed-save' + queryParams;
+    return this.http.post(samplingURL, '');
+  }
+
+  public getFgApproverList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-approver-list?Unitcode=${Unitcode} `);
+  }
+
+  public getFgRejectList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-reject-list?Unitcode=${Unitcode} `);
+  }
+
+  public getMaterialCompletedProductionList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/material-completed-production-list?Unitcode=${Unitcode} `);
+  }
+
 }
 

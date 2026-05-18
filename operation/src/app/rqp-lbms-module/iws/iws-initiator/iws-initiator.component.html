@@ -4,12 +4,89 @@
     </div>
 </div>
 
+<!-- <div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Product Information</div>
+        <div class="float-end">
+            <button mat-raised-button class="section-add-new-record-btn" (click)="addProduct()">
+                Add Product
+            </button>
+        </div>
+    </div>
+</div>
+<form [formGroup]="BOMRequirementForm">
+    <div formArrayName="products">
 
-<app-common-title [title]="'Product Information'"></app-common-title>
+        <div *ngFor="let item of products.controls; let i = index" [formGroupName]="i">
+
+            <div class="table-box">
+                <div class="section_header_child_1">
+                    <div class="float-start">
+                        Product - {{ i + 1 }}
+                    </div>
+                    <div class="float-end">
+                        <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0"
+                            (click)="removeProduct(i)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>       
+
+            <div class="row no-gutters ms-1 me-1 dense-4">
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Number</mat-label>
+                    <input matInput formControlName="productNo">
+                    <img src="assets/searchfind.svg" class="lovSearchButton" (click)="openStatusLOV(i)">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Name</mat-label>
+                    <input type="text" matInput formControlName="productName" placeholder="Product Name" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Market</mat-label>
+                    <input type="text" matInput formControlName="market" placeholder="Market" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Code</mat-label>
+                    <input type="text" matInput formControlName="productCode" placeholder="Product Code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>UOM</mat-label>
+                    <input type="text" matInput formControlName="uom" placeholder="UOM" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Shelf Life in Months</mat-label>
+                    <input type="text" matInput formControlName="shelfLifeMonths" placeholder="Shelf Life in Months" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Type</mat-label>
+                    <input type="text" matInput formControlName="productType" placeholder="Product Type" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Dosage Form</mat-label>
+                    <input type="text" matInput formControlName="dosageForm" placeholder="Dosage Form" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Input Code</mat-label>
+                    <input type="text" matInput formControlName="inputCode" placeholder="Input Code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Tracking Code</mat-label>
+                    <input type="text" matInput formControlName="productTrackingCode"
+                        placeholder="Product Tracking Code" />
+                </mat-form-field>
+            </div>          
+        </div>
+
+    </div>
+</form> -->
+
+<app-common-title [title]="'Instrument Worksheet'"></app-common-title>
 <div class="row no-gutters ms-1 me-1 dense-4">
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Parameter Number</mat-label>
-        <input type="number" matInput  [(ngModel)]="parameterNo" placeholder="Parameter Number" />
+        <input type="number" matInput [(ngModel)]="parameterNo" placeholder="Parameter Number" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Set Point Number</mat-label>
@@ -24,84 +101,79 @@
                         <mat-option value="L">L</mat-option> -->
         </mat-select>
     </mat-form-field>
-     <div class="float-left">
-          <button mat-raised-button class="submitButton" [disabled]="disableButtons"
-            (click)="onGenerateParameters()">
+    <div class="float-right col-3">
+        <button mat-raised-button class="submitButton" [disabled]="disableButtons" (click)="onGenerateParameters()">
             Generate Fields
-          </button>
-        </div>
+        </button>
+    </div>
 </div>
 
 <div class="parameter-card" *ngFor="let parameter of parameters">
 
-  <h3>{{parameter.parameterName}} Parameter {{ parameter.parameterNo }}</h3>
+    <h3>{{parameter.parameterName}} {{ parameter.parameterNo }}</h3>
 
-  <div class="setpoint-card"
-       *ngFor="let sp of parameter.setPoints; let j = index">
+    <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
 
-    <div class="row no-gutters ms-1 me-1 dense-4">
+        <div class="row no-gutters ms-1 me-1 dense-4">
 
-      <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Set Point {{ j + 1 }}</mat-label>
-        <input type="text" matInput
-               [(ngModel)]="sp.setPoint"
-               (input)="checkResult(sp)">
-       </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Set Point {{ j + 1 }}</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.setPoint" (input)="checkResult(sp)">
+            </mat-form-field>
 
-      <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Min</mat-label>
-        <input type="text" matInput
-               [(ngModel)]="sp.min"
-               (input)="checkResult(sp)">
-     </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Min</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.min" (input)="checkResult(sp)">
+            </mat-form-field>
 
-      <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Max</mat-label>
-        <input type="text" matInput
-               [(ngModel)]="sp.max"
-               (input)="checkResult(sp)">
-     </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Max</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.max" (input)="checkResult(sp)">
+            </mat-form-field>
 
-     <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>UOM</mat-label>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>UOM</mat-label>
 
-        <mat-select [(ngModel)]="sp.uom">
+                <mat-select [(ngModel)]="sp.uom">
 
-          <mat-option value="">Select UOM</mat-option>
+                    <mat-option value="">Select UOM</mat-option>
 
-          <mat-option *ngFor="let uom of uomList"
-                  [value]="uom">
-            {{ uom }}
-          </mat-option>
+                    <mat-option *ngFor="let uom of uomList" [value]="uom">
+                        {{ uom }}
+                    </mat-option>
 
-        </mat-select>
-    </mat-form-field>
+                </mat-select>
+            </mat-form-field>
 
-    </div>
+        </div>
 
-    <div class="result-section">
+        <div class="result-section">
 
-      <mat-form-field>
-        <mat-label>Result</mat-label>
+            <mat-form-field>
+                <mat-label>Result</mat-label>
 
-        <input type="text" matInput
-               [value]="sp.result"
-               [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
-               readonly>
-      </mat-form-field>
+                <input type="text" matInput [value]="sp.result" [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
+                    readonly>
+            </mat-form-field>
 
-    </div>
+        </div>
 
-    <div class="pass-limit">
+        <!-- <div class="pass-limit">
 
-      <label>Pass Limit Description</label>
+            <label>Pass Limit Description</label>
 
-      <input type="text"
-             [(ngModel)]="sp.passLimit">
+            <input type="text" [(ngModel)]="sp.passLimit">
+
+        </div> -->
+        <div class="pass-limit">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Pass Limit Description</mat-label>
+                <textarea matInput [(ngModel)]="sp.passLimit" rows="3">
+                    </textarea>
+            </mat-form-field>
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 

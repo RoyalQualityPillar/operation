@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,18 +8,19 @@ import { CookieService } from 'ngx-cookie-service';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
-import { PpService } from '../../pp.service';
+import { PpService } from 'src/app/rqp-pp-module/pp.service';
 
 @Component({
-  selector: 'app-execution-process-order',
+  selector: 'app-sfg-quarantine-list',
   standalone: false,
-  templateUrl: './execution-process-order.component.html',
-  styleUrl: './execution-process-order.component.scss'
+  templateUrl: './sfg-quarantine-list.component.html',
+  styleUrl: './sfg-quarantine-list.component.scss'
 })
-export class ExecutionProcessOrderComponent implements OnInit {
+export class SfgQuarantineListComponent implements OnInit {
+   public sfgQuarantineStatusListForm:FormGroup;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-  public planningOrderListData: any;
+  public sfgQuarantineListData: any;
   public dataSource: any;
   public isLoading = false;
   displayedColumns = [
@@ -34,19 +36,25 @@ export class ExecutionProcessOrderComponent implements OnInit {
     private ppService: PpService,
     private cookieService: CookieService,
     public dialog: MatDialog,
+     private fb:FormBuilder,
     private notificationService: NotificationService,
-  ) { }
+  ) {
+    this.sfgQuarantineStatusListForm = fb.group({
+      documentName: [''],
+      status:['']
+    });
+   }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.getMaterialCompletedProductionList(unitCode).subscribe((data: any) => {
+    this.ppService.getSFGQuarantineList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
-      this.planningOrderListData = new MatTableDataSource(this.dataSource);
-      this.planningOrderListData.sort = this.sort;
-      this.planningOrderListData.paginator = this.paginator;
+      this.sfgQuarantineListData = new MatTableDataSource(this.dataSource);
+      this.sfgQuarantineListData.sort = this.sort;
+      this.sfgQuarantineListData.paginator = this.paginator;
     });
   }
   public pageChanged(event): void {
-    if (this.planningOrderListData.length == GlobalConstants.size) {
+    if (this.sfgQuarantineListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize
@@ -61,7 +69,8 @@ export class ExecutionProcessOrderComponent implements OnInit {
   }
 
   public submit(value: any) {
-    this.ppService.saveProductionCompletedList(value.uc0001).subscribe((data: any) => {
+     const quarantineStatus = this.sfgQuarantineStatusListForm.value;
+    this.ppService.saveFgQuarantineList(value.uc0001,quarantineStatus.status ).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -79,3 +88,5 @@ export class ExecutionProcessOrderComponent implements OnInit {
   }
 
 }
+
+

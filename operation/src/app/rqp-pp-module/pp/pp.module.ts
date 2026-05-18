@@ -37,6 +37,9 @@ import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/
 import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
 import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/show-material-issuance.component";
 import { ApprovedMaterialListComponent } from "../mrp/approved-material-list/approved-material-list.component";
+import { FgApproverListComponent } from "../fg/fg-approver-list/fg-approver-list.component";
+import { FgRejectListComponent } from "../fg/fg-reject-list/fg-reject-list.component";
+import { ProductionCompletedListComponent } from "../epro/production-completed-list/production-completed-list.component";
 
 @NgModule({
   declarations: [
@@ -73,8 +76,9 @@ import { ApprovedMaterialListComponent } from "../mrp/approved-material-list/app
     MaterialRequVerfComponent,
     ShowMaterialIssuanceComponent,
     ApprovedMaterialListComponent,
-
-
+    FgApproverListComponent,
+    FgRejectListComponent,
+    ProductionCompletedListComponent,
 
 
 

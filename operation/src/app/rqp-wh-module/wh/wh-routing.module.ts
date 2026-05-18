@@ -29,6 +29,11 @@ import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admi
 import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
 import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
 import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
+import { FgSamplingListComponent } from '../sm/fg-sampling-list/fg-sampling-list.component';
+import { FgUnderTestListComponent } from '../sm/fg-under-test-list/fg-under-test-list.component';
+import { SfgSamplingListComponent } from '../sm/sfg-sampling-list/sfg-sampling-list.component';
+import { SfgUnderTestListComponent } from '../sm/sfg-under-test-list/sfg-under-test-list.component';
+import { SfgQuarantineListComponent } from '../qm/sfg-quarantine-list/sfg-quarantine-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -51,12 +56,17 @@ const routes: Routes = [
   { path: 'quality-status-list', component: QualityStatusListComponent },
   { path: 'quarantine-list', component: QuarantineListComponent },
   { path: 'fg-quarantine-list', component: FgQuarantineListComponent },
+  { path: 'sfg-quarantine-list', component: SfgQuarantineListComponent },
   { path: 'qm-module-admin', component: QmModuleAdminComponent },
   { path: 'quarantine-display-list', component: QuarantinePackDisplayComponent },
   { path: 'mdm-module-admin', component: MdmModuleAdminComponent },
   { path: 'material-dispensing', component: MaterialDispensingComponent },
   { path: 'material-reserved-list', component: MaterialReservedListComponent },
   { path: 'material-reserved-pack-list', component: MaterialReservedPackListComponent },
+   { path: 'fg-sampling-list', component: FgSamplingListComponent },
+  { path: 'fg-under-test-list', component: FgUnderTestListComponent },
+   { path: 'sfg-sampling-list', component: SfgSamplingListComponent },
+  { path: 'sfg-under-test-list', component: SfgUnderTestListComponent },
   { path: 'slc-module-admin', component: SlcModuleAdminComponent },
   { path: 'approved-material-list', component: ApprovedMaterialListComponent },
   { path: 'location-update', component: LocationUpdateComponent }

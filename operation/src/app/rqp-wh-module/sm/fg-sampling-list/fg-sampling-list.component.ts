@@ -7,18 +7,18 @@ import { CookieService } from 'ngx-cookie-service';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
-import { PpService } from '../../pp.service';
+import { WhService } from '../../wh.service';
 
 @Component({
-  selector: 'app-execution-process-order',
+  selector: 'app-fg-sampling-list',
   standalone: false,
-  templateUrl: './execution-process-order.component.html',
-  styleUrl: './execution-process-order.component.scss'
+  templateUrl: './fg-sampling-list.component.html',
+  styleUrl: './fg-sampling-list.component.scss'
 })
-export class ExecutionProcessOrderComponent implements OnInit {
+export class FgSamplingListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-  public planningOrderListData: any;
+  public fgSamplingListData: any;
   public dataSource: any;
   public isLoading = false;
   displayedColumns = [
@@ -31,22 +31,22 @@ export class ExecutionProcessOrderComponent implements OnInit {
     'action',
   ];
   constructor(
-    private ppService: PpService,
+    private whService: WhService,
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.getMaterialCompletedProductionList(unitCode).subscribe((data: any) => {
+    this.whService.getFgSamplingList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
-      this.planningOrderListData = new MatTableDataSource(this.dataSource);
-      this.planningOrderListData.sort = this.sort;
-      this.planningOrderListData.paginator = this.paginator;
+      this.fgSamplingListData = new MatTableDataSource(this.dataSource);
+      this.fgSamplingListData.sort = this.sort;
+      this.fgSamplingListData.paginator = this.paginator;
     });
   }
   public pageChanged(event): void {
-    if (this.planningOrderListData.length == GlobalConstants.size) {
+    if (this.fgSamplingListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize
@@ -61,7 +61,7 @@ export class ExecutionProcessOrderComponent implements OnInit {
   }
 
   public submit(value: any) {
-    this.ppService.saveProductionCompletedList(value.uc0001).subscribe((data: any) => {
+    this.whService.saveFgSamplingList(value.uc0001).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -79,3 +79,5 @@ export class ExecutionProcessOrderComponent implements OnInit {
   }
 
 }
+
+
