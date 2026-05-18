@@ -38,6 +38,8 @@ import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admi
 import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
 import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
 import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
+import { FgSamplingListComponent } from '../sm/fg-sampling-list/fg-sampling-list.component';
+import { FgUnderTestListComponent } from '../sm/fg-under-test-list/fg-under-test-list.component';
 
 
 @NgModule({
@@ -75,7 +77,8 @@ import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantin
     SlcModuleAdminComponent,
     ApprovedMaterialListComponent,
     LocationUpdateComponent,
-
+ FgSamplingListComponent,
+    FgUnderTestListComponent, 
 
 
 

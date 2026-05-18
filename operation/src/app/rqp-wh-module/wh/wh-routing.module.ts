@@ -29,6 +29,8 @@ import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admi
 import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
 import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
 import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
+import { FgSamplingListComponent } from '../sm/fg-sampling-list/fg-sampling-list.component';
+import { FgUnderTestListComponent } from '../sm/fg-under-test-list/fg-under-test-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -57,6 +59,8 @@ const routes: Routes = [
   { path: 'material-dispensing', component: MaterialDispensingComponent },
   { path: 'material-reserved-list', component: MaterialReservedListComponent },
   { path: 'material-reserved-pack-list', component: MaterialReservedPackListComponent },
+   { path: 'fg-sampling-list', component: FgSamplingListComponent },
+  { path: 'fg-under-test-list', component: FgUnderTestListComponent },
   { path: 'slc-module-admin', component: SlcModuleAdminComponent },
   { path: 'approved-material-list', component: ApprovedMaterialListComponent },
   { path: 'location-update', component: LocationUpdateComponent }
