@@ -14,6 +14,7 @@ import { IwsReviewerComponent } from "../iws/iws-reviewer/iws-reviewer.component
 import { IwsReviewerSaveComponent } from "../iws/iws-reviewer-save/iws-reviewer-save.component";
 import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.component";
 import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
+import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/instrument-cat-home-page/instrument-cat-home-page.component";
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'iws-reviewer-save', component: IwsReviewerSaveComponent },
   { path: 'iws-completed', component: IwsCompletedComponent },
   { path: 'iws-completed-save', component: IwsCompletedSaveComponent },
+  { path: 'instrument-cat-home-page', component: InstrumentCatHomePageComponent },
 ]
 
 @NgModule({
