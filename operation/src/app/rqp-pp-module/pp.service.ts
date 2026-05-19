@@ -318,6 +318,14 @@ export class PpService {
     return this.http.get(this.API_URL + `pp/fg-reject-list?Unitcode=${Unitcode} `);
   }
 
+  public getSFGApproverList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-approver-list?Unitcode=${Unitcode} `);
+  }
+
+  public getSFGRejectList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-reject-list?Unitcode=${Unitcode} `);
+  }
+
   public getMaterialCompletedProductionList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/material-completed-production-list?Unitcode=${Unitcode} `);
   }
