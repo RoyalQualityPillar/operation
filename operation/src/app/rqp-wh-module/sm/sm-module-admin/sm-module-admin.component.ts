@@ -21,13 +21,13 @@ export class SmModuleAdminComponent {
   fgUnderTestingList():void {
     this.router.navigate(['./rqpoperationui/wh/fg-under-test-list']);
   }
-   sfgSamplinglist(): void {
+  sfgSamplinglist(): void {
     this.router.navigate(['./rqpoperationui/wh/sfg-sampling-list']);
   }
   sfgUnderTestingList():void {
     this.router.navigate(['./rqpoperationui/wh/sfg-under-test-list']);
   }
-public onallStagesRecord(): void {
+  public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
     public onallPendingRecord(): void {
