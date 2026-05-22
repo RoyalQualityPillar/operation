@@ -4,6 +4,7 @@ import { AreaHomePageComponent } from "../ma/master/area-master/area-home-page/a
 import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.component";
 import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master/area-group-master-home-page/area-group-master-home-page.component";
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
+import { CumHomePageComponent } from "../ma/master/calibraion-uom-master/cum-home-page/cum-home-page.component";
 
 
 const routes: Routes = [
@@ -12,7 +13,12 @@ const routes: Routes = [
      { path: 'area-home-page', component: AreaHomePageComponent }, 
       { path: 'area-group-master-home-page', component: AreaGroupMasterHomePageComponent },
       { path: 'clean-room-grade-home-page', component: CleanRoomGradeHomePageComponent },
+      { path: 'cum-home-page', component: CumHomePageComponent }, 
+
+      
+
 ]
+
 
     @NgModule({
   imports: [RouterModule.forChild(routes)],

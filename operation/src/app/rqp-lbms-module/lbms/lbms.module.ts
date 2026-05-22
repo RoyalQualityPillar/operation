@@ -11,7 +11,8 @@ import { AreaGroupMasterCreateUpdateComponent } from "../ma/master/area-group-ma
 import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master/area-group-master-home-page/area-group-master-home-page.component";
 import { CleanRoomGradeCreateUpdateComponent } from "../ma/master/clean-room-grade/clean-room-grade-create-update/clean-room-grade-create-update.component";
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
-
+import { CumCreateUpdateComponent } from "../ma/master/calibraion-uom-master/cum-create-update/cum-create-update.component";
+import { CumHomePageComponent } from "../ma/master/calibraion-uom-master/cum-home-page/cum-home-page.component";
 
 
 
@@ -23,7 +24,12 @@ import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/c
     AreaGroupMasterCreateUpdateComponent,
     AreaGroupMasterHomePageComponent,
     CleanRoomGradeCreateUpdateComponent,
-    CleanRoomGradeHomePageComponent
+    CleanRoomGradeHomePageComponent,
+    CumCreateUpdateComponent,
+    CumHomePageComponent,
+
+    
+
   ],
   imports: [
     CommonModule,

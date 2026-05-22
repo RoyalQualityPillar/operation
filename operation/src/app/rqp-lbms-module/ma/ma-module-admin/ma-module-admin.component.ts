@@ -23,6 +23,9 @@ constructor(private router: Router, private cookieService: CookieService) { }
      onAreaGroupMaster() {
     this.router.navigate(['./rqpoperationui/lbms/area-group-master-home-page']);
   }
+    onCalibraionUOMMaster() {
+    this.router.navigate(['./rqpoperationui/lbms/cum-home-page']);
+  }
    public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }

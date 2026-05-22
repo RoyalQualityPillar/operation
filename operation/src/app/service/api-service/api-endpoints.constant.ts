@@ -1367,4 +1367,13 @@ export enum apiEndPoints {
   quantityLedgAllAuditTrail = 'wh/qt_ledger/get-by-code-all',
   allCleanRoomGradeTabledata = "allCleanRoomGradeTabledata",
   cleanRoomGradeUserProfileFilterData = "cleanRoomGradeUserProfileFilterData",
+
+     /*******cum master -Calibraion UOM Master *********/
+  allCumTabledata = 'lbms/cum_master/get-all',
+  activeCumTabledata = 'lbms/cum_master/get-max-all',
+  cumAllAuditTrail = 'lbms/cum_master/get-by-code-all',
+  cumUserProfileFilterData = 'lbms/cum_master/search',
+  cumLoadUpdatePage = 'lbms/cum_master/get-by-max-code',
+  cumCreateUpdate = 'lbms/cum_master/save-update',
+
 }
