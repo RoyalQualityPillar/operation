@@ -1,1 +1,238 @@
-<p>bom-initiator works!</p>
+<div class="adjust">
+    <div class="example-table-container">
+        <app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+    </div>
+</div>
+<!-- <app-common-title [title]="'Product Information'"></app-common-title> -->
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Product Information</div>
+        <div class="float-end">
+            <button mat-raised-button class="section-add-new-record-btn" (click)="addProduct()">
+                Add Product
+            </button>
+        </div>
+    </div>
+</div>
+<form [formGroup]="BOMRequirementForm">
+    <div formArrayName="products">
+
+        <div *ngFor="let item of products.controls; let i = index" [formGroupName]="i">
+
+            <!-- Header -->
+            <div class="table-box">
+                <div class="section_header_child_1">
+                    <div class="float-start">
+                        Product - {{ i + 1 }}
+                    </div>
+                    <div class="float-end">
+                        <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0"
+                            (click)="removeProduct(i)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>       
+
+            <!-- Row 1 -->
+            <div class="row no-gutters ms-1 me-1 dense-4">
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Number</mat-label>
+                    <input matInput formControlName="productNo">
+                    <img src="assets/searchfind.svg" class="lovSearchButton" (click)="openStatusLOV(i)">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Name</mat-label>
+                    <input type="text" matInput formControlName="productName" placeholder="Product Name" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Market</mat-label>
+                    <input type="text" matInput formControlName="market" placeholder="Market" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Code</mat-label>
+                    <input type="text" matInput formControlName="productCode" placeholder="Product Code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>UOM</mat-label>
+                    <input type="text" matInput formControlName="uom" placeholder="UOM" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Shelf Life in Months</mat-label>
+                    <input type="text" matInput formControlName="shelfLifeMonths" placeholder="Shelf Life in Months" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Type</mat-label>
+                    <input type="text" matInput formControlName="productType" placeholder="Product Type" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Dosage Form</mat-label>
+                    <input type="text" matInput formControlName="dosageForm" placeholder="Dosage Form" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Input Code</mat-label>
+                    <input type="text" matInput formControlName="inputCode" placeholder="Input Code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Product Tracking Code</mat-label>
+                    <input type="text" matInput formControlName="productTrackingCode"
+                        placeholder="Product Tracking Code" />
+                </mat-form-field>
+            </div>          
+        </div>
+
+    </div>
+</form>
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Container Details (Lot Level)</div>
+        <div class="float-end">
+            <button mat-raised-button class="section-add-new-record-btn" (click)="addContainer()">
+                Add Container
+            </button>
+        </div>
+    </div>
+</div>
+<form [formGroup]="ContainerRequirementForm">
+    <div formArrayName="containers">
+        <div *ngFor="let item of containers.controls; let i = index" [formGroupName]="i">
+            <div class="table-box">
+                <div class="section_header_child_1">
+                    <div class="float-start">
+                        <p class="section_header_title">Container Details (Lot Level)s - {{ i + 1 }}</p>
+                    </div>
+                    <!-- <div class="float-left d-flex gap-2">               -->
+                    <div class="float-end">
+                        <button mat-raised-button class="section-add-remove-record-btn" *ngIf="i > 0"
+                            (click)="removeContainer(i)">
+                            Delete Container
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters ms-1 me-1 dense-4">
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Material Number</mat-label>
+                    <input type="text" matInput formControlName="materialNo" placeholder="Material Number"
+                        (change)="onChangeMaterialNo(i)" />
+                    <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                        color="primary" (click)="openMaterialListLOV(i)" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Material Name</mat-label>
+                    <input type="text" matInput formControlName="materialName" (change)="onChangeMaterialName(i)"
+                        placeholder="Material Name" />
+                    <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                        color="primary" (click)="openMaterialListLOV(i)" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Material Code</mat-label>
+                    <input type="text" matInput formControlName="materialCode" (change)="onChangeByMaterialCode(i)"
+                        placeholder="Material Code" />
+                    <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                        color="primary" (click)="openMaterialListLOV(i)" />
+                </mat-form-field>                
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>Weight</mat-label>
+                    <input type="text" formControlName="weight" matInput placeholder="Weight" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-3 px-1">
+                    <mat-label>UOM</mat-label>
+                    <mat-select formControlName="weightUom">
+                        <mat-option value="">Select</mat-option>
+                        <mat-option value="KG">KG</mat-option>
+                        <mat-option value="GM">GM</mat-option>
+                        <mat-option value="L">L</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>
+<!--Table end-->
+<div class="table-box">
+    <div class="section_header">
+        <div class="float-left">
+            <p class="section_header_title">BOM Attachments </p>
+        </div>
+        <div class="float-right"></div>
+    </div>
+</div>
+<!--File Upload start-->
+<div class="adjust">
+    <div class="example-input-container">
+        <form [formGroup]="BOMAttachmentRequirementForm">
+            <div class="row no-gutters ms-1 me-1 dense-4 padding-top_5">
+                <mat-form-field appearance="outline" class="col-4 px-1">
+                    <mat-label>Document Name</mat-label>
+                    <input type="text" matInput formControlName="documentName" placeholder="Document Name" />
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Document Type</mat-label>
+            <mat-select formControlName="categoryTypes">
+              <mat-option value="M">M</mat-option>
+              <mat-option value="F">F</mat-option>
+              <mat-option value="A">A</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+
+                <div class="col-5 px-1 margin-top_5">
+                    <input type="file" id="file1" (change)="handleFileInput($event)" accept=".doc, .docx, .pdf" />
+                </div>
+            </div>
+        </form>
+        <div class="add-btn-container ">
+            <button mat-raised-button class="submitButton" (click)="onCreateSelectedDataList()">
+                Add Row
+            </button>
+        </div>
+    </div>
+    <!-- {{item?.bomAttachmentList | json}}   -->
+    <div class="example-input-container">
+        <mat-card class="" *ngIf="bomAttachmentList.length > 0">
+            <table class="display-table">
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Category Types</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of bomAttachmentList; let idx = index">
+                        <td>
+                            {{ row.ff0001 }}
+                        </td>
+                        <td>
+                            {{ row.ff0005 }}
+                        </td>
+                        <td>
+                            <button mat-icon-button color="warn" (click)="removeRow(idx)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card>
+    </div>
+</div>
+<!--file Upload End-->
+
+<app-common-comments [nextStageListData]="nextStageListData"
+    (commentsData)="handleCommentsForm($event)"></app-common-comments>
+<div class="containerBTN">
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation('0')">
+            {{ buttonLabelService.getLabel("save") }}
+        </button>
+        <button mat-raised-button color="primary" class="submitButton" (click)="onSubmitConfirmation('1')">
+            {{ buttonLabelService.getLabel("submit") }}
+        </button>
+        <button mat-raised-button color="primary" class="submitButton">
+            {{ buttonLabelService.getLabel("clear") }}
+        </button>
+    </div>
+</div>
+<div class="margin_button"></div>

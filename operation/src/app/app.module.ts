@@ -14,8 +14,6 @@ import { MessageDialogComponent } from './common/message-dialog/message-dialog.c
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
 
 
-
-
 // import { SharedModule } from './common/shared.module';
 
 
@@ -28,6 +26,12 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
+
+
+  
+    
+    
+    
 
 
 

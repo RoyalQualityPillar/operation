@@ -3,6 +3,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { GlobalConstants } from "src/app/common/global-constants";
 import { GrnService } from "src/app/rqp-wh-module/grn/grn.service";
+import { PpService } from "../pp.service";
 
 @Component({
   selector: 'app-material',
@@ -31,14 +32,14 @@ export class MaterialComponent implements OnInit {
   ];
 
   constructor(
-    private grnService: GrnService,
+    private ppService: PpService,
     private cookieService: CookieService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     const userId = this.cookieService.get('unitCode');
-    this.grnService.questionBankTable(this.cookieService.get('buCode')).subscribe(({ data }) => {
+    this.ppService.questionBankTable(this.cookieService.get('buCode')).subscribe(({ data }) => {
       this.questionBankTable = data;
     });
   }

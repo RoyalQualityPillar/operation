@@ -18,9 +18,9 @@ export class GrnService {
   //     return this.http.post(apiURL, '');
   //   }
 
-  public questionBankTable(unitCode: string): Observable<any> {
-    return this.http.get(this.API_URL + `pmmppo/get-ppo-item-list?unitcode=${unitCode} `);
-  }
+  // public questionBankTable(unitCode: string): Observable<any> {
+  //   return this.http.get(this.API_URL + `pmmppo/get-ppo-item-list?unitcode=${unitCode} `);
+  // }
   onLoadInputNewAPI(unitCode, module, mainModule) {
     const queryParams = `?unitCode=${unitCode}&module=${module}&mainModule=${mainModule}`;
     let URL = this.API_URL + 'qms/input' + queryParams;

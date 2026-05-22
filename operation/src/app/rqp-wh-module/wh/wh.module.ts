@@ -22,6 +22,8 @@ import { QuantityLedgCreateUpdateComponent } from '../masters/quantity-ledger/qu
 import { QuantityLedgHomePageComponent } from '../masters/quantity-ledger/quantity-ledg-home-page/quantity-ledg-home-page.component';
 import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.component';
 import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-completed-save.component';
+import { SmModuleAdminComponent } from '../sm/sm-module-admin/sm-module-admin.component';
+import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-sampling-list-home-page/under-sampling-list-home-page.component';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-complet
     QuantityLedgHomePageComponent,
      GrnCompletedComponent,
     GrnCompletedSaveComponent,
+    SmModuleAdminComponent,
+    UnderSamplingListHomePageComponent,
 
   ],
   imports: [
