@@ -1,11 +1,24 @@
-<div
-  style="margin-top: 5px; margin-left: 5px"
->
+<div style="margin-top: 5px; margin-left: 5px">
   <mat-grid-list cols="4" rowHeight="3:1">
     <mat-grid-tile>
       <button mat-raised-button class="tile-view" (click)="ExecutionProcessOrder()">
-       Execution Process Order
+        Execution Process Order
       </button>
-    </mat-grid-tile>   
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="completedExecutionProcessOrder()">
+        Completed Execution Process Order
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="onallStagesRecord()">
+        All Stages Records
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="onallPendingRecord()">
+        All Pending Records
+      </button>
+    </mat-grid-tile>
   </mat-grid-list>
 </div>

@@ -92,7 +92,6 @@ public submit(value:any){
 //       } else {
 //         this.isLoading = false;
 //         this.notificationService.showSuccess(data.status, () => {
-//           console.log('Success Snackbar Closed');
 //         });
 //       }
 //     });

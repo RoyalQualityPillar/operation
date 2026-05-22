@@ -37,6 +37,12 @@ import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack
 import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admin.component';
 import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
 import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
+import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
+import { FgSamplingListComponent } from '../sm/fg-sampling-list/fg-sampling-list.component';
+import { FgUnderTestListComponent } from '../sm/fg-under-test-list/fg-under-test-list.component';
+import { SfgSamplingListComponent } from '../sm/sfg-sampling-list/sfg-sampling-list.component';
+import { SfgUnderTestListComponent } from '../sm/sfg-under-test-list/sfg-under-test-list.component';
+import { SfgQuarantineListComponent } from '../qm/sfg-quarantine-list/sfg-quarantine-list.component';
 
 
 @NgModule({
@@ -65,6 +71,7 @@ import { LocationUpdateComponent } from '../slc/location-update/location-update.
     QualityStatusListComponent,
     QmModuleAdminComponent,
     QuarantineListComponent,
+    FgQuarantineListComponent,
     QuarantinePackDisplayComponent,
     MdmModuleAdminComponent,
     MaterialDispensingComponent,
@@ -73,7 +80,11 @@ import { LocationUpdateComponent } from '../slc/location-update/location-update.
     SlcModuleAdminComponent,
     ApprovedMaterialListComponent,
     LocationUpdateComponent,
-
+    FgSamplingListComponent,
+    FgUnderTestListComponent,
+    SfgQuarantineListComponent,
+    SfgSamplingListComponent,
+    SfgUnderTestListComponent,
 
 
 

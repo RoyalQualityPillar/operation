@@ -19,4 +19,7 @@ constructor(private router: Router, private cookieService: CookieService) { }
    public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

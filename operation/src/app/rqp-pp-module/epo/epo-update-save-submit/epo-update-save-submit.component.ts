@@ -162,7 +162,6 @@ export class EpoUpdateSaveSubmitComponent implements OnInit {
   onLoadInputFieldValue() {
     this.isLoading = true;
     this.ppService.getInputValue(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.paymentTermsCodeList = data.data.paymentTermsMasterList;
       this.salesUnitCode = data.data.suUnitList;
       this.isLoading = false;
@@ -170,7 +169,6 @@ export class EpoUpdateSaveSubmitComponent implements OnInit {
   }
   public handleCommentsForm(event: any) {
     this.comments = event.comments;
-    console.log(event);
   }
   public paymentTermsCode() {
     this.displayedColumns = [
@@ -675,9 +673,7 @@ export class EpoUpdateSaveSubmitComponent implements OnInit {
           });
         } else {
           this.buttonHide = false;
-          this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
-          });
+          this.notificationService.showSuccess(data.status, () => { });
         }
         this.isLoading = false;
 

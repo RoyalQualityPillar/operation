@@ -99,7 +99,6 @@ export class GrnReviewerComponent implements OnInit {
       this.lc0001 = params.ff0001;
       this.ff0005 = params.ff0007;
       this.ff0002 = params.ff0005;
-      console.log(this.pageData);
       // });
     }
     if (this.ff0001) {
@@ -121,7 +120,6 @@ export class GrnReviewerComponent implements OnInit {
     this.grnService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
-      console.log(this.nextStageListData);
     });
   }  
   public getHeaderData(event: any) {
@@ -172,14 +170,10 @@ this.getGRNAttachchmentList(this.lc0003);
 }
     });
   }
-  getGRNAttachchmentList(lc0003:any){
-    // let modulecode = this.headerData.modulecode;
-    // console.log(modulecode);
+  getGRNAttachchmentList(lc0003:any){  
     this.grnService.getGRNAttachments(lc0003,this.ff0002).subscribe((data:any) => {
-console.log(data);
    this.grnAttachmentListData = data.data;
         this.grnAttachmentListTableData = new MatTableDataSource(data.data);
-        console.log(this.grnAttachmentListTableData)
     });
   }
   getGoodsReceiptList(lc0003:any){
@@ -221,9 +215,7 @@ const value = this.goodsReceiptValue[0];
   }
    getGoodsReceiptPackList(lc0003:any){
     this.grnService.getGoodsReceiptPackList(lc0003).subscribe((data:any) => {
-      console.log(data);
       this.goodsReceiptPackValue = data.data;
-      console.log(this.goodsReceiptPackValue)
       this.goodsReceiptPackValue.forEach((pack: any, i: number) => {
         const container = this.containers.at(i) as FormGroup;
   container.patchValue({   
@@ -246,7 +238,6 @@ const value = this.goodsReceiptValue[0];
           uint8Array[i] = binaryData.charCodeAt(i);
         }
         let blob: any;
-        console.log(fileExtension);
         if (fileExtension == 'pdf' || fileExtension == 'PDF') {
           blob = new Blob([uint8Array], { type: 'application/pdf' });
         } else {

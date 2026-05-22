@@ -73,7 +73,6 @@ public bmrInput(unitCode: string): Observable<any> {
     bomAttachmentList: any[],
     body: any
   ) {
-    console.log(bomAttachmentList);
     let token = this.cookieService.get('token');
     let formData: FormData = new FormData();
     
@@ -85,9 +84,6 @@ public bmrInput(unitCode: string): Observable<any> {
       type: 'application/json',
     });
     formData.append('bomDTO', jsonBlob, 'data.json');
-
-    console.log(formData); // Check the FormData structure in the browser's console
-
     let createUserURL = this.API_URL + 'pp/bom-request';
 
     const httpOptions = {

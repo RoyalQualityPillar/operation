@@ -11,7 +11,6 @@ private API_URL = environment.apiBaseURL;
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   onCreate(body: any) {
-    console.log(body);
     let token = this.cookieService.get('token');
     let createUserURL = this.API_URL + 'lbms/area_master/save-update';
     const httpOptions = {
@@ -40,6 +39,11 @@ private API_URL = environment.apiBaseURL;
     let queryParams = `?UC0001=${uc0001}`;
     const ALLSALEPRODUCTURL =
       this.API_URL + 'lbms/area_master/get-by-code-all' + queryParams;
+    return this.http.get(ALLSALEPRODUCTURL);
+  }
+   getDropDownAGList(unitCode: any) {
+   let queryParams = `?unitCode=${unitCode}`;
+    const ALLSALEPRODUCTURL = this.API_URL + 'lbms/input' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
 }

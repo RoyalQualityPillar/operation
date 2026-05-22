@@ -486,7 +486,6 @@ export class BomUpdateComponent implements OnInit {
           uint8Array[i] = binaryData.charCodeAt(i);
         }
         let blob: any;
-        console.log(fileExtension);
         if (fileExtension == 'pdf' || fileExtension == 'PDF') {
           blob = new Blob([uint8Array], { type: 'application/pdf' });
         } else {

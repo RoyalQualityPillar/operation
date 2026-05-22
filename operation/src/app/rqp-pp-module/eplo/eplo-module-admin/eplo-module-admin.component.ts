@@ -12,4 +12,10 @@ export class EploModuleAdminComponent {
   planningOrderListData(): void {
     this.router.navigate(['./rqpoperationui/pp/planning-order-list']);
   }
+   public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+   public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

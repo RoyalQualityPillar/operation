@@ -1332,6 +1332,30 @@ export enum apiEndPoints {
   crmMasterLoadUpdatePage = 'lbms/clean_room_grade_master/get-by-max-code',
   crmMasterAllAuditTrail = 'lbms/clean_room_grade_master/get-by-code-all',
 
+ /*******Equipment master*********/
+  allEquipmentMasterTabledata = 'lbms/equipment_master/get-all',
+  activeEquipmentMasterTabledata = 'lbms/equipment_master/get-max-all',
+  areaEquipmentUserProfileFilterData = 'lbms/equipment_master/search',
+  equipmentMasterCreateUpdate = 'lbms/equipment_master/save-update',
+  equipmentMasterLoadUpdatePage = 'lbms/equipment_master/get-by-max-code',
+  equipmentMasterAllAuditTrail = 'lbms/equipment_master/get-by-code-all',
+
+  /*******Equipment Inustument master*********/
+  allEquipmentInustumentMasterTabledata = 'lbms/equipment_Inus_master/get-all',
+  activeEquipmentInustumentMasterTabledata = 'lbms/equipment_Inus_master/get-max-all',
+  areaEquipmentInustumentUserProfileFilterData = 'lbms/equipment_Inus_master/search',
+  equipmentInustumentMasterCreateUpdate = 'lbms/equipment_Inus_master/save-update',
+  equipmentInustumentMasterLoadUpdatePage = 'lbms/equipment_Inus_master/get-by-max-code',
+  equipmentInustumentMasterAllAuditTrail = 'lbms/equipment_inus_master/get-by-code-all',
+
+   /***Instrument Category  Master***/
+  allinstrumentcatMasterTabledata = 'limsm-im/ic-master/get-all',
+  activeinstrumentcatMasterTabledata = 'limsm-im/ic-master/get-max-all',
+  instrumentcatMasterUserProfileFilterData = 'limsm-im/ic-master/search',
+  instrumentcatMasterCreateUpdate = 'limsm-im/ic-master/save-update',
+  instrumentcatMasterLoadUpdatePage = 'limsm-im/ic-master/get-by-max-code',
+  instrumentcatMasterAllAuditTrail = 'limsm-im/ic-master/get-by-code-all',
+
     /***************WmhModule***************/
 
   /*******Inspection Master*********/
@@ -1376,4 +1400,6 @@ export enum apiEndPoints {
   cumLoadUpdatePage = 'lbms/cum_master/get-by-max-code',
   cumCreateUpdate = 'lbms/cum_master/save-update',
 
+
+  
 }

@@ -43,8 +43,8 @@ export class WhService {
   public quarantineDisplayList(lc0003: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/quarantine-display-list?lc0003=${lc0003} `);
   }
-   public saveQuarantineList(uc0001:string){
-   const queryParams = `?uc0001=${uc0001}`;
+   public saveQuarantineList(uc0001:string, status:any){
+   const queryParams = `?uc0001=${uc0001}&status=${status}`;
    const samplingURL = this.API_URL + 'wh/quarantine-save-update' +queryParams;
    return this.http.post(samplingURL, '');
   }
@@ -60,6 +60,30 @@ export class WhService {
    const queryParams = `?uc0001=${uc0001}&ff0011=${ff0011}`;
    const samplingURL = this.API_URL + 'wh/location-update-save' +queryParams;
    return this.http.post(samplingURL, '');
+  }
+
+   public getFgSamplingList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-sampling-list?Unitcode=${Unitcode} `);
+  }
+  public getSFGSamplingList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-sampling-list?Unitcode=${Unitcode} `);
+  }
+   public saveFgSamplingList(uc0001: string) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const samplingURL = this.API_URL + 'pp/fg-sampling-save' + queryParams;
+    return this.http.post(samplingURL, '');
+  }
+
+   public getFgUnderTestList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-under-taste-list?Unitcode=${Unitcode} `);
+  }
+   public getSFGUnderTestList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-under-taste-list?Unitcode=${Unitcode} `);
+  }
+   public saveFgUnderTestLList(uc0001: string, Status:any) {
+    const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
+    const samplingURL = this.API_URL + 'pp/fg-under-taste-save' + queryParams;
+    return this.http.post(samplingURL, '');
   }
      
  }

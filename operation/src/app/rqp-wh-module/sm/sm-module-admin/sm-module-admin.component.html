@@ -7,9 +7,39 @@
         Under-Sampling-list
       </button>
     </mat-grid-tile>
+     <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="fgSamplinglist()">
+        FG Sampling-list
+      </button>
+    </mat-grid-tile>
+     <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="sfgSamplinglist()">
+        SFG Sampling-list
+      </button>
+    </mat-grid-tile>
     <mat-grid-tile>
       <button mat-raised-button class="tile-view" (click)="UnderTestingList()">
         Under Testing List
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="fgUnderTestingList()">
+        FG Under Testing List
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="sfgUnderTestingList()">
+        SFG Under Testing List
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="onallStagesRecord()">
+        All Stages Records
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="tile-view" (click)="onallPendingRecord()">
+        All Pending Records
       </button>
     </mat-grid-tile>
   </mat-grid-list>

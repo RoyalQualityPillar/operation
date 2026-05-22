@@ -100,7 +100,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
 
   mtMasterList: any;
   utMasterList: any;
-  
+
   onLoadStatusDropDown() {
     this.isLoading = true;
     this.adminService.getDropDownList().subscribe((data: any) => {
@@ -152,8 +152,8 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
     );
 
     this.quantityLedgService
-    .onCreate(this.DepartmentMaster.value)
-    .subscribe((data: any) => {
+      .onCreate(this.DepartmentMaster.value)
+      .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
@@ -172,7 +172,7 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
         }
       });
   }
- async  onSaveConfirmation() {
+  async onSaveConfirmation() {
     const component = await this.remoteLoader.loadComponentByKey('CommonESignatureComponent');
     const dialogRef = this.dialog.open(component, {
       height: '300px',
@@ -196,8 +196,8 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
     );
 
     this.quantityLedgService
-    .onCreate(this.DepartmentMaster.value)
-    .subscribe((data: any) => {
+      .onCreate(this.DepartmentMaster.value)
+      .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
           this.dialog.open(MessageDialogComponent, {
@@ -209,7 +209,6 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
         } else {
           this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
           this.dialogRef.close();
         }
@@ -244,8 +243,8 @@ export class QuantityLedgCreateUpdateComponent implements OnInit {
       }
     });
   }
-  onChangeDosageForm() {}
-  openDosageFormLOV() {}
+  onChangeDosageForm() { }
+  openDosageFormLOV() { }
   openUOMLOV() {
     this.displayedColumns = [
       { field: 'utCode', title: 'Code' },

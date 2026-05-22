@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row no-gutters dialogHeaderColor">
+    <div class="col-10 d-flex justify-content-start">
+      <h1 class="customeHeading">File Preview</h1>
+    </div>
+    <div class="col-2 d-flex justify-content-end">
+      <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+        <mat-icon class="close-icon" color="warn">close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="pdf && userData.showIframe">
+    <ng-container *ngIf="userData.showIframe && pdf; else previewNotAvailable">
+      <iframe #iframeElement [src]="pdf" width="100%" class="iframe"></iframe>
+    </ng-container>
+  </div>
+
+  <div *ngIf="safeUrl && !userData.showIframe">
+    <ng-container
+      *ngIf="safeUrl && !userData.showIframe; else previewNotAvailable"
+    >
+      <ngx-extended-pdf-viewer
+        [src]="safeUrl"
+        [showDownloadButton]="false"
+        [showPrintButton]="false"
+        [showOpenFileButton]="false"
+      ></ngx-extended-pdf-viewer>
+      
+ <!-- <ngx-doc-viewer
+  [url]="this.userData.tableData"
+  [height]="'100vh'"
+  [width]="'100%'"
+  [showHeader]="true"
+  [headerStyle]="{ backgroundColor: 'lightgray', color: 'black' }"
+  [headerTemplate]="customHeaderTemplate"
+  [style]="{ border: '1px solid black' }"
+  [customStyles]="{ background: 'white' }"
+></ngx-doc-viewer> -->
+    </ng-container>
+  </div>
+
+  <ng-template #previewNotAvailable>
+    <p>
+      Preview not available for the selected document. Preview is only available
+      for PDF files.
+    </p>
+  </ng-template>
+</div>

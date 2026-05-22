@@ -63,8 +63,6 @@ export class LocationUpdateComponent implements OnInit {
     const materialLocationValue = this.MaterialLocationForm.value;
     let uc0001 = this.materialValue.uc0001;
     let ff0011 = materialLocationValue.location;
-
-    console.log(uc0001, ff0011)
     this.whService.saveLocationUpdate(uc0001, ff0011).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
@@ -77,7 +75,6 @@ export class LocationUpdateComponent implements OnInit {
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
-          console.log('Success Snackbar Closed');
         });
       }
     });
