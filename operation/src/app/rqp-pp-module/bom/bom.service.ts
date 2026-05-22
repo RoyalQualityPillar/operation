@@ -26,25 +26,64 @@ public bmrInput(unitCode: string): Observable<any> {
     const ALLSALEPRODUCTURL = this.API_URL + 'pmm/input' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
+   getResquestNoIDForBOM(lc0002: any, lc0001:any) {
+    const queryParams = `?lc0002=${lc0002}&lc0001=${lc0001}`;
+    const reviewURL = this.API_URL + 'pp/bom-module-request-no' + queryParams;
+    return this.http.get(reviewURL);
+  }
+  getBOMItemMasterList(lc0003: any) {
+    const queryParams = `?lc0003=${lc0003}`;
+    const reviewURL = this.API_URL + 'pp/BomItem-master-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+   getBOMIndexMasterList(lc0003: any) {
+    const queryParams = `?lc0003=${lc0003}`;
+    const reviewURL = this.API_URL + 'pp/BomIndex-master-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+  getBOMAttachments(lc0003:string, moduleCode:string){
+ const queryParams = `?lc0003=${lc0003}&moduleCode=${moduleCode}`;
+    const reviewURL = this.API_URL + 'gm/attachment-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+   onDownloadDocumet( uc0001: any) {
+    const queryParams = `?uc0001=${uc0001}`;
+    const reviewURL = this.API_URL + 'file/att-download' + queryParams;
+    return this.http.post(reviewURL, '');
+  }
+  onCommentsData(ff0001: any, lcnum: any, ff0005: number) {
+    const queryParams = `?FF0001=${ff0001}&FF0002=${lcnum}&FF0005=${ff0005}`;
+    const reviewURL =
+      this.API_URL + 'gm/gmap-record/review-comments' + queryParams;
+    return this.http.get(reviewURL);
+  }
+    onGetCommentsData(
+    lcRequestnumber: string,
+    lcnum: string,
+    templateName: string,
+    stage: any,
+    userid: string,
+    moduleCode: string
+  ) {
+    const queryParams = `?lcRequestnumber=${lcRequestnumber}&lcnum=${lcnum}&templateName=${templateName}&stage=${stage}&userid=${userid}&moduleCode=${moduleCode}`;
+    const reviewURL = this.API_URL + 'gmapr/gmap-comment/get-all' + queryParams;
+    return this.http.post(reviewURL, '');
+  }
   onBOMSaveUpdate(
-    grnAttachments: any[],
+    bomAttachmentList: any[],
     body: any
   ) {
-    console.log(grnAttachments);
     let token = this.cookieService.get('token');
     let formData: FormData = new FormData();
     
-     for (let file of grnAttachments) {
-      formData.append('grnAttachments', file);
+     for (let file of bomAttachmentList) {
+      formData.append('bomAttachmentList', file);
     }
     // Append JSON data as a blob
     const jsonBlob = new Blob([JSON.stringify(body)], {
       type: 'application/json',
     });
     formData.append('bomDTO', jsonBlob, 'data.json');
-
-    console.log(formData); // Check the FormData structure in the browser's console
-
     let createUserURL = this.API_URL + 'pp/bom-request';
 
     const httpOptions = {
@@ -54,5 +93,17 @@ public bmrInput(unitCode: string): Observable<any> {
     };
 
     return this.http.post(createUserURL, formData, httpOptions);
+  }
+  downloadBOMreport(
+    lcnum: string,
+    templateName: string,
+    moduleCode: string,
+    lcrnumber: string
+  ) {
+    return this.http.post(
+      this.API_URL +
+      `pp/bom-report/get-all?lcnum=${lcnum}&templateName=${templateName}&moduleCode=${moduleCode}&lcrnumber=${lcrnumber}`,
+      ''
+    );
   }
 }

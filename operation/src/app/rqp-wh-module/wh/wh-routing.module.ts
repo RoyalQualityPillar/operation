@@ -15,6 +15,25 @@ import { GrnCompletedSaveComponent } from '../grn/grn-completed-save/grn-complet
 import { GrnCompletedComponent } from '../grn/grn-completed/grn-completed.component';
 import { SmModuleAdminComponent } from '../sm/sm-module-admin/sm-module-admin.component';
 import { UnderSamplingListHomePageComponent } from '../sm/sm-module-admin/under-sampling-list-home-page/under-sampling-list-home-page.component';
+import { UnderTestingListComponent } from '../sm/under-testing-list/under-testing-list.component';
+import { QsmModuleAdminComponent } from '../qsm/qsm-module-admin/qsm-module-admin.component';
+import { QualityStatusListComponent } from '../qsm/quality-status-list/quality-status-list.component';
+import { QuarantineListComponent } from '../qm/quarantine-list/quarantine-list.component';
+import { QmModuleAdminComponent } from '../qm/qm-module-admin/qm-module-admin.component';
+import { QuarantinePackDisplayComponent } from '../qm/quarantine-list/quarantine-pack-display/quarantine-pack-display.component';
+import { MdmModuleAdminComponent } from '../mdm/mdm-module-admin/mdm-module-admin.component';
+import { MaterialDispensingComponent } from '../mdm/material-dispensing/material-dispensing.component';
+import { MaterialReservedListComponent } from '../mdm/material-reserved-list/material-reserved-list.component';
+import { MaterialReservedPackListComponent } from '../mdm/material-reserved-pack-list/material-reserved-pack-list.component';
+import { SlcModuleAdminComponent } from '../slc/slc-module-admin/slc-module-admin.component';
+import { ApprovedMaterialListComponent } from '../slc/approved-material-list/approved-material-list.component';
+import { LocationUpdateComponent } from '../slc/location-update/location-update.component';
+import { FgQuarantineListComponent } from '../qm/fg-quarantine-list/fg-quarantine-list.component';
+import { FgSamplingListComponent } from '../sm/fg-sampling-list/fg-sampling-list.component';
+import { FgUnderTestListComponent } from '../sm/fg-under-test-list/fg-under-test-list.component';
+import { SfgSamplingListComponent } from '../sm/sfg-sampling-list/sfg-sampling-list.component';
+import { SfgUnderTestListComponent } from '../sm/sfg-under-test-list/sfg-under-test-list.component';
+import { SfgQuarantineListComponent } from '../qm/sfg-quarantine-list/sfg-quarantine-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -32,7 +51,25 @@ const routes: Routes = [
   { path: 'quantity-ledg-home-page', component: QuantityLedgHomePageComponent },
   { path: 'sm-module-admin', component: SmModuleAdminComponent },
   { path: 'under-sampling-list-home-page', component: UnderSamplingListHomePageComponent },
-  
+  { path: 'under-testing-list', component: UnderTestingListComponent },
+  { path: 'qsm-module-admin', component: QsmModuleAdminComponent },
+  { path: 'quality-status-list', component: QualityStatusListComponent },
+  { path: 'quarantine-list', component: QuarantineListComponent },
+  { path: 'fg-quarantine-list', component: FgQuarantineListComponent },
+  { path: 'sfg-quarantine-list', component: SfgQuarantineListComponent },
+  { path: 'qm-module-admin', component: QmModuleAdminComponent },
+  { path: 'quarantine-display-list', component: QuarantinePackDisplayComponent },
+  { path: 'mdm-module-admin', component: MdmModuleAdminComponent },
+  { path: 'material-dispensing', component: MaterialDispensingComponent },
+  { path: 'material-reserved-list', component: MaterialReservedListComponent },
+  { path: 'material-reserved-pack-list', component: MaterialReservedPackListComponent },
+   { path: 'fg-sampling-list', component: FgSamplingListComponent },
+  { path: 'fg-under-test-list', component: FgUnderTestListComponent },
+   { path: 'sfg-sampling-list', component: SfgSamplingListComponent },
+  { path: 'sfg-under-test-list', component: SfgUnderTestListComponent },
+  { path: 'slc-module-admin', component: SlcModuleAdminComponent },
+  { path: 'approved-material-list', component: ApprovedMaterialListComponent },
+  { path: 'location-update', component: LocationUpdateComponent }
 ];
 
 @NgModule({

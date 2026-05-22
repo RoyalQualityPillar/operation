@@ -1,0 +1,13 @@
+<div>
+  <ol class="breadcrumb_custom">
+    <li
+      *ngFor="let breadcrumb of breadCrumbList; let i = index"
+      [class.active]="i === breadCrumbList.length - 1"
+    >
+      <span *ngIf="i !== breadCrumbList.length - 1">{{ breadcrumb.name }}</span>
+      <span *ngIf="i === breadCrumbList.length - 1"
+        ><b>{{ breadcrumb.name }}</b></span
+      >
+    </li>
+  </ol>
+</div>

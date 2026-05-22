@@ -67,7 +67,6 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
     this.filterApiUrl = apiEndPoints.areaMasterUserProfileFilterData;
     this.activeAreaTableDataUrl = apiEndPoints.activeAreaMasterTabledata;
     this.params = { pageIndex, size, unitCode };
-    console.log('Bharat');
     this.loadRoleMasterTableFilter();
     this.loadActiveRoleMasterTableFilter();
   }
@@ -82,7 +81,7 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       // Set all required inputs
       compRef.setInput('columnConfig', this.columnConfig);
       compRef.setInput('filterOptions', this.filterOptions);
-      compRef.setInput('apiUrl', this. activeAreaTableDataUrl);
+      compRef.setInput('apiUrl', this. allAreaTableDataUrl);
       compRef.setInput('tableTitle', 'Active Area Master');
       compRef.setInput('dynamicButtons', this.allButtonConfig);
       compRef.setInput('columnClass', 'rqp-life-cycle-table-columns');
@@ -144,11 +143,12 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
     });
     this.getLatestData = false;
   }
   setSelectedID(row: any) {
-    console.log(row);
     this.setSelectedID = row;
   }
   selectedAllId: any;
@@ -170,9 +170,17 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
       });
       this.getLatestData = false;
     }
+  }
+    refreshData(){
+    this.loadRoleMasterTableFilter();
+    this.loadActiveRoleMasterTableFilter();
+      this.commonTableContainer.clear()
+      this.activeRoleMasterContainer.clear()
   }
   onChangeStatus(data: any) {
     return changeStatusByCode(data);
@@ -221,7 +229,6 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   UC0002: any;
   async onSearchAllAuditTrail() {
     this.selectedRow = this.selectedRow;
-    console.log(this.selectedRow);
     if (this.selectedRow.length == 0) {
       this.dialog.open(MessageDialogComponent, {
         data: {
@@ -307,7 +314,6 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   handleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onSearchAllAuditTrail();
@@ -320,7 +326,6 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   activeHandleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onActiveSelectAuditRow();
@@ -332,7 +337,6 @@ export class AreaHomePageComponent implements OnInit, AfterViewInit {
   }
 
   handleSubmit(row: any) {
-    console.log(row);
     console.log('submitBtn');
   }
 }

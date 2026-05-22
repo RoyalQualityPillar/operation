@@ -23,7 +23,19 @@ constructor(private router: Router, private cookieService: CookieService) { }
      onAreaGroupMaster() {
     this.router.navigate(['./rqpoperationui/lbms/area-group-master-home-page']);
   }
-   onCalibraionPerameterMaster() {
-    this.router.navigate(['./rqpoperationui/lbms/cpm-home-page']);
+   public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+   public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
+   public onEquipmentMaster(): void {
+    this.router.navigate(['./rqpoperationui/lbms/home-page-equipment-master']);
+  }
+   public onEquipmentInustumentMaster(): void {
+    this.router.navigate(['./rqpoperationui/lbms/home-page-equip-inst-master']);
+  }
+  onInstrumentCategory() {
+    this.router.navigate(['./rqpoperationui/lbms/instrument-cat-home-page'])
   }
 }

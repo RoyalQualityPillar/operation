@@ -213,6 +213,17 @@ export class CommonButtonBarComponent {
     ) {
       body.documentModule = 'DMS';
     }
+     if (
+      this.headerData.modulecode == 'BOM' ||
+      this.headerData.modulecode == 'EPO' 
+    ) {
+      body.documentModule = 'PP';
+    }
+    if (
+      this.headerData.modulecode == 'GRN' 
+    ) {
+      body.documentModule = 'WH';
+    }
     if (body.stage2 == '' || body.stage2 == undefined || body.stage2 == null) {
       body.stage2 = 0;
     }

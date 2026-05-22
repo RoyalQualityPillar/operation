@@ -16,4 +16,10 @@ constructor(private router: Router, private cookieService: CookieService) { }
   onProductMaster() {
     this.router.navigate(['./rqpoperationui/pp/product-home-page']);
   }
+   public onallStagesRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
+  }
+    public onallPendingRecord(): void {
+    this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
 }

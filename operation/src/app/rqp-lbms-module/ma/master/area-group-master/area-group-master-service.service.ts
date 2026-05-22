@@ -10,7 +10,6 @@ export class AreaGroupMasterService {
    private API_URL = environment.apiBaseURL;
   constructor(private http: HttpClient, private cookieService: CookieService) {}
    onCreate(body: any) {
-        console.log(body);
         let token = this.cookieService.get('token');
         let createUserURL = this.API_URL + 'lbms/area_group_master/save-update';
         const httpOptions = {

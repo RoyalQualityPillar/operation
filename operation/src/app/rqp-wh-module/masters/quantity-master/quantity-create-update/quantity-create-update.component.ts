@@ -74,7 +74,7 @@ export class QuantityCreateUpdateComponent implements OnInit {
       ff0011: [0, Validators.required],
       createdby: [''],
       status: [''],
-      comments: [''],
+      comments: ['', Validators.required],
       unitCode: ['']
     });
   }
@@ -207,7 +207,6 @@ export class QuantityCreateUpdateComponent implements OnInit {
         } else {
           this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
           this.dialogRef.close();
         }

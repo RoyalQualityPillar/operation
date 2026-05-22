@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './bom-reviewer-home.component.scss'
 })
 export class BomReviewerHomeComponent {
-
+public reviewerUrl: string = './rqpoperationui/pp/bom-reviewer';
 }

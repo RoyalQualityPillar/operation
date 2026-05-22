@@ -24,6 +24,24 @@ import { BomReviewerHomeComponent } from "../bom/bom-reviewer-home/bom-reviewer-
 import { BomReviewerComponent } from "../bom/bom-reviewer/bom-reviewer.component";
 import { BomCompletedComponent } from "../bom/bom-completed/bom-completed.component";
 import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-completed-save.component";
+import { BomModuleAdminComponent } from "../bom/bom-module-admin/bom-module-admin.component";
+import { EpoModuleAdminComponent } from "../epo/epo-module-admin/epo-module-admin.component";
+import { ExecutionProductOrderListComponent } from "../epo/execution-product-order-list/execution-product-order-list.component";
+import { EploModuleAdminComponent } from "../eplo/eplo-module-admin/eplo-module-admin.component";
+import { PlanningOrderListComponent } from "../eplo/planning-order-list/planning-order-list.component";
+import { MaterialIssuanceComponent } from "../mrp/material-issuance/material-issuance.component";
+import { MrpModuleAdminComponent } from "../mrp/mrp-module-admin/mrp-module-admin.component";
+import { MaterialRequPlanningComponent } from "../mrp/material-requ-planning/material-requ-planning.component";
+import { EproModuleAdminComponent } from "../epro/epro-module-admin/epro-module-admin.component";
+import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/execution-process-order.component";
+import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
+import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/show-material-issuance.component";
+import { ApprovedMaterialListComponent } from "../mrp/approved-material-list/approved-material-list.component";
+import { FgApproverListComponent } from "../fg/fg-approver-list/fg-approver-list.component";
+import { FgRejectListComponent } from "../fg/fg-reject-list/fg-reject-list.component";
+import { ProductionCompletedListComponent } from "../epro/production-completed-list/production-completed-list.component";
+import { SfgApproverListComponent } from "../fg/sfg-approver-list/sfg-approver-list.component";
+import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.component";
 
 @NgModule({
   declarations: [
@@ -47,6 +65,25 @@ import { BomCompletedSaveComponent } from "../bom/bom-completed-save/bom-complet
     BomReviewerComponent,
     BomCompletedComponent,
     BomCompletedSaveComponent,
+    BomModuleAdminComponent,
+    EpoModuleAdminComponent,
+    ExecutionProductOrderListComponent,
+    EploModuleAdminComponent,
+    PlanningOrderListComponent,
+    MaterialIssuanceComponent,
+    MrpModuleAdminComponent,
+    MaterialRequPlanningComponent,
+    EproModuleAdminComponent,
+    ExecutionProcessOrderComponent,
+    MaterialRequVerfComponent,
+    ShowMaterialIssuanceComponent,
+    ApprovedMaterialListComponent,
+    FgApproverListComponent,
+    FgRejectListComponent,
+     SfgApproverListComponent,
+    SfgRejectListComponent, 
+    ProductionCompletedListComponent,
+
 
 
   ],

@@ -1,0 +1,157 @@
+// .toolbar{
+//     height: 4%;
+//     /* border: 1px solid; */
+//     border-color: #C0C0C0;
+//     color: #FFFFFF;
+//     font-family: Arial, Verdana, sans-serif;
+//     font-size: 13px;
+//     font-weight: bold;
+//     padding: 0px;
+//     background-color: #4A75B5;
+//     background-position: left top;
+//     background-repeat: repeat-x;
+//     background-image: url("../../../assets/gradientA.png");
+//     border-collapse: collapse;
+//     border-spacing: 0;
+//     position: sticky;
+//     position: -webkit-sticky; /* For macOS/iOS Safari */
+//     top: 0; /* Sets the sticky toolbar to be on top */
+//     z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+// }
+
+::ng-deep .mat-button:hover
+{
+
+background-color:#C0C0C0 !important;
+}
+#tBAN{
+    width: 100%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    height: 68px;
+    position: relative;
+    //background-image: url("../../../assets/swoosh.gif");
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    min-width: 600px;
+}
+#tBAN #logo{
+    border: 0;
+    padding: 0;
+    margin: 0;
+    top: 15px;
+    position: absolute;
+}
+.mat-button-focus-overlay {
+    background: transparent;
+}
+
+button:focus {
+    outline: none !important;
+}
+.menu-template{
+    color: white;
+}
+.menu{
+   // padding: 14px;
+}
+.list{
+    padding: 5px;
+    margin-right: 10rem;
+}
+.list-title{
+    background-color: #6E9CCD;
+    padding: 0px;
+}
+.example-mat{
+    width: 75%;
+   
+
+}
+.maintoolbar{
+    display: flex;
+    justify-content: space-between;
+}
+.logo1{
+    height: 59px;
+    max-width: 27%;
+}
+.logo2{
+     height:73px;
+      max-width:60%;
+}
+.logo3{
+    height:73px;
+     max-width:10%;
+}
+
+button.mat-menu-item {
+    width: 100%;
+    height: 29px;
+    font-size: 12px;
+    //text-indent: 20px; for start space
+    line-height: 0px;
+    //font-weight: bold;
+    
+}
+
+::ng-deep  .mat-menu-content{
+padding:0px !important;
+}
+::ng-deep  .mat-menu-pane{
+line-height: 0px !important;
+border-radius: 0px !important;
+min-height: 0px !important;
+    }
+::ng-deep button .mat-button-wrapper{
+   font-size: 12px;
+    }
+
+.mat-button-wrapper{
+    font-size: 11px;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 27px;
+  /*  padding: 0 16px;*/
+    border-radius: 4px;
+    overflow: visible;
+}
+.Top-rightid {
+    color:white;
+    font-size: 14px;
+    position: absolute;
+    Top: 18px;
+    right: 10px;
+  }
+  
+  td div { height: 20px; }
+  .Top-rightname {
+    color:white;
+    font-size: 14px;
+    position: absolute;
+    Top: 35px;
+    right: 105px;
+  }
+  
+  /*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
+
+  

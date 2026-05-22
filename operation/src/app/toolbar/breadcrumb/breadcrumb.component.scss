@@ -1,0 +1,28 @@
+.breadcrumb_custom {
+  padding: 35px 35px 0;
+  font-size: 0.9rem;
+  list-style: none;
+  margin: 0;
+  li {
+    display: inline;
+    span {
+      color: rgb(9, 88, 155);
+    }
+    a {
+      color: rgb(143, 143, 143);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: rgba(9, 88, 155, 65%);
+    }
+  }
+
+  li + li:before {
+    padding: 7px;
+    padding-right: 0;
+    color: rgb(143, 143, 143);
+    content: "/\00a0";
+  }
+}

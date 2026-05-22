@@ -89,18 +89,13 @@ export class BomInitiatorComponent implements OnInit {
 
     this.bomService.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
-      console.log(this.nextStageListData);
     });
   }
   getHeaderData(event: any) {
     this.headerData = event;
     let uc0001 = this.headerData.unitcode;
     this.bomService.bmrInput(uc0001).subscribe(({ data }) => {
-      console.log(data);
       this.psmList = data.pmsList;
-    });
-    this.bomService.getDropDownList(uc0001).subscribe(( data: any ) => {
-console.log(data);
     });
   }
   createProduct(): FormGroup {
@@ -162,7 +157,6 @@ console.log(data);
   onloadDropDownList() {
     this.isLoading = true;
     this.bomService.getDropDownList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.pmmMaterialList = data.data.pmmMaterialList;
       this.saleProductList = data.data.saleProductList;
       this.isLoading = false;
@@ -172,10 +166,7 @@ console.log(data);
     return objects.filter((obj) => Object.keys(obj).length > 0);
   }
   onCreateSelectedDataList() {
-    console.log(this.selectedFiles)
     this.selectedFileList.push(this.selectedFiles);
-    console.log(this.selectedFiles)
-    console.log(this.bomAttachmentList);
     // Check if the document name is provided before proceeding
     if (this.BOMAttachmentRequirementForm.controls['documentName'].value) {
       // Add new action attachment object
@@ -240,10 +231,7 @@ console.log(data);
     });
   }
   formatRequestBody() {
-    console.log(this.selectedFiles)
-    console.log(this.bomAttachmentList)
     const products = this.products.value;
-
     const containers = this.containers.value;
     this.body1 = {
       lcRequest: {
@@ -263,19 +251,18 @@ console.log(data);
         draft: this.draftValue,
       },
 
-      bomItemItems: products.map((item: any) => ({
+      bomItemItems: containers.map((item: any) => ({
         uc0001: null,
+        ff0001: item.materialNo,
+        ff0002: item.materialName,
+        ff0003: item.materialCode,
+        ff0004: item.weight,
+        ff0005: item.weightUom,
+        ff0007: "string",
+        ff0008: "string",
+        ff0009: "string",
+        ff0010: "string",
         unitcode: this.headerData.unitcode,
-        ff0001: item.productNo,
-        ff0002: item.productName,
-        ff0003: item.market,
-        ff0004: item.productCode,
-        ff0005: item.uom,
-        ff0006: item.shelfLifeMonths,
-        ff0007: item.productType,
-        ff0008: item.dosageForm,
-        ff0009: item.inputCode,
-        ff0010: item.productTrackingCode,
         lc0001: '',
         lc0002: '',
         lc0003: '',
@@ -284,22 +271,22 @@ console.log(data);
         lc0006: '',
         createdby: this.headerData.createdby,
         status: 0,
-        // version: 0,
         comments: this.comments,
       })),
 
-      bomIndexIndex: containers.map((element: any) => ({
+      bomIndexIndex: products.map((element: any) => ({
         uc0001: null,
-        ff0001: element.materialNo,
-        ff0002: element.materialName,
-        ff0003: element.materialCode,
-        ff0004: element.weight,
-        ff0005: element.weightUom,
-        ff0007: "string",
-        ff0008: "string",
-        ff0009: "string",
-        ff0010: "string",
         unitcode: this.headerData.unitcode,
+        ff0001: element.productNo,
+        ff0002: element.productName,
+        ff0003: element.market,
+        ff0004: element.productCode,
+        ff0005: element.uom,
+        ff0006: element.shelfLifeMonths,
+        ff0007: element.productType,
+        ff0008: element.dosageForm,
+        ff0009: element.inputCode,
+        ff0010: element.productTrackingCode,
         lc0001: "string",
         lc0002: "string",
         lc0003: "string",
@@ -319,8 +306,6 @@ console.log(data);
 
   }
   onSubmit(btnStatus: any) {
-    console.log(this.selectedFiles)
-    console.log(this.selectedFiles);   
     if (btnStatus == 1) {
       this.draftValue = false;
     } else {
@@ -329,11 +314,6 @@ console.log(data);
 
     this.isLoading = true;
     let bodyData = this.formatRequestBody();
-    console.log(bodyData);
-    console.log(this.body1);
-
-
-    console.log(this.bomAttachmentList);
     let attachmentList: any[] = [];
     this.body1.bomAttachmentList.forEach((obj) => {
       console.log(obj.selectedFileList);
@@ -341,18 +321,9 @@ console.log(data);
         attachmentList.push(obj.selectedFileList);
       }
     });
-    //  let selectedFile: any[] = [];
-    // this.bomAttachmentList.forEach((elements: any) => {
-    //   selectedFile.push(elements.selectedFileList);
-    // });
-    console.log(attachmentList)
-    console.log(this.bomAttachmentList)
-    // console.log(selectedFile)
     this.bomService
       .onBOMSaveUpdate(attachmentList, this.body1)
       .subscribe((data: any) => {
-        console.log(data)
-        console.log(this.body1);
         if (data.errorInfo != null) {
           this.dialog.open(MessageDialogComponent, {
             data: {
@@ -361,8 +332,8 @@ console.log(data);
             },
           });
         } else {
+          this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
           timer(2000)
             .pipe(takeUntil(this.destroy$))
@@ -370,7 +341,6 @@ console.log(data);
               this.route.navigateByUrl('/rqpquailtyui/qms/cc-home');
             });
         }
-        this.isLoading = false;
       });
   }
   onChangeSubject(index: number) {

@@ -68,7 +68,6 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
     this.filterApiUrl = apiEndPoints.crmMasterUserProfileFilterData;
     this.activeCleanRoomGradeTableDataUrl = apiEndPoints.activeCrmMasterTabledata;
     this.params = { pageIndex, size, unitCode };
-    console.log('Bharat');
     this.loadRoleMasterTableFilter();
     this.loadActiveRoleMasterTableFilter();
   }
@@ -146,11 +145,12 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
     });
     this.getLatestData = false;
   }
   setSelectedID(row: any) {
-    console.log(row);
     this.setSelectedID = row;
   }
   selectedAllId: any;
@@ -172,9 +172,17 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
       this.getLatestData = true;
+    this.refreshData();
+
       });
       this.getLatestData = false;
     }
+  }
+    refreshData(){
+    this.loadRoleMasterTableFilter();
+    this.loadActiveRoleMasterTableFilter();
+      this.commonTableContainer.clear()
+      this.activeRoleMasterContainer.clear()
   }
   onChangeStatus(data: any) {
     return changeStatusByCode(data);
@@ -189,6 +197,10 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
       { labelName: 'Clean Room Grade No', value: this.selectedRow.uc0001 },
       { labelName: 'Clean Room Grade Code', value: this.selectedRow.ff0001 },
       { labelName: 'Clean Room Grade Name', value: this.selectedRow.ff0002 },
+      { labelName: 'Condition', value: this.selectedRow.ff0003 },
+      { labelName: 'ISO Class', value: this.selectedRow.ff0004 },
+      { labelName: '≥0.5 µm (particles/m³)', value: this.selectedRow.ff0005 },
+      { labelName: '≥5.0 µm (particles/m³)', value: this.selectedRow.ff0006 },
 
       { labelName: 'Createdon', value: this.selectedRow.createdon },
       { labelName: 'Createdby', value: this.selectedRow.createdby },
@@ -217,7 +229,6 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   UC0002: any;
   async onSearchAllAuditTrail() {
     this.selectedRow = this.selectedRow;
-    console.log(this.selectedRow);
     if (this.selectedRow.length == 0) {
       this.dialog.open(MessageDialogComponent, {
         data: {
@@ -249,6 +260,10 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
           { labelName: 'Clean Room Grade No', value: item.uc0001 },
           { labelName: 'Clean Room Grade Code', value: item.ff0001 },
           { labelName: 'Clean Room Grade Name', value: item.ff0002 },
+          { labelName: 'Condition', value: item.ff0003 },
+          { labelName: 'ISO Class', value: item.ff0004 },
+          { labelName: '≥0.5 µm (particles/m³)', value: item.ff0005 },
+          { labelName: '≥5.0 µm (particles/m³)', value: item.ff0006 },
           { labelName: 'Createdon', value: item.createdon },
           { labelName: 'Createdby', value: item.createdby },
           { labelName: 'Comments', value: item.comments },
@@ -269,6 +284,7 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
     uc0001: 'Clean Room Grade No',
     ff0001: 'Clean Room Grade Code',
     ff0002: 'Clean Room Grade Name',
+    ff0003: 'Condition',
     status: 'Status',
     version: 'Version',
     createdon: 'CreatedOn',
@@ -292,7 +308,6 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   handleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onSearchAllAuditTrail();
@@ -305,7 +320,6 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   activeHandleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onActiveSelectAuditRow();
@@ -317,7 +331,6 @@ export class CleanRoomGradeHomePageComponent implements OnInit, AfterViewInit {
   }
 
   handleSubmit(row: any) {
-    console.log(row);
     console.log('submitBtn');
   }
 }
