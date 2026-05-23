@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,5 +14,12 @@ export class IwsService {
    getNextStageList(requestBody: any) {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
+  }
+  saveCalibrationWorksheetMaster(requestBody: any) {
+    const nextStageURL = this.API_URL + 'limsm-im/calibration-worksheet-save';
+    return this.http.post(nextStageURL, requestBody);
+  }
+  public geInusMasterList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `lbms/equipment_Inus_master-list?Unitcode=${Unitcode} `);
   }
 }
