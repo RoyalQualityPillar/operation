@@ -10,6 +10,8 @@ import { AreaGroupMasterCreateUpdateComponent } from "../ma/master/area-group-ma
 import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master/area-group-master-home-page/area-group-master-home-page.component";
 import { CleanRoomGradeCreateUpdateComponent } from "../ma/master/clean-room-grade/clean-room-grade-create-update/clean-room-grade-create-update.component";
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
+import { CpmCreateUpdateComponent } from "../ma/master/calibraion-perameter-master/cpm-create-update/cpm-create-update.component";
+import { CpmHomePageComponent } from "../ma/master/calibraion-perameter-master/cpm-home-page/cpm-home-page.component";
 import { SharedModule } from "src/app/common/shared.module";
 import { CreateUpdateEquipmentMasterComponent } from "../ma/master/equipment-master/create-update-equipment-master/create-update-equipment-master.component";
 import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
@@ -38,6 +40,9 @@ import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/inst
     AreaGroupMasterHomePageComponent,
     CleanRoomGradeCreateUpdateComponent,
     CleanRoomGradeHomePageComponent,
+      CpmCreateUpdateComponent,
+        CpmHomePageComponent,
+    
     CreateUpdateEquipmentMasterComponent,
     HomePageEquipmentMasterComponent,
     CreateUpdateEquipInstMasterComponent,

@@ -1393,5 +1393,13 @@ export enum apiEndPoints {
   cleanRoomGradeUserProfileFilterData = "cleanRoomGradeUserProfileFilterData",
 
 
+ /******* Calibraion Perameter Master*********/
+  allCpmTabledata = 'lbms/calper-master/get-all',
+  activeCpmTabledata = 'lbms/calper-master/get-all',
+  CpmUserProfileFilterData = 'lbms/calper-master/search',
+  CpmCreateUpdate = 'lbms/calper-master/save-update',
+  CpmLoadUpdatePage = 'lbms/calper-master/get-by-max-code',
+  CpmAllAuditTrail = 'lbms/calper-master/get-by-code-all',
+
   
 }
