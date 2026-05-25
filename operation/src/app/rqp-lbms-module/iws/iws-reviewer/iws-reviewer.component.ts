@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './iws-reviewer.component.scss'
 })
 export class IwsReviewerComponent {
-
+public updateSaveUrl = '/rqpoperationui/lbms/iws-reviewer-save';
 }
