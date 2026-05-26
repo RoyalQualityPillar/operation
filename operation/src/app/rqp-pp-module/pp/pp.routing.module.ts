@@ -30,6 +30,11 @@ import { ExecutionProcessOrderComponent } from "../epro/execution-process-order/
 import { MaterialRequVerfComponent } from "../mrp/material-requ-verf/material-requ-verf.component";
 import { ShowMaterialIssuanceComponent } from "../mrp/show-material-issuance/show-material-issuance.component";
 import { ApprovedMaterialListComponent } from "../mrp/approved-material-list/approved-material-list.component";
+import { FgApproverListComponent } from "../fg/fg-approver-list/fg-approver-list.component";
+import { FgRejectListComponent } from "../fg/fg-reject-list/fg-reject-list.component";
+import { ProductionCompletedListComponent } from "../epro/production-completed-list/production-completed-list.component";
+import { SfgApproverListComponent } from "../fg/sfg-approver-list/sfg-approver-list.component";
+import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.component";
 
 const routes: Routes = [
 
@@ -63,6 +68,11 @@ const routes: Routes = [
   { path: 'material-requ-verf', component: MaterialRequVerfComponent },
   { path: 'show-material-issuance', component: ShowMaterialIssuanceComponent },
   { path: 'approved-material-list', component: ApprovedMaterialListComponent },
+  { path: 'fg-approver-list', component: FgApproverListComponent },
+  { path: 'fg-reject-list', component: FgRejectListComponent },
+  { path: 'sfg-approver-list', component: SfgApproverListComponent },
+  { path: 'sfg-reject-list', component: SfgRejectListComponent },
+  { path: 'production-completed-list', component: ProductionCompletedListComponent },
 
 ];
 

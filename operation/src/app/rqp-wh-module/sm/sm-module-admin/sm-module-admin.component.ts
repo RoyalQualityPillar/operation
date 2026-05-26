@@ -15,7 +15,19 @@ export class SmModuleAdminComponent {
   UnderTestingList():void {
     this.router.navigate(['./rqpoperationui/wh/under-testing-list']);
   }
-public onallStagesRecord(): void {
+   fgSamplinglist(): void {
+    this.router.navigate(['./rqpoperationui/wh/fg-sampling-list']);
+  }
+  fgUnderTestingList():void {
+    this.router.navigate(['./rqpoperationui/wh/fg-under-test-list']);
+  }
+  sfgSamplinglist(): void {
+    this.router.navigate(['./rqpoperationui/wh/sfg-sampling-list']);
+  }
+  sfgUnderTestingList():void {
+    this.router.navigate(['./rqpoperationui/wh/sfg-under-test-list']);
+  }
+  public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
     public onallPendingRecord(): void {

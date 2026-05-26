@@ -16,12 +16,12 @@ import { PpService } from '../../pp.service';
   styleUrl: './execution-process-order.component.scss'
 })
 export class ExecutionProcessOrderComponent implements OnInit {
-   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-public planningOrderListData: any;
-public dataSource: any;
- public isLoading = false;
- displayedColumns = [
+  public planningOrderListData: any;
+  public dataSource: any;
+  public isLoading = false;
+  displayedColumns = [
     'ff0001',
     'ff0003',
     'ff0004',
@@ -30,22 +30,22 @@ public dataSource: any;
     'createdby',
     'action',
   ];
-constructor(
-private ppService:PpService,
- private cookieService: CookieService,
-  public dialog: MatDialog,
-     private notificationService: NotificationService,
-){}
+  constructor(
+    private ppService: PpService,
+    private cookieService: CookieService,
+    public dialog: MatDialog,
+    private notificationService: NotificationService,
+  ) { }
   ngOnInit(): void {
-     let unitCode = this.cookieService.get('buCode');
-   this.ppService.planningOrderList(unitCode).subscribe((data: any) => {
-        this.dataSource = data.data;
-        this.planningOrderListData = new MatTableDataSource(this.dataSource);
-        this.planningOrderListData.sort = this.sort;
-        this.planningOrderListData.paginator = this.paginator;
-      });
-}
- public pageChanged(event): void {
+    let unitCode = this.cookieService.get('buCode');
+    this.ppService.getMaterialCompletedProductionList(unitCode).subscribe((data: any) => {
+      this.dataSource = data.data;
+      this.planningOrderListData = new MatTableDataSource(this.dataSource);
+      this.planningOrderListData.sort = this.sort;
+      this.planningOrderListData.paginator = this.paginator;
+    });
+  }
+  public pageChanged(event): void {
     if (this.planningOrderListData.length == GlobalConstants.size) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
@@ -60,8 +60,8 @@ private ppService:PpService,
     //todo
   }
 
-public submit(value:any){
- this.ppService.saveExecutionPlaningOrderList(value.uc0001).subscribe((data: any) => {
+  public submit(value: any) {
+    this.ppService.saveProductionCompletedList(value.uc0001).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -76,6 +76,6 @@ public submit(value:any){
         });
       }
     });
-}
+  }
 
 }

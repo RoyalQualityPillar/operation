@@ -1348,6 +1348,14 @@ export enum apiEndPoints {
   equipmentInustumentMasterLoadUpdatePage = 'lbms/equipment_Inus_master/get-by-max-code',
   equipmentInustumentMasterAllAuditTrail = 'lbms/equipment_inus_master/get-by-code-all',
 
+   /***Instrument Category  Master***/
+  allinstrumentcatMasterTabledata = 'limsm-im/ic-master/get-all',
+  activeinstrumentcatMasterTabledata = 'limsm-im/ic-master/get-max-all',
+  instrumentcatMasterUserProfileFilterData = 'limsm-im/ic-master/search',
+  instrumentcatMasterCreateUpdate = 'limsm-im/ic-master/save-update',
+  instrumentcatMasterLoadUpdatePage = 'limsm-im/ic-master/get-by-max-code',
+  instrumentcatMasterAllAuditTrail = 'limsm-im/ic-master/get-by-code-all',
+
     /***************WmhModule***************/
 
   /*******Inspection Master*********/
@@ -1384,6 +1392,14 @@ export enum apiEndPoints {
   allCleanRoomGradeTabledata = "allCleanRoomGradeTabledata",
   cleanRoomGradeUserProfileFilterData = "cleanRoomGradeUserProfileFilterData",
 
+
+ /******* Calibraion Perameter Master*********/
+  allCpmTabledata = 'lbms/calper-master/get-all',
+  activeCpmTabledata = 'lbms/calper-master/get-all',
+  CpmUserProfileFilterData = 'lbms/calper-master/search',
+  CpmCreateUpdate = 'lbms/calper-master/save-update',
+  CpmLoadUpdatePage = 'lbms/calper-master/get-by-max-code',
+  CpmAllAuditTrail = 'lbms/calper-master/get-by-code-all',
 
   
 }

@@ -4,6 +4,7 @@ import { AreaHomePageComponent } from "../ma/master/area-master/area-home-page/a
 import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.component";
 import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master/area-group-master-home-page/area-group-master-home-page.component";
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
+import { CpmHomePageComponent } from "../ma/master/calibraion-perameter-master/cpm-home-page/cpm-home-page.component";
 import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
 import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/home-page-equip-inst-master/home-page-equip-inst-master.component";
 import { IwsModuleAdminComponent } from "../iws/iws-module-admin/iws-module-admin.component";
@@ -14,14 +15,15 @@ import { IwsReviewerComponent } from "../iws/iws-reviewer/iws-reviewer.component
 import { IwsReviewerSaveComponent } from "../iws/iws-reviewer-save/iws-reviewer-save.component";
 import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.component";
 import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
+import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/instrument-cat-home-page/instrument-cat-home-page.component";
 
 
 const routes: Routes = [
-
   { path: 'ma-module-admin', component: MaModuleAdminComponent },
   { path: 'area-home-page', component: AreaHomePageComponent },
   { path: 'area-group-master-home-page', component: AreaGroupMasterHomePageComponent },
   { path: 'clean-room-grade-home-page', component: CleanRoomGradeHomePageComponent },
+   { path: 'cpm-home-page', component: CpmHomePageComponent },
   { path: 'home-page-equipment-master', component: HomePageEquipmentMasterComponent },
   { path: 'home-page-equip-inst-master', component: HomePageEquipInstMasterComponent },
 
@@ -33,6 +35,7 @@ const routes: Routes = [
   { path: 'iws-reviewer-save', component: IwsReviewerSaveComponent },
   { path: 'iws-completed', component: IwsCompletedComponent },
   { path: 'iws-completed-save', component: IwsCompletedSaveComponent },
+  { path: 'instrument-cat-home-page', component: InstrumentCatHomePageComponent },
 ]
 
 @NgModule({

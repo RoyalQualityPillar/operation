@@ -313,7 +313,7 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
       if (result) {
         this.selectedDialogData = result.data;
         this.DepartmentMaster.controls['ff0003'].setValue(
-          this.selectedDialogData.name
+          this.selectedDialogData.code
         );
       }
     });
