@@ -32,7 +32,7 @@
 <div class="row no-gutters ms-1 me-1 dense-4">
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Parameter Number</mat-label>
-        <input type="number" matInput [(ngModel)]="parameterNo" placeholder="Parameter Number" />
+        <input type="text" matInput [(ngModel)]="parameterNo" placeholder="Parameter Number" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Set Point Number</mat-label>
@@ -121,7 +121,7 @@
 <div class="row no-gutters ms-1 me-1 dense-4">
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Qualitative Parameter Number</mat-label>
-        <input type="number" matInput [(ngModel)]="qualitativeParameterNo" placeholder="Parameter Number" />
+        <input type="text" matInput [(ngModel)]="qualitativeParameterNo" placeholder="Parameter Number" />
     </mat-form-field>
     <div class="float-right col-3">
         <button mat-raised-button class="submitButton" [disabled]="disableButtons"
@@ -314,10 +314,12 @@
     (commentsData)="handleCommentsForm($event)"></app-common-comments>
 <div class="containerBTN margin-top_2 margin-bottom_35">
     <div class="d-flex justify-content-center">
-        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()" [disabled]="disableButtons">
+        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()" >
+        <!-- [disabled]="disableButtons"> -->
             Save
         </button>
-        <button mat-raised-button class="submitButton" (click)="onSubmitConfirmation()" [disabled]="disableButtons">
+        <button mat-raised-button class="submitButton" (click)="onSubmitConfirmation()">
+             <!-- [disabled]="disableButtons"> -->
             Submit
         </button>
         <!-- <button mat-raised-button class="submitButton">Clear</button> -->
