@@ -108,6 +108,7 @@ export class IwsInitiatorComponent implements OnInit {
       this.parameters.push({
         parameterNo: i + 1,
         parameterName: this.parameterName,
+        setPointNo: this.setPointNo,
         setPoints: setPoints
       });
       console.log(this.parameters);
@@ -188,7 +189,7 @@ export class IwsInitiatorComponent implements OnInit {
     }
   }
   generateReadingFields(value: any) {
-
+    console.log(value.readings)
     value.readingValues = [];
 
     const count = Number(value.readings);
@@ -262,21 +263,14 @@ export class IwsInitiatorComponent implements OnInit {
 
       sp.minimum === '' ||
       sp.maximum === '' ||
-
       sp.average === '' ||
-
       sp.standardDeviation === '' ||
-
       sp.relativeStandardDeviation === '' ||
-
       sp.passLimitMin === '' ||
       sp.passLimitMax === '' ||
-
       sp.averageLower === '' ||
       sp.averageUpper === '' ||
-
       sp.quantitativeStandardDeviation === '' ||
-
       sp.quantitativeRelativeStandardDeviation === ''
 
     ) {
@@ -296,42 +290,32 @@ export class IwsInitiatorComponent implements OnInit {
 
     const averageLower = Number(sp.averageLower);
     const averageUpper = Number(sp.averageUpper);
-    const standardDeviation =
-
-      Number(sp.standardDeviation);
-
-
+    const standardDeviation = Number(sp.standardDeviation);
 
     const quantitativeStandardDeviation =
-
       Number(sp.quantitativeStandardDeviation);
 
-
-
     const relativeStandardDeviation =
-
       Number(sp.relativeStandardDeviation);
 
-
-
     const quantitativeRelativeStandardDeviation =
-
       Number(sp.quantitativeRelativeStandardDeviation);
 
     // ====================  // 1. Minimum & Maximum Validation  // =================
-
-
-    if (
-
-      minimum !== passLimitMin ||
-
-      maximum !== passLimitMax
-
-    ) {
+    // minimum >= passLimitMin
+    // maximum <= passLimitMax
+    if (minimum < passLimitMin) {
 
       isPass = false;
 
     }
+    if (maximum > passLimitMax) {
+
+      isPass = false;
+
+    }
+
+
 
     // ====================  // 2. Average Validation  // ==================
 
@@ -351,10 +335,10 @@ export class IwsInitiatorComponent implements OnInit {
 
     // =====================  // 3. Standard Deviation Validation  // ==================
 
-
+    // quantitativeStandardDeviation >= standardDeviation
     if (
 
-      standardDeviation !==
+      standardDeviation <
 
       quantitativeStandardDeviation
 
@@ -366,11 +350,11 @@ export class IwsInitiatorComponent implements OnInit {
 
     // ====================  // 4. Relative Standard Deviation Validation  // ===================
 
-
+    // quantitativeRelativeStandardDeviation >= relativeStandardDeviation
 
     if (
 
-      relativeStandardDeviation !==
+      relativeStandardDeviation <
 
       quantitativeRelativeStandardDeviation
 
@@ -423,9 +407,6 @@ export class IwsInitiatorComponent implements OnInit {
 
   }
   onSubmit(value: any) {
-    console.log(value);
-    console.log(this.quantitativeParameters)
-    console.log(this.qualitativeParameters);
     this.disableButtons = true;
     let draftValue: boolean;
     if (value == 1) {
@@ -439,7 +420,7 @@ export class IwsInitiatorComponent implements OnInit {
     this.qualitativeParameters.forEach((element: any) => {
       element.setPoints.forEach((ele: any) => {
         qualitativeRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: element.qualitativeparameterNo,
           // ff0001:"string",
           ff0002: ele.qualitativeSetPoints,
@@ -461,7 +442,7 @@ export class IwsInitiatorComponent implements OnInit {
       parameter.setPoints.forEach((sp: any) => {
 
         qpsrRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: parameter.parameterNo,
           // ff0001:"string",
           ff0002: parameter.parameterName,
@@ -471,7 +452,7 @@ export class IwsInitiatorComponent implements OnInit {
           ff0006: sp.uom,
           ff0007: sp.result,
           ff0008: sp.passLimit,
-          ff0009: "string",
+          ff0009: parameter.setPointNo,
           ff0010: "string",
           lc0001: "string",
           lc0002: "string",
@@ -497,11 +478,11 @@ export class IwsInitiatorComponent implements OnInit {
       parameter.setPoints.forEach((sp: any) => {
 
         qtmpRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: parameter.quantitativeParameterNo,
           // ff0001:"string",
           ff0002: parameter.quantitativeParameterName,
-          ff0003:parameter.quantitativeSetPointNo,
+          ff0003: parameter.quantitativeSetPointNo,
           ff0004: sp.setPoint,
           ff0005: sp.minimum,
           ff0006: sp.maximum,
@@ -558,7 +539,7 @@ export class IwsInitiatorComponent implements OnInit {
       "qlpRecordList": qualitativeRecordList,
       "cdIndexList": [
         {
-          uc0001: "string",
+          uc0001: null,
           ff0001: instrumentindexValue.instrumentNumber,
           ff0002: instrumentindexValue.instrumentName,
           ff0003: instrumentindexValue.instrumentCode,
@@ -581,7 +562,7 @@ export class IwsInitiatorComponent implements OnInit {
       "qtmpRecordList": qtmpRecordList,
       "qpmrRecordList": [
         {
-          uc0001: "string",
+          uc0001: null,
           ff0001: "string",
           ff0002: "string",
           ff0003: "string",
