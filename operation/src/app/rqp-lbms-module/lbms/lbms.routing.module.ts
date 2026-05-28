@@ -24,6 +24,8 @@ import { IwrReviewerComponent } from "../iwr/iwr-reviewer/iwr-reviewer.component
 import { IwrReviewerSaveComponent } from "../iwr/iwr-reviewer-save/iwr-reviewer-save.component";
 import { IwrCompletedComponent } from "../iwr/iwr-completed/iwr-completed.component";
 import { IwrCompletedSaveComponent } from "../iwr/iwr-completed-save/iwr-completed-save.component";
+import { HomePageCalibrationSchComponent } from "../ma/master/calibration-schedule/home-page-calibration-sch/home-page-calibration-sch.component";
+import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequency/home-page-calibration-freq/home-page-calibration-freq.component";
 
 
 const routes: Routes = [
@@ -52,6 +54,8 @@ const routes: Routes = [
   { path: 'iwr-completed', component: IwrCompletedComponent },
   { path: 'iwr-completed-save', component: IwrCompletedSaveComponent },
   { path: 'instrument-cat-home-page', component: InstrumentCatHomePageComponent },
+  { path: 'home-page-calibration-sch', component: HomePageCalibrationSchComponent },
+  { path: 'home-page-calibration-freq', component: HomePageCalibrationFreqComponent },
 ]
 
 @NgModule({
