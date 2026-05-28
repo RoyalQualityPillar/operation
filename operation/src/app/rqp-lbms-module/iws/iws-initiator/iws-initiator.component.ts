@@ -338,7 +338,7 @@ export class IwsInitiatorComponent implements OnInit {
     // quantitativeStandardDeviation >= standardDeviation
     if (
 
-      standardDeviation <
+      standardDeviation >
 
       quantitativeStandardDeviation
 
@@ -354,7 +354,7 @@ export class IwsInitiatorComponent implements OnInit {
 
     if (
 
-      relativeStandardDeviation <
+      relativeStandardDeviation >
 
       quantitativeRelativeStandardDeviation
 
