@@ -613,25 +613,25 @@ export class IwsInitiatorComponent implements OnInit {
   }
   onLoadInstrumentCode() {
     let unitCode = this.cookieService.get('buCode');
-    this.iwsSwervice.geInusMasterList(unitCode).subscribe((data: any) => {
+    this.iwsSwervice.getAllInstrmentsList(unitCode).subscribe((data: any) => {
       console.log(data);
       this.instrumrntInfo = data.data;
     });
   }
   isCategorySuccess: boolean;
   onChangeInstrumentCode() {
-    if (this.InstrumentForm.controls['uc0002'].value == '') {
-      this.InstrumentForm.controls['uc0002'].setValue('');
+    if (this.InstrumentForm.controls['instrumentCode'].value == '') {
+      this.InstrumentForm.controls['instrumentCode'].setValue('');
     } else {
       this.isCategorySuccess = false;
-      let categoryCurrentValue = this.InstrumentForm.controls['uc0002'].value;
+      let categoryCurrentValue = this.InstrumentForm.controls['instrumentCode'].value;
       this.instrumrntInfo.forEach((elements) => {
         if (elements.buTypeCode == categoryCurrentValue) {
           this.isCategorySuccess = true;
         }
       });
       if (this.isCategorySuccess == false) {
-        this.InstrumentForm.controls['uc0002'].setErrors({ incorrect: true });
+        this.InstrumentForm.controls['instrumentCode'].setErrors({ incorrect: true });
         this.openStatusLOV();
       }
     }
@@ -642,8 +642,8 @@ export class IwsInitiatorComponent implements OnInit {
   openStatusLOV() {
     this.displayedColumns = [
       { field: 'uc0001', title: 'Instrument Number' },
-      { field: 'ff0004', title: 'Instrument Name' },
-      { field: 'ff0005', title: 'Instrument Code' }
+      { field: 'ff0001', title: 'Instrument Name' },
+      { field: 'ff0003', title: 'Instrument Code' }
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
@@ -662,12 +662,10 @@ export class IwsInitiatorComponent implements OnInit {
       if (result) {
 
         this.selectedDialogData = result.data;
-
         console.log(this.selectedDialogData);
-
         this.InstrumentForm.patchValue({
-          instrumentCode: this.selectedDialogData.ff0005,
-          instrumentName: this.selectedDialogData.ff0004,
+          instrumentCode: this.selectedDialogData.ff0003,
+          instrumentName: this.selectedDialogData.ff0001,
           instrumentNumber: this.selectedDialogData.uc0001
         });
 
