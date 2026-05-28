@@ -27,6 +27,14 @@ import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.compon
 import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
 import { InstrumentCatCreateUpdateComponent } from "../ma/master/instrument-cat/instrument-cat-create-update/instrument-cat-create-update.component";
 import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/instrument-cat-home-page/instrument-cat-home-page.component";
+import { IwrInitiatorComponent } from "../iwr/iwr-initiator/iwr-initiator.component";
+import { IwrUpdateComponent } from "../iwr/iwr-update/iwr-update.component";
+import { IwrUpdateSaveComponent } from "../iwr/iwr-update-save/iwr-update-save.component";
+import { IwrReviewerComponent } from "../iwr/iwr-reviewer/iwr-reviewer.component";
+import { IwrReviewerSaveComponent } from "../iwr/iwr-reviewer-save/iwr-reviewer-save.component";
+import { IwrCompletedComponent } from "../iwr/iwr-completed/iwr-completed.component";
+import { IwrCompletedSaveComponent } from "../iwr/iwr-completed-save/iwr-completed-save.component";
+import { IwrModuleAdminComponent } from "../iwr/iwr-module-admin/iwr-module-admin.component";
 
 
 
@@ -56,7 +64,15 @@ import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/inst
     IwsCompletedComponent,
     IwsCompletedSaveComponent,
     InstrumentCatCreateUpdateComponent,
-    InstrumentCatHomePageComponent 
+    InstrumentCatHomePageComponent,
+    IwrInitiatorComponent,
+    IwrUpdateComponent,
+    IwrUpdateSaveComponent,
+    IwrReviewerComponent,
+    IwrReviewerSaveComponent,
+    IwrCompletedComponent,
+    IwrCompletedSaveComponent, 
+    IwrModuleAdminComponent,  
 
   ],
   imports: [

@@ -19,8 +19,11 @@ export class IwsService {
     const nextStageURL = this.API_URL + 'limsm-im/calibration-worksheet-save';
     return this.http.post(nextStageURL, requestBody);
   }
-  public geInusMasterList(Unitcode: string): Observable<any> {
+  public getInusMasterList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `lbms/equipment_Inus_master-list?Unitcode=${Unitcode} `);
+  }
+   public getAllInstrmentsList(unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `lbms/all-instrments-list?unitcode=${unitcode} `);
   }
 
    getResquestNoIDForCalibration(lc0002: any, lc0001:any) {
