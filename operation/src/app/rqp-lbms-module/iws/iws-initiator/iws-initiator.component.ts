@@ -83,7 +83,6 @@ export class IwsInitiatorComponent implements OnInit {
       //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
-    console.log(body);
     this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
     });
@@ -111,7 +110,6 @@ export class IwsInitiatorComponent implements OnInit {
         setPointNo: this.setPointNo,
         setPoints: setPoints
       });
-      console.log(this.parameters);
     }
 
   }
@@ -128,7 +126,6 @@ export class IwsInitiatorComponent implements OnInit {
           }
         ]
       });
-      console.log(this.qualitativeParameters);
     }
 
   }
@@ -169,7 +166,6 @@ export class IwsInitiatorComponent implements OnInit {
         quantitativeParameterName: this.quantitativeParameterName,
         setPoints: setPoints
       });
-      console.log(this.quantitativeParameters);
     }
 
   }
@@ -189,7 +185,6 @@ export class IwsInitiatorComponent implements OnInit {
     }
   }
   generateReadingFields(value: any) {
-    console.log(value.readings)
     value.readingValues = [];
 
     const count = Number(value.readings);
@@ -209,7 +204,6 @@ export class IwsInitiatorComponent implements OnInit {
   }
 
   calculateStatistics(statistics: any) {
-    console.log(statistics);
     const values = statistics.readingValues
       .map((r: any) => Number(r.value))
       .filter((v: number) => !isNaN(v));
@@ -223,14 +217,8 @@ export class IwsInitiatorComponent implements OnInit {
       statistics.result = '';
       return;
     }
-
-    // Minimum
     statistics.minimum = Math.min(...values);
-
-    // Maximum
     statistics.maximum = Math.max(...values);
-
-    // Average
     const sum = values.reduce((a: number, b: number) => a + b, 0);
     const avg = sum / values.length;
     // statistics.average = avg.toFixed(2);
@@ -253,12 +241,10 @@ export class IwsInitiatorComponent implements OnInit {
     // statistics.relativeStandardDeviation = rsd.toFixed(2);
     statistics.relativeStandardDeviation =
       Number(rsd.toFixed(2));
-    console.log(statistics)
     this.checkMultiQuantitativeResult(statistics);
   }
 
   checkMultiQuantitativeResult(sp: any) {
-    console.log(sp)
     if (
 
       sp.minimum === '' ||
@@ -433,7 +419,6 @@ export class IwsInitiatorComponent implements OnInit {
         });
       });
     });
-    console.log(qualitativeRecordList);
 
     const qpsrRecordList: any[] = [];
 
@@ -468,16 +453,13 @@ export class IwsInitiatorComponent implements OnInit {
       });
 
     });
-
-    console.log('qpsrRecordList', qpsrRecordList);
-
     const qtmpRecordList: any[] = [];
 
     this.quantitativeParameters.forEach((parameter: any) => {
 
       parameter.setPoints.forEach((sp: any) => {
 
-        qtmpRecordList.push({
+        const qtmpObj: any = {
           uc0001: null,
           ff0001: parameter.quantitativeParameterNo,
           // ff0001:"string",
@@ -510,13 +492,20 @@ export class IwsInitiatorComponent implements OnInit {
           createdby: this.cookieService.get('userId'),
           status: 0,
           comments: this.comments
-        });
+        };
+        if (sp.readingValues && sp.readingValues.length > 0) {
+          sp.readingValues.forEach((reading: any, index: number) => {
+            const fieldNo = 21 + index;
+            const fieldName = 'ff' + fieldNo.toString().padStart(4, "0");
+            qtmpObj[fieldName] = reading.value;
+          });
+        }
+        qtmpRecordList.push(qtmpObj);
 
       });
 
     });
 
-    console.log('qpmrRecordList', qtmpRecordList);
 
     let body = {
       lcRequest: {
@@ -586,7 +575,6 @@ export class IwsInitiatorComponent implements OnInit {
       ],
       "anyListNonEmpty": true
     };
-    console.log(body)
     this.isLoading = true;
     this.iwsSwervice
       .saveCalibrationWorksheetMaster(body)
@@ -614,7 +602,6 @@ export class IwsInitiatorComponent implements OnInit {
   onLoadInstrumentCode() {
     let unitCode = this.cookieService.get('buCode');
     this.iwsSwervice.getAllInstrmentsList(unitCode).subscribe((data: any) => {
-      console.log(data);
       this.instrumrntInfo = data.data;
     });
   }
@@ -662,7 +649,6 @@ export class IwsInitiatorComponent implements OnInit {
       if (result) {
 
         this.selectedDialogData = result.data;
-        console.log(this.selectedDialogData);
         this.InstrumentForm.patchValue({
           instrumentCode: this.selectedDialogData.ff0003,
           instrumentName: this.selectedDialogData.ff0001,
