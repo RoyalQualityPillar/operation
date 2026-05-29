@@ -70,7 +70,7 @@ export class FgQuarantineListComponent implements OnInit {
 
   public submit(value: any) {
      const quarantineStatus = this.fgQuarantineStatusListForm.value;
-    this.ppService.saveFgQuarantineList(value.uc0001,quarantineStatus.status ).subscribe((data: any) => {
+    this.ppService.saveFgQuarantineList(value.uc0001).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {

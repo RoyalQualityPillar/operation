@@ -9,6 +9,7 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
 import { PpService } from 'src/app/rqp-pp-module/pp.service';
+import { WhService } from '../../wh.service';
 
 @Component({
   selector: 'app-sfg-quarantine-list',
@@ -24,10 +25,13 @@ export class SfgQuarantineListComponent implements OnInit {
   public dataSource: any;
   public isLoading = false;
   displayedColumns = [
+    'ff0022',
+    'ff0025',
+    'ff0002',
     'ff0001',
-    'ff0003',
-    'ff0004',
     'ff0006',
+    'ff0023',
+    'ff0024',
     'createdon',
     'createdby',
     'action',
@@ -70,7 +74,7 @@ export class SfgQuarantineListComponent implements OnInit {
 
   public submit(value: any) {
      const quarantineStatus = this.sfgQuarantineStatusListForm.value;
-    this.ppService.saveFgQuarantineList(value.uc0001,quarantineStatus.status ).subscribe((data: any) => {
+    this.ppService.saveFgQuarantineList(value.uc0001).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
