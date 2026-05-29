@@ -182,6 +182,7 @@ export class IwsReviewerSaveComponent implements OnInit {
           existingParam = {
             parameterNo: element.ff0001,
             parameterName: element.ff0002,
+            setPointNo: element.ff0009,
             setPoints: []
           };
 
@@ -231,14 +232,26 @@ export class IwsReviewerSaveComponent implements OnInit {
 
       }
 
+      const readingValues: any[] = [];
+
+      const totalReadings = Number(element.ff0019);
+
+      for (let i = 21; i < 21 + totalReadings; i++) {
+
+        const fieldName =
+          'ff' + ('0000' + i).slice(-4);
+
+        readingValues.push({
+          value: element[fieldName]
+        });
+
+      }
+
       // Push setpoint
       existingParam.setPoints.push({
         setPoint: element.ff0004,
         readings: element.ff0019,
-        readingValues: [
-          { value: element.ff0005 },
-          { value: element.ff0006 }
-        ],
+        readingValues: readingValues,
         minimum: element.ff0005,
         maximum: element.ff0006,
         average: element.ff0007,
@@ -254,7 +267,6 @@ export class IwsReviewerSaveComponent implements OnInit {
         quantitativeStandardDeviation: element.ff0017,
         quantitativeRelativeStandardDeviation: element.ff0018
       });
-
     });
 
     this.quantitativeParameters = QtmpRecordData;

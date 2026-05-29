@@ -224,6 +224,11 @@ export class CommonButtonBarComponent {
     ) {
       body.documentModule = 'WH';
     }
+    if (
+      this.headerData.modulecode == 'IWS' 
+    ) {
+      body.documentModule = 'IMS';
+    }
     if (body.stage2 == '' || body.stage2 == undefined || body.stage2 == null) {
       body.stage2 = 0;
     }
