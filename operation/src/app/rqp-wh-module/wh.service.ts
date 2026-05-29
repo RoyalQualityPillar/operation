@@ -68,6 +68,7 @@ export class WhService {
   public getSFGSamplingList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/sfg-sampling-list?Unitcode=${Unitcode} `);
   }
+ 
    public saveFgSamplingList(uc0001: string) {
     const queryParams = `?uc0001=${uc0001}`;
     const samplingURL = this.API_URL + 'pp/fg-sampling-save' + queryParams;
