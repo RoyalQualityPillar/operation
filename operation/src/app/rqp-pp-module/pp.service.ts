@@ -294,11 +294,13 @@ export class PpService {
   public getSFGQuarantineList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/sfg-quarantine-list?Unitcode=${Unitcode} `);
   }
-  public saveFgQuarantineList(uc0001: string, Status: any) {
-    const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
-    const samplingURL = this.API_URL + 'pp/planning-order-save' + queryParams;
+  public saveFgQuarantineList(uc0001: string) {
+    const  status= 4014;
+    const queryParams = `?uc0001=${uc0001}&Status=${status}`;
+    const samplingURL = this.API_URL + 'pp/fg-quarantine-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
+ 
   
 
   public getProductionCompletedList(Unitcode: string): Observable<any> {

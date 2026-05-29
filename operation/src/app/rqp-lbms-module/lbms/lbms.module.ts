@@ -35,6 +35,10 @@ import { IwrReviewerSaveComponent } from "../iwr/iwr-reviewer-save/iwr-reviewer-
 import { IwrCompletedComponent } from "../iwr/iwr-completed/iwr-completed.component";
 import { IwrCompletedSaveComponent } from "../iwr/iwr-completed-save/iwr-completed-save.component";
 import { IwrModuleAdminComponent } from "../iwr/iwr-module-admin/iwr-module-admin.component";
+import { CreateUpdateCalibrationSchComponent } from "../ma/master/calibration-schedule/create-update-calibration-sch/create-update-calibration-sch.component";
+import { HomePageCalibrationSchComponent } from "../ma/master/calibration-schedule/home-page-calibration-sch/home-page-calibration-sch.component";
+import { CreateUpdateCalibrationFreqComponent } from "../ma/master/calibration-frequency/create-update-calibration-freq/create-update-calibration-freq.component";
+import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequency/home-page-calibration-freq/home-page-calibration-freq.component";
 
 
 
@@ -73,6 +77,11 @@ import { IwrModuleAdminComponent } from "../iwr/iwr-module-admin/iwr-module-admi
     IwrCompletedComponent,
     IwrCompletedSaveComponent, 
     IwrModuleAdminComponent,  
+    CreateUpdateCalibrationSchComponent,
+    HomePageCalibrationSchComponent,
+    CreateUpdateCalibrationFreqComponent,
+    HomePageCalibrationFreqComponent,
+    
 
   ],
   imports: [
