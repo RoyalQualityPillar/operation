@@ -65,6 +65,7 @@ export class WhService {
    public getFgSamplingList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/fg-sampling-list?Unitcode=${Unitcode} `);
   }
+  
   public getSFGSamplingList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/sfg-sampling-list?Unitcode=${Unitcode} `);
   }
@@ -81,10 +82,15 @@ export class WhService {
    public getSFGUnderTestList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/sfg-under-taste-list?Unitcode=${Unitcode} `);
   }
+   public getSFGUnderSamplingList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-under-sampling-list?Unitcode=${Unitcode} `);
+  }
    public saveFgUnderTestLList(uc0001: string, Status:any) {
     const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
     const samplingURL = this.API_URL + 'pp/fg-under-taste-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
+
+  
      
  }

@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject, takeUntil, timer } from 'rxjs';
+import { IwsService } from '../../iws/iws.service';
+import { ToolbarService } from 'src/app/service/toolbar.service';
+import { CookieService } from 'ngx-cookie-service';
+import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.component';
+import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { NotificationService } from 'src/app/common/notification.service';
 import { LifeCycleDataService } from 'src/app/service/life-cycle-data.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
-import { ToolbarService } from 'src/app/service/toolbar.service';
-import { IwsService } from '../iws.service';
-import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
-import { Subject, takeUntil, timer } from 'rxjs';
-import { NotificationService } from 'src/app/common/notification.service';
 import { Router } from '@angular/router';
-import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.component';
 
 @Component({
-  selector: 'app-iws-initiator',
+  selector: 'app-pmr-initiator',
   standalone: false,
-  templateUrl: './iws-initiator.component.html',
-  styleUrl: './iws-initiator.component.scss'
+  templateUrl: './pmr-initiator.component.html',
+  styleUrl: './pmr-initiator.component.scss'
 })
-export class IwsInitiatorComponent implements OnInit {
+export class PmrInitiatorComponent implements OnInit {
   public InstrumentForm: FormGroup;
   public pageData: any;
   public headerData: any;
@@ -69,6 +69,11 @@ export class IwsInitiatorComponent implements OnInit {
     };
     this.headerRequestBody = this.lifeCycleDataService.getSelectedRowData();
     this.onLoadNextStageData();
+    this.InstrumentForm = this.fb.group({
+    rows: this.fb.array([
+      this.createRow()
+    ])
+  });
   }
   getHeaderData(event: any) {
     this.headerData = event;
@@ -87,89 +92,89 @@ export class IwsInitiatorComponent implements OnInit {
       this.nextStageListData = data.data.nstage;
     });
   }
-  onGenerateParameters() {
-    this.parameters = [];
+  // onGenerateParameters() {
+  //   this.parameters = [];
 
-    for (let i = 0; i < this.parameterNo; i++) {
-      const setPoints = [];
+  //   for (let i = 0; i < this.parameterNo; i++) {
+  //     const setPoints = [];
 
-      for (let j = 0; j < this.setPointNo; j++) {
-        setPoints.push({
-          setPoint: '',
-          min: '',
-          max: '',
-          uom: '',
-          result: '',
-          passLimit: ''
-        });
-      }
+  //     for (let j = 0; j < this.setPointNo; j++) {
+  //       setPoints.push({
+  //         setPoint: '',
+  //         min: '',
+  //         max: '',
+  //         uom: '',
+  //         result: '',
+  //         passLimit: ''
+  //       });
+  //     }
 
-      this.parameters.push({
-        parameterNo: i + 1,
-        parameterName: this.parameterName,
-        setPointNo: this.setPointNo,
-        setPoints: setPoints
-      });
-    }
+  //     this.parameters.push({
+  //       parameterNo: i + 1,
+  //       parameterName: this.parameterName,
+  //       setPointNo: this.setPointNo,
+  //       setPoints: setPoints
+  //     });
+  //   }
 
-  }
-  onGenerateQualitativeParameters() {
-    this.qualitativeParameters = [];
-    for (let j = 0; j < this.qualitativeParameterNo; j++) {
-      this.qualitativeParameters.push({
-        qualitativeparameterNo: j + 1,
+  // }
+  // onGenerateQualitativeParameters() {
+  //   this.qualitativeParameters = [];
+  //   for (let j = 0; j < this.qualitativeParameterNo; j++) {
+  //     this.qualitativeParameters.push({
+  //       qualitativeparameterNo: j + 1,
 
-        setPoints: [
-          {
-            qualitativeSetPoints: '',
-            qualitativePassLimit: ''
-          }
-        ]
-      });
-    }
+  //       setPoints: [
+  //         {
+  //           qualitativeSetPoints: '',
+  //           qualitativePassLimit: ''
+  //         }
+  //       ]
+  //     });
+  //   }
 
-  }
-  onGenerateQuantitativeParameters() {
-    this.quantitativeParameters = [];
+  // }
+  // onGenerateQuantitativeParameters() {
+  //   this.quantitativeParameters = [];
 
-    for (let i = 0; i < this.quantitativeParameterNo; i++) {
-      const setPoints = [];
+  //   for (let i = 0; i < this.quantitativeParameterNo; i++) {
+  //     const setPoints = [];
 
-      for (let j = 0; j < this.quantitativeSetPointNo; j++) {
-        setPoints.push({
-          // setPointType: 'Single',
-          setPoint: '',
-          passLimitMin: '',
-          passLimitMax: '',
-          uom: '',
-          result: '',
-          passLimit: '',
-          averageLower: '',
-          averageUpper: '',
+  //     for (let j = 0; j < this.quantitativeSetPointNo; j++) {
+  //       setPoints.push({
+  //         // setPointType: 'Single',
+  //         setPoint: '',
+  //         passLimitMin: '',
+  //         passLimitMax: '',
+  //         uom: '',
+  //         result: '',
+  //         passLimit: '',
+  //         averageLower: '',
+  //         averageUpper: '',
 
-          minimum: '',
-          maximum: '',
-          average: '',
+  //         minimum: '',
+  //         maximum: '',
+  //         average: '',
 
-          standardDeviation: '',
-          relativeStandardDeviation: '',
+  //         standardDeviation: '',
+  //         relativeStandardDeviation: '',
 
-          quantitativeStandardDeviation: '',
-          quantitativeRelativeStandardDeviation: '',
-          readings: '',
-          readingValues: []
-        });
-      }
+  //         quantitativeStandardDeviation: '',
+  //         quantitativeRelativeStandardDeviation: '',
+  //         readings: '',
+  //         readingValues: []
+  //       });
+  //     }
 
-      this.quantitativeParameters.push({
-        quantitativeParameterNo: i + 1,
-        quantitativeParameterName: this.quantitativeParameterName,
-        setPoints: setPoints
-      });
-    }
+  //     this.quantitativeParameters.push({
+  //       quantitativeParameterNo: i + 1,
+  //       quantitativeParameterName: this.quantitativeParameterName,
+  //       setPoints: setPoints
+  //     });
+  //   }
 
-  }
-  checkResult(setPointObj: any) {
+  // 
+   checkResult(setPointObj: any) {
     const setPoint = parseFloat(setPointObj.setPoint);
     const min = parseFloat(setPointObj.min);
     const max = parseFloat(setPointObj.max);
@@ -406,7 +411,7 @@ export class IwsInitiatorComponent implements OnInit {
     this.qualitativeParameters.forEach((element: any) => {
       element.setPoints.forEach((ele: any) => {
         qualitativeRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: element.qualitativeparameterNo,
           // ff0001:"string",
           ff0002: ele.qualitativeSetPoints,
@@ -427,7 +432,7 @@ export class IwsInitiatorComponent implements OnInit {
       parameter.setPoints.forEach((sp: any) => {
 
         qpsrRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: parameter.parameterNo,
           // ff0001:"string",
           ff0002: parameter.parameterName,
@@ -528,7 +533,7 @@ export class IwsInitiatorComponent implements OnInit {
       "qlpRecordList": qualitativeRecordList,
       "cdIndexList": [
         {
-          uc0001: '',
+          uc0001: null,
           ff0001: instrumentindexValue.instrumentNumber,
           ff0002: instrumentindexValue.instrumentName,
           ff0003: instrumentindexValue.instrumentCode,
@@ -551,7 +556,7 @@ export class IwsInitiatorComponent implements OnInit {
       "qtmpRecordList": qtmpRecordList,
       "qpmrRecordList": [
         {
-          uc0001: '',
+          uc0001: null,
           ff0001: "string",
           ff0002: "string",
           ff0003: "string",
@@ -623,6 +628,21 @@ export class IwsInitiatorComponent implements OnInit {
       }
     }
   }
+  createRow(): FormGroup {
+  return this.fb.group({
+    checkPoint: [''],
+    status: [''],
+    remarks: ['']
+  });
+}
+get rows(): FormArray {
+  return this.InstrumentForm.get('rows') as FormArray;
+}
+
+   addRow(): void {
+  this.rows.push(this.createRow());
+  console.log(this.rows.value);
+}
 
 
 
@@ -658,12 +678,6 @@ export class IwsInitiatorComponent implements OnInit {
       }
 
     });
-    this.InstrumentForm = this.fb.group({
-      checkPoint: [''],
-      status: [''],
-      remarks: ['']
-    });
-
 
   }
   // onChangeInstrumentCode() {
@@ -698,3 +712,4 @@ export class IwsInitiatorComponent implements OnInit {
   // }
 
 }
+

@@ -39,6 +39,11 @@ import { CreateUpdateCalibrationSchComponent } from "../ma/master/calibration-sc
 import { HomePageCalibrationSchComponent } from "../ma/master/calibration-schedule/home-page-calibration-sch/home-page-calibration-sch.component";
 import { CreateUpdateCalibrationFreqComponent } from "../ma/master/calibration-frequency/create-update-calibration-freq/create-update-calibration-freq.component";
 import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequency/home-page-calibration-freq/home-page-calibration-freq.component";
+import { PmcHomeComponent } from "../pmc/pmc-home/pmc-home.component";
+import { PmcInitiatorComponent } from "../pmc/pmc-initiator/pmc-initiator.component";
+import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.component";
+
+
 
 
 
@@ -81,6 +86,10 @@ import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequ
     HomePageCalibrationSchComponent,
     CreateUpdateCalibrationFreqComponent,
     HomePageCalibrationFreqComponent,
+    PmcHomeComponent,
+    PmcInitiatorComponent,
+    PmrInitiatorComponent,
+    
     
 
   ],
