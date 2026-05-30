@@ -26,6 +26,10 @@ import { IwrCompletedComponent } from "../iwr/iwr-completed/iwr-completed.compon
 import { IwrCompletedSaveComponent } from "../iwr/iwr-completed-save/iwr-completed-save.component";
 import { HomePageCalibrationSchComponent } from "../ma/master/calibration-schedule/home-page-calibration-sch/home-page-calibration-sch.component";
 import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequency/home-page-calibration-freq/home-page-calibration-freq.component";
+import { PmcInitiatorComponent } from "../pmc/pmc-initiator/pmc-initiator.component";
+import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.component";
+
+
 
 
 const routes: Routes = [
@@ -56,6 +60,8 @@ const routes: Routes = [
   { path: 'instrument-cat-home-page', component: InstrumentCatHomePageComponent },
   { path: 'home-page-calibration-sch', component: HomePageCalibrationSchComponent },
   { path: 'home-page-calibration-freq', component: HomePageCalibrationFreqComponent },
+  { path: 'pmc-initiator', component: PmcInitiatorComponent },
+  { path: 'pmr-initiator', component: PmrInitiatorComponent },
 ]
 
 @NgModule({

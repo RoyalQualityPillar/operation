@@ -1,0 +1,103 @@
+<div class="adjust">
+    <div class="example-table-container">
+        <app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+    </div>
+</div>
+
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Instrument Information</div>
+    </div>
+</div>
+
+<div class="row no-gutters ms-1 me-1 dense-4" [formGroup]="InstrumentForm">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Code</mat-label>
+        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code"  (change)="onChangeInstrumentCode()" />
+    <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton" color="primary"
+      (click)="openStatusLOV()" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Name</mat-label>
+        <input type="text" matInput formControlName="instrumentName" placeholder="Instrument Name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Number</mat-label>
+        <input type="text" matInput formControlName="instrumentNumber" placeholder="Instrument Number" />
+    </mat-form-field>
+</div>
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Check List</div>
+    </div>
+</div>
+<div class="row no-gutters ms-1 me-1 align-items-center"
+     [formGroup]="InstrumentForm">
+
+    
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Check Point</mat-label>
+        <input type="text"
+               matInput
+               formControlName="checkPoint"
+               placeholder="Check Point" />
+    </mat-form-field>
+
+    
+    <div class="col-4 px-1">
+        <label class="status-heading">Status</label>
+
+        <mat-radio-group formControlName="status" class="status-group">
+
+            <mat-radio-button value="PASS" class="me-3 pass-color">
+                Pass
+            </mat-radio-button>
+
+            <mat-radio-button value="FAIL" class="me-3 fail-color">
+                Fail
+            </mat-radio-button>
+
+            <mat-radio-button value="NA">
+                N/A
+            </mat-radio-button>
+
+        </mat-radio-group>
+    </div>
+
+    
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Remarks</mat-label>
+        <input type="text"
+               matInput
+               formControlName="remarks"
+               placeholder="Remarks" />
+    </mat-form-field>
+
+    
+    <div class="col-2 px-1 text-center">
+        <button mat-raised-button
+                class="submitButton"
+                (click)="addRow()">
+            Add Row
+        </button>
+    </div>
+
+</div>
+      
+<app-common-comments [nextStageListData]="nextStageListData"
+    (commentsData)="handleCommentsForm($event)"></app-common-comments>
+<div class="containerBTN margin-top_2 margin-bottom_35">
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()" >
+        <!-- [disabled]="disableButtons"> -->
+            Save
+        </button>
+        <button mat-raised-button class="submitButton" (click)="onSubmitConfirmation()">
+             <!-- [disabled]="disableButtons"> -->
+            Submit
+        </button>
+        <!-- <button mat-raised-button class="submitButton">Clear</button> -->
+    </div>
+</div>
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="height_5"></div>

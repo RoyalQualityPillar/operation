@@ -16,7 +16,7 @@ export class IwsService {
     return this.http.post(nextStageURL, requestBody);
   }
   saveCalibrationWorksheetMaster(requestBody: any) {
-    const nextStageURL = this.API_URL + 'limsm-im/calibration-worksheet-save';
+    const nextStageURL = this.API_URL + 'limsm-im/pmm-calibration-worksheet-save';
     return this.http.post(nextStageURL, requestBody);
   }
   public getInusMasterList(Unitcode: string): Observable<any> {
