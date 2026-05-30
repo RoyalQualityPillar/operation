@@ -11,8 +11,8 @@ import { apiEndPoints } from 'src/app/service/api-service/api-endpoints.constant
 import { ApiService } from 'src/app/service/api-service/api.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 import { CalibrationFreqService } from '../calibration-freq.service';
-import { CreateUpdateCalibrationSchComponent } from '../../calibration-schedule/create-update-calibration-sch/create-update-calibration-sch.component';
 import { Router } from '@angular/router';
+import { CreateUpdateCalibrationFreqComponent } from '../create-update-calibration-freq/create-update-calibration-freq.component';
 
 @Component({
   selector: 'app-home-page-calibration-freq',
@@ -144,7 +144,7 @@ export class HomePageCalibrationFreqComponent implements OnInit, AfterViewInit {
 
   selectedRow: any;
   onOpenRolePOPUP() {
-    const dialogRef = this.dialog.open(CreateUpdateCalibrationSchComponent , {
+    const dialogRef = this.dialog.open(CreateUpdateCalibrationFreqComponent , {
       minWidth: '80%',
       data: { tableData: this.selectedRow, type: 'Registration' },
     });
@@ -172,7 +172,7 @@ export class HomePageCalibrationFreqComponent implements OnInit, AfterViewInit {
       });
     } else {
       const dialogRef = this.dialog.open(
-        CreateUpdateCalibrationSchComponent ,
+        CreateUpdateCalibrationFreqComponent ,
         {
           minWidth: '80%',
           data: { tableData: this.selectedRow, type: 'Modification' },
