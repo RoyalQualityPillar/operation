@@ -12,6 +12,9 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { LovDialogComponent } from './common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from './common/message-dialog/message-dialog.component';
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
+import { PmcHomeComponent } from './rqp-lbms-module/pmc/pmc-home/pmc-home.component';
+import { PmcInitiatorComponent } from './rqp-lbms-module/pmc/pmc-initiator/pmc-initiator.component';
+import { PmrInitiatorComponent } from './rqp-lbms-module/pmr/pmr-initiator/pmr-initiator.component';
 // import { SharedModule } from './common/shared.module';
 
 
@@ -24,6 +27,11 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
+    
+   
+   
+    
+   
   
     
 

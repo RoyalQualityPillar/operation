@@ -38,7 +38,7 @@ export class SfgSamplingListComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.whService.getSFGSamplingList(unitCode).subscribe((data: any) => {
+    this.whService.getSFGUnderSamplingList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
       this.sfgSamplingListData = new MatTableDataSource(this.dataSource);
       this.sfgSamplingListData.sort = this.sort;
