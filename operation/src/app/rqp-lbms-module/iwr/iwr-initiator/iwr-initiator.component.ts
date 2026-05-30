@@ -11,6 +11,8 @@ import { NotificationService } from 'src/app/common/notification.service';
 import { Router } from '@angular/router';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.component';
+import { IwrService } from '../iwr.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-iwr-initiator',
@@ -20,6 +22,7 @@ import { LovDialogComponent } from 'src/app/common/lov-dialog/lov-dialog.compone
 })
 export class IwrInitiatorComponent implements OnInit {
   public InstrumentForm: FormGroup;
+  public futurDate = new Date().toISOString().slice(0, 16);
   public pageData: any;
   public headerData: any;
   public isLoading: boolean;
@@ -28,6 +31,7 @@ export class IwrInitiatorComponent implements OnInit {
   public headerRequestBody: any;
   public nextStageListData: any;
   public instrumrntInfo: any;
+  public calAssignmentData: any;
   public displayedColumns: any[] = [];
   public selectedDialogData: any;
   destroy$ = new Subject<void>();
@@ -43,11 +47,11 @@ export class IwrInitiatorComponent implements OnInit {
   quantitativeParameterName: any;
   quantitativeParameters: any[] = [];
   quantitativeUomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
-  
-    public lc0002: any;
-      public ff0001: any;
+  public lc0002Value: any;
+  public lc0002: any;
+  public ff0001: any;
   public lc0001: any;
-public QlpRecordList: any;
+  public QlpRecordList: any;
   public CdIndexList: any;
   public QpsrRecordList: any;
   public QtmpRecordList: any;
@@ -56,6 +60,7 @@ public QlpRecordList: any;
   constructor(
     public dialog: MatDialog,
     private iwsSwervice: IwsService,
+    private iwrSwervice: IwrService,
     private toolbarService: ToolbarService,
     public cookieService: CookieService,
     public fb: FormBuilder,
@@ -68,10 +73,12 @@ public QlpRecordList: any;
       instrumentCode: [''],
       instrumentName: [''],
       instrumentNumber: [''],
+      scheduleDate: ['']
     });
   }
   ngOnInit(): void {
     this.onLoadInstrumentCode();
+    this.getCalculationAssignamentList();
     this.pageData = {
       pageName: 'homePage',
       pageType: 'create',
@@ -98,7 +105,8 @@ public QlpRecordList: any;
       this.nextStageListData = data.data.nstage;
     });
   }
-    getCalibrationModuleRequestno() {
+
+  getCalibrationModuleRequestno() {
     this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data: any) => {
       console.log(data);
       this.lc0002 = data.data[0].lc0002;
@@ -109,131 +117,6 @@ public QlpRecordList: any;
         this.getQtmpRecordList(this.lc0002);
         // this.getQpmrRecordList(this.lc0002);
       }
-    });
-  }
-  getQlpRecordList(lc0002: any) {
-    this.iwsSwervice.getQlpRecordList(lc0002).subscribe((data: any) => {
-      this.QlpRecordList = data.data;
-      const QlpRecordData: any[]= [];
-      this.QlpRecordList.forEach((element: any) => {
-        QlpRecordData.push({
-          qualitativeParameterNo: element.ff0001,
-
-          setPoints: [
-            {
-              qualitativeSetPoints: element.ff0002,
-              qualitativePassLimit: element.ff0003
-            }
-          ]
-        });
-      });
-      this.QlpRecordList = QlpRecordData;
-    });
-  }
-  getCdIndexList(lc0002: any) {
-    this.iwsSwervice.getCdIndexList(lc0002).subscribe((data: any) => {
-      this.CdIndexList = data.data[0];
-      this.InstrumentForm.patchValue({
-        instrumentCode: this.CdIndexList.ff0003,
-        instrumentName: this.CdIndexList.ff0002,
-        instrumentNumber: this.CdIndexList.ff0001
-      });
-    });
-  }
-  getQpsrRecordList(lc0002: any) {
-    this.iwsSwervice.getQpsrRecordList(lc0002).subscribe((data: any) => {
-      this.QpsrRecordList = data.data;
-      const QpsrRecordData: any[] = [];
-      this.QpsrRecordList.forEach((element: any) => {
-        console.log(element);
-        // check parameter already exists
-        let existingParam = QpsrRecordData.find(
-          (x: any) => x.parameterNo == element.ff0001
-        );
-
-        // create new parameter
-        if (!existingParam) {
-
-          existingParam = {
-            parameterNo: element.ff0001,
-            parameterName: element.ff0002,
-            setPoints: []
-          };
-
-          QpsrRecordData.push(existingParam);
-        }
-
-        // push setpoint
-        existingParam.setPoints.push({
-
-          setPoint: element.ff0003,
-          min: element.ff0004,
-          max: element.ff0005,
-          uom: element.ff0006,
-          result: element.ff0007,
-          passLimit: element.ff0008
-
-        });
-
-      });
-
-      this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
-    });
-  }
-  getQtmpRecordList(lc0002: any) {
-    this.iwsSwervice.getQtmpRecordList(lc0002).subscribe((data: any) => {
-      this.QtmpRecordList = data.data;
-      const QtmpRecordData: any[] = [];
-      this.QtmpRecordList.forEach((element: any) => {
-        let existingParam = QtmpRecordData.find(
-        (x: any) => x.quantitativeParameterNo == element.ff0001
-      );
-
-      // Create new parameter
-      if (!existingParam) {
-
-        existingParam = {
-          quantitativeParameterNo: element.ff0001,
-          quantitativeParameterName: element.ff0002,
-          quantitativeSetPointNo: element.ff0003,
-          setPoints: []
-        };
-
-        QtmpRecordData.push(existingParam);
-
-      }
-
-      // Push setpoint
-      existingParam.setPoints.push({
-        setPoint: element.ff0004,
-        readings: element.ff0019,
-        readingValues: [
-          { value: element.ff0005 },
-          { value: element.ff0006 }
-        ],
-        minimum: element.ff0005,
-        maximum: element.ff0006,
-        average: element.ff0007,
-        standardDeviation: element.ff0008,
-        relativeStandardDeviation: element.ff0009,
-        result: element.ff0010,
-        passLimit: element.ff0011,
-        uom: element.ff0012,
-        passLimitMin: element.ff0013,
-        passLimitMax: element.ff0014,
-        averageLower: element.ff0015,
-        averageUpper: element.ff0016,
-        quantitativeStandardDeviation: element.ff0017,
-        quantitativeRelativeStandardDeviation: element.ff0018
-      });
-
-    });
-
-    this.quantitativeParameters = QtmpRecordData;
-
     });
   }
   onGenerateParameters() {
@@ -691,7 +574,7 @@ public QlpRecordList: any;
           ff0001: instrumentindexValue.instrumentNumber,
           ff0002: instrumentindexValue.instrumentName,
           ff0003: instrumentindexValue.instrumentCode,
-          ff0004: "string",
+          ff0004: instrumentindexValue.scheduleDate,
           ff0005: "string",
           ff0006: "string",
           ff0008: "string",
@@ -762,24 +645,34 @@ public QlpRecordList: any;
   onLoadInstrumentCode() {
     let unitCode = this.cookieService.get('buCode');
     this.iwsSwervice.getAllInstrmentsList(unitCode).subscribe((data: any) => {
-      console.log(data);
       this.instrumrntInfo = data.data;
     });
   }
+  getCalculationAssignamentList(){
+     let unitCode = this.cookieService.get('buCode');
+    this.iwrSwervice.getCalculationAssignamentList(unitCode).subscribe((data:any) => {
+      this.calAssignmentData = data.data;
+      // this.getQlpRecordList(this.lc0002);
+      //   this.getCdIndexList(this.lc0002);
+      //   this.getQpsrRecordList(this.lc0002);
+      //   this.getQtmpRecordList(this.lc0002);
+    });
+  }
+
   isCategorySuccess: boolean;
   onChangeInstrumentCode() {
-    if (this.InstrumentForm.controls['uc0002'].value == '') {
-      this.InstrumentForm.controls['uc0002'].setValue('');
+    if (this.InstrumentForm.controls['instrumentCode'].value == '') {
+      this.InstrumentForm.controls['instrumentCode'].setValue('');
     } else {
       this.isCategorySuccess = false;
-      let categoryCurrentValue = this.InstrumentForm.controls['uc0002'].value;
-      this.instrumrntInfo.forEach((elements) => {
+      let categoryCurrentValue = this.InstrumentForm.controls['instrumentCode'].value;
+      this.calAssignmentData.forEach((elements) => {
         if (elements.buTypeCode == categoryCurrentValue) {
           this.isCategorySuccess = true;
         }
       });
       if (this.isCategorySuccess == false) {
-        this.InstrumentForm.controls['uc0002'].setErrors({ incorrect: true });
+        this.InstrumentForm.controls['instrumentCode'].setErrors({ incorrect: true });
         this.openStatusLOV();
       }
     }
@@ -788,10 +681,12 @@ public QlpRecordList: any;
 
 
   openStatusLOV() {
+    let unitCode = this.cookieService.get('buCode');
     this.displayedColumns = [
       { field: 'uc0001', title: 'Instrument Number' },
-      { field: 'ff0004', title: 'Instrument Name' },
-      { field: 'ff0005', title: 'Instrument Code' }
+      { field: 'ff0001', title: 'Instrument Name' },
+      { field: 'ff0005', title: 'Instrument Code' },
+      { field: 'ff0004', title: 'Schedule Date' }
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
@@ -799,7 +694,7 @@ public QlpRecordList: any;
       data: {
         dialogTitle: 'Instrument Information',
         dialogColumns: this.displayedColumns,
-        dialogData: this.instrumrntInfo,
+        dialogData: this.calAssignmentData,
         lovName: 'instrumentList'
       },
       disableClose: true
@@ -815,15 +710,146 @@ public QlpRecordList: any;
 
         this.InstrumentForm.patchValue({
           instrumentCode: this.selectedDialogData.ff0005,
-          instrumentName: this.selectedDialogData.ff0004,
-          instrumentNumber: this.selectedDialogData.uc0001
-        });
+          instrumentName: this.selectedDialogData.ff0001,
+          instrumentNumber: this.selectedDialogData.uc0001,
+          scheduleDate: this.selectedDialogData.ff0004
+        });       
+          this.lc0002Value = this.selectedDialogData.ff0002;
+          console.log(this.lc0002Value);
+          this.getQlpRecordList(this.lc0002Value);
+          //this.getCdIndexList(this.lc0002Value);
+          this.getQpsrRecordList(this.lc0002Value);
+          this.getQtmpRecordList(this.lc0002Value);
 
       }
 
     });
 
-  } 
+  }
+  getQlpRecordList(lc0002: any) {
+    this.iwsSwervice.getQlpRecordList(lc0002).subscribe((data: any) => {
+      this.QlpRecordList = data.data;
+      const QlpRecordData: any[] = [];
+      this.QlpRecordList.forEach((element: any) => {
+        QlpRecordData.push({
+          qualitativeParameterNo: element.ff0001,
+
+          setPoints: [
+            {
+              qualitativeSetPoints: element.ff0002,
+              qualitativePassLimit: element.ff0003
+            }
+          ]
+        });
+      });
+      this.QlpRecordList = QlpRecordData;
+    });
+  }
+  getCdIndexList(lc0002: any) {
+    this.iwsSwervice.getCdIndexList(lc0002).subscribe((data: any) => {
+      this.CdIndexList = data.data[0];
+      this.InstrumentForm.patchValue({
+        instrumentCode: this.CdIndexList.ff0003,
+        instrumentName: this.CdIndexList.ff0002,
+        instrumentNumber: this.CdIndexList.ff0001
+      });
+    });
+  }
+  getQpsrRecordList(lc0002: any) {
+    this.iwsSwervice.getQpsrRecordList(lc0002).subscribe((data: any) => {
+      this.QpsrRecordList = data.data;
+      const QpsrRecordData: any[] = [];
+      this.QpsrRecordList.forEach((element: any) => {
+        // check parameter already exists
+        let existingParam = QpsrRecordData.find(
+          (x: any) => x.parameterNo == element.ff0001
+        );
+
+        // create new parameter
+        if (!existingParam) {
+
+          existingParam = {
+            parameterNo: element.ff0001,
+            parameterName: element.ff0002,
+            setPoints: []
+          };
+
+          QpsrRecordData.push(existingParam);
+        }
+
+        // push setpoint
+        existingParam.setPoints.push({
+
+          setPoint: element.ff0003,
+          min: element.ff0004,
+          max: element.ff0005,
+          uom: element.ff0006,
+          result: element.ff0007,
+          passLimit: element.ff0008
+
+        });
+
+      });
+
+      this.QpsrRecordList = QpsrRecordData;
+
+      console.log(this.QpsrRecordList);
+
+    });
+  }
+  getQtmpRecordList(lc0002: any) {
+    this.iwsSwervice.getQtmpRecordList(lc0002).subscribe((data: any) => {
+      this.QtmpRecordList = data.data;
+      const QtmpRecordData: any[] = [];
+      this.QtmpRecordList.forEach((element: any) => {
+        let existingParam = QtmpRecordData.find(
+          (x: any) => x.quantitativeParameterNo == element.ff0001
+        );
+
+        // Create new parameter
+        if (!existingParam) {
+
+          existingParam = {
+            quantitativeParameterNo: element.ff0001,
+            quantitativeParameterName: element.ff0002,
+            quantitativeSetPointNo: element.ff0003,
+            setPoints: []
+          };
+
+          QtmpRecordData.push(existingParam);
+
+        }
+
+        // Push setpoint
+        existingParam.setPoints.push({
+          setPoint: element.ff0004,
+          readings: element.ff0019,
+          readingValues: [
+            { value: element.ff0005 },
+            { value: element.ff0006 }
+          ],
+          minimum: element.ff0005,
+          maximum: element.ff0006,
+          average: element.ff0007,
+          standardDeviation: element.ff0008,
+          relativeStandardDeviation: element.ff0009,
+          result: element.ff0010,
+          passLimit: element.ff0011,
+          uom: element.ff0012,
+          passLimitMin: element.ff0013,
+          passLimitMax: element.ff0014,
+          averageLower: element.ff0015,
+          averageUpper: element.ff0016,
+          quantitativeStandardDeviation: element.ff0017,
+          quantitativeRelativeStandardDeviation: element.ff0018
+        });
+
+      });
+
+      this.quantitativeParameters = QtmpRecordData;
+
+    });
+  }
 
 }
 

@@ -118,14 +118,12 @@ export class IwsReviewerSaveComponent implements OnInit {
       //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
-    console.log(body);
     this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
     });
   }
   getCalibrationModuleRequestno() {
     this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data: any) => {
-      console.log(data);
       this.lc0002 = data.data[0].lc0002;
       if (this.lc0002) {
         this.getQlpRecordList(this.lc0002);
