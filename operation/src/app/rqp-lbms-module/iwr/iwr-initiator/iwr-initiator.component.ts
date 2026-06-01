@@ -437,7 +437,210 @@ export class IwrInitiatorComponent implements OnInit {
     });
 
   }
-  onSubmit(value: any) {
+  // onSubmit(value: any) {
+  //   this.disableButtons = true;
+  //   let draftValue: boolean;
+  //   if (value == 1) {
+  //     draftValue = false;
+  //   } else {
+  //     draftValue = true;
+  //   }
+  //   const instrumentindexValue = this.InstrumentForm.value;
+  //   const qualitativeRecordList: any[] = [];
+
+  //   this.qualitativeParameters.forEach((element: any) => {
+  //     element.setPoints.forEach((ele: any) => {
+  //       qualitativeRecordList.push({
+  //         uc0001: null,
+  //         ff0001: element.qualitativeparameterNo,
+  //         ff0002: ele.qualitativeSetPoints,
+  //         ff0003: ele.qualitativePassLimit,
+  //         ff0004: 0,
+  //         ff0005: "string",
+  //         createdby: this.cookieService.get('userId'),
+  //         status: 0,
+  //         comments: this.comments
+  //       });
+  //     });
+  //   });
+  //   console.log(qualitativeRecordList);
+
+  //   const qpsrRecordList: any[] = [];
+
+  //   this.parameters.forEach((parameter: any) => {
+
+  //     parameter.setPoints.forEach((sp: any) => {
+
+  //       qpsrRecordList.push({
+  //         uc0001: null,
+  //         ff0001: parameter.parameterNo,
+  //         ff0002: parameter.parameterName,
+  //         ff0003: sp.setPoint,
+  //         ff0004: sp.min,
+  //         ff0005: sp.max,
+  //         ff0006: sp.uom,
+  //         ff0007: sp.result,
+  //         ff0008: sp.passLimit,
+  //         ff0009: parameter.setPointNo,
+  //         ff0010: "string",
+  //         lc0001: "string",
+  //         lc0002: "string",
+  //         lc0003: "string",
+  //         lc0004: "string",
+  //         lc0005: "string",
+  //         lc0006: "string",
+  //         createdby: this.cookieService.get('userId'),
+  //         status: 0,
+  //         comments: this.comments
+  //       });
+
+  //     });
+
+  //   });
+
+  //   console.log('qpsrRecordList', qpsrRecordList);
+
+  //   const qtmpRecordList: any[] = [];
+
+  //   this.quantitativeParameters.forEach((parameter: any) => {
+
+  //     parameter.setPoints.forEach((sp: any) => {
+
+  //       qtmpRecordList.push({
+  //         uc0001: null,
+  //         ff0001: parameter.quantitativeParameterNo,
+  //         ff0002: parameter.quantitativeParameterName,
+  //         ff0003: parameter.quantitativeSetPointNo,
+  //         ff0004: sp.setPoint,
+  //         ff0005: sp.minimum,
+  //         ff0006: sp.maximum,
+  //         ff0007: sp.average,
+  //         ff0008: sp.standardDeviation,
+  //         ff0009: sp.relativeStandardDeviation,
+  //         ff0010: sp.result,
+  //         ff0011: sp.passLimit,
+  //         ff0012: sp.uom,
+  //         ff0013: sp.passLimitMin,
+  //         ff0014: sp.passLimitMax,
+  //         ff0015: sp.averageLower,
+  //         ff0016: sp.averageUpper,
+  //         ff0017: sp.quantitativeStandardDeviation,
+  //         ff0018: sp.quantitativeRelativeStandardDeviation,
+  //         ff0019: sp.readings,
+  //         // ff0020: sp.readingValues,
+  //         ff0020: "string",
+  //         lc0001: "string",
+  //         lc0002: "string",
+  //         lc0003: "string",
+  //         lc0004: "string",
+  //         lc0005: "string",
+  //         lc0006: "string",
+  //         createdby: this.cookieService.get('userId'),
+  //         status: 0,
+  //         comments: this.comments
+  //       });
+
+  //     });
+
+  //   });
+
+  //   console.log('qpmrRecordList', qtmpRecordList);
+
+  //   let body = {
+  //     lcRequest: {
+  //       unitCode: this.headerData.unitcode,
+  //       moduleCode: this.headerData.modulecode,
+  //       departmentCode: this.headerData.departmentcode,
+  //       lcNumber: this.headerData.lcnum,
+  //       lcStage: this.headerData.stage,
+  //       stage2: 0,
+  //       draft: draftValue,
+  //       comments: this.comments,
+  //       requestType: '',
+  //       createdBy: this.cookieService.get('userId'),
+  //       lcRole: this.headerData.role,
+  //       documentModule: 'LBMS',
+  //       documentStatus: '',
+  //       gmuserDTOList: [],
+  //     },
+
+  //     "qlpRecordList": qualitativeRecordList,
+  //     "cdIndexList": [
+  //       {
+  //         uc0001: null,
+  //         ff0001: instrumentindexValue.instrumentNumber,
+  //         ff0002: instrumentindexValue.instrumentName,
+  //         ff0003: instrumentindexValue.instrumentCode,
+  //         ff0004: instrumentindexValue.scheduleDate,
+  //         ff0005: "string",
+  //         ff0006: "string",
+  //         ff0008: "string",
+  //         lc0001: "string",
+  //         lc0002: "string",
+  //         lc0003: "string",
+  //         lc0004: "string",
+  //         lc0005: "string",
+  //         lc0006: "string",
+  //         createdby: this.cookieService.get('userId'),
+  //         status: 0,
+  //         comments: this.comments
+  //       }
+  //     ],
+  //     "qpsrRecordList": qpsrRecordList,
+  //     "qtmpRecordList": qtmpRecordList,
+  //     "qpmrRecordList": [
+  //       {
+  //         uc0001: null,
+  //         ff0001: "string",
+  //         ff0002: "string",
+  //         ff0003: "string",
+  //         ff0004: "string",
+  //         ff0005: "string",
+  //         ff0006: "string",
+  //         ff0008: "string",
+  //         ff0009: "string",
+  //         ff0010: "string",
+  //         ff0011: "string",
+  //         lc0001: "string",
+  //         lc0002: "string",
+  //         lc0003: "string",
+  //         lc0004: "string",
+  //         lc0005: "string",
+  //         lc0006: "string",
+  //         createdby: this.cookieService.get('userId'),
+  //         status: 0,
+  //         comments: this.comments
+  //       }
+  //     ],
+  //     "anyListNonEmpty": true
+  //   };
+  //   console.log(body)
+  //   this.isLoading = true;
+  //   this.iwsSwervice
+  //     .saveCalibrationWorksheetMaster(body)
+  //     .subscribe((data: any) => {
+  //       if (data.errorInfo != null) {
+  //         this.isLoading = false;
+  //         this.dialog.open(MessageDialogComponent, {
+  //           data: {
+  //             message: data.errorInfo.message,
+  //             heading: 'Error Information',
+  //           },
+  //         });
+  //       } else {
+  //         this.isLoading = false;
+
+  //         this.notificationService.showSuccess(data.status, () => { });
+  //         timer(2000)
+  //           .pipe(takeUntil(this.destroy$))
+  //           .subscribe(() => {
+  //             this.route.navigateByUrl('/rqpoperationui/lbms/iwr-module-admin');
+  //           });
+  //       }
+  //     });
+  // }
+
+ onSubmit(value: any) {
     this.disableButtons = true;
     let draftValue: boolean;
     if (value == 1) {
@@ -448,12 +651,11 @@ export class IwrInitiatorComponent implements OnInit {
     const instrumentindexValue = this.InstrumentForm.value;
     const qualitativeRecordList: any[] = [];
 
-    this.qualitativeParameters.forEach((element: any) => {
+    this.QlpRecordList.forEach((element: any) => {
       element.setPoints.forEach((ele: any) => {
         qualitativeRecordList.push({
           uc0001: null,
-          ff0001: element.qualitativeparameterNo,
-          // ff0001:"string",
+          ff0001: element.qualitativeParameterNo,
           ff0002: ele.qualitativeSetPoints,
           ff0003: ele.qualitativePassLimit,
           ff0004: 0,
@@ -468,14 +670,13 @@ export class IwrInitiatorComponent implements OnInit {
 
     const qpsrRecordList: any[] = [];
 
-    this.parameters.forEach((parameter: any) => {
+    this.QpsrRecordList.forEach((parameter: any) => {
 
       parameter.setPoints.forEach((sp: any) => {
 
         qpsrRecordList.push({
           uc0001: null,
           ff0001: parameter.parameterNo,
-          // ff0001:"string",
           ff0002: parameter.parameterName,
           ff0003: sp.setPoint,
           ff0004: sp.min,
@@ -511,7 +712,6 @@ export class IwrInitiatorComponent implements OnInit {
         qtmpRecordList.push({
           uc0001: null,
           ff0001: parameter.quantitativeParameterNo,
-          // ff0001:"string",
           ff0002: parameter.quantitativeParameterName,
           ff0003: parameter.quantitativeSetPointNo,
           ff0004: sp.setPoint,
@@ -637,11 +837,12 @@ export class IwrInitiatorComponent implements OnInit {
           timer(2000)
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
-              this.route.navigateByUrl('/rqpoperationui/lbms/iws-module-admin');
+              this.route.navigateByUrl('/rqpoperationui/lbms/iwr-module-admin');
             });
         }
       });
   }
+
   onLoadInstrumentCode() {
     let unitCode = this.cookieService.get('buCode');
     this.iwsSwervice.getAllInstrmentsList(unitCode).subscribe((data: any) => {
@@ -736,7 +937,7 @@ export class IwrInitiatorComponent implements OnInit {
 
           setPoints: [
             {
-              qualitativeSetPoints: element.ff0002,
+              qualitativeSetPoints: '',
               qualitativePassLimit: element.ff0003
             }
           ]
@@ -771,6 +972,7 @@ export class IwrInitiatorComponent implements OnInit {
           existingParam = {
             parameterNo: element.ff0001,
             parameterName: element.ff0002,
+             setPointNo: element.ff0009,
             setPoints: []
           };
 
@@ -780,11 +982,11 @@ export class IwrInitiatorComponent implements OnInit {
         // push setpoint
         existingParam.setPoints.push({
 
-          setPoint: element.ff0003,
+          setPoint:'',
           min: element.ff0004,
           max: element.ff0005,
           uom: element.ff0006,
-          result: element.ff0007,
+          result: '',
           passLimit: element.ff0008
 
         });
@@ -819,15 +1021,25 @@ export class IwrInitiatorComponent implements OnInit {
           QtmpRecordData.push(existingParam);
 
         }
+ const readingValues: any[] = [];
 
+      const totalReadings = Number(element.ff0019);
+
+      for (let i = 21; i < 21 + totalReadings; i++) {
+
+        const fieldName =
+          'ff' + ('0000' + i).slice(-4);
+
+        readingValues.push({
+          value: element[fieldName]
+        });
+
+      }
         // Push setpoint
         existingParam.setPoints.push({
           setPoint: element.ff0004,
           readings: element.ff0019,
-          readingValues: [
-            { value: element.ff0005 },
-            { value: element.ff0006 }
-          ],
+          readingValues: readingValues,
           minimum: element.ff0005,
           maximum: element.ff0006,
           average: element.ff0007,
