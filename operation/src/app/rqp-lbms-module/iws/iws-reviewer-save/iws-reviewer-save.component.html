@@ -24,25 +24,25 @@
 
 <app-common-title [title]="'Quantitative Test'"></app-common-title>
 <div class="parameter-card" *ngFor="let parameter of QpsrRecordList">
-<div class="row no-gutters ms-1 me-1 dense-4">
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Parameter Number</mat-label>
-        <input type="text" matInput [(ngModel)]="parameter.parameterNo" placeholder="Parameter Number" readonly />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Set Point Number</mat-label>
-        <input type="number" matInput [(ngModel)]="parameter.setPointNo" placeholder="Set Point Number" readonly />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Parameter Name</mat-label>
-        <input type="text" matInput [(ngModel)]="parameter.parameterName" placeholder="Parameter Name" readonly />
-    </mat-form-field>
-    <!-- <div class="float-right col-3">
+    <div class="row no-gutters ms-1 me-1 dense-4">
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Parameter Number</mat-label>
+            <input type="text" matInput [(ngModel)]="parameter.parameterNo" placeholder="Parameter Number" readonly />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Set Point Number</mat-label>
+            <input type="number" matInput [(ngModel)]="parameter.setPointNo" placeholder="Set Point Number" readonly />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Parameter Name</mat-label>
+            <input type="text" matInput [(ngModel)]="parameter.parameterName" placeholder="Parameter Name" readonly />
+        </mat-form-field>
+        <!-- <div class="float-right col-3">
         <button mat-raised-button class="submitButton" [disabled]="disableButtons" (click)="onGenerateParameters()">
             Generate Fields
         </button>
     </div> -->
-</div>
+    </div>
 
     <h3>{{parameter.parameterName}} {{ parameter.parameterNo }}</h3>
 
@@ -107,18 +107,18 @@
 <!----------------------------Qualitative----------------------->
 <app-common-title [title]="'Qualitative Test'"></app-common-title>
 <div class="parameter-card" *ngFor="let parameter of QlpRecordList">
-<div class="row no-gutters ms-1 me-1 dense-4">
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Qualitative Parameter Number</mat-label>
-        <input type="text" matInput [(ngModel)]="parameter.qualitativeParameterNo" placeholder="Parameter Number" />
-    </mat-form-field>
-    <!-- <div class="float-right col-3">
+    <div class="row no-gutters ms-1 me-1 dense-4">
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Qualitative Parameter Number</mat-label>
+            <input type="text" matInput [(ngModel)]="parameter.qualitativeParameterNo" placeholder="Parameter Number" />
+        </mat-form-field>
+        <!-- <div class="float-right col-3">
         <button mat-raised-button class="submitButton" [disabled]="disableButtons"
             (click)="onGenerateQualitativeParameters()">
             Generate Qualitative Parametes
         </button>
     </div> -->
-</div>
+    </div>
 
     <h3>Qualitative ParameterNo {{ parameter.qualitativeParameterNo }}</h3>
 
@@ -147,26 +147,29 @@
 
 <app-common-title [title]="'Multi Quantitative Test'"></app-common-title>
 <div class="parameter-card" *ngFor="let parameter of quantitativeParameters">
-<div class="row no-gutters ms-1 me-1 dense-4">
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Parameter Number</mat-label>
-        <input type="number" matInput [(ngModel)]="parameter.quantitativeParameterNo" placeholder="Parameter Number" />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Set Point Number</mat-label>
-        <input type="number" matInput [(ngModel)]="parameter.quantitativeSetPointNo" placeholder="Set Point Number" />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Parameter Name</mat-label>
-        <input type="text" matInput [(ngModel)]="parameter.quantitativeParameterName" placeholder="Parameter Name" />
-    </mat-form-field>
-    <!-- <div class="float-right col-3">
+    <div class="row no-gutters ms-1 me-1 dense-4">
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Parameter Number</mat-label>
+            <input type="number" matInput [(ngModel)]="parameter.quantitativeParameterNo"
+                placeholder="Parameter Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Set Point Number</mat-label>
+            <input type="number" matInput [(ngModel)]="parameter.quantitativeSetPointNo"
+                placeholder="Set Point Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-3 px-1">
+            <mat-label>Parameter Name</mat-label>
+            <input type="text" matInput [(ngModel)]="parameter.quantitativeParameterName"
+                placeholder="Parameter Name" />
+        </mat-form-field>
+        <!-- <div class="float-right col-3">
         <button mat-raised-button class="submitButton" [disabled]="disableButtons"
             (click)="onGenerateQuantitativeParameters()">
             Generate Fields
         </button>
     </div> -->
-</div>
+    </div>
 
     <h3>{{parameter.quantitativeParameterName}} {{ parameter.quantitativeParameterNo }}</h3>
 
