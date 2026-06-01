@@ -62,7 +62,7 @@ export class FgUnderTestListComponent implements OnInit {
   }
 
   public submit(value: any) {
-    this.whService.saveFgUnderTestLList(value.uc0001, value.ff0002).subscribe((data: any) => {
+    this.whService.saveFgUnderTestLList(value.uc0001, value.status).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {

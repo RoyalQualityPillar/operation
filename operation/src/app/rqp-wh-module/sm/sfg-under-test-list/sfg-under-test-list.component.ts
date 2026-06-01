@@ -23,9 +23,12 @@ export class SfgUnderTestListComponent implements OnInit {
   public isLoading = false;
   displayedColumns = [
     'ff0001',
+    'ff0002',
     'ff0003',
     'ff0004',
     'ff0006',
+    'ff0023',
+    'ff0024',
     'createdon',
     'createdby',
     'action',
@@ -61,7 +64,7 @@ export class SfgUnderTestListComponent implements OnInit {
   }
 
   public submit(value: any) {
-    this.whService.saveFgUnderTestLList(value.uc0001, value.ff0002).subscribe((data: any) => {
+    this.whService.saveFgUnderTestLList(value.uc0001, value.status).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
