@@ -225,7 +225,8 @@ export class CommonButtonBarComponent {
       body.documentModule = 'WH';
     }
     if (
-      this.headerData.modulecode == 'IWS' 
+      this.headerData.modulecode == 'IWS' ||
+      this.headerData.modulecode == 'IWR' 
     ) {
       body.documentModule = 'IMS';
     }

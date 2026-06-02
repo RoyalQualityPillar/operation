@@ -80,7 +80,6 @@ export class IwsInitiatorComponent implements OnInit {
     let body: any;
     body = {
       lcNumber: this.headerRequestBody.lifeCycleCode,
-      //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
     this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
@@ -118,7 +117,6 @@ export class IwsInitiatorComponent implements OnInit {
     for (let j = 0; j < this.qualitativeParameterNo; j++) {
       this.qualitativeParameters.push({
         qualitativeparameterNo: j + 1,
-
         setPoints: [
           {
             qualitativeSetPoints: '',
@@ -127,14 +125,11 @@ export class IwsInitiatorComponent implements OnInit {
         ]
       });
     }
-
   }
   onGenerateQuantitativeParameters() {
     this.quantitativeParameters = [];
-
     for (let i = 0; i < this.quantitativeParameterNo; i++) {
       const setPoints = [];
-
       for (let j = 0; j < this.quantitativeSetPointNo; j++) {
         setPoints.push({
           // setPointType: 'Single',
@@ -160,7 +155,6 @@ export class IwsInitiatorComponent implements OnInit {
           readingValues: []
         });
       }
-
       this.quantitativeParameters.push({
         quantitativeParameterNo: i + 1,
         quantitativeParameterName: this.quantitativeParameterName,
@@ -186,21 +180,14 @@ export class IwsInitiatorComponent implements OnInit {
   }
   generateReadingFields(value: any) {
     value.readingValues = [];
-
     const count = Number(value.readings);
-
     if (count > 0) {
-
       for (let i = 0; i < count; i++) {
-
         value.readingValues.push({
           value: ''
         });
-
       }
-
     }
-
   }
 
   calculateStatistics(statistics: any) {
@@ -246,7 +233,6 @@ export class IwsInitiatorComponent implements OnInit {
 
   checkMultiQuantitativeResult(sp: any) {
     if (
-
       sp.minimum === '' ||
       sp.maximum === '' ||
       sp.average === '' ||
@@ -258,7 +244,6 @@ export class IwsInitiatorComponent implements OnInit {
       sp.averageUpper === '' ||
       sp.quantitativeStandardDeviation === '' ||
       sp.quantitativeRelativeStandardDeviation === ''
-
     ) {
 
       sp.result = '';
@@ -301,11 +286,7 @@ export class IwsInitiatorComponent implements OnInit {
 
     }
 
-
-
     // ====================  // 2. Average Validation  // ==================
-
-
 
     if (
 
@@ -402,11 +383,13 @@ export class IwsInitiatorComponent implements OnInit {
     }
     const instrumentindexValue = this.InstrumentForm.value;
     const qualitativeRecordList: any[] = [];
+    const qpsrRecordList: any[] = [];
+    const qtmpRecordList: any[] = [];
 
     this.qualitativeParameters.forEach((element: any) => {
       element.setPoints.forEach((ele: any) => {
         qualitativeRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: element.qualitativeparameterNo,
           // ff0001:"string",
           ff0002: ele.qualitativeSetPoints,
@@ -420,14 +403,10 @@ export class IwsInitiatorComponent implements OnInit {
       });
     });
 
-    const qpsrRecordList: any[] = [];
-
     this.parameters.forEach((parameter: any) => {
-
       parameter.setPoints.forEach((sp: any) => {
-
         qpsrRecordList.push({
-          uc0001: '',
+          uc0001: null,
           ff0001: parameter.parameterNo,
           // ff0001:"string",
           ff0002: parameter.parameterName,
@@ -453,7 +432,6 @@ export class IwsInitiatorComponent implements OnInit {
       });
 
     });
-    const qtmpRecordList: any[] = [];
 
     this.quantitativeParameters.forEach((parameter: any) => {
 
@@ -501,11 +479,8 @@ export class IwsInitiatorComponent implements OnInit {
           });
         }
         qtmpRecordList.push(qtmpObj);
-
       });
-
     });
-
 
     let body = {
       lcRequest: {
@@ -528,7 +503,7 @@ export class IwsInitiatorComponent implements OnInit {
       "qlpRecordList": qualitativeRecordList,
       "cdIndexList": [
         {
-          uc0001: '',
+          uc0001: null,
           ff0001: instrumentindexValue.instrumentNumber,
           ff0002: instrumentindexValue.instrumentName,
           ff0003: instrumentindexValue.instrumentCode,
@@ -551,7 +526,7 @@ export class IwsInitiatorComponent implements OnInit {
       "qtmpRecordList": qtmpRecordList,
       "qpmrRecordList": [
         {
-          uc0001: '',
+          uc0001: null,
           ff0001: "string",
           ff0002: "string",
           ff0003: "string",
@@ -624,8 +599,6 @@ export class IwsInitiatorComponent implements OnInit {
     }
   }
 
-
-
   openStatusLOV() {
     this.displayedColumns = [
       { field: 'uc0001', title: 'Instrument Number' },
@@ -654,17 +627,8 @@ export class IwsInitiatorComponent implements OnInit {
           instrumentName: this.selectedDialogData.ff0001,
           instrumentNumber: this.selectedDialogData.uc0001
         });
-
       }
-
     });
-    this.InstrumentForm = this.fb.group({
-      checkPoint: [''],
-      status: [''],
-      remarks: ['']
-    });
-
-
   }
   // onChangeInstrumentCode() {
 

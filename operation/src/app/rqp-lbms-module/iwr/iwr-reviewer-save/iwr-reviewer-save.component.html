@@ -13,19 +13,19 @@
 <div class="row no-gutters ms-1 me-1 dense-4" [formGroup]="InstrumentForm">
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Instrument Code</mat-label>
-        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code" />       
+        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code" readonly/>       
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Instrument Name</mat-label>
-        <input type="text" matInput formControlName="instrumentName" placeholder="Instrument Name" />
+        <input type="text" matInput formControlName="instrumentName" placeholder="Instrument Name" readonly/>
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Instrument Number</mat-label>
-        <input type="text" matInput formControlName="instrumentNumber" placeholder="Instrument Number" />
+        <input type="text" matInput formControlName="instrumentNumber" placeholder="Instrument Number" readonly/>
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Schedule Date</mat-label>
-        <input type="text" matInput formControlName="scheduleDate" placeholder="Schedule Date" />
+        <input type="text" matInput formControlName="scheduleDate" placeholder="Schedule Date" readonly/>
     </mat-form-field>
 </div>
 
@@ -35,11 +35,11 @@
     <div class="row no-gutters ms-1 me-1 dense-4">
         <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Parameter Number</mat-label>
-            <input type="text" matInput [(ngModel)]="parameter.parameterNo" placeholder="Parameter Number" />
+            <input type="text" matInput [(ngModel)]="parameter.parameterNo" placeholder="Parameter Number" readonly/>
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Set Point Number</mat-label>
-            <input type="number" matInput [(ngModel)]="parameter.setPointNo" placeholder="Set Point Number" />
+            <input type="number" matInput [(ngModel)]="parameter.setPointNo" placeholder="Set Point Number" readonly/>
         </mat-form-field>      
         <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Parameter Name</mat-label>
@@ -54,20 +54,25 @@
 
                 <mat-form-field appearance="outline" class="col-2 px-1">
                     <mat-label>Set Point {{ j + 1 }}</mat-label>
-                    <input type="text" matInput [(ngModel)]="sp.setPoint" (input)="checkResult(sp)">
+                    <input type="text" matInput [(ngModel)]="sp.setPoint" (input)="checkResult(sp)" readonly>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="col-2 px-1">
                     <mat-label>Min</mat-label>
-                    <input type="text" matInput [(ngModel)]="sp.min" (input)="checkResult(sp)">
+                    <input type="text" matInput [(ngModel)]="sp.min" (input)="checkResult(sp)" readonly>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="col-2 px-1">
                     <mat-label>Max</mat-label>
-                    <input type="text" matInput [(ngModel)]="sp.max" (input)="checkResult(sp)">
+                    <input type="text" matInput [(ngModel)]="sp.max" (input)="checkResult(sp)" readonly>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-form-field appearance="outline" class="col-2 px-1">
+                    <mat-label>UOM</mat-label>
+                    <input type="text" matInput [(ngModel)]="sp.uom" readonly>
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>UOM</mat-label>
 
                     <mat-select [(ngModel)]="sp.uom">
@@ -79,7 +84,7 @@
                         </mat-option>
 
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field appearance="outline" class="col-3 px-1 result">
                     <mat-label>Result</mat-label>
                     <input type="text" matInput [value]="sp.result"
@@ -103,7 +108,7 @@
     <div class="row no-gutters ms-1 me-1 dense-4">
         <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Qualitative Parameter Number</mat-label>
-            <input type="text" matInput [(ngModel)]="parameter.qualitativeParameterNo" placeholder="Parameter Number" />
+            <input type="text" matInput [(ngModel)]="parameter.qualitativeParameterNo" placeholder="Parameter Number" readonly/>
         </mat-form-field>       
     </div>  
 
@@ -112,10 +117,9 @@
         <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
 
             <div class="row no-gutters ms-1 me-1 dense-4">
-
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>Set Point {{ j + 1 }}</mat-label>
-                    <input type="text" matInput [(ngModel)]="sp.qualitativeSetPoints">
+                    <input type="text" matInput [(ngModel)]="sp.qualitativeSetPoints" readonly>
                 </mat-form-field>
             </div>
 
@@ -137,16 +141,16 @@
     <div class="row no-gutters ms-1 me-1 dense-4">
         <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Parameter Number</mat-label>
-            <input type="number" matInput [(ngModel)]="parameter.quantitativeParameterNo" placeholder="Parameter Number" />
+            <input type="number" matInput [(ngModel)]="parameter.quantitativeParameterNo" placeholder="Parameter Number" readonly/>
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Set Point Number</mat-label>
-            <input type="number" matInput [(ngModel)]="parameter.quantitativeSetPointNo" placeholder="Set Point Number" />
+            <input type="number" matInput [(ngModel)]="parameter.quantitativeSetPointNo" placeholder="Set Point Number" readonly/>
         </mat-form-field>       
          <mat-form-field appearance="outline" class="col-3 px-1">
             <mat-label>Parameter Name</mat-label>
             <input type="text" matInput [(ngModel)]="parameter.quantitativeParameterName"
-                placeholder="Parameter Name" />
+                placeholder="Parameter Name" readonly/>
         </mat-form-field>       
     </div>   
 
@@ -156,11 +160,11 @@
             <div class="row no-gutters ms-1 me-1 dense-4">
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>Set Point {{ j + 1 }}</mat-label>
-                    <input type="text" matInput [(ngModel)]="sp.setPoint">
+                    <input type="text" matInput [(ngModel)]="sp.setPoint" readonly>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>Readings</mat-label>
-                    <input type="number" matInput [(ngModel)]="sp.readings" (input)="generateReadingFields(sp)">
+                    <input type="number" matInput [(ngModel)]="sp.readings" (input)="generateReadingFields(sp)" readonly>
                 </mat-form-field>
             </div>
 
@@ -173,7 +177,7 @@
                             Reading {{ k + 1 }}
                         </mat-label>
 
-                        <input type="number" matInput [(ngModel)]="reading.value" (input)="calculateStatistics(sp)">
+                        <input type="number" matInput [(ngModel)]="reading.value" (input)="calculateStatistics(sp)" readonly>
 
                     </mat-form-field>
 
@@ -210,16 +214,16 @@
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>PassLimit Minimum</mat-label>
                     <input type="number" matInput [(ngModel)]="sp.passLimitMin"
-                        (input)="checkMultiQuantitativeResult(sp)">
+                        (input)="checkMultiQuantitativeResult(sp)" readonly>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>PassLimit Maximum</mat-label>
                     <input type="number" matInput [(ngModel)]="sp.passLimitMax"
-                        (input)="checkMultiQuantitativeResult(sp)">
+                        (input)="checkMultiQuantitativeResult(sp)" readonly>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="col-3 px-1">
+                <!-- <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>UOM</mat-label>
                     <mat-select [(ngModel)]="sp.uom">
                         <mat-option value="">Select UOM</mat-option>
@@ -227,28 +231,34 @@
                             {{ uom }}
                         </mat-option>
                     </mat-select>
+                </mat-form-field> -->
+
+                <mat-form-field appearance="outline" class="col-2 px-1">
+                    <mat-label>UOM</mat-label>
+                    <input type="text" matInput [(ngModel)]="sp.uom" readonly>
                 </mat-form-field>
+
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>Average Lower</mat-label>
                     <input type="number" matInput [(ngModel)]="sp.averageLower"
-                        (input)="checkMultiQuantitativeResult(sp)">
+                        (input)="checkMultiQuantitativeResult(sp)" readonly>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>Average Upper</mat-label>
                     <input type="number" matInput [(ngModel)]="sp.averageUpper"
-                        (input)="checkMultiQuantitativeResult(sp)">
+                        (input)="checkMultiQuantitativeResult(sp)" readonly>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label>Standard Deviation</mat-label>
                     <input type="number" matInput [(ngModel)]="sp.quantitativeStandardDeviation"
-                        (input)="checkMultiQuantitativeResult(sp)">
+                        (input)="checkMultiQuantitativeResult(sp)" readonly>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="col-3 px-1">
                     <mat-label> Relative Standard Deviation</mat-label>
                     <input type="number" matInput [(ngModel)]="sp.quantitativeRelativeStandardDeviation"
-                        (input)="checkMultiQuantitativeResult(sp)">
+                        (input)="checkMultiQuantitativeResult(sp)" readonly>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="col-3 px-1 result">
