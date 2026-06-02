@@ -4,12 +4,12 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         Product Order Number
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0025 }} </mat-cell>
     </ng-container>
      <ng-container matColumnDef="ff0002">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Product Number
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Batch Number
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0022 }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ff0003">
@@ -27,9 +27,18 @@
     <ng-container matColumnDef="ff0006">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
       </mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.ff0010 }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0006 }}</mat-cell>
     </ng-container>
-    
+    <ng-container matColumnDef="ff0023">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Mfg date 
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0023 }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ff0024">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Exp Date
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0024 }}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="createdon">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
       </mat-header-cell>
