@@ -198,6 +198,7 @@ export class IwrInitiatorComponent implements OnInit {
       this.quantitativeParameters.push({
         quantitativeParameterNo: i + 1,
         quantitativeParameterName: this.quantitativeParameterName,
+        quantitativeSetPointNo: this.quantitativeSetPointNo,
         setPoints: setPoints
       });
       console.log(this.quantitativeParameters);
@@ -284,14 +285,11 @@ export class IwrInitiatorComponent implements OnInit {
     // statistics.relativeStandardDeviation = rsd.toFixed(2);
     statistics.relativeStandardDeviation =
       Number(rsd.toFixed(2));
-    console.log(statistics)
     this.checkMultiQuantitativeResult(statistics);
   }
 
   checkMultiQuantitativeResult(sp: any) {
-    console.log(sp)
     if (
-
       sp.minimum === '' ||
       sp.maximum === '' ||
       sp.average === '' ||
@@ -417,7 +415,6 @@ export class IwrInitiatorComponent implements OnInit {
         }
       }
     });
-
   }
   async onSubmitConfirmation() {
     const component = await this.remoteLoader.loadComponentByKey('CommonESignatureComponent');
@@ -435,210 +432,7 @@ export class IwrInitiatorComponent implements OnInit {
         }
       }
     });
-
   }
-  // onSubmit(value: any) {
-  //   this.disableButtons = true;
-  //   let draftValue: boolean;
-  //   if (value == 1) {
-  //     draftValue = false;
-  //   } else {
-  //     draftValue = true;
-  //   }
-  //   const instrumentindexValue = this.InstrumentForm.value;
-  //   const qualitativeRecordList: any[] = [];
-
-  //   this.qualitativeParameters.forEach((element: any) => {
-  //     element.setPoints.forEach((ele: any) => {
-  //       qualitativeRecordList.push({
-  //         uc0001: null,
-  //         ff0001: element.qualitativeparameterNo,
-  //         ff0002: ele.qualitativeSetPoints,
-  //         ff0003: ele.qualitativePassLimit,
-  //         ff0004: 0,
-  //         ff0005: "string",
-  //         createdby: this.cookieService.get('userId'),
-  //         status: 0,
-  //         comments: this.comments
-  //       });
-  //     });
-  //   });
-  //   console.log(qualitativeRecordList);
-
-  //   const qpsrRecordList: any[] = [];
-
-  //   this.parameters.forEach((parameter: any) => {
-
-  //     parameter.setPoints.forEach((sp: any) => {
-
-  //       qpsrRecordList.push({
-  //         uc0001: null,
-  //         ff0001: parameter.parameterNo,
-  //         ff0002: parameter.parameterName,
-  //         ff0003: sp.setPoint,
-  //         ff0004: sp.min,
-  //         ff0005: sp.max,
-  //         ff0006: sp.uom,
-  //         ff0007: sp.result,
-  //         ff0008: sp.passLimit,
-  //         ff0009: parameter.setPointNo,
-  //         ff0010: "string",
-  //         lc0001: "string",
-  //         lc0002: "string",
-  //         lc0003: "string",
-  //         lc0004: "string",
-  //         lc0005: "string",
-  //         lc0006: "string",
-  //         createdby: this.cookieService.get('userId'),
-  //         status: 0,
-  //         comments: this.comments
-  //       });
-
-  //     });
-
-  //   });
-
-  //   console.log('qpsrRecordList', qpsrRecordList);
-
-  //   const qtmpRecordList: any[] = [];
-
-  //   this.quantitativeParameters.forEach((parameter: any) => {
-
-  //     parameter.setPoints.forEach((sp: any) => {
-
-  //       qtmpRecordList.push({
-  //         uc0001: null,
-  //         ff0001: parameter.quantitativeParameterNo,
-  //         ff0002: parameter.quantitativeParameterName,
-  //         ff0003: parameter.quantitativeSetPointNo,
-  //         ff0004: sp.setPoint,
-  //         ff0005: sp.minimum,
-  //         ff0006: sp.maximum,
-  //         ff0007: sp.average,
-  //         ff0008: sp.standardDeviation,
-  //         ff0009: sp.relativeStandardDeviation,
-  //         ff0010: sp.result,
-  //         ff0011: sp.passLimit,
-  //         ff0012: sp.uom,
-  //         ff0013: sp.passLimitMin,
-  //         ff0014: sp.passLimitMax,
-  //         ff0015: sp.averageLower,
-  //         ff0016: sp.averageUpper,
-  //         ff0017: sp.quantitativeStandardDeviation,
-  //         ff0018: sp.quantitativeRelativeStandardDeviation,
-  //         ff0019: sp.readings,
-  //         // ff0020: sp.readingValues,
-  //         ff0020: "string",
-  //         lc0001: "string",
-  //         lc0002: "string",
-  //         lc0003: "string",
-  //         lc0004: "string",
-  //         lc0005: "string",
-  //         lc0006: "string",
-  //         createdby: this.cookieService.get('userId'),
-  //         status: 0,
-  //         comments: this.comments
-  //       });
-
-  //     });
-
-  //   });
-
-  //   console.log('qpmrRecordList', qtmpRecordList);
-
-  //   let body = {
-  //     lcRequest: {
-  //       unitCode: this.headerData.unitcode,
-  //       moduleCode: this.headerData.modulecode,
-  //       departmentCode: this.headerData.departmentcode,
-  //       lcNumber: this.headerData.lcnum,
-  //       lcStage: this.headerData.stage,
-  //       stage2: 0,
-  //       draft: draftValue,
-  //       comments: this.comments,
-  //       requestType: '',
-  //       createdBy: this.cookieService.get('userId'),
-  //       lcRole: this.headerData.role,
-  //       documentModule: 'LBMS',
-  //       documentStatus: '',
-  //       gmuserDTOList: [],
-  //     },
-
-  //     "qlpRecordList": qualitativeRecordList,
-  //     "cdIndexList": [
-  //       {
-  //         uc0001: null,
-  //         ff0001: instrumentindexValue.instrumentNumber,
-  //         ff0002: instrumentindexValue.instrumentName,
-  //         ff0003: instrumentindexValue.instrumentCode,
-  //         ff0004: instrumentindexValue.scheduleDate,
-  //         ff0005: "string",
-  //         ff0006: "string",
-  //         ff0008: "string",
-  //         lc0001: "string",
-  //         lc0002: "string",
-  //         lc0003: "string",
-  //         lc0004: "string",
-  //         lc0005: "string",
-  //         lc0006: "string",
-  //         createdby: this.cookieService.get('userId'),
-  //         status: 0,
-  //         comments: this.comments
-  //       }
-  //     ],
-  //     "qpsrRecordList": qpsrRecordList,
-  //     "qtmpRecordList": qtmpRecordList,
-  //     "qpmrRecordList": [
-  //       {
-  //         uc0001: null,
-  //         ff0001: "string",
-  //         ff0002: "string",
-  //         ff0003: "string",
-  //         ff0004: "string",
-  //         ff0005: "string",
-  //         ff0006: "string",
-  //         ff0008: "string",
-  //         ff0009: "string",
-  //         ff0010: "string",
-  //         ff0011: "string",
-  //         lc0001: "string",
-  //         lc0002: "string",
-  //         lc0003: "string",
-  //         lc0004: "string",
-  //         lc0005: "string",
-  //         lc0006: "string",
-  //         createdby: this.cookieService.get('userId'),
-  //         status: 0,
-  //         comments: this.comments
-  //       }
-  //     ],
-  //     "anyListNonEmpty": true
-  //   };
-  //   console.log(body)
-  //   this.isLoading = true;
-  //   this.iwsSwervice
-  //     .saveCalibrationWorksheetMaster(body)
-  //     .subscribe((data: any) => {
-  //       if (data.errorInfo != null) {
-  //         this.isLoading = false;
-  //         this.dialog.open(MessageDialogComponent, {
-  //           data: {
-  //             message: data.errorInfo.message,
-  //             heading: 'Error Information',
-  //           },
-  //         });
-  //       } else {
-  //         this.isLoading = false;
-
-  //         this.notificationService.showSuccess(data.status, () => { });
-  //         timer(2000)
-  //           .pipe(takeUntil(this.destroy$))
-  //           .subscribe(() => {
-  //             this.route.navigateByUrl('/rqpoperationui/lbms/iwr-module-admin');
-  //           });
-  //       }
-  //     });
-  // }
 
  onSubmit(value: any) {
     this.disableButtons = true;
@@ -709,9 +503,44 @@ export class IwrInitiatorComponent implements OnInit {
 
       parameter.setPoints.forEach((sp: any) => {
 
-        qtmpRecordList.push({
+        // qtmpRecordList.push({
+        //   uc0001: null,
+        //   ff0001: parameter.quantitativeParameterNo,
+        //   ff0002: parameter.quantitativeParameterName,
+        //   ff0003: parameter.quantitativeSetPointNo,
+        //   ff0004: sp.setPoint,
+        //   ff0005: sp.minimum,
+        //   ff0006: sp.maximum,
+        //   ff0007: sp.average,
+        //   ff0008: sp.standardDeviation,
+        //   ff0009: sp.relativeStandardDeviation,
+        //   ff0010: sp.result,
+        //   ff0011: sp.passLimit,
+        //   ff0012: sp.uom,
+        //   ff0013: sp.passLimitMin,
+        //   ff0014: sp.passLimitMax,
+        //   ff0015: sp.averageLower,
+        //   ff0016: sp.averageUpper,
+        //   ff0017: sp.quantitativeStandardDeviation,
+        //   ff0018: sp.quantitativeRelativeStandardDeviation,
+        //   ff0019: sp.readings,
+        //   // ff0020: sp.readingValues,
+        //   ff0020: "string",
+        //   lc0001: "string",
+        //   lc0002: "string",
+        //   lc0003: "string",
+        //   lc0004: "string",
+        //   lc0005: "string",
+        //   lc0006: "string",
+        //   createdby: this.cookieService.get('userId'),
+        //   status: 0,
+        //   comments: this.comments
+        // });
+
+     const qtmpObj: any = {
           uc0001: null,
           ff0001: parameter.quantitativeParameterNo,
+          // ff0001:"string",
           ff0002: parameter.quantitativeParameterName,
           ff0003: parameter.quantitativeSetPointNo,
           ff0004: sp.setPoint,
@@ -741,8 +570,16 @@ export class IwrInitiatorComponent implements OnInit {
           createdby: this.cookieService.get('userId'),
           status: 0,
           comments: this.comments
-        });
-
+        };
+        if (sp.readingValues && sp.readingValues.length > 0) {
+          sp.readingValues.forEach((reading: any, index: number) => {
+            const fieldNo = 21 + index;
+            const fieldName = 'ff' + fieldNo.toString().padStart(4, "0");
+            qtmpObj[fieldName] = reading.value;
+          });
+        }
+        qtmpRecordList.push(qtmpObj);
+     
       });
 
     });
@@ -906,9 +743,6 @@ export class IwrInitiatorComponent implements OnInit {
       if (result) {
 
         this.selectedDialogData = result.data;
-
-        console.log(this.selectedDialogData);
-
         this.InstrumentForm.patchValue({
           instrumentCode: this.selectedDialogData.ff0005,
           instrumentName: this.selectedDialogData.ff0001,
@@ -916,7 +750,6 @@ export class IwrInitiatorComponent implements OnInit {
           scheduleDate: this.selectedDialogData.ff0004
         });       
           this.lc0002Value = this.selectedDialogData.ff0002;
-          console.log(this.lc0002Value);
           this.getQlpRecordList(this.lc0002Value);
           //this.getCdIndexList(this.lc0002Value);
           this.getQpsrRecordList(this.lc0002Value);
@@ -1040,20 +873,20 @@ export class IwrInitiatorComponent implements OnInit {
           setPoint: element.ff0004,
           readings: element.ff0019,
           readingValues: readingValues,
-          minimum: element.ff0005,
-          maximum: element.ff0006,
-          average: element.ff0007,
-          standardDeviation: element.ff0008,
-          relativeStandardDeviation: element.ff0009,
+          minimum: '',
+          maximum: '',
+          average: '',
+          standardDeviation: '',
+          relativeStandardDeviation: '',
           result: element.ff0010,
           passLimit: element.ff0011,
           uom: element.ff0012,
-          passLimitMin: element.ff0013,
-          passLimitMax: element.ff0014,
-          averageLower: element.ff0015,
-          averageUpper: element.ff0016,
-          quantitativeStandardDeviation: element.ff0017,
-          quantitativeRelativeStandardDeviation: element.ff0018
+          passLimitMin: element.ff0012,
+          passLimitMax: element.ff0012,
+          averageLower: element.ff0012,
+          averageUpper: element.ff0012,
+          quantitativeStandardDeviation: element.ff0012,
+          quantitativeRelativeStandardDeviation: ''
         });
 
       });

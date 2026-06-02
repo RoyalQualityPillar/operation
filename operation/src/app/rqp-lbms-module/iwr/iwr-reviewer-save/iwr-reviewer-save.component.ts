@@ -20,10 +20,9 @@ import { Router } from '@angular/router';
 export class IwrReviewerSaveComponent implements OnInit {
   public redirectUrl: string = '/rqpoperationui/lbms/iwr-module-admin';
   public InstrumentForm: FormGroup;
-  public futurDate = new Date().toISOString().slice(0, 16);
   public pageData: any;
   public headerData: any;
-    public userCurrentComments: any;
+  public userCurrentComments: any;
   public isLoading: boolean;
   public disableButtons = false;
   public comments: string;
@@ -50,8 +49,8 @@ export class IwrReviewerSaveComponent implements OnInit {
   public lc0002: any;
   public ff0001: any;
   public lc0001: any;
-   public ff0005: number;
-     public ff0002: any;
+  public ff0005: number;
+  public ff0002: any;
   public QlpRecordList: any;
   public CdIndexList: any;
   public QpsrRecordList: any;
@@ -79,7 +78,7 @@ export class IwrReviewerSaveComponent implements OnInit {
   }
   ngOnInit(): void {
     this.onLoadInstrumentCode();
-    this.getCalculationAssignamentList();
+    // this.getCalculationAssignamentList();
     this.pageData = {
       pageName: 'homePage',
     };
@@ -87,7 +86,6 @@ export class IwrReviewerSaveComponent implements OnInit {
     let params: any = null;
     if (reviewData) {
       params = JSON.parse(reviewData);
-      console.log(params)
       this.pageData = {
         pageName: 'qtUpdateDetail',
         requestNo: params.uc0001,
@@ -121,10 +119,8 @@ export class IwrReviewerSaveComponent implements OnInit {
     let body: any;
     body = {
       lcNumber: this.headerRequestBody.lifeCycleCode,
-      //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
-    console.log(body);
     this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
     });
@@ -166,7 +162,6 @@ export class IwrReviewerSaveComponent implements OnInit {
         setPointNo: this.setPointNo,
         setPoints: setPoints
       });
-      console.log(this.parameters);
     }
 
   }
@@ -183,7 +178,6 @@ export class IwrReviewerSaveComponent implements OnInit {
           }
         ]
       });
-      console.log(this.qualitativeParameters);
     }
 
   }
@@ -224,7 +218,6 @@ export class IwrReviewerSaveComponent implements OnInit {
         quantitativeParameterName: this.quantitativeParameterName,
         setPoints: setPoints
       });
-      console.log(this.quantitativeParameters);
     }
 
   }
@@ -244,7 +237,6 @@ export class IwrReviewerSaveComponent implements OnInit {
     }
   }
   generateReadingFields(value: any) {
-    console.log(value.readings)
     value.readingValues = [];
 
     const count = Number(value.readings);
@@ -256,15 +248,11 @@ export class IwrReviewerSaveComponent implements OnInit {
         value.readingValues.push({
           value: ''
         });
-
       }
-
     }
-
   }
 
   calculateStatistics(statistics: any) {
-    console.log(statistics);
     const values = statistics.readingValues
       .map((r: any) => Number(r.value))
       .filter((v: number) => !isNaN(v));
@@ -308,12 +296,10 @@ export class IwrReviewerSaveComponent implements OnInit {
     // statistics.relativeStandardDeviation = rsd.toFixed(2);
     statistics.relativeStandardDeviation =
       Number(rsd.toFixed(2));
-    console.log(statistics)
     this.checkMultiQuantitativeResult(statistics);
   }
 
   checkMultiQuantitativeResult(sp: any) {
-    console.log(sp)
     if (
 
       sp.minimum === '' ||
@@ -424,21 +410,21 @@ export class IwrReviewerSaveComponent implements OnInit {
     sp.result = isPass ? 'PASS' : 'FAIL';
 
   }
- 
+
   onLoadInstrumentCode() {
     let unitCode = this.cookieService.get('buCode');
     this.iwsSwervice.getAllInstrmentsList(unitCode).subscribe((data: any) => {
       this.instrumrntInfo = data.data;
     });
   }
-  getCalculationAssignamentList(){
-     let unitCode = this.cookieService.get('buCode');
-    this.iwrSwervice.getCalculationAssignamentList(unitCode).subscribe((data:any) => {
+  getCalculationAssignamentList() {
+    let unitCode = this.cookieService.get('buCode');
+    this.iwrSwervice.getCalculationAssignamentList(unitCode).subscribe((data: any) => {
       this.calAssignmentData = data.data;
       this.getQlpRecordList(this.lc0002);
-        this.getCdIndexList(this.lc0002);
-        this.getQpsrRecordList(this.lc0002);
-        this.getQtmpRecordList(this.lc0002);
+      this.getCdIndexList(this.lc0002);
+      this.getQpsrRecordList(this.lc0002);
+      this.getQtmpRecordList(this.lc0002);
     });
   }
 
@@ -519,7 +505,7 @@ export class IwrReviewerSaveComponent implements OnInit {
 
           setPoints: [
             {
-              qualitativeSetPoints: '',
+              qualitativeSetPoints: element.ff0002,
               qualitativePassLimit: element.ff0003
             }
           ]
@@ -534,7 +520,8 @@ export class IwrReviewerSaveComponent implements OnInit {
       this.InstrumentForm.patchValue({
         instrumentCode: this.CdIndexList.ff0003,
         instrumentName: this.CdIndexList.ff0002,
-        instrumentNumber: this.CdIndexList.ff0001
+        instrumentNumber: this.CdIndexList.ff0001,
+        scheduleDate: this.CdIndexList.ff0004
       });
     });
   }
@@ -554,7 +541,7 @@ export class IwrReviewerSaveComponent implements OnInit {
           existingParam = {
             parameterNo: element.ff0001,
             parameterName: element.ff0002,
-             setPointNo: element.ff0009,
+            setPointNo: element.ff0009,
             setPoints: []
           };
 
@@ -564,11 +551,11 @@ export class IwrReviewerSaveComponent implements OnInit {
         // push setpoint
         existingParam.setPoints.push({
 
-          setPoint:'',
+          setPoint: element.ff0003,
           min: element.ff0004,
           max: element.ff0005,
           uom: element.ff0006,
-          result: '',
+          result: element.ff0007,
           passLimit: element.ff0008
 
         });
@@ -603,20 +590,20 @@ export class IwrReviewerSaveComponent implements OnInit {
           QtmpRecordData.push(existingParam);
 
         }
- const readingValues: any[] = [];
+        const readingValues: any[] = [];
 
-      const totalReadings = Number(element.ff0019);
+        const totalReadings = Number(element.ff0019);
 
-      for (let i = 21; i < 21 + totalReadings; i++) {
+        for (let i = 21; i < 21 + totalReadings; i++) {
 
-        const fieldName =
-          'ff' + ('0000' + i).slice(-4);
+          const fieldName =
+            'ff' + ('0000' + i).slice(-4);
 
-        readingValues.push({
-          value: element[fieldName]
-        });
+          readingValues.push({
+            value: element[fieldName]
+          });
 
-      }
+        }
         // Push setpoint
         existingParam.setPoints.push({
           setPoint: element.ff0004,
