@@ -282,8 +282,8 @@ export class PpService {
     return this.http.post(issuanceURL, '');
   }
 
-  getApprovedMaterialListData(unitCode: any, ff0004: any) {
-    const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}`;
+  getApprovedMaterialListData(unitCode: any, ff0004: any, lc0005:any) {
+    const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}&lc0005=${lc0005}`;
     const reviwerURL = this.API_URL + 'pp/approved-material-list' + queryParams;
     return this.http.get(reviwerURL);
   }
