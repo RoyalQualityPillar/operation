@@ -25,7 +25,7 @@ export class ApprovedMaterialListComponent implements OnInit {
   public tableData: MatTableDataSource<any> = new MatTableDataSource<any>();
   private dataSource: any;
   public isLoading = false;
-   public selectRow: any;
+  public selectRow: any;
   private pageIndex = 0;
   private newList: any;
   private size: any;
@@ -33,7 +33,7 @@ export class ApprovedMaterialListComponent implements OnInit {
   public tableDataLoaded = false;
   private lifeCycleInfoDataLength: any;
   public fairRecords: any;
-  public materialListValue:any;
+  public materialListValue: any;
   public addedUserdisplayedColumns: string[] = [
     'action',
     'ff0001',
@@ -51,17 +51,18 @@ export class ApprovedMaterialListComponent implements OnInit {
     public cookieService: CookieService,
     private apiService: ApiService,
     public dialog: MatDialog,
-       public dialogRef: MatDialogRef<ApprovedMaterialListComponent>,
-     private ppService: PpService,
-     private notificationService: NotificationService,
+    public dialogRef: MatDialogRef<ApprovedMaterialListComponent>,
+    private ppService: PpService,
+    private notificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.materialListValue = this.data.tableData;
     let unitcode = this.cookieService.get('buCode');
     let ff0001 = this.materialListValue.ff0001;
-  
-    this.ppService.getApprovedMaterialListData(unitcode,ff0001)
+    let lc0005 = this.materialListValue.lc0005;
+
+    this.ppService.getApprovedMaterialListData(unitcode, ff0001, lc0005)
       .subscribe((data: any) => {
         if (data.data?.length > 0) {
           this.fairRecords = data.data
@@ -80,8 +81,8 @@ export class ApprovedMaterialListComponent implements OnInit {
       });
   }
   setSelectedID(row: any) {
-  this.selectRow = row;
-}
+    this.selectRow = row;
+  }
   public pageChanged(event): void {
     if (this.dataSource?.length == GlobalConstants.size && Array.isArray(this.dataSource)) {
       if (
@@ -119,12 +120,12 @@ export class ApprovedMaterialListComponent implements OnInit {
     const ff0010 = row.ff0010 ?? '';
     return `${ff0007}.${ff0008}.${ff0009}.${ff0010}`;
   }
-  
-  onSubmit(row) {   
+
+  onSubmit(row) {
     row = this.selectRow;
     let uc0001 = this.materialListValue.uc0001;
     let lc0005 = this.materialListValue.lc0005;
- this.ppService.savePlanOrderMrpList(uc0001, lc0005, row.uc0001).subscribe((data: any) => {
+    this.ppService.savePlanOrderMrpList(uc0001, lc0005, row.uc0001).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -136,9 +137,9 @@ export class ApprovedMaterialListComponent implements OnInit {
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
-       
+
         });
-         this.dialogRef.close();
+        this.dialogRef.close();
       }
     });
   }
