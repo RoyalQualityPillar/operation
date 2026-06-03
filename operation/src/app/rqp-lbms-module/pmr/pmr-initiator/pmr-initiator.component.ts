@@ -55,10 +55,14 @@ export class PmrInitiatorComponent implements OnInit {
     private route: Router,
   ) {
     this.InstrumentForm = this.fb.group({
-      instrumentCode: [''],
-      instrumentName: [''],
-      instrumentNumber: [''],
-    });
+  instrumentCode: [''],
+  instrumentName: [''],
+  instrumentNumber: [''],
+
+  rows: this.fb.array([
+    this.createRow()
+  ])
+});
   }
   ngOnInit(): void {
     this.onLoadInstrumentCode();
@@ -554,30 +558,33 @@ export class PmrInitiatorComponent implements OnInit {
       ],
       "qpsrRecordList": qpsrRecordList,
       "qtmpRecordList": qtmpRecordList,
-      "qpmrRecordList": [
-        {
-          uc0001: null,
-          ff0001: "string",
-          ff0002: "string",
-          ff0003: "string",
-          ff0004: "string",
-          ff0005: "string",
-          ff0006: "string",
-          ff0008: "string",
-          ff0009: "string",
-          ff0010: "string",
-          ff0011: "string",
-          lc0001: "string",
-          lc0002: "string",
-          lc0003: "string",
-          lc0004: "string",
-          lc0005: "string",
-          lc0006: "string",
-          createdby: this.cookieService.get('userId'),
-          status: 0,
-          comments: this.comments
-        }
-      ],
+     "qpmrRecordList": this.rows.value.map((row: any) => ({
+  uc0001: null,
+
+  ff0004: row.checkPoint,
+  ff0005: row.status,
+  ff0006: row.remarks,
+
+  ff0001: "string",
+  ff0002: "string",
+  ff0003: "string",
+  ff0008: "string",
+  ff0009: "string",
+  ff0010: "string",
+  ff0011: "string",
+
+  lc0001: "string",
+  lc0002: "string",
+  lc0003: "string",
+  lc0004: "string",
+  lc0005: "string",
+  lc0006: "string",
+
+  createdby: this.cookieService.get('userId'),
+  status: 0,
+  comments: this.comments
+})),
+
       "anyListNonEmpty": true
     };
     this.isLoading = true;
