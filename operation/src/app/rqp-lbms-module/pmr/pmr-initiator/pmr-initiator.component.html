@@ -31,56 +31,86 @@
         <div class="float-start">Check List</div>
     </div>
 </div>
+<div class="col-2 px-1 d-flex justify-content-start">
+      <button
+        mat-raised-button
+        type="button"
+        class="submitButton"
+        (click)="addRow()">
+        Add Row
+      </button>
+</div>
 <div class="row no-gutters ms-1 me-1 align-items-center"
      [formGroup]="InstrumentForm">
 
     
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Check Point</mat-label>
-        <input type="text"
-               matInput
-               formControlName="checkPoint"
-               placeholder="Check Point" />
+  <div formArrayName="rows">
+
+  <div
+    class="row no-gutters ms-1 me-1 align-items-center"
+    *ngFor="let row of rows.controls; let i = index"
+    [formGroupName]="i">
+
+    <!-- Check Point -->
+    <mat-form-field appearance="outline" class="col-6 px-1">
+      <mat-label>Check Point</mat-label>
+
+      <input
+        matInput
+        formControlName="checkPoint"
+        placeholder="Check Point">
     </mat-form-field>
 
-    
+    <!-- Status -->
     <div class="col-4 px-1">
-        <label class="status-heading">Status</label>
 
-        <mat-radio-group formControlName="status" class="status-group">
+      <label class="status-heading">Status</label>
 
-            <mat-radio-button value="PASS" class="me-3 pass-color">
-                Pass
-            </mat-radio-button>
+      <mat-radio-group formControlName="status">
 
-            <mat-radio-button value="FAIL" class="me-3 fail-color">
-                Fail
-            </mat-radio-button>
+        <mat-radio-button value="PASS" class="pass-color me-3">
+          Pass
+        </mat-radio-button>
 
-            <mat-radio-button value="NA">
-                N/A
-            </mat-radio-button>
+        <mat-radio-button value="FAIL" class="fail-color me-3">
+          Fail
+        </mat-radio-button>
 
-        </mat-radio-group>
+        <mat-radio-button value="NA">
+          N/A
+        </mat-radio-button>
+
+      </mat-radio-group>
+
     </div>
 
-    
-    <mat-form-field appearance="outline" class="col-3 px-1">
-        <mat-label>Remarks</mat-label>
-        <input type="text"
-               matInput
-               formControlName="remarks"
-               placeholder="Remarks" />
+    <!-- Remarks -->
+    <mat-form-field appearance="outline" class="col-2 px-1">
+      <mat-label>Remarks</mat-label>
+
+      <input
+        matInput
+        formControlName="remarks"
+        placeholder="Remarks">
     </mat-form-field>
 
-    
-    <div class="col-2 px-1 text-center">
-        <button mat-raised-button
-                class="submitButton"
-                (click)="addRow()">
-            Add Row
-        </button>
-    </div>
+    <!-- Button 
+    <div class="col-2 px-1">
+
+      <button
+        mat-raised-button
+        type="button"
+        class="submitButton"
+        (click)="addRow()">
+
+        Add Row
+
+      </button>  
+
+    </div> -->
+
+  </div>
+
 
 </div>
       
