@@ -864,7 +864,8 @@ export class IwrInitiatorComponent implements OnInit {
           'ff' + ('0000' + i).slice(-4);
 
         readingValues.push({
-          value: element[fieldName]
+          // value: element[fieldName]
+          value:''
         });
 
       }

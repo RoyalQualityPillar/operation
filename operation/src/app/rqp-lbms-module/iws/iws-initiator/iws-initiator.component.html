@@ -13,9 +13,10 @@
 <div class="row no-gutters ms-1 me-1 dense-4" [formGroup]="InstrumentForm">
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Instrument Code</mat-label>
-        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code"  (change)="onChangeInstrumentCode()" />
-    <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton" color="primary"
-      (click)="openStatusLOV()" />
+        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code"
+            (change)="onChangeInstrumentCode()" />
+        <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+            color="primary" (click)="openStatusLOV()" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Instrument Name</mat-label>
@@ -90,7 +91,7 @@
 
                 </mat-select>
             </mat-form-field>
-             <mat-form-field appearance="outline" class="col-3 px-1 result">
+            <mat-form-field appearance="outline" class="col-3 px-1 result">
                 <mat-label>Result</mat-label>
                 <input type="text" matInput [value]="sp.result" [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
                     readonly>
@@ -202,9 +203,9 @@
         </div>
 
         <div class="row no-gutters ms-1 me-1 dense-4" style="margin-bottom: 10px;">
-            <div  *ngFor="let reading of sp.readingValues; let k = index">
+            <div class="col-3 px-1" *ngFor="let reading of sp.readingValues; let k = index">
 
-                <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-form-field appearance="outline" class="w-100">
 
                     <mat-label>
                         Reading {{ k + 1 }}
@@ -274,7 +275,8 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="col-3 px-1">
                 <mat-label>Standard Deviation</mat-label>
-                <input type="number" matInput [(ngModel)]="sp.quantitativeStandardDeviation" (input)="checkMultiQuantitativeResult(sp)">
+                <input type="number" matInput [(ngModel)]="sp.quantitativeStandardDeviation"
+                    (input)="checkMultiQuantitativeResult(sp)">
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="col-3 px-1">
@@ -314,12 +316,12 @@
     (commentsData)="handleCommentsForm($event)"></app-common-comments>
 <div class="containerBTN margin-top_2 margin-bottom_35">
     <div class="d-flex justify-content-center">
-        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()" >
-        <!-- [disabled]="disableButtons"> -->
+        <button mat-raised-button class="submitButton" (click)="onSaveConfirmation()">
+            <!-- [disabled]="disableButtons"> -->
             Save
         </button>
         <button mat-raised-button class="submitButton" (click)="onSubmitConfirmation()">
-             <!-- [disabled]="disableButtons"> -->
+            <!-- [disabled]="disableButtons"> -->
             Submit
         </button>
         <!-- <button mat-raised-button class="submitButton">Clear</button> -->
