@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './iwr-completed.component.scss'
 })
 export class IwrCompletedComponent {
-
+ public reviewerUrl: string = './rqpoperationui/lbms/iwr-completed-save';
+  public isCompleted: string = 'completed';
 }

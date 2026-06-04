@@ -1,0 +1,53 @@
+.example-table-container {
+  min-width: 100%;
+}
+
+
+/* component.css */
+
+.top-section {
+  display: flex;
+  gap: 20px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.top-section input {
+  width: 180px;
+  height: 34px;
+}
+
+.parameter-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.setpoint-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.result-section {
+  margin-top: 15px;
+}
+
+.result-section input {
+  // width: 120px;
+  font-weight: bold;
+}
+.result {
+  font-weight: bold;
+}
+
+.pass-limit {
+  margin-top: 15px;
+  width: 400%;
+}
+
+.pass-limit input {
+  width: 100%;
+  height: 34px;
+}
