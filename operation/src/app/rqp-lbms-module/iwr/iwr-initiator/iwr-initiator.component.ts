@@ -864,7 +864,8 @@ export class IwrInitiatorComponent implements OnInit {
           'ff' + ('0000' + i).slice(-4);
 
         readingValues.push({
-          value: element[fieldName]
+          // value: element[fieldName]
+          value:''
         });
 
       }
@@ -878,15 +879,15 @@ export class IwrInitiatorComponent implements OnInit {
           average: '',
           standardDeviation: '',
           relativeStandardDeviation: '',
-          result: element.ff0010,
+          result: '',
           passLimit: element.ff0011,
           uom: element.ff0012,
-          passLimitMin: element.ff0012,
-          passLimitMax: element.ff0012,
-          averageLower: element.ff0012,
-          averageUpper: element.ff0012,
-          quantitativeStandardDeviation: element.ff0012,
-          quantitativeRelativeStandardDeviation: ''
+          passLimitMin: element.ff0013,
+        passLimitMax: element.ff0014,
+        averageLower: element.ff0015,
+        averageUpper: element.ff0016,
+        quantitativeStandardDeviation: element.ff0017,
+        quantitativeRelativeStandardDeviation: element.ff0018
         });
 
       });

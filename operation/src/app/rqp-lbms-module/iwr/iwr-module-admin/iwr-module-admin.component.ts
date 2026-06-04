@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-iwr-module-admin',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './iwr-module-admin.component.scss'
 })
 export class IwrModuleAdminComponent {
-
+constructor(private router: Router) { }
+  IWRCompletedRecordslist(): void {
+    this.router.navigate(['./rqpoperationui/lbms/iwr-completed']);
+  }
 }
