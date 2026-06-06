@@ -56,14 +56,14 @@ export class PmcInitiatorComponent implements OnInit {
     private route: Router,
   ) {
     this.InstrumentForm = this.fb.group({
-  instrumentCode: [''],
-  instrumentName: [''],
-  instrumentNumber: [''],
+      instrumentCode: [''],
+      instrumentName: [''],
+      instrumentNumber: [''],
 
-  rows: this.fb.array([
-    this.createRow()
-  ])
-});
+      rows: this.fb.array([
+        this.createRow()
+      ])
+    });
   }
   ngOnInit(): void {
     this.onLoadInstrumentCode();
@@ -75,10 +75,10 @@ export class PmcInitiatorComponent implements OnInit {
     this.headerRequestBody = this.lifeCycleDataService.getSelectedRowData();
     this.onLoadNextStageData();
     this.InstrumentForm = this.fb.group({
-    rows: this.fb.array([
-      this.createRow()
-    ])
-  });
+      rows: this.fb.array([
+        this.createRow()
+      ])
+    });
   }
   getHeaderData(event: any) {
     this.headerData = event;
@@ -179,7 +179,7 @@ export class PmcInitiatorComponent implements OnInit {
   //   }
 
   // 
-   checkResult(setPointObj: any) {
+  checkResult(setPointObj: any) {
     const setPoint = parseFloat(setPointObj.setPoint);
     const min = parseFloat(setPointObj.min);
     const max = parseFloat(setPointObj.max);
@@ -206,11 +206,8 @@ export class PmcInitiatorComponent implements OnInit {
         value.readingValues.push({
           value: ''
         });
-
       }
-
     }
-
   }
 
   calculateStatistics(statistics: any) {
@@ -411,112 +408,6 @@ export class PmcInitiatorComponent implements OnInit {
       draftValue = true;
     }
     const instrumentindexValue = this.InstrumentForm.value;
-    const qualitativeRecordList: any[] = [];
-
-    this.qualitativeParameters.forEach((element: any) => {
-      element.setPoints.forEach((ele: any) => {
-        qualitativeRecordList.push({
-          uc0001: null,
-          ff0001: element.qualitativeparameterNo,
-          // ff0001:"string",
-          ff0002: ele.qualitativeSetPoints,
-          ff0003: ele.qualitativePassLimit,
-          ff0004: 0,
-          ff0005: "string",
-          createdby: this.cookieService.get('userId'),
-          status: 0,
-          comments: this.comments
-        });
-      });
-    });
-
-    const qpsrRecordList: any[] = [];
-
-    this.parameters.forEach((parameter: any) => {
-
-      parameter.setPoints.forEach((sp: any) => {
-
-        qpsrRecordList.push({
-          uc0001: null,
-          ff0001: parameter.parameterNo,
-          // ff0001:"string",
-          ff0002: parameter.parameterName,
-          ff0003: sp.setPoint,
-          ff0004: sp.min,
-          ff0005: sp.max,
-          ff0006: sp.uom,
-          ff0007: sp.result,
-          ff0008: sp.passLimit,
-          ff0009: parameter.setPointNo,
-          ff0010: "string",
-          lc0001: "string",
-          lc0002: "string",
-          lc0003: "string",
-          lc0004: "string",
-          lc0005: "string",
-          lc0006: "string",
-          createdby: this.cookieService.get('userId'),
-          status: 0,
-          comments: this.comments
-        });
-
-      });
-
-    });
-    const qtmpRecordList: any[] = [];
-
-    this.quantitativeParameters.forEach((parameter: any) => {
-
-      parameter.setPoints.forEach((sp: any) => {
-
-        const qtmpObj: any = {
-          uc0001: null,
-          ff0001: parameter.quantitativeParameterNo,
-          // ff0001:"string",
-          ff0002: parameter.quantitativeParameterName,
-          ff0003: parameter.quantitativeSetPointNo,
-          ff0004: sp.setPoint,
-          ff0005: sp.minimum,
-          ff0006: sp.maximum,
-          ff0007: sp.average,
-          ff0008: sp.standardDeviation,
-          ff0009: sp.relativeStandardDeviation,
-          ff0010: sp.result,
-          ff0011: sp.passLimit,
-          ff0012: sp.uom,
-          ff0013: sp.passLimitMin,
-          ff0014: sp.passLimitMax,
-          ff0015: sp.averageLower,
-          ff0016: sp.averageUpper,
-          ff0017: sp.quantitativeStandardDeviation,
-          ff0018: sp.quantitativeRelativeStandardDeviation,
-          ff0019: sp.readings,
-          // ff0020: sp.readingValues,
-          ff0020: "string",
-          lc0001: "string",
-          lc0002: "string",
-          lc0003: "string",
-          lc0004: "string",
-          lc0005: "string",
-          lc0006: "string",
-          createdby: this.cookieService.get('userId'),
-          status: 0,
-          comments: this.comments
-        };
-        if (sp.readingValues && sp.readingValues.length > 0) {
-          sp.readingValues.forEach((reading: any, index: number) => {
-            const fieldNo = 21 + index;
-            const fieldName = 'ff' + fieldNo.toString().padStart(4, "0");
-            qtmpObj[fieldName] = reading.value;
-          });
-        }
-        qtmpRecordList.push(qtmpObj);
-
-      });
-
-    });
-
-
     let body = {
       lcRequest: {
         unitCode: this.headerData.unitcode,
@@ -534,9 +425,7 @@ export class PmcInitiatorComponent implements OnInit {
         documentStatus: '',
         gmuserDTOList: [],
       },
-
-      "qlpRecordList": qualitativeRecordList,
-      "cdIndexList": [
+      indexList: [
         {
           uc0001: null,
           ff0001: instrumentindexValue.instrumentNumber,
@@ -557,40 +446,33 @@ export class PmcInitiatorComponent implements OnInit {
           comments: this.comments
         }
       ],
-      "qpsrRecordList": qpsrRecordList,
-      "qtmpRecordList": qtmpRecordList,
-     "qpmrRecordList": this.rows.value.map((row: any) => ({
-  uc0001: null,
+      checkList: this.rows.value.map((row: any) => ({
+        uc0001: null,
+        ff0001: "string",
+        ff0002: "string",
+        ff0003: row.procedure,
+        ff0004: row.checkPoint,
+        ff0005: row.status,
+        ff0006: row.remarks,
+        ff0007: "string",
+        ff0008: "string",
+        lc0001: "string",
+        lc0002: "string",
+        lc0003: "string",
+        lc0004: "string",
+        lc0005: "string",
+        lc0006: "string",
 
-  ff0004: row.checkPoint,
-  ff0005: row.status,
-  ff0006: row.remarks,
-
-  ff0001: "string",
-  ff0002: "string",
-  ff0003: "string",
-  ff0008: "string",
-  ff0009: "string",
-  ff0010: "string",
-  ff0011: "string",
-
-  lc0001: "string",
-  lc0002: "string",
-  lc0003: "string",
-  lc0004: "string",
-  lc0005: "string",
-  lc0006: "string",
-
-  createdby: this.cookieService.get('userId'),
-  status: 0,
-  comments: this.comments
-})),
+        createdby: this.cookieService.get('userId'),
+        status: 0,
+        comments: this.comments
+      })),
 
       "anyListNonEmpty": true
     };
     this.isLoading = true;
     this.iwsSwervice
-      .saveCalibrationWorksheetMaster(body)
+      .savePMMCalibrationWorksheetMaster(body)
       .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.isLoading = false;
@@ -637,20 +519,20 @@ export class PmcInitiatorComponent implements OnInit {
     }
   }
   createRow(): FormGroup {
-  return this.fb.group({
-    checkPoint: [''],
-    status: [''],
-    remarks: ['']
-  });
-}
-get rows(): FormArray {
-  return this.InstrumentForm.get('rows') as FormArray;
-}
+    return this.fb.group({
+      checkPoint: [''],
+      procedure: [''],
+      status: [''],
+      remarks: ['']
+    });
+  }
+  get rows(): FormArray {
+    return this.InstrumentForm.get('rows') as FormArray;
+  }
 
-   addRow(): void {
-  this.rows.push(this.createRow());
-  console.log(this.rows.value);
-}
+  addRow(): void {
+    this.rows.push(this.createRow());
+  }
 
 
 
@@ -688,15 +570,15 @@ get rows(): FormArray {
     });
 
   }
- removeRow(row: any) {
+  removeRow(row: any) {
 
-  const index = this.rows.value.indexOf(row);
+    const index = this.rows.value.indexOf(row);
 
-  if (index !== -1) {
-    this.rows.removeAt(index);
+    if (index !== -1) {
+      this.rows.removeAt(index);
+    }
+
   }
-
-}
   // onChangeInstrumentCode() {
 
   //   const instrumentCode =

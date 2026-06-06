@@ -28,6 +28,13 @@ import { HomePageCalibrationSchComponent } from "../ma/master/calibration-schedu
 import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequency/home-page-calibration-freq/home-page-calibration-freq.component";
 import { PmcInitiatorComponent } from "../pmc/pmc-initiator/pmc-initiator.component";
 import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.component";
+import { PmcUpdateComponent } from "../pmc/pmc-update/pmc-update.component";
+import { PmcUpdateSaveComponent } from "../pmc/pmc-update-save/pmc-update-save.component";
+import { PmcReviewerComponent } from "../pmc/pmc-reviewer/pmc-reviewer.component";
+import { PmcReviewerSaveComponent } from "../pmc/pmc-reviewer-save/pmc-reviewer-save.component";
+import { PmcCompletedComponent } from "../pmc/pmc-completed/pmc-completed.component";
+import { PmcCompletedSaveComponent } from "../pmc/pmc-completed-save/pmc-completed-save.component";
+import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admin.component";
 
 
 
@@ -37,7 +44,7 @@ const routes: Routes = [
   { path: 'area-home-page', component: AreaHomePageComponent },
   { path: 'area-group-master-home-page', component: AreaGroupMasterHomePageComponent },
   { path: 'clean-room-grade-home-page', component: CleanRoomGradeHomePageComponent },
-   { path: 'cpm-home-page', component: CpmHomePageComponent },
+  { path: 'cpm-home-page', component: CpmHomePageComponent },
   { path: 'home-page-equipment-master', component: HomePageEquipmentMasterComponent },
   { path: 'home-page-equip-inst-master', component: HomePageEquipInstMasterComponent },
 
@@ -61,6 +68,13 @@ const routes: Routes = [
   { path: 'home-page-calibration-sch', component: HomePageCalibrationSchComponent },
   { path: 'home-page-calibration-freq', component: HomePageCalibrationFreqComponent },
   { path: 'pmc-initiator', component: PmcInitiatorComponent },
+  { path: 'pmc-update', component: PmcUpdateComponent },
+  { path: 'pmc-update-save', component: PmcUpdateSaveComponent },
+  { path: 'pmc-reviewer', component: PmcReviewerComponent },
+  { path: 'pmc-reviewer-save', component: PmcReviewerSaveComponent },
+  { path: 'pmc-completed', component: PmcCompletedComponent },
+  { path: 'pmc-completed-save', component: PmcCompletedSaveComponent },
+  { path: 'pmc-module-admin', component: PmcModuleAdminComponent },
   { path: 'pmr-initiator', component: PmrInitiatorComponent },
 ]
 

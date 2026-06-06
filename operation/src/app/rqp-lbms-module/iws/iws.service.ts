@@ -57,6 +57,23 @@ export class IwsService {
     return this.http.get(reviewURL);
   }
 
+ savePMMCalibrationWorksheetMaster(requestBody: any) {
+    const nextStageURL = this.API_URL + 'limsm-im/pmm-calibration-worksheet-save';
+    return this.http.post(nextStageURL, requestBody);
+  }
+  public getPMMCheckList(lc0002: string): Observable<any> {
+    return this.http.get(this.API_URL + `limsm-im/pmmCheckList-list?lc0002=${lc0002} `);
+  }
+   public getPMMCdIndexList(lc0002: string): Observable<any> {
+    return this.http.get(this.API_URL + `limsm-im/pmmCdIndex-list?lc0002=${lc0002} `);
+  }
+
+   getResquestNoIDForPMMCalibration(lc0002: any, lc0001:any) {
+    const queryParams = `?lc0002=${lc0002}&lc0001=${lc0001}`;
+    const reviewURL = this.API_URL + 'limsm-im/Pmm-calibration-module-request-no' + queryParams;
+    return this.http.get(reviewURL);
+  }
+
    onGetCommentsData(
     lcRequestnumber: string,
     lcnum: string,

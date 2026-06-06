@@ -34,19 +34,19 @@ export class IwrInitiatorComponent implements OnInit {
   public calAssignmentData: any;
   public displayedColumns: any[] = [];
   public selectedDialogData: any;
-  destroy$ = new Subject<void>();
-  parameterNo: number = 0;
-  setPointNo: number = 0;
-  parameterName: any;
-  parameters: any[] = [];
-  uomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
-  qualitativeParameterNo: number;
-  qualitativeParameters: any[] = [];
-  quantitativeParameterNo: number = 0;
-  quantitativeSetPointNo: number = 0;
-  quantitativeParameterName: any;
-  quantitativeParameters: any[] = [];
-  quantitativeUomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
+  public destroy$ = new Subject<void>();
+  public parameterNo: number = 0;
+  public setPointNo: number = 0;
+  public parameterName: any;
+  public parameters: any[] = [];
+  public uomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
+  public qualitativeParameterNo: number;
+  public qualitativeParameters: any[] = [];
+  public quantitativeParameterNo: number = 0;
+  public quantitativeSetPointNo: number = 0;
+  public quantitativeParameterName: any;
+  public quantitativeParameters: any[] = [];
+  public quantitativeUomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
   public lc0002Value: any;
   public lc0002: any;
   public ff0001: any;
@@ -97,10 +97,8 @@ export class IwrInitiatorComponent implements OnInit {
     let body: any;
     body = {
       lcNumber: this.headerRequestBody.lifeCycleCode,
-      //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
-    console.log(body);
     this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
     });
@@ -108,7 +106,6 @@ export class IwrInitiatorComponent implements OnInit {
 
   getCalibrationModuleRequestno() {
     this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data: any) => {
-      console.log(data);
       this.lc0002 = data.data[0].lc0002;
       if (this.lc0002) {
         this.getQlpRecordList(this.lc0002);
@@ -142,7 +139,6 @@ export class IwrInitiatorComponent implements OnInit {
         setPointNo: this.setPointNo,
         setPoints: setPoints
       });
-      console.log(this.parameters);
     }
 
   }
@@ -159,7 +155,6 @@ export class IwrInitiatorComponent implements OnInit {
           }
         ]
       });
-      console.log(this.qualitativeParameters);
     }
 
   }
@@ -171,7 +166,6 @@ export class IwrInitiatorComponent implements OnInit {
 
       for (let j = 0; j < this.quantitativeSetPointNo; j++) {
         setPoints.push({
-          // setPointType: 'Single',
           setPoint: '',
           passLimitMin: '',
           passLimitMax: '',
@@ -201,7 +195,6 @@ export class IwrInitiatorComponent implements OnInit {
         quantitativeSetPointNo: this.quantitativeSetPointNo,
         setPoints: setPoints
       });
-      console.log(this.quantitativeParameters);
     }
 
   }
@@ -221,27 +214,18 @@ export class IwrInitiatorComponent implements OnInit {
     }
   }
   generateReadingFields(value: any) {
-    console.log(value.readings)
     value.readingValues = [];
-
     const count = Number(value.readings);
-
     if (count > 0) {
-
       for (let i = 0; i < count; i++) {
-
         value.readingValues.push({
           value: ''
         });
-
       }
-
     }
-
   }
 
   calculateStatistics(statistics: any) {
-    console.log(statistics);
     const values = statistics.readingValues
       .map((r: any) => Number(r.value))
       .filter((v: number) => !isNaN(v));
@@ -331,8 +315,7 @@ export class IwrInitiatorComponent implements OnInit {
       Number(sp.quantitativeRelativeStandardDeviation);
 
     // ====================  // 1. Minimum & Maximum Validation  // =================
-    // minimum >= passLimitMin
-    // maximum <= passLimitMax
+    // minimum >= passLimitMin  &&   maximum <= passLimitMax
     if (minimum < passLimitMin) {
 
       isPass = false;
@@ -344,11 +327,7 @@ export class IwrInitiatorComponent implements OnInit {
 
     }
 
-
-
     // ====================  // 2. Average Validation  // ==================
-
-
 
     if (
 
@@ -363,7 +342,6 @@ export class IwrInitiatorComponent implements OnInit {
     }
 
     // =====================  // 3. Standard Deviation Validation  // ==================
-
     // quantitativeStandardDeviation >= standardDeviation
     if (
 
@@ -378,7 +356,6 @@ export class IwrInitiatorComponent implements OnInit {
     }
 
     // ====================  // 4. Relative Standard Deviation Validation  // ===================
-
     // quantitativeRelativeStandardDeviation >= relativeStandardDeviation
 
     if (
@@ -434,7 +411,7 @@ export class IwrInitiatorComponent implements OnInit {
     });
   }
 
- onSubmit(value: any) {
+  onSubmit(value: any) {
     this.disableButtons = true;
     let draftValue: boolean;
     if (value == 1) {
@@ -444,6 +421,8 @@ export class IwrInitiatorComponent implements OnInit {
     }
     const instrumentindexValue = this.InstrumentForm.value;
     const qualitativeRecordList: any[] = [];
+ const qpsrRecordList: any[] = [];
+ const qtmpRecordList: any[] = [];
 
     this.QlpRecordList.forEach((element: any) => {
       element.setPoints.forEach((ele: any) => {
@@ -459,15 +438,9 @@ export class IwrInitiatorComponent implements OnInit {
           comments: this.comments
         });
       });
-    });
-    console.log(qualitativeRecordList);
-
-    const qpsrRecordList: any[] = [];
-
+    });   
     this.QpsrRecordList.forEach((parameter: any) => {
-
       parameter.setPoints.forEach((sp: any) => {
-
         qpsrRecordList.push({
           uc0001: null,
           ff0001: parameter.parameterNo,
@@ -490,17 +463,13 @@ export class IwrInitiatorComponent implements OnInit {
           status: 0,
           comments: this.comments
         });
-
       });
-
     });
 
-    console.log('qpsrRecordList', qpsrRecordList);
 
-    const qtmpRecordList: any[] = [];
+    
 
     this.quantitativeParameters.forEach((parameter: any) => {
-
       parameter.setPoints.forEach((sp: any) => {
 
         // qtmpRecordList.push({
@@ -537,7 +506,7 @@ export class IwrInitiatorComponent implements OnInit {
         //   comments: this.comments
         // });
 
-     const qtmpObj: any = {
+        const qtmpObj: any = {
           uc0001: null,
           ff0001: parameter.quantitativeParameterNo,
           // ff0001:"string",
@@ -579,12 +548,8 @@ export class IwrInitiatorComponent implements OnInit {
           });
         }
         qtmpRecordList.push(qtmpObj);
-     
       });
-
     });
-
-    console.log('qpmrRecordList', qtmpRecordList);
 
     let body = {
       lcRequest: {
@@ -686,9 +651,9 @@ export class IwrInitiatorComponent implements OnInit {
       this.instrumrntInfo = data.data;
     });
   }
-  getCalculationAssignamentList(){
-     let unitCode = this.cookieService.get('buCode');
-    this.iwrSwervice.getCalculationAssignamentList(unitCode).subscribe((data:any) => {
+  getCalculationAssignamentList() {
+    let unitCode = this.cookieService.get('buCode');
+    this.iwrSwervice.getCalculationAssignamentList(unitCode).subscribe((data: any) => {
       this.calAssignmentData = data.data;
       // this.getQlpRecordList(this.lc0002);
       //   this.getCdIndexList(this.lc0002);
@@ -748,12 +713,12 @@ export class IwrInitiatorComponent implements OnInit {
           instrumentName: this.selectedDialogData.ff0001,
           instrumentNumber: this.selectedDialogData.uc0001,
           scheduleDate: this.selectedDialogData.ff0004
-        });       
-          this.lc0002Value = this.selectedDialogData.ff0002;
-          this.getQlpRecordList(this.lc0002Value);
-          //this.getCdIndexList(this.lc0002Value);
-          this.getQpsrRecordList(this.lc0002Value);
-          this.getQtmpRecordList(this.lc0002Value);
+        });
+        this.lc0002Value = this.selectedDialogData.ff0002;
+        this.getQlpRecordList(this.lc0002Value);
+        //this.getCdIndexList(this.lc0002Value);
+        this.getQpsrRecordList(this.lc0002Value);
+        this.getQtmpRecordList(this.lc0002Value);
 
       }
 
@@ -805,7 +770,7 @@ export class IwrInitiatorComponent implements OnInit {
           existingParam = {
             parameterNo: element.ff0001,
             parameterName: element.ff0002,
-             setPointNo: element.ff0009,
+            setPointNo: element.ff0009,
             setPoints: []
           };
 
@@ -815,7 +780,7 @@ export class IwrInitiatorComponent implements OnInit {
         // push setpoint
         existingParam.setPoints.push({
 
-          setPoint:'',
+          setPoint: '',
           min: element.ff0004,
           max: element.ff0005,
           uom: element.ff0006,
@@ -854,21 +819,21 @@ export class IwrInitiatorComponent implements OnInit {
           QtmpRecordData.push(existingParam);
 
         }
- const readingValues: any[] = [];
+        const readingValues: any[] = [];
 
-      const totalReadings = Number(element.ff0019);
+        const totalReadings = Number(element.ff0019);
 
-      for (let i = 21; i < 21 + totalReadings; i++) {
+        for (let i = 21; i < 21 + totalReadings; i++) {
 
-        const fieldName =
-          'ff' + ('0000' + i).slice(-4);
+          const fieldName =
+            'ff' + ('0000' + i).slice(-4);
 
-        readingValues.push({
-          // value: element[fieldName]
-          value:''
-        });
+          readingValues.push({
+            // value: element[fieldName]
+            value: ''
+          });
 
-      }
+        }
         // Push setpoint
         existingParam.setPoints.push({
           setPoint: element.ff0004,
@@ -883,11 +848,11 @@ export class IwrInitiatorComponent implements OnInit {
           passLimit: element.ff0011,
           uom: element.ff0012,
           passLimitMin: element.ff0013,
-        passLimitMax: element.ff0014,
-        averageLower: element.ff0015,
-        averageUpper: element.ff0016,
-        quantitativeStandardDeviation: element.ff0017,
-        quantitativeRelativeStandardDeviation: element.ff0018
+          passLimitMax: element.ff0014,
+          averageLower: element.ff0015,
+          averageUpper: element.ff0016,
+          quantitativeStandardDeviation: element.ff0017,
+          quantitativeRelativeStandardDeviation: element.ff0018
         });
 
       });

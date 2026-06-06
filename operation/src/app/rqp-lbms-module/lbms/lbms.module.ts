@@ -42,6 +42,13 @@ import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequ
 import { PmcHomeComponent } from "../pmc/pmc-home/pmc-home.component";
 import { PmcInitiatorComponent } from "../pmc/pmc-initiator/pmc-initiator.component";
 import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.component";
+import { PmcUpdateComponent } from "../pmc/pmc-update/pmc-update.component";
+import { PmcUpdateSaveComponent } from "../pmc/pmc-update-save/pmc-update-save.component";
+import { PmcReviewerComponent } from "../pmc/pmc-reviewer/pmc-reviewer.component";
+import { PmcReviewerSaveComponent } from "../pmc/pmc-reviewer-save/pmc-reviewer-save.component";
+import { PmcCompletedComponent } from "../pmc/pmc-completed/pmc-completed.component";
+import { PmcCompletedSaveComponent } from "../pmc/pmc-completed-save/pmc-completed-save.component";
+import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admin.component";
 
 
 
@@ -57,9 +64,9 @@ import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.compon
     AreaGroupMasterHomePageComponent,
     CleanRoomGradeCreateUpdateComponent,
     CleanRoomGradeHomePageComponent,
-      CpmCreateUpdateComponent,
-        CpmHomePageComponent,
-    
+    CpmCreateUpdateComponent,
+    CpmHomePageComponent,
+
     CreateUpdateEquipmentMasterComponent,
     HomePageEquipmentMasterComponent,
     CreateUpdateEquipInstMasterComponent,
@@ -80,17 +87,24 @@ import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.compon
     IwrReviewerComponent,
     IwrReviewerSaveComponent,
     IwrCompletedComponent,
-    IwrCompletedSaveComponent, 
-    IwrModuleAdminComponent,  
+    IwrCompletedSaveComponent,
+    IwrModuleAdminComponent,
     CreateUpdateCalibrationSchComponent,
     HomePageCalibrationSchComponent,
     CreateUpdateCalibrationFreqComponent,
     HomePageCalibrationFreqComponent,
     PmcHomeComponent,
     PmcInitiatorComponent,
+    PmcUpdateComponent,
+    PmcUpdateSaveComponent,
+    PmcReviewerComponent,
+    PmcReviewerSaveComponent,
+    PmcCompletedComponent,
+    PmcCompletedSaveComponent,
+    PmcModuleAdminComponent,
     PmrInitiatorComponent,
-    
-    
+
+
 
   ],
   imports: [
