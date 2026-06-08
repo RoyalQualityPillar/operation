@@ -106,6 +106,7 @@ export class PmcCompletedSaveComponent implements OnInit {
   createRow(): FormGroup {
     return this.fb.group({
       checkPoint: [''],
+      procedure: [''],
       status: [''],
       remarks: ['']
     });
@@ -140,6 +141,7 @@ export class PmcCompletedSaveComponent implements OnInit {
         const row = this.createRow();
         row.patchValue({
           checkPoint: value.ff0004,
+          procedure: value.ff0003,
           status: value.ff0005,
           remarks: value.ff0006
         });

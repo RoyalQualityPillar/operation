@@ -43,14 +43,19 @@
             [formGroupName]="i">
 
             <!-- Check Point -->
-            <mat-form-field appearance="outline" class="col-6 px-1">
+            <mat-form-field appearance="outline" class="col-3 px-1">
                 <mat-label>Check Point</mat-label>
 
                 <input matInput formControlName="checkPoint" placeholder="Check Point" readonly>
             </mat-form-field>
+              <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Procedure</mat-label>
+
+                <input matInput formControlName="procedure" placeholder="Procedure" readonly>
+            </mat-form-field>
 
             <!-- Status -->
-            <div class="col-4 px-1">
+            <div class="col-3 px-1">
 
                 <label class="status-heading">Status</label>
 
@@ -73,7 +78,7 @@
             </div>
 
             <!-- Remarks -->
-            <mat-form-field appearance="outline" class="col-2 px-1">
+            <mat-form-field appearance="outline" class="col-3 px-1">
                 <mat-label>Remarks</mat-label>
 
                 <input matInput formControlName="remarks" placeholder="Remarks" readonly>
