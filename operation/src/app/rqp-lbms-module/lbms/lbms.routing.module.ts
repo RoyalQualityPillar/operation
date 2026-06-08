@@ -6,7 +6,6 @@ import { AreaGroupMasterHomePageComponent } from "../ma/master/area-group-master
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
 import { CumHomePageComponent } from "../ma/master/calibraion-uom-master/cum-home-page/cum-home-page.component";
 import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
-import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/home-page-equip-inst-master/home-page-equip-inst-master.component";
 import { IwsModuleAdminComponent } from "../iws/iws-module-admin/iws-module-admin.component";
 import { IwsInitiatorComponent } from "../iws/iws-initiator/iws-initiator.component";
 import { IwsUpdateComponent } from "../iws/iws-update/iws-update.component";
@@ -16,6 +15,7 @@ import { IwsReviewerSaveComponent } from "../iws/iws-reviewer-save/iws-reviewer-
 import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.component";
 import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
 import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/instrument-cat-home-page/instrument-cat-home-page.component";
+import { HomePageEquipInstMasterComponent } from "../ma/master/equipment-inustument-master/home-page-equip-inst-master/home-page-equip-inst-master.component";
 
 
 const routes: Routes = [
