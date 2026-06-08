@@ -47,7 +47,7 @@ export class MaterialDispensingComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.PlanOrderMrpList(unitCode).subscribe((data: any) => {
+    this.ppService.getReservedMaterialList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
       this.materialDispensingListData = new MatTableDataSource(this.dataSource);
       this.materialDispensingListData.sort = this.sort;
