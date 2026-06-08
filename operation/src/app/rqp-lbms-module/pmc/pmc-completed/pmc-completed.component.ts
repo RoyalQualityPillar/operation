@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './pmc-completed.component.scss'
 })
 export class PmcCompletedComponent {
-
+ public reviewerUrl: string = './rqpoperationui/lbms/pmc-completed-save';
+  public isCompleted: string = 'completed';
 }

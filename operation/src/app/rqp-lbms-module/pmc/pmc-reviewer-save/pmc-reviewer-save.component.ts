@@ -105,6 +105,7 @@ export class PmcReviewerSaveComponent implements OnInit {
   createRow(): FormGroup {
     return this.fb.group({
       checkPoint: [''],
+      procedure: [''],
       status: [''],
       remarks: ['']
     });
@@ -138,6 +139,7 @@ export class PmcReviewerSaveComponent implements OnInit {
       this.PMMCheckList.forEach((value: any) => {
         const row = this.createRow();
         row.patchValue({
+          procedure: value.ff0003,
           checkPoint: value.ff0004,
           status: value.ff0005,
           remarks: value.ff0006
