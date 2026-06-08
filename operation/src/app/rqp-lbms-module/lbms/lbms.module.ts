@@ -12,6 +12,8 @@ import { CleanRoomGradeCreateUpdateComponent } from "../ma/master/clean-room-gra
 import { CleanRoomGradeHomePageComponent } from "../ma/master/clean-room-grade/clean-room-grade-home-page/clean-room-grade-home-page.component";
 import { CumCreateUpdateComponent } from "../ma/master/calibraion-uom-master/cum-create-update/cum-create-update.component";
 import { CumHomePageComponent } from "../ma/master/calibraion-uom-master/cum-home-page/cum-home-page.component";
+import { CpmCreateUpdateComponent } from "../ma/master/calibraion-perameter-master/cpm-create-update/cpm-create-update.component";
+import { CpmHomePageComponent } from "../ma/master/calibraion-perameter-master/cpm-home-page/cpm-home-page.component";
 import { SharedModule } from "src/app/common/shared.module";
 import { CreateUpdateEquipmentMasterComponent } from "../ma/master/equipment-master/create-update-equipment-master/create-update-equipment-master.component";
 import { HomePageEquipmentMasterComponent } from "../ma/master/equipment-master/home-page-equipment-master/home-page-equipment-master.component";
@@ -27,6 +29,30 @@ import { IwsCompletedComponent } from "../iws/iws-completed/iws-completed.compon
 import { IwsCompletedSaveComponent } from "../iws/iws-completed-save/iws-completed-save.component";
 import { InstrumentCatCreateUpdateComponent } from "../ma/master/instrument-cat/instrument-cat-create-update/instrument-cat-create-update.component";
 import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/instrument-cat-home-page/instrument-cat-home-page.component";
+import { IwrInitiatorComponent } from "../iwr/iwr-initiator/iwr-initiator.component";
+import { IwrUpdateComponent } from "../iwr/iwr-update/iwr-update.component";
+import { IwrUpdateSaveComponent } from "../iwr/iwr-update-save/iwr-update-save.component";
+import { IwrReviewerComponent } from "../iwr/iwr-reviewer/iwr-reviewer.component";
+import { IwrReviewerSaveComponent } from "../iwr/iwr-reviewer-save/iwr-reviewer-save.component";
+import { IwrCompletedComponent } from "../iwr/iwr-completed/iwr-completed.component";
+import { IwrCompletedSaveComponent } from "../iwr/iwr-completed-save/iwr-completed-save.component";
+import { IwrModuleAdminComponent } from "../iwr/iwr-module-admin/iwr-module-admin.component";
+import { CreateUpdateCalibrationSchComponent } from "../ma/master/calibration-schedule/create-update-calibration-sch/create-update-calibration-sch.component";
+import { HomePageCalibrationSchComponent } from "../ma/master/calibration-schedule/home-page-calibration-sch/home-page-calibration-sch.component";
+import { CreateUpdateCalibrationFreqComponent } from "../ma/master/calibration-frequency/create-update-calibration-freq/create-update-calibration-freq.component";
+import { HomePageCalibrationFreqComponent } from "../ma/master/calibration-frequency/home-page-calibration-freq/home-page-calibration-freq.component";
+import { PmcHomeComponent } from "../pmc/pmc-home/pmc-home.component";
+import { PmcInitiatorComponent } from "../pmc/pmc-initiator/pmc-initiator.component";
+import { PmrInitiatorComponent } from "../pmr/pmr-initiator/pmr-initiator.component";
+import { PmcUpdateComponent } from "../pmc/pmc-update/pmc-update.component";
+import { PmcUpdateSaveComponent } from "../pmc/pmc-update-save/pmc-update-save.component";
+import { PmcReviewerComponent } from "../pmc/pmc-reviewer/pmc-reviewer.component";
+import { PmcReviewerSaveComponent } from "../pmc/pmc-reviewer-save/pmc-reviewer-save.component";
+import { PmcCompletedComponent } from "../pmc/pmc-completed/pmc-completed.component";
+import { PmcCompletedSaveComponent } from "../pmc/pmc-completed-save/pmc-completed-save.component";
+import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admin.component";
+
+
 
 
 
@@ -42,6 +68,9 @@ import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/inst
     CleanRoomGradeHomePageComponent,
     CumCreateUpdateComponent,
     CumHomePageComponent,    
+    CpmCreateUpdateComponent,
+    CpmHomePageComponent,
+
     CreateUpdateEquipmentMasterComponent,
     HomePageEquipmentMasterComponent,
     CreateUpdateEquipInstMasterComponent,
@@ -55,7 +84,31 @@ import { InstrumentCatHomePageComponent } from "../ma/master/instrument-cat/inst
     IwsCompletedComponent,
     IwsCompletedSaveComponent,
     InstrumentCatCreateUpdateComponent,
-    InstrumentCatHomePageComponent 
+    InstrumentCatHomePageComponent,
+    IwrInitiatorComponent,
+    IwrUpdateComponent,
+    IwrUpdateSaveComponent,
+    IwrReviewerComponent,
+    IwrReviewerSaveComponent,
+    IwrCompletedComponent,
+    IwrCompletedSaveComponent,
+    IwrModuleAdminComponent,
+    CreateUpdateCalibrationSchComponent,
+    HomePageCalibrationSchComponent,
+    CreateUpdateCalibrationFreqComponent,
+    HomePageCalibrationFreqComponent,
+    PmcHomeComponent,
+    PmcInitiatorComponent,
+    PmcUpdateComponent,
+    PmcUpdateSaveComponent,
+    PmcReviewerComponent,
+    PmcReviewerSaveComponent,
+    PmcCompletedComponent,
+    PmcCompletedSaveComponent,
+    PmcModuleAdminComponent,
+    PmrInitiatorComponent,
+
+
 
   ],
   imports: [

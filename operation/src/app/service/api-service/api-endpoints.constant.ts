@@ -1356,6 +1356,22 @@ export enum apiEndPoints {
   instrumentcatMasterLoadUpdatePage = 'limsm-im/ic-master/get-by-max-code',
   instrumentcatMasterAllAuditTrail = 'limsm-im/ic-master/get-by-code-all',
 
+  /***Calibration  Schedule  ***/
+  allcalibrationschMasterTabledata = 'limsm-im/cls-master/get-all',
+  activecalibrationschMasterTabledata = 'limsm-im/cls_master/get-max-all',
+  calibrationschMasterUserProfileFilterData = 'limsm-im/cls_Master/search',
+  calibrationschMasterCreateUpdate = 'limsm-im/cls-master/save-update',
+  calibrationschMasterLoadUpdatePage = 'limsm-im/cls-master/get-by-max-code',
+  calibrationschMasterAllAuditTrail = 'limsm-im/cls-master/get-by-code-all',
+
+  /***Calibration Frequency Category  ***/
+  allcalibrationfreqMasterTabledata = 'limsm-im/clf-master/get-all',
+  activecalibrationfreqMasterTabledata = 'limsm-im/clf-master/get-max-all',
+  calibrationfreqMasterUserProfileFilterData = 'limsm-im/clf-master/search',
+  calibrationfreqMasterCreateUpdate = 'limsm-im/clf-master/save-update',
+  calibrationfreqMasterLoadUpdatePage = 'limsm-im/clf-master/get-by-max-code',
+  calibrationfreqMasterAllAuditTrail = 'limsm-im/clf-master/get-by-code-all',
+
     /***************WmhModule***************/
 
   /*******Inspection Master*********/
@@ -1400,6 +1416,14 @@ export enum apiEndPoints {
   cumLoadUpdatePage = 'lbms/cum_master/get-by-max-code',
   cumCreateUpdate = 'lbms/cum_master/save-update',
 
+
+ /******* Calibraion Perameter Master*********/
+  allCpmTabledata = 'lbms/calper-master/get-all',
+  activeCpmTabledata = 'lbms/calper-master/get-all',
+  CpmUserProfileFilterData = 'lbms/calper-master/search',
+  CpmCreateUpdate = 'lbms/calper-master/save-update',
+  CpmLoadUpdatePage = 'lbms/calper-master/get-by-max-code',
+  CpmAllAuditTrail = 'lbms/calper-master/get-by-code-all',
 
   
 }

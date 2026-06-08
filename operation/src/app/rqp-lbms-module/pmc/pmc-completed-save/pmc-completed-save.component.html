@@ -1,0 +1,111 @@
+<app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Instrument Information</div>
+    </div>
+</div>
+
+<div class="row no-gutters ms-1 me-1 dense-4" [formGroup]="InstrumentForm">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Code</mat-label>
+        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Name</mat-label>
+        <input type="text" matInput formControlName="instrumentName" placeholder="Instrument Name" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Number</mat-label>
+        <input type="text" matInput formControlName="instrumentNumber" placeholder="Instrument Number" readonly />
+    </mat-form-field>
+</div>
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Check List</div>
+    </div>
+</div>
+<!-- <div class="col-2 px-1 d-flex justify-content-start">
+      <button
+        mat-raised-button
+        type="button"
+        class="submitButton"
+        (click)="addRow()">
+        Add Row
+      </button>
+</div> -->
+<div class="row no-gutters ms-1 me-1 align-items-center" [formGroup]="InstrumentForm">
+
+
+    <div formArrayName="rows">
+
+        <div class="row no-gutters ms-1 me-1 align-items-center" *ngFor="let row of rows.controls; let i = index"
+            [formGroupName]="i">
+
+            <!-- Check Point -->
+            <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>Check Point</mat-label>
+
+                <input matInput formControlName="checkPoint" placeholder="Check Point" readonly>
+            </mat-form-field>
+
+            <!-- Status -->
+            <div class="col-4 px-1">
+
+                <label class="status-heading">Status</label>
+
+                <mat-radio-group formControlName="status">
+
+                    <mat-radio-button value="PASS" class="pass-color me-3">
+                        Pass
+                    </mat-radio-button>
+
+                    <mat-radio-button value="FAIL" class="fail-color me-3">
+                        Fail
+                    </mat-radio-button>
+
+                    <mat-radio-button value="NA">
+                        N/A
+                    </mat-radio-button>
+
+                </mat-radio-group>
+
+            </div>
+
+            <!-- Remarks -->
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Remarks</mat-label>
+
+                <input matInput formControlName="remarks" placeholder="Remarks" readonly>
+            </mat-form-field>
+            <ng-container matColumnDef="removeRow">
+                <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <!-- <button mat-icon-button color="warn" (click)="removeRow(row)">
+            <mat-icon>delete</mat-icon>
+          </button> -->
+                </mat-cell>
+            </ng-container>
+
+        </div>
+
+
+    </div>
+
+   <app-as-common-footer [pageData]="this.pageData" (comments)="getCommentsData($event)">
+    <div class="table-box">
+        <app-comments-table [headerData]="this.headerData" [ff0005Value]="ff0005"
+            [commentType]="commentType"></app-comments-table>
+    </div>
+</app-as-common-footer>
+<div class="containerBTN margin-top_2 margin-bottom_35">
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="submitButton" (click)="getComments()">
+            Comments
+        </button>
+        <button mat-raised-button class="submitButton" (click)="downloadPMCReport()">PMC Report</button>
+        <button mat-raised-button class="submitButton" (click)="downloadPMCAttachedReport()">PMC Report</button>
+    </div>
+</div>
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="height_5"></div>

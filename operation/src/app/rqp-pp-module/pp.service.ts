@@ -65,7 +65,7 @@ export class PpService {
     return this.http.get(this.API_URL + `pp/planning-order-list?unitCode=${unitCode} `);
   }
   public PlanOrderMrpList(unitCode: string): Observable<any> {
-    return this.http.get(this.API_URL + `pp/plan-order-mrp-list?unitCode=${unitCode} `);
+    return this.http.get(this.API_URL + `pp/available-material-list?unitCode=${unitCode} `);
   }
   public saveExecutionProductOrderList(uc0001: string) {
     const queryParams = `?uc0001=${uc0001}`;
@@ -282,8 +282,8 @@ export class PpService {
     return this.http.post(issuanceURL, '');
   }
 
-  getApprovedMaterialListData(unitCode: any, ff0004: any) {
-    const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}`;
+  getApprovedMaterialListData(unitCode: any, ff0004: any, lc0005:any) {
+    const queryParams = `?unitCode=${unitCode}&ff0004=${ff0004}&lc0005=${lc0005}`;
     const reviwerURL = this.API_URL + 'pp/approved-material-list' + queryParams;
     return this.http.get(reviwerURL);
   }
@@ -294,11 +294,13 @@ export class PpService {
   public getSFGQuarantineList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/sfg-quarantine-list?Unitcode=${Unitcode} `);
   }
-  public saveFgQuarantineList(uc0001: string, Status: any) {
-    const queryParams = `?uc0001=${uc0001}&Status=${Status}`;
-    const samplingURL = this.API_URL + 'pp/planning-order-save' + queryParams;
+  public saveFgQuarantineList(uc0001: string) {
+    const  status= 4014;
+    const queryParams = `?uc0001=${uc0001}&Status=${status}`;
+    const samplingURL = this.API_URL + 'pp/fg-quarantine-save' + queryParams;
     return this.http.post(samplingURL, '');
   }
+ 
   
 
   public getProductionCompletedList(Unitcode: string): Observable<any> {

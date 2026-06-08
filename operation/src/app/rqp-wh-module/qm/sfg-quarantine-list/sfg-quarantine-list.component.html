@@ -1,4 +1,4 @@
-<div style="margin-top: 5px;">
+<!-- <div style="margin-top: 5px;">
     <form [formGroup]="sfgQuarantineStatusListForm">
         <div class="row no-gutters ms-1 me-1 dense-4">
             <mat-form-field appearance="outline" class="col-3 px-1">
@@ -16,33 +16,50 @@
             </mat-form-field>
         </div>
     </form>
-</div>
+</div> -->
 
 <div class="table-box">
   <mat-table [dataSource]="sfgQuarantineListData" matSort id="dataTable" class="table_background_color">
-          <ng-container matColumnDef="ff0001">
+          <ng-container matColumnDef="ff0022">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Product Number
+       Batch No
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0022 }} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="ff0003">
+    <ng-container matColumnDef="ff0025">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Product No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0025 }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ff0002">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product Code
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0002 }} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="ff0004">
+    <ng-container matColumnDef="ff0001">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.ff0016 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
     </ng-container>    
 
     <ng-container matColumnDef="ff0006">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
       </mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.ff0010 }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0006 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0023">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Manufactured Date
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0023 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ff0024">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.ff0024 }}</mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="createdon">

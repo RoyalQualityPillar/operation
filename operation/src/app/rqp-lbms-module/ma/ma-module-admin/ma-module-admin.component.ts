@@ -41,4 +41,14 @@ constructor(private router: Router, private cookieService: CookieService) { }
   onInstrumentCategory() {
     this.router.navigate(['./rqpoperationui/lbms/instrument-cat-home-page'])
   }
-}
+  onCalibraionPerameterMaster(){
+    this.router.navigate(['./rqpoperationui/lbms/cpm-home-page'])
+  }
+ onCalibrationSchedule() {
+    this.router.navigate(['./rqpoperationui/lbms/home-page-calibration-sch'])
+  }
+  onCalibrationFrequency() {
+    this.router.navigate(['./rqpoperationui/lbms/home-page-calibration-freq'])
+ }
+    
+  }

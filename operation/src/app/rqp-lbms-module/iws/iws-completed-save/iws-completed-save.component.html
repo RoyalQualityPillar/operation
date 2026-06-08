@@ -1,1 +1,275 @@
-<p>iws-completed-save works!</p>
+<app-common-header [pageData]="this.pageData" (headerData)="getHeaderData($event)"></app-common-header>
+
+<div class="table-box">
+    <div class="section_header_child_1">
+        <div class="float-start">Instrument Information</div>
+    </div>
+</div>
+
+<div class="row no-gutters ms-1 me-1 dense-4" [formGroup]="InstrumentForm">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Code</mat-label>
+        <input type="text" matInput formControlName="instrumentCode" placeholder="Instrument Code" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Name</mat-label>
+        <input type="text" matInput formControlName="instrumentName" placeholder="Instrument Name" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Instrument Number</mat-label>
+        <input type="text" matInput formControlName="instrumentNumber" placeholder="Instrument Number" readonly />
+    </mat-form-field>
+</div>
+
+
+<app-common-title [title]="'Quantitative Test'"></app-common-title>
+<div class="parameter-card" *ngFor="let parameter of QpsrRecordList">
+<div class="row no-gutters ms-1 me-1 dense-4">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Parameter Number</mat-label>
+        <input type="text" matInput [(ngModel)]="parameter.parameterNo" placeholder="Parameter Number" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Set Point Number</mat-label>
+        <input type="number" matInput [(ngModel)]="parameter.setPointNo" placeholder="Set Point Number" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Parameter Name</mat-label>
+        <input type="text" matInput [(ngModel)]="parameter.parameterName" placeholder="Parameter Name" readonly />
+    </mat-form-field> 
+</div>
+
+    <h3>{{parameter.parameterName}} {{ parameter.parameterNo }}</h3>
+
+    <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
+
+        <div class="row no-gutters ms-1 me-1 dense-4">
+
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Set Point {{ j + 1 }}</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.setPoint">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Min</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.min">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Max</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.max">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>UOM</mat-label>
+
+                <mat-select [(ngModel)]="sp.uom">
+
+                    <mat-option value="">Select UOM</mat-option>
+
+                    <mat-option *ngFor="let uom of uomList" [value]="uom">
+                        {{ uom }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1 result">
+                <mat-label>Result</mat-label>
+                <input type="text" matInput [value]="sp.result" [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
+                    readonly>
+            </mat-form-field>
+        </div>       
+
+        <div class="pass-limit">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Pass Limit Description</mat-label>
+                <textarea matInput [(ngModel)]="sp.passLimit" rows="3">
+                    </textarea>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+</div>
+<!----------------------------Qualitative----------------------->
+<app-common-title [title]="'Qualitative Test'"></app-common-title>
+<div class="parameter-card" *ngFor="let parameter of QlpRecordList">
+<div class="row no-gutters ms-1 me-1 dense-4">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Qualitative Parameter Number</mat-label>
+        <input type="text" matInput [(ngModel)]="parameter.qualitativeParameterNo" placeholder="Parameter Number" />
+    </mat-form-field>    
+</div>
+
+    <h3>Qualitative ParameterNo {{ parameter.qualitativeParameterNo }}</h3>
+
+    <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
+
+        <div class="row no-gutters ms-1 me-1 dense-4">
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Set Point {{ j + 1 }}</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.qualitativeSetPoints">
+            </mat-form-field>
+        </div>
+
+        <div class="pass-limit">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Pass Limit Description</mat-label>
+                <textarea matInput [(ngModel)]="sp.qualitativePassLimit" rows="3">
+                    </textarea>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+</div>
+<!----------------------------Multi Quantitative----------------------->
+
+<app-common-title [title]="'Multi Quantitative Test'"></app-common-title>
+<div class="parameter-card" *ngFor="let parameter of quantitativeParameters">
+<div class="row no-gutters ms-1 me-1 dense-4">
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Parameter Number</mat-label>
+        <input type="number" matInput [(ngModel)]="parameter.quantitativeParameterNo" placeholder="Parameter Number" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Set Point Number</mat-label>
+        <input type="number" matInput [(ngModel)]="parameter.quantitativeSetPointNo" placeholder="Set Point Number" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Parameter Name</mat-label>
+        <input type="text" matInput [(ngModel)]="parameter.quantitativeParameterName" placeholder="Parameter Name" />
+    </mat-form-field>   
+</div>
+
+    <h3>{{parameter.quantitativeParameterName}} {{ parameter.quantitativeParameterNo }}</h3>
+
+    <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
+        <div class="row no-gutters ms-1 me-1 dense-4">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Set Point {{ j + 1 }}</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.setPoint">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Readings</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.readings">
+            </mat-form-field>
+        </div>
+
+        <div class="row no-gutters ms-1 me-1 dense-4" style="margin-bottom: 10px;">
+            <div *ngFor="let reading of sp.readingValues; let k = index">
+
+                <mat-form-field appearance="outline" class="col-3 px-1">
+
+                    <mat-label>
+                        Reading {{ k + 1 }}
+                    </mat-label>
+
+                    <input type="number" matInput [(ngModel)]="reading.value">
+
+                </mat-form-field>
+
+            </div>
+
+        </div>
+        <div class="row no-gutters ms-1 me-1 dense-4">
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Minimum</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.minimum" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Maximum</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.maximum" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-2 px-1">
+                <mat-label>Average</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.average" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Standard Deviation</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.standardDeviation" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Relative Standard Deviation</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.relativeStandardDeviation" readonly>
+            </mat-form-field>
+        </div>
+        <div class="row no-gutters ms-1 me-1 dense-4">
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>PassLimit Minimum</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.passLimitMin">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>PassLimit Maximum</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.passLimitMax">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>UOM</mat-label>
+                <mat-select [(ngModel)]="sp.uom">
+                    <mat-option value="">Select UOM</mat-option>
+                    <mat-option *ngFor="let uom of uomList" [value]="uom">
+                        {{ uom }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Average Lower</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.averageLower">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Average Upper</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.averageUpper">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Standard Deviation</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.quantitativeStandardDeviation">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label> Relative Standard Deviation</mat-label>
+                <input type="number" matInput [(ngModel)]="sp.quantitativeRelativeStandardDeviation">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 px-1 result">
+                <mat-label>Result</mat-label>
+                <input type="text" matInput [value]="sp.result" [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
+                    readonly>
+            </mat-form-field>
+        </div>
+        
+        <div class="pass-limit">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Pass Limit Description</mat-label>
+                <textarea matInput [(ngModel)]="sp.passLimit" rows="3">
+                    </textarea>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+</div>
+
+<app-as-common-footer [pageData]="this.pageData" (comments)="getCommentsData($event)">
+    <div class="table-box">
+        <app-comments-table [headerData]="this.headerData" [ff0005Value]="ff0005"
+            [commentType]="commentType"></app-comments-table>
+    </div>
+</app-as-common-footer>
+<div class="containerBTN margin-top_2 margin-bottom_35">
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="submitButton" (click)="getComments()">a
+            Comments
+        </button>
+        <button mat-raised-button class="submitButton" (click)="downloadIWSReport()">IWS Report</button>
+        <button mat-raised-button class="submitButton" (click)="downloadIWSAttachedReport()">IWS Report</button>
+    </div>
+</div>
+<mat-spinner *ngIf="isLoading" class="global-loading-spinner" color="primary" mode="indeterminate"></mat-spinner>
+<div class="height_5"></div>
