@@ -67,6 +67,9 @@ export class PpService {
   public PlanOrderMrpList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/available-material-list?unitCode=${unitCode} `);
   }
+   public getReservedMaterialList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/reserved-material-list?unitCode=${unitCode} `);
+  }
   public saveExecutionProductOrderList(uc0001: string) {
     const queryParams = `?uc0001=${uc0001}`;
     const samplingURL = this.API_URL + 'pp/relase-order-save' + queryParams;
