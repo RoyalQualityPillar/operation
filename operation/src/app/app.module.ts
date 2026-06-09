@@ -12,7 +12,6 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { LovDialogComponent } from './common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from './common/message-dialog/message-dialog.component';
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
-// import { SharedModule } from './common/shared.module';
 
 
 
@@ -24,7 +23,6 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-
 
 
 

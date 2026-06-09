@@ -51,6 +51,13 @@ import { PmcReviewerSaveComponent } from "../pmc/pmc-reviewer-save/pmc-reviewer-
 import { PmcCompletedComponent } from "../pmc/pmc-completed/pmc-completed.component";
 import { PmcCompletedSaveComponent } from "../pmc/pmc-completed-save/pmc-completed-save.component";
 import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admin.component";
+import { PmrUpdateComponent } from "../pmr/pmr-update/pmr-update.component";
+import { PmrUpdateSaveComponent } from "../pmr/pmr-update-save/pmr-update-save.component";
+import { PmrReviewerComponent } from "../pmr/pmr-reviewer/pmr-reviewer.component";
+import { PmrReviewerSaveComponent } from "../pmr/pmr-reviewer-save/pmr-reviewer-save.component";
+import { PmrCompletedComponent } from "../pmr/pmr-completed/pmr-completed.component";
+import { PmrCompletedSaveComponent } from "../pmr/pmr-completed-save/pmr-completed-save.component";
+import { PmrModuleAdminComponent } from "../pmr/pmr-module-admin/pmr-module-admin.component";
 
 
 
@@ -67,7 +74,7 @@ import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admi
     CleanRoomGradeCreateUpdateComponent,
     CleanRoomGradeHomePageComponent,
     CumCreateUpdateComponent,
-    CumHomePageComponent,    
+    CumHomePageComponent,
     CpmCreateUpdateComponent,
     CpmHomePageComponent,
 
@@ -107,6 +114,13 @@ import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admi
     PmcCompletedSaveComponent,
     PmcModuleAdminComponent,
     PmrInitiatorComponent,
+    PmrUpdateComponent,
+    PmrUpdateSaveComponent,
+    PmrReviewerComponent,
+    PmrReviewerSaveComponent,
+    PmrCompletedComponent,
+    PmrCompletedSaveComponent,
+    PmrModuleAdminComponent,
 
 
 

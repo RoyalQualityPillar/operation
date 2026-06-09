@@ -36,6 +36,13 @@ import { PmcReviewerSaveComponent } from "../pmc/pmc-reviewer-save/pmc-reviewer-
 import { PmcCompletedComponent } from "../pmc/pmc-completed/pmc-completed.component";
 import { PmcCompletedSaveComponent } from "../pmc/pmc-completed-save/pmc-completed-save.component";
 import { PmcModuleAdminComponent } from "../pmc/pmc-module-admin/pmc-module-admin.component";
+import { PmrUpdateComponent } from "../pmr/pmr-update/pmr-update.component";
+import { PmrUpdateSaveComponent } from "../pmr/pmr-update-save/pmr-update-save.component";
+import { PmrReviewerComponent } from "../pmr/pmr-reviewer/pmr-reviewer.component";
+import { PmrReviewerSaveComponent } from "../pmr/pmr-reviewer-save/pmr-reviewer-save.component";
+import { PmrCompletedComponent } from "../pmr/pmr-completed/pmr-completed.component";
+import { PmrCompletedSaveComponent } from "../pmr/pmr-completed-save/pmr-completed-save.component";
+import { PmrModuleAdminComponent } from "../pmr/pmr-module-admin/pmr-module-admin.component";
 
 
 
@@ -77,6 +84,13 @@ const routes: Routes = [
   { path: 'pmc-completed-save', component: PmcCompletedSaveComponent },
   { path: 'pmc-module-admin', component: PmcModuleAdminComponent },
   { path: 'pmr-initiator', component: PmrInitiatorComponent },
+   { path: 'pmr-update', component: PmrUpdateComponent },
+  { path: 'pmr-update-save', component: PmrUpdateSaveComponent },
+  { path: 'pmr-reviewer', component: PmrReviewerComponent },
+  { path: 'pmr-reviewer-save', component: PmrReviewerSaveComponent },
+  { path: 'pmr-completed', component: PmrCompletedComponent },
+  { path: 'pmr-completed-save', component: PmrCompletedSaveComponent },
+  { path: 'pmr-module-admin', component: PmrModuleAdminComponent },
 ]
 
 @NgModule({
