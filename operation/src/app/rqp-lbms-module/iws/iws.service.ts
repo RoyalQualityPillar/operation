@@ -74,6 +74,17 @@ export class IwsService {
     return this.http.get(reviewURL);
   }
 
+   getCalculationAssignamentList(unitcode:any){
+    const queryParams = `?unitcode=${unitcode}`;
+    const reviewURL = this.API_URL + 'limsm-im/calculation-assignament-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
+  
+getPMMCalculationAssignamentList(unitcode:any){
+    const queryParams = `?unitcode=${unitcode}`;
+    const reviewURL = this.API_URL + 'limsm-im/pmm-calculation-assignament-list' + queryParams;
+    return this.http.get(reviewURL);
+  }
    onGetCommentsData(
     lcRequestnumber: string,
     lcnum: string,
