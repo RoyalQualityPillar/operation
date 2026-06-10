@@ -22,7 +22,6 @@ import moment from 'moment';
 })
 export class IwrInitiatorComponent implements OnInit {
   public InstrumentForm: FormGroup;
-  public futurDate = new Date().toISOString().slice(0, 16);
   public pageData: any;
   public headerData: any;
   public isLoading: boolean;

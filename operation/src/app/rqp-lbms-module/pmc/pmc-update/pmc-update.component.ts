@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './pmc-update.component.scss'
 })
 export class PmcUpdateComponent {
-
+public updateSaveUrl = '/rqpoperationui/lbms/pmc-update-save';
 }
