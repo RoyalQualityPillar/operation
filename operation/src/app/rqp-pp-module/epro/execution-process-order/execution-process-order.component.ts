@@ -38,7 +38,7 @@ export class ExecutionProcessOrderComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.getMaterialCompletedProductionList(unitCode).subscribe((data: any) => {
+    this.ppService.getProductionCompletedProductionList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
       this.planningOrderListData = new MatTableDataSource(this.dataSource);
       this.planningOrderListData.sort = this.sort;
