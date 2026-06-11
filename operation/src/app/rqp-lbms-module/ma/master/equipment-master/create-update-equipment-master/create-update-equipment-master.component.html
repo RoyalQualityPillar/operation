@@ -58,21 +58,29 @@
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Equopment Name</mat-label>
+                <mat-label>Equipment Name</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0001"
-                  placeholder="Equopment Name"
+                  placeholder="Equipment Name"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Department</mat-label>
+                <mat-label>Category No</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0002"
-                  placeholder="Department"
+                  placeholder="Category No"
+                  (change)="onChangeCategoryNo()"
+                />
+                <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openCategoryListLOV()"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
@@ -82,8 +90,16 @@
                   matInput
                   formControlName="ff0003"
                   placeholder="Category Code"
+                  (change)="onChangeCategoryCode()"
                 />
-              </mat-form-field>
+                 <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openCategoryListLOV()"
+                />
+             </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Category Name</mat-label>
                 <input
@@ -91,8 +107,16 @@
                   matInput
                   formControlName="ff0004"
                   placeholder="Category Name"
+                  (change)="onChangeCategoryName()"
                 />
-              </mat-form-field>
+                 <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openCategoryListLOV()"
+                />
+           </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Category Type</mat-label>
                 <input
@@ -100,15 +124,31 @@
                   matInput
                   formControlName="ff0005"
                   placeholder="Category Type"
+                  (change)="onChangeCategoryType()"
+                />
+                 <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openCategoryListLOV()"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Clasification</mat-label>
+                <mat-label>Depatment</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0006"
-                  placeholder="Clasification"
+                  placeholder="Depatment"
+                  (change)="onChangeDepartment()"
+                />
+                 <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openDepartmentLOV()"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
@@ -121,75 +161,69 @@
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Modle</mat-label>
+                <mat-label>Model</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0008"
-                  placeholder="Modle"
+                  placeholder="Model"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Manufacturer S. No</mat-label>
+                <mat-label>Mfg.Serial No</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0009"
-                  placeholder="Manufacturer S. No"
+                  placeholder="Mfg.Serial No"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Vendor Name</mat-label>
+                <mat-label>Installed on</mat-label>
                 <input
                   type="text"
                   matInput
+                   [matDatepicker]="picker"
                   formControlName="ff0010"
-                  placeholder="Vendor Name"
+                  placeholder="Installed on"
                 />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Supplier Name</mat-label>
+                <mat-label>Warentry Expiry On</mat-label>
                 <input
                   type="text"
                   matInput
+                   [matDatepicker]="picker1"
                   formControlName="ff0011"
-                  placeholder="Supplier Name"
+                  placeholder="Warentry Expiry On"
                 />
+                 <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Installed On</mat-label>
+                <mat-label>Supplier Code</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0012"
-                  placeholder="Installed On"
+                  placeholder="Supplier Code"
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Warraty Exipire On</mat-label>
+                <mat-label>software</mat-label>
                 <input
                   type="text"
                   matInput
                   formControlName="ff0013"
-                  placeholder="Warraty Exipire On"
-                />
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>SOP No</mat-label>
-                <input
-                  type="text"
-                  matInput
-                  formControlName="ff0014"
-                  placeholder="SOP No"
-                />
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="col-6 px-1">
-                <mat-label>Softwere</mat-label>
-                <input
-                  type="text"
-                  matInput
-                  formControlName="ff0015"
-                  placeholder="Softwere"
+                  placeholder="software"
                 />
               </mat-form-field>
             </div>

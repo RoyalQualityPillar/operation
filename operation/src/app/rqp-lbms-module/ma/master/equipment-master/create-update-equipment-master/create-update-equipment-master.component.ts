@@ -31,12 +31,14 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
   isUpdate = false;
   DepartmentMaster: FormGroup;
   orgList: any;
+  icMasterList: any;
   buTypeList: any;
   unitList: any;
   formData: any;
   isLoading = false;
   statusList: any;
   displayedColumns: any;
+  deptCodeList:any;
   selectedDialogData: any;
   isStatusSuccess = false;
   isPlantCodeSuccess = false;
@@ -72,8 +74,6 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
       ff0011: ['', Validators.required],
       ff0012: ['', Validators.required],
       ff0013: ['', Validators.required],
-      ff0014: ['', Validators.required],
-      ff0015: ['', Validators.required],
       createdby: [''],
       status: [''],
       comments: ['', Validators.required],
@@ -85,6 +85,7 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
       this.cookieService.get('buCode')
     );
     this.onloadDropDown();
+    this.onloadDeptListDropDown();
     this.onLoadStatusDropDown();
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
@@ -100,7 +101,6 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     let unitCode = this.cookieService.get('buCode');
     let params = { unitCode };
-    //this.businessUnitService.getDropDownList().subscribe((data: any) => {
     this.apiService
       .sendRequest(apiEndPoints.dropDownInputList, 'GET', params)
       .subscribe((data: any) => {
@@ -110,6 +110,17 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
   }
+
+   onloadDeptListDropDown() {
+    this.isLoading = true;
+    this.equipmentMasterService.getDropDownDeptList(this.cookieService.get('buCode')).subscribe((data: any) => {
+      console.log(data);
+      this.icMasterList = data.data.icMasterList;
+      this.deptCodeList = data.data.deptCodeList;
+      this.isLoading = false;
+    });
+  }
+  onLoadF
   onLoadStatusDropDown() {
     this.isLoading = true;
     this.equipmentMasterService.getDropDownList().subscribe((data: any) => {
@@ -117,11 +128,9 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
       this.isLoading = false;
     });
   }
+ 
   onLoadFormValue() {
     this.isLoading = true;
-    // this.organizationService
-    //   .onLoadUpdatePage(this.userData.tableData.uc0001)
-    //   .subscribe((data: any) => {
     let UC0001 = this.userData.tableData.uc0001;
     const params = { UC0001 };
     this.apiService
@@ -148,8 +157,6 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
     this.DepartmentMaster.controls['ff0011'].setValue(this.formData.ff0011);
     this.DepartmentMaster.controls['ff0012'].setValue(this.formData.ff0012);
     this.DepartmentMaster.controls['ff0013'].setValue(this.formData.ff0013);
-    this.DepartmentMaster.controls['ff0014'].setValue(this.formData.ff0014);
-    this.DepartmentMaster.controls['ff0015'].setValue(this.formData.ff0015);
     this.DepartmentMaster.controls['status'].setValue(this.formData.status);
     this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
   }
@@ -219,15 +226,7 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
         } else {
           this.isLoading = false;
           this.notificationService.showSuccess(data.status, () => { });
-          timer(2000)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-              this.route.navigateByUrl('/rqpoperationui/lbms/ma-module-admin');
-            });
-        }
-
-
-
+          }
       });
     this.dialogRef.close();
   }
@@ -281,10 +280,176 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
       }
     }
   }
- 
- 
-   
-  openStatusLOV() {
+
+  onChangeCategoryNo() {
+    if (this.DepartmentMaster.controls['ff0002'].value == '') {
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0002'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+  onChangeCategoryCode() {
+    if (this.DepartmentMaster.controls['ff0003'].value == '') {
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0003'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+  onChangeCategoryName() {
+    if (this.DepartmentMaster.controls['ff0004'].value == '') {
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0004'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+  onChangeCategoryType() {
+    if (this.DepartmentMaster.controls['ff0005'].value == '') {
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0005'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+   openCategoryListLOV() {
+    this.displayedColumns = [
+      { field: 'uc0001', title: 'Category No' },
+      { field: 'ff0001', title: 'Category Code' },
+      { field: 'ff0002', title: 'Category Name' },
+      { field: 'ff0003', title: 'Category Type' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Department List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.icMasterList,
+        lovName: 'deptCodeList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0002'].setValue(
+          this.selectedDialogData.uc0001
+        );
+        this.DepartmentMaster.controls['ff0003'].setValue(
+          this.selectedDialogData.ff0003
+        );
+        this.DepartmentMaster.controls['ff0004'].setValue(
+          this.selectedDialogData.ff0002
+        );
+        this.DepartmentMaster.controls['ff0005'].setValue(
+          this.selectedDialogData.ff0001
+        );
+      }
+    });
+  }
+
+
+   onChangeDepartment() {
+    if (this.DepartmentMaster.controls['ff0006'].value == '') {
+      this.DepartmentMaster.controls['ff0006'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0006'].value;
+      this.deptCodeList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0006'].setErrors({ incorrect: true });
+        this.openDepartmentLOV();
+      }
+    }
+  }
+   openDepartmentLOV() {
+    this.displayedColumns = [
+      { field: 'unitName', title: 'Department Name' },
+      { field: 'unitCode', title: 'Department Code' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Department List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.deptCodeList,
+        lovName: 'deptCodeList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0006'].setValue(
+          this.selectedDialogData.unitCode
+        );
+      }
+    });
+  }
+  
+     openStatusLOV() {
     this.displayedColumns = [
       { field: 'code', title: 'Code' },
       { field: 'description', title: 'Descritption' },
