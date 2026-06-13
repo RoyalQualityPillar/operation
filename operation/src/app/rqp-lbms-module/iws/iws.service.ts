@@ -15,6 +15,11 @@ export class IwsService {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
   }
+   getDropDownDeptList(unitCode: any) {
+   let queryParams = `?unitCode=${unitCode}`;
+    const ALLSALEPRODUCTURL = this.API_URL + 'limsm-im/input' + queryParams;
+    return this.http.get(ALLSALEPRODUCTURL);
+  }
   saveCalibrationWorksheetMaster(requestBody: any) {
     const nextStageURL = this.API_URL + 'limsm-im/calibration-worksheet-save';
     return this.http.post(nextStageURL, requestBody);

@@ -137,7 +137,7 @@ export class IwsReviewerSaveComponent implements OnInit {
   getQlpRecordList(lc0002: any) {
     this.iwsSwervice.getQlpRecordList(lc0002).subscribe((data: any) => {
       this.QlpRecordList = data.data;
-      const QlpRecordData: any[]= [];
+      const QlpRecordData: any[] = [];
       this.QlpRecordList.forEach((element: any) => {
         QlpRecordData.push({
           qualitativeParameterNo: element.ff0001,
@@ -145,7 +145,8 @@ export class IwsReviewerSaveComponent implements OnInit {
           setPoints: [
             {
               qualitativeSetPoints: element.ff0002,
-              qualitativePassLimit: element.ff0003
+              qualitativePassLimit: element.ff0003,
+              parameterCode: element.ff0005
             }
           ]
         });
@@ -189,7 +190,7 @@ export class IwsReviewerSaveComponent implements OnInit {
 
         // push setpoint
         existingParam.setPoints.push({
-
+          parameterCode: element.ff0010,
           setPoint: element.ff0003,
           min: element.ff0004,
           max: element.ff0005,
@@ -213,61 +214,62 @@ export class IwsReviewerSaveComponent implements OnInit {
       const QtmpRecordData: any[] = [];
       this.QtmpRecordList.forEach((element: any) => {
         let existingParam = QtmpRecordData.find(
-        (x: any) => x.quantitativeParameterNo == element.ff0001
-      );
+          (x: any) => x.quantitativeParameterNo == element.ff0001
+        );
 
-      // Create new parameter
-      if (!existingParam) {
+        // Create new parameter
+        if (!existingParam) {
 
-        existingParam = {
-          quantitativeParameterNo: element.ff0001,
-          quantitativeParameterName: element.ff0002,
-          quantitativeSetPointNo: element.ff0003,
-          setPoints: []
-        };
+          existingParam = {
+            quantitativeParameterNo: element.ff0001,
+            quantitativeParameterName: element.ff0002,
+            quantitativeSetPointNo: element.ff0003,
+            setPoints: []
+          };
 
-        QtmpRecordData.push(existingParam);
+          QtmpRecordData.push(existingParam);
 
-      }
+        }
 
-      const readingValues: any[] = [];
+        const readingValues: any[] = [];
 
-      const totalReadings = Number(element.ff0019);
+        const totalReadings = Number(element.ff0019);
 
-      for (let i = 21; i < 21 + totalReadings; i++) {
+        for (let i = 21; i < 21 + totalReadings; i++) {
 
-        const fieldName =
-          'ff' + ('0000' + i).slice(-4);
+          const fieldName =
+            'ff' + ('0000' + i).slice(-4);
 
-        readingValues.push({
-          value: element[fieldName]
+          readingValues.push({
+            value: element[fieldName]
+          });
+
+        }
+
+        // Push setpoint
+        existingParam.setPoints.push({
+          parameterCode: element.ff0020,
+          setPoint: element.ff0004,
+          readings: element.ff0019,
+          readingValues: readingValues,
+          minimum: element.ff0005,
+          maximum: element.ff0006,
+          average: element.ff0007,
+          standardDeviation: element.ff0008,
+          relativeStandardDeviation: element.ff0009,
+          result: element.ff0010,
+          passLimit: element.ff0011,
+          uom: element.ff0012,
+          passLimitMin: element.ff0013,
+          passLimitMax: element.ff0014,
+          averageLower: element.ff0015,
+          averageUpper: element.ff0016,
+          quantitativeStandardDeviation: element.ff0017,
+          quantitativeRelativeStandardDeviation: element.ff0018
         });
-
-      }
-
-      // Push setpoint
-      existingParam.setPoints.push({
-        setPoint: element.ff0004,
-        readings: element.ff0019,
-        readingValues: readingValues,
-        minimum: element.ff0005,
-        maximum: element.ff0006,
-        average: element.ff0007,
-        standardDeviation: element.ff0008,
-        relativeStandardDeviation: element.ff0009,
-        result: element.ff0010,
-        passLimit: element.ff0011,
-        uom: element.ff0012,
-        passLimitMin: element.ff0013,
-        passLimitMax: element.ff0014,
-        averageLower: element.ff0015,
-        averageUpper: element.ff0016,
-        quantitativeStandardDeviation: element.ff0017,
-        quantitativeRelativeStandardDeviation: element.ff0018
       });
-    });
 
-    this.quantitativeParameters = QtmpRecordData;
+      this.quantitativeParameters = QtmpRecordData;
 
     });
   }
