@@ -25,22 +25,22 @@ export class IwsCompletedSaveComponent implements OnInit {
   public comments: string;
   public headerRequestBody: any;
   public nextStageListData: any;
-  public instrumrntInfo:any;
-   public ff0005: number;
+  public instrumrntInfo: any;
+  public ff0005: number;
   public ff0001: any;
   public lc0001: any;
   public lc0002: any;
-   public ff0002: any;
-     public QlpRecordList: any;
+  public ff0002: any;
+  public QlpRecordList: any;
   public CdIndexList: any;
   public QpsrRecordList: any;
   public QtmpRecordList: any;
   public QpmrRecordList: any;
-   public userCurrentComments: any;
-   commentType = 'completedRecord';
+  public userCurrentComments: any;
+  commentType = 'completedRecord';
   public displayedColumns: any[] = [];
-public selectedDialogData: any;
-   destroy$ = new Subject<void>();
+  public selectedDialogData: any;
+  destroy$ = new Subject<void>();
   parameterNo: number = 0;
   setPointNo: number = 0;
   parameterName: any;
@@ -61,7 +61,7 @@ public selectedDialogData: any;
     public fb: FormBuilder,
     private lifeCycleDataService: LifeCycleDataService,
     private remoteLoader: RemoteComponentLoaderService,
-      private notificationService: NotificationService,
+    private notificationService: NotificationService,
     private route: Router,
   ) {
     this.InstrumentForm = this.fb.group({
@@ -70,8 +70,8 @@ public selectedDialogData: any;
       instrumentNumber: [''],
     });
   }
-  ngOnInit(): void {  
-     const reviewData = sessionStorage.getItem('selectedRow');
+  ngOnInit(): void {
+    const reviewData = sessionStorage.getItem('selectedRow');
     let params: any = null;
     if (reviewData) {
       params = JSON.parse(reviewData);
@@ -89,9 +89,9 @@ public selectedDialogData: any;
       };
       this.ff0001 = params.uc0001;
       this.ff0005 = params.ff0008;
-        this.ff0002 = params.ff0005;
-         this.lc0001 = params.ff0001;
-    }    
+      this.ff0002 = params.ff0005;
+      this.lc0001 = params.ff0001;
+    }
     if (this.ff0001) {
       this.getCalibrationModuleRequestno();
     }
@@ -101,7 +101,7 @@ public selectedDialogData: any;
   getHeaderData(event: any) {
     this.headerData = event;
   }
-     public getCommentsData(event: any): void {
+  public getCommentsData(event: any): void {
     this.userCurrentComments = event;
   }
   public handleCommentsForm(event: any) {
@@ -118,9 +118,9 @@ public selectedDialogData: any;
       this.nextStageListData = data.data.nstage;
     });
   }
-  getCalibrationModuleRequestno(){
-this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data:any) => {
-  this.lc0002 = data.data[0].lc0002;
+  getCalibrationModuleRequestno() {
+    this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data: any) => {
+      this.lc0002 = data.data[0].lc0002;
       if (this.lc0002) {
         this.getQlpRecordList(this.lc0002);
         this.getCdIndexList(this.lc0002);
@@ -128,12 +128,12 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
         this.getQtmpRecordList(this.lc0002);
         this.getQpmrRecordList(this.lc0002);
       }
-});
+    });
   }
   getQlpRecordList(lc0002: any) {
     this.iwsSwervice.getQlpRecordList(lc0002).subscribe((data: any) => {
       this.QlpRecordList = data.data;
-      const QlpRecordData: any[]= [];
+      const QlpRecordData: any[] = [];
       this.QlpRecordList.forEach((element: any) => {
         QlpRecordData.push({
           qualitativeParameterNo: element.ff0001,
@@ -141,7 +141,8 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
           setPoints: [
             {
               qualitativeSetPoints: element.ff0002,
-              qualitativePassLimit: element.ff0003
+              qualitativePassLimit: element.ff0003,
+              parameterCode: element.ff0005
             }
           ]
         });
@@ -185,7 +186,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
 
         // push setpoint
         existingParam.setPoints.push({
-
+          parameterCode: element.ff0010,
           setPoint: element.ff0003,
           min: element.ff0004,
           max: element.ff0005,
@@ -209,61 +210,62 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
       const QtmpRecordData: any[] = [];
       this.QtmpRecordList.forEach((element: any) => {
         let existingParam = QtmpRecordData.find(
-        (x: any) => x.quantitativeParameterNo == element.ff0001
-      );
+          (x: any) => x.quantitativeParameterNo == element.ff0001
+        );
 
-      // Create new parameter
-      if (!existingParam) {
+        // Create new parameter
+        if (!existingParam) {
 
-        existingParam = {
-          quantitativeParameterNo: element.ff0001,
-          quantitativeParameterName: element.ff0002,
-          quantitativeSetPointNo: element.ff0003,
-          setPoints: []
-        };
+          existingParam = {
+            quantitativeParameterNo: element.ff0001,
+            quantitativeParameterName: element.ff0002,
+            quantitativeSetPointNo: element.ff0003,
+            setPoints: []
+          };
 
-        QtmpRecordData.push(existingParam);
+          QtmpRecordData.push(existingParam);
 
-      }
+        }
 
-      const readingValues: any[] = [];
+        const readingValues: any[] = [];
 
-      const totalReadings = Number(element.ff0019);
+        const totalReadings = Number(element.ff0019);
 
-      for (let i = 21; i < 21 + totalReadings; i++) {
+        for (let i = 21; i < 21 + totalReadings; i++) {
 
-        const fieldName =
-          'ff' + ('0000' + i).slice(-4);
+          const fieldName =
+            'ff' + ('0000' + i).slice(-4);
 
-        readingValues.push({
-          value: element[fieldName]
+          readingValues.push({
+            value: element[fieldName]
+          });
+
+        }
+
+        // Push setpoint
+        existingParam.setPoints.push({
+          parameterCode: element.ff0020,
+          setPoint: element.ff0004,
+          readings: element.ff0019,
+          readingValues: readingValues,
+          minimum: element.ff0005,
+          maximum: element.ff0006,
+          average: element.ff0007,
+          standardDeviation: element.ff0008,
+          relativeStandardDeviation: element.ff0009,
+          result: element.ff0010,
+          passLimit: element.ff0011,
+          uom: element.ff0012,
+          passLimitMin: element.ff0013,
+          passLimitMax: element.ff0014,
+          averageLower: element.ff0015,
+          averageUpper: element.ff0016,
+          quantitativeStandardDeviation: element.ff0017,
+          quantitativeRelativeStandardDeviation: element.ff0018
         });
-
-      }
-
-      // Push setpoint
-      existingParam.setPoints.push({
-        setPoint: element.ff0004,
-        readings: element.ff0019,
-        readingValues: readingValues,
-        minimum: element.ff0005,
-        maximum: element.ff0006,
-        average: element.ff0007,
-        standardDeviation: element.ff0008,
-        relativeStandardDeviation: element.ff0009,
-        result: element.ff0010,
-        passLimit: element.ff0011,
-        uom: element.ff0012,
-        passLimitMin: element.ff0013,
-        passLimitMax: element.ff0014,
-        averageLower: element.ff0015,
-        averageUpper: element.ff0016,
-        quantitativeStandardDeviation: element.ff0017,
-        quantitativeRelativeStandardDeviation: element.ff0018
       });
-    });
 
-    this.quantitativeParameters = QtmpRecordData;
+      this.quantitativeParameters = QtmpRecordData;
 
     });
   }
@@ -273,7 +275,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
     });
   }
 
-     public downloadIWSReport() {
+  public downloadIWSReport() {
     // const lcNumber = this.headerData?.lcnum;
     // const templateName = 'cc.html';
     // const moduleCode = this.headerData?.modulecode;
@@ -310,7 +312,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
     //   });
     // this.isLoading = false;
   }
-   public downloadIWSAttachedReport() {
+  public downloadIWSAttachedReport() {
     // const lcNumber = this.headerData?.lcnum;
     // const templateName = 'cc.html';
     // const moduleCode = this.headerData?.modulecode;
@@ -346,7 +348,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
     // this.isLoading = false;
   }
 
-   getComments() {
+  getComments() {
     const lcRequestnumber = this.headerData.requestNo;
     const lcnum = this.headerData.lcnum;
     const templateName = 'ch.html';
