@@ -21,4 +21,10 @@ export class EproModuleAdminComponent {
   public onallPendingRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
   }
+  public SfgExecutionProcessOrder(): void {
+    this.router.navigate(['./rqpoperationui/pp/sfg-execution-process-order']);
+  }
+  public FgExecutionProcessOrder(): void {
+    this.router.navigate(['./rqpoperationui/pp/fg-execution-process-order']);
+  }
 }
