@@ -42,6 +42,8 @@ import { FgRejectListComponent } from "../fg/fg-reject-list/fg-reject-list.compo
 import { ProductionCompletedListComponent } from "../epro/production-completed-list/production-completed-list.component";
 import { SfgApproverListComponent } from "../fg/sfg-approver-list/sfg-approver-list.component";
 import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.component";
+import { FgExecutionProcessOrderComponent } from "../epro/fg-execution-process-order/fg-execution-process-order.component";
+import { SfgExecutionProcessOrderComponent } from "../epro/sfg-execution-process-order/sfg-execution-process-order.component";
 
 @NgModule({
   declarations: [
@@ -83,6 +85,9 @@ import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.co
      SfgApproverListComponent,
     SfgRejectListComponent, 
     ProductionCompletedListComponent,
+    FgExecutionProcessOrderComponent,
+    SfgExecutionProcessOrderComponent,
+    
 
 
 

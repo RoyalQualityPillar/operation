@@ -35,6 +35,8 @@ import { FgRejectListComponent } from "../fg/fg-reject-list/fg-reject-list.compo
 import { ProductionCompletedListComponent } from "../epro/production-completed-list/production-completed-list.component";
 import { SfgApproverListComponent } from "../fg/sfg-approver-list/sfg-approver-list.component";
 import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.component";
+import { SfgExecutionProcessOrderComponent } from "../epro/sfg-execution-process-order/sfg-execution-process-order.component";
+import { FgExecutionProcessOrderComponent } from "../epro/fg-execution-process-order/fg-execution-process-order.component";
 
 const routes: Routes = [
 
@@ -73,6 +75,8 @@ const routes: Routes = [
   { path: 'sfg-approver-list', component: SfgApproverListComponent },
   { path: 'sfg-reject-list', component: SfgRejectListComponent },
   { path: 'production-completed-list', component: ProductionCompletedListComponent },
+  { path: 'sfg-execution-process-order', component: SfgExecutionProcessOrderComponent },
+   { path: 'fg-execution-process-order', component: FgExecutionProcessOrderComponent },
 
 ];
 
