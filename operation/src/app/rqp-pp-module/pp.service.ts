@@ -338,6 +338,11 @@ export class PpService {
   public getProductionCompletedProductionList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/production-completed-list?Unitcode=${Unitcode} `);
   }
+  public getSfgMaterialCompletedProductionList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-material-completed-production-list?Unitcode=${Unitcode} `);
+  }
+   
+
 
 }
 

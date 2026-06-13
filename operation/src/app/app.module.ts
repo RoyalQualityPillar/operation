@@ -12,6 +12,8 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { LovDialogComponent } from './common/lov-dialog/lov-dialog.component';
 import { MessageDialogComponent } from './common/message-dialog/message-dialog.component';
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
+import { FgExecutionProcessOrderComponent } from './rqp-pp-module/epro/fg-execution-process-order/fg-execution-process-order.component';
+import { SfgExecutionProcessOrderComponent } from './rqp-pp-module/epro/sfg-execution-process-order/sfg-execution-process-order.component';
 
 
 
@@ -23,8 +25,7 @@ import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.compone
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-
-
+   
 
 
 
