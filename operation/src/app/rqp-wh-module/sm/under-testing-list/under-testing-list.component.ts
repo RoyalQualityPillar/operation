@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 @Component({
   selector: 'app-under-testing-list',
@@ -34,6 +35,7 @@ export class UnderTestingListComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+      private remoteLoader: RemoteComponentLoaderService
   ){}
   ngOnInit(): void {
    const userId = this.cookieService.get('unitCode');
@@ -54,21 +56,68 @@ export class UnderTestingListComponent implements OnInit {
   private onPaginationCall(): void {
    
   }
-  public onSubmit(row: any): void {
-     this.whService.saveTestList(row.uc0001).subscribe((data: any) => {
-       if (data.errorInfo != null) {
-         this.isLoading = false;
-         this.dialog.open(MessageDialogComponent, {
-           data: {
-             message: data.errorInfo.message,
-             heading: 'Error Information',
-           },
-         });
-       } else {
-         this.isLoading = false;
-         this.notificationService.showSuccess(data.status, () => {
-         });
-       }
-     });
-   }
+  public async onSubmit(row: any): Promise<void> {
+
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+
+      this.whService.saveTestList(row.uc0001).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+
+        }
+      });
+
+    }
+
+  });
+}
+// }
+//   public onSubmit(row: any): void {
+//      this.whService.saveTestList(row.uc0001).subscribe((data: any) => {
+//        if (data.errorInfo != null) {
+//          this.isLoading = false;
+//          this.dialog.open(MessageDialogComponent, {
+//            data: {
+//              message: data.errorInfo.message,
+//              heading: 'Error Information',
+//            },
+//          });
+//        } else {
+//          this.isLoading = false;
+//          this.notificationService.showSuccess(data.status, () => {
+//          });
+//        }
+//      });
+//    }
+
 }
