@@ -64,12 +64,18 @@
 
     <!-- <div class="parameter-card" *ngFor="let parameter of parameters"> -->
 
-    <h3>{{parameter.parameterName}} {{ parameter.parameterNo }}</h3>
+    <h3>Parameter {{ parameter.parameterNo }}</h3>
 
     <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
 
         <div class="row no-gutters ms-1 me-1 dense-4">
-
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Parameter</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.parameterCode" placeholder="Instrument Code"
+                    (change)="onChangeParameterCode(sp)" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                    color="primary" (click)="openParameterLOV(sp)" />
+            </mat-form-field>
             <mat-form-field appearance="outline" class="col-2 px-1">
                 <mat-label>Set Point {{ j + 1 }}</mat-label>
                 <input type="text" matInput [(ngModel)]="sp.setPoint" (input)="checkResult(sp)">
@@ -147,6 +153,13 @@
     <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
 
         <div class="row no-gutters ms-1 me-1 dense-4">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Parameter</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.parameterCode" placeholder="Instrument Code"
+                    (change)="onChangeParameterCode(sp)" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                    color="primary" (click)="openParameterLOV(sp)" />
+            </mat-form-field>
 
             <mat-form-field appearance="outline" class="col-3 px-1">
                 <mat-label>Set Point {{ j + 1 }}</mat-label>
@@ -200,10 +213,17 @@
         </div> -->
     </div>
 
-    <h3>{{parameter.quantitativeParameterName}} {{ parameter.quantitativeParameterNo }}</h3>
+    <h3>Parameter {{ parameter.quantitativeParameterNo }}</h3>
 
     <div class="setpoint-card" *ngFor="let sp of parameter.setPoints; let j = index">
         <div class="row no-gutters ms-1 me-1 dense-4">
+            <mat-form-field appearance="outline" class="col-3 px-1">
+                <mat-label>Parameter</mat-label>
+                <input type="text" matInput [(ngModel)]="sp.parameterCode" placeholder="Instrument Code"
+                    (change)="onChangeParameterCode(sp)" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                    color="primary" (click)="openParameterLOV(sp)" />
+            </mat-form-field>
             <mat-form-field appearance="outline" class="col-3 px-1">
                 <mat-label>Set Point {{ j + 1 }}</mat-label>
                 <input type="text" matInput [(ngModel)]="sp.setPoint">
