@@ -506,7 +506,8 @@ export class IwrReviewerSaveComponent implements OnInit {
           setPoints: [
             {
               qualitativeSetPoints: element.ff0002,
-              qualitativePassLimit: element.ff0003
+              qualitativePassLimit: element.ff0003,
+              parameterCode: element.ff0005
             }
           ]
         });
@@ -550,7 +551,7 @@ export class IwrReviewerSaveComponent implements OnInit {
 
         // push setpoint
         existingParam.setPoints.push({
-
+          parameterCode: element.ff0010,
           setPoint: element.ff0003,
           min: element.ff0004,
           max: element.ff0005,
@@ -606,6 +607,7 @@ export class IwrReviewerSaveComponent implements OnInit {
         }
         // Push setpoint
         existingParam.setPoints.push({
+          parameterCode: element.ff0020,
           setPoint: element.ff0004,
           readings: element.ff0019,
           readingValues: readingValues,

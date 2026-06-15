@@ -17,21 +17,21 @@ import { Router } from '@angular/router';
   styleUrl: './iwr-completed-save.component.scss'
 })
 export class IwrCompletedSaveComponent implements OnInit {
-   public InstrumentForm: FormGroup;
-   public commentType = 'completedRecord';
-    public pageData: any;
- public headerData: any;
-   public isLoading: boolean;
- public userCurrentComments: any;
-   public headerRequestBody: any;
+  public InstrumentForm: FormGroup;
+  public commentType = 'completedRecord';
+  public pageData: any;
+  public headerData: any;
+  public isLoading: boolean;
+  public userCurrentComments: any;
+  public headerRequestBody: any;
   public nextStageListData: any;
-   public instrumrntInfo: any;
-     public ff0005: number;
+  public instrumrntInfo: any;
+  public ff0005: number;
   public ff0001: any;
   public lc0001: any;
-   public ff0002: any;
-     public lc0002: any;
-       parameterNo: number = 0;
+  public ff0002: any;
+  public lc0002: any;
+  parameterNo: number = 0;
   setPointNo: number = 0;
   parameterName: any;
   parameters: any[] = [];
@@ -42,31 +42,31 @@ export class IwrCompletedSaveComponent implements OnInit {
   quantitativeSetPointNo: number = 0;
   quantitativeParameterName: any;
   quantitativeParameters: any[] = [];
-    public QlpRecordList: any;
+  public QlpRecordList: any;
   public CdIndexList: any;
   public QpsrRecordList: any;
   public QtmpRecordList: any;
   public QpmrRecordList: any;
-   constructor(
-      public dialog: MatDialog,
-      private iwsSwervice: IwsService,
-      private iwrSwervice: IwrService,
-      private toolbarService: ToolbarService,
-      public cookieService: CookieService,
-      public fb: FormBuilder,
-      private lifeCycleDataService: LifeCycleDataService,
-      private remoteLoader: RemoteComponentLoaderService,
-      private notificationService: NotificationService,
-      private route: Router,
-    ) {
-      this.InstrumentForm = this.fb.group({
-        instrumentCode: [''],
-        instrumentName: [''],
-        instrumentNumber: [''],
-        scheduleDate: ['']
-      });
-    }
-     ngOnInit(): void {
+  constructor(
+    public dialog: MatDialog,
+    private iwsSwervice: IwsService,
+    private iwrSwervice: IwrService,
+    private toolbarService: ToolbarService,
+    public cookieService: CookieService,
+    public fb: FormBuilder,
+    private lifeCycleDataService: LifeCycleDataService,
+    private remoteLoader: RemoteComponentLoaderService,
+    private notificationService: NotificationService,
+    private route: Router,
+  ) {
+    this.InstrumentForm = this.fb.group({
+      instrumentCode: [''],
+      instrumentName: [''],
+      instrumentNumber: [''],
+      scheduleDate: ['']
+    });
+  }
+  ngOnInit(): void {
     this.onLoadInstrumentCode();
     this.pageData = {
       pageName: 'homePage',
@@ -101,9 +101,9 @@ export class IwrCompletedSaveComponent implements OnInit {
   getHeaderData(event: any) {
     this.headerData = event;
   }
-   public getCommentsData(event: any): void {
+  public getCommentsData(event: any): void {
     this.userCurrentComments = event;
-  } 
+  }
   onLoadNextStageData() {
     let body: any;
     body = {
@@ -114,7 +114,7 @@ export class IwrCompletedSaveComponent implements OnInit {
       this.nextStageListData = data.data.nstage;
     });
   }
-   onGenerateParameters() {
+  onGenerateParameters() {
     this.parameters = [];
 
     for (let i = 0; i < this.parameterNo; i++) {
@@ -202,7 +202,7 @@ export class IwrCompletedSaveComponent implements OnInit {
       this.instrumrntInfo = data.data;
     });
   }
-   generateReadingFields(value: any) {
+  generateReadingFields(value: any) {
     value.readingValues = [];
 
     const count = Number(value.readings);
@@ -376,19 +376,19 @@ export class IwrCompletedSaveComponent implements OnInit {
     sp.result = isPass ? 'PASS' : 'FAIL';
 
   }
-   getCalibrationModuleRequestno(){
-this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data:any) => {
-  this.lc0002 = data.data[0].lc0002;
+  getCalibrationModuleRequestno() {
+    this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data: any) => {
+      this.lc0002 = data.data[0].lc0002;
       if (this.lc0002) {
         this.getQlpRecordList(this.lc0002);
         this.getCdIndexList(this.lc0002);
         this.getQpsrRecordList(this.lc0002);
         this.getQtmpRecordList(this.lc0002);
-       // this.getQpmrRecordList(this.lc0002);
+        // this.getQpmrRecordList(this.lc0002);
       }
-});
+    });
   }
- getQlpRecordList(lc0002: any) {
+  getQlpRecordList(lc0002: any) {
     this.iwsSwervice.getQlpRecordList(lc0002).subscribe((data: any) => {
       this.QlpRecordList = data.data;
       const QlpRecordData: any[] = [];
@@ -399,7 +399,8 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
           setPoints: [
             {
               qualitativeSetPoints: element.ff0002,
-              qualitativePassLimit: element.ff0003
+              qualitativePassLimit: element.ff0003,
+              parameterCode: element.ff0005
             }
           ]
         });
@@ -443,7 +444,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
 
         // push setpoint
         existingParam.setPoints.push({
-
+          parameterCode: element.ff0010,
           setPoint: element.ff0003,
           min: element.ff0004,
           max: element.ff0005,
@@ -499,6 +500,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
         }
         // Push setpoint
         existingParam.setPoints.push({
+          parameterCode: element.ff0020,
           setPoint: element.ff0004,
           readings: element.ff0019,
           readingValues: readingValues,
@@ -525,7 +527,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
     });
   }
 
-   checkResult(setPointObj: any) {
+  checkResult(setPointObj: any) {
     const setPoint = parseFloat(setPointObj.setPoint);
     const min = parseFloat(setPointObj.min);
     const max = parseFloat(setPointObj.max);
@@ -540,7 +542,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
       setPointObj.result = '';
     }
   }
-     public downloadIWRReport() {
+  public downloadIWRReport() {
     // const lcNumber = this.headerData?.lcnum;
     // const templateName = 'cc.html';
     // const moduleCode = this.headerData?.modulecode;
@@ -577,7 +579,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
     //   });
     // this.isLoading = false;
   }
-   public downloadIWRAttachedReport() {
+  public downloadIWRAttachedReport() {
     // const lcNumber = this.headerData?.lcnum;
     // const templateName = 'cc.html';
     // const moduleCode = this.headerData?.modulecode;
@@ -612,7 +614,7 @@ this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscri
     //   });
     // this.isLoading = false;
   }
-getComments() {
+  getComments() {
     const lcRequestnumber = this.headerData.requestNo;
     const lcnum = this.headerData.lcnum;
     const templateName = 'ch.html';

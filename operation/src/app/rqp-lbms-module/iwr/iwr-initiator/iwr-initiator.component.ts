@@ -30,6 +30,7 @@ export class IwrInitiatorComponent implements OnInit {
   public headerRequestBody: any;
   public nextStageListData: any;
   public instrumrntInfo: any;
+  public parameterInfo: any;
   public calAssignmentData: any;
   public displayedColumns: any[] = [];
   public selectedDialogData: any;
@@ -37,6 +38,7 @@ export class IwrInitiatorComponent implements OnInit {
   public parameterNo: number = 0;
   public setPointNo: number = 0;
   public parameterName: any;
+  public parameterCode: any;
   public parameters: any[] = [];
   public uomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
   public qualitativeParameterNo: number;
@@ -77,6 +79,7 @@ export class IwrInitiatorComponent implements OnInit {
   }
   ngOnInit(): void {
     this.onLoadInstrumentCode();
+    this.onLoadInstrumentInput();
     this.getCalculationAssignamentList();
     this.pageData = {
       pageName: 'homePage',
@@ -123,6 +126,7 @@ export class IwrInitiatorComponent implements OnInit {
 
       for (let j = 0; j < this.setPointNo; j++) {
         setPoints.push({
+          parameterCode: '',
           setPoint: '',
           min: '',
           max: '',
@@ -149,6 +153,7 @@ export class IwrInitiatorComponent implements OnInit {
 
         setPoints: [
           {
+            parameterCode: '',
             qualitativeSetPoints: '',
             qualitativePassLimit: ''
           }
@@ -165,6 +170,7 @@ export class IwrInitiatorComponent implements OnInit {
 
       for (let j = 0; j < this.quantitativeSetPointNo; j++) {
         setPoints.push({
+          parameterCode: '',
           setPoint: '',
           passLimitMin: '',
           passLimitMax: '',
@@ -420,8 +426,8 @@ export class IwrInitiatorComponent implements OnInit {
     }
     const instrumentindexValue = this.InstrumentForm.value;
     const qualitativeRecordList: any[] = [];
- const qpsrRecordList: any[] = [];
- const qtmpRecordList: any[] = [];
+    const qpsrRecordList: any[] = [];
+    const qtmpRecordList: any[] = [];
 
     this.QlpRecordList.forEach((element: any) => {
       element.setPoints.forEach((ele: any) => {
@@ -431,13 +437,13 @@ export class IwrInitiatorComponent implements OnInit {
           ff0002: ele.qualitativeSetPoints,
           ff0003: ele.qualitativePassLimit,
           ff0004: 0,
-          ff0005: "string",
+          ff0005: ele.parameterCode,
           createdby: this.cookieService.get('userId'),
           status: 0,
           comments: this.comments
         });
       });
-    });   
+    });
     this.QpsrRecordList.forEach((parameter: any) => {
       parameter.setPoints.forEach((sp: any) => {
         qpsrRecordList.push({
@@ -451,7 +457,7 @@ export class IwrInitiatorComponent implements OnInit {
           ff0007: sp.result,
           ff0008: sp.passLimit,
           ff0009: parameter.setPointNo,
-          ff0010: "string",
+          ff0010: sp.parameterCode,
           lc0001: "string",
           lc0002: "string",
           lc0003: "string",
@@ -466,7 +472,7 @@ export class IwrInitiatorComponent implements OnInit {
     });
 
 
-    
+
 
     this.quantitativeParameters.forEach((parameter: any) => {
       parameter.setPoints.forEach((sp: any) => {
@@ -528,7 +534,7 @@ export class IwrInitiatorComponent implements OnInit {
           ff0018: sp.quantitativeRelativeStandardDeviation,
           ff0019: sp.readings,
           // ff0020: sp.readingValues,
-          ff0020: "string",
+          ff0020: sp.parameterCode,
           lc0001: "string",
           lc0002: "string",
           lc0003: "string",
@@ -660,7 +666,55 @@ export class IwrInitiatorComponent implements OnInit {
       //   this.getQtmpRecordList(this.lc0002);
     });
   }
+  onLoadInstrumentInput() {
+    let unitCode = this.cookieService.get('buCode');
+    this.iwsSwervice.getDropDownDeptList(unitCode).subscribe((data: any) => {
+      this.parameterInfo = data.data.calperList;
+    });
+  }
+  onChangeParameterCode(sp: any) {
+    if (!sp.parameterCode) {
+      return;
+    } else {
+      this.isCategorySuccess = false;
+      let categoryCurrentValue = this.InstrumentForm.controls['parameterCode'].value;
+      this.parameterInfo.forEach((elements) => {
+        if (elements.buTypeCode == categoryCurrentValue) {
+          this.isCategorySuccess = true;
+        }
+      });
+      if (this.isCategorySuccess == false) {
+        this.InstrumentForm.controls['parameterCode'].setErrors({ incorrect: true });
+        this.openParameterLOV(sp);
+      }
+    }
+  }
 
+  openParameterLOV(sp: any) {
+    this.displayedColumns = [
+      { field: 'name', title: 'Parameter Name' },
+      { field: 'code', title: 'Parameter Code' }
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '700px',
+      data: {
+        dialogTitle: 'Parameter Information',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.parameterInfo,
+        lovName: 'parameterList'
+      },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+
+      if (result) {
+        this.selectedDialogData = result.data;
+        sp.parameterCode = this.selectedDialogData.name
+      }
+    });
+  }
   isCategorySuccess: boolean;
   onChangeInstrumentCode() {
     if (this.InstrumentForm.controls['instrumentCode'].value == '') {
