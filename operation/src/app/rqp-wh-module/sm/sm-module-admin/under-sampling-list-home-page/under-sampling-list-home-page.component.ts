@@ -7,6 +7,7 @@ import { MessageDialogComponent } from 'src/app/common/message-dialog/message-di
 import { NotificationService } from 'src/app/common/notification.service';
 import { LmsService } from 'src/app/rqp-lms-module/lms.service';
 import { WhService } from 'src/app/rqp-wh-module/wh.service';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 @Component({
   selector: 'app-under-sampling-list-home-page',
@@ -39,6 +40,7 @@ export class UnderSamplingListHomePageComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+     private remoteLoader: RemoteComponentLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -66,24 +68,70 @@ export class UnderSamplingListHomePageComponent implements OnInit {
   public onPaginationCall() {
     //todo
   }
+public async submit(row: any): Promise<void> {
 
-  public submit(row: any): void {
-    this.whService.saveSampling(row.uc0001).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
-        });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {
-        });
-      }
-    });
-  }
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+
+      this.whService.saveSampling(row.uc0001).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+
+        }
+      });
+
+    }
+
+  });
+}
+
+  // public submit(row: any): void {
+  
+  //   this.whService.saveSampling(row.uc0001).subscribe((data: any) => {
+  //     if (data.errorInfo != null) {
+  //       this.isLoading = false;
+  //       this.dialog.open(MessageDialogComponent, {
+  //         data: {
+  //           message: data.errorInfo.message,
+  //           heading: 'Error Information',
+  //         },
+  //       });
+  //     } else {
+  //       this.isLoading = false;
+  //       this.notificationService.showSuccess(data.status, () => {
+  //       });
+  //     }
+  //   });
+  // }
 
 
 }
