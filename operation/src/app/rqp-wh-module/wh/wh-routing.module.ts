@@ -34,6 +34,8 @@ import { FgUnderTestListComponent } from '../sm/fg-under-test-list/fg-under-test
 import { SfgSamplingListComponent } from '../sm/sfg-sampling-list/sfg-sampling-list.component';
 import { SfgUnderTestListComponent } from '../sm/sfg-under-test-list/sfg-under-test-list.component';
 import { SfgQuarantineListComponent } from '../qm/sfg-quarantine-list/sfg-quarantine-list.component';
+import { SfgUnderApproverListComponent } from '../qsm/sfg-under-approver-list/sfg-under-approver-list.component';
+import { FgUnderApproverListComponent } from '../qsm/fg-under-approver-list/fg-under-approver-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -69,7 +71,10 @@ const routes: Routes = [
   { path: 'sfg-under-test-list', component: SfgUnderTestListComponent },
   { path: 'slc-module-admin', component: SlcModuleAdminComponent },
   { path: 'approved-material-list', component: ApprovedMaterialListComponent },
-  { path: 'location-update', component: LocationUpdateComponent }
+  { path: 'location-update', component: LocationUpdateComponent },
+   { path: 'sfg-under-approver-list', component:SfgUnderApproverListComponent },
+   { path: 'fg-under-approver-list', component:FgUnderApproverListComponent },
+ 
 ];
 
 @NgModule({
