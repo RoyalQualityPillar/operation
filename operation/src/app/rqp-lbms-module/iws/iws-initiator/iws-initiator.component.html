@@ -87,7 +87,7 @@
             <mat-form-field appearance="outline" class="col-3 px-1">
                 <mat-label>UOM</mat-label>
 
-                <mat-select [(ngModel)]="sp.uom">
+                <!-- <mat-select [(ngModel)]="sp.uom">
 
                     <mat-option value="">Select UOM</mat-option>
 
@@ -95,8 +95,27 @@
                         {{ uom }}
                     </mat-option>
 
-                </mat-select>
+                </mat-select> -->
+                 <input type="text" matInput [(ngModel)]="sp.uom" placeholder="Instrument Code"
+                    (change)="onChangeUOMCode(sp)" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                    color="primary" (click)="openUOMLOV(sp)" />
             </mat-form-field>
+                <!-- <input
+                  type="text"
+                  matInput
+                  formControlName="uom"
+                  placeholder="UOM"
+                  (change)="onChangeUOM()"
+                />
+                 <img
+                  alt="lov img"
+                  src="../../../../../../assets/searchfind.svg"
+                  class="icon-size lovSearchButton"
+                  color="primary"
+                  (click)="openUOMListLOV()"
+                /> 
+            </mat-form-field>-->
             <mat-form-field appearance="outline" class="col-3 px-1 result">
                 <mat-label>Result</mat-label>
                 <input type="text" matInput [value]="sp.result" [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
