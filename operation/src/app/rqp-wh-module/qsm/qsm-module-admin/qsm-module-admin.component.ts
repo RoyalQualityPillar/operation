@@ -9,8 +9,14 @@ import { Router } from '@angular/router';
 })
 export class QsmModuleAdminComponent {
    constructor(private router: Router) { }
-  qualityStatusList(): void {
+  materialUnderApproverList(): void {
     this.router.navigate(['./rqpoperationui/wh/quality-status-list']);
+  }
+  sfgUnderApproverList(): void {
+    this.router.navigate(['./rqpoperationui/wh/sfg-under-approver-list']);
+  }
+   fgUnderApproverList(): void {
+    this.router.navigate(['./rqpoperationui/wh/fg-under-approver-list']);
   }
  public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
