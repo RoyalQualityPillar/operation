@@ -14,6 +14,8 @@ import { MessageDialogComponent } from './common/message-dialog/message-dialog.c
 import { PmsListComponent } from './rqp-dms-module/dms/pms-list/pms-list.component';
 import { FgExecutionProcessOrderComponent } from './rqp-pp-module/epro/fg-execution-process-order/fg-execution-process-order.component';
 import { SfgExecutionProcessOrderComponent } from './rqp-pp-module/epro/sfg-execution-process-order/sfg-execution-process-order.component';
+import { SfgUnderApproverListComponent } from './rqp-wh-module/qsm/sfg-under-approver-list/sfg-under-approver-list.component';
+import { FgUnderApproverListComponent } from './rqp-wh-module/qsm/fg-under-approver-list/fg-under-approver-list.component';
 
 
 
@@ -25,7 +27,7 @@ import { SfgExecutionProcessOrderComponent } from './rqp-pp-module/epro/sfg-exec
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-   
+    
 
 
 

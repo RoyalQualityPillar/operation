@@ -21,6 +21,12 @@ export class WhService {
     public qualityStatusList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/Quality-status-list?Unitcode=${unitCode} `);
   }
+  public sfgUnderApproverList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-under-approver-list?Unitcode=${unitCode} `);
+  }
+  public fgUnderApproverList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-under-approver-list?Unitcode=${unitCode} `);
+  }
   public saveSampling(uc0001:string){
    const queryParams = `?uc0001=${uc0001}`;
    const samplingURL = this.API_URL + 'wh/sampling-save' +queryParams;
@@ -36,6 +42,12 @@ export class WhService {
    const qualityStatusURL = this.API_URL + 'wh/Quality-save' +queryParams;
    return this.http.post(qualityStatusURL, '');
   }
+  public saveUnderApproverList(uc0001:string,ff0008:any){
+   const queryParams = `?uc0001=${uc0001}&ff0008=${ff0008}`;
+   const qualityStatusURL = this.API_URL + 'pp/under-approver-save' +queryParams;
+   return this.http.post(qualityStatusURL, '');
+  }
+  
   
   public quarantineList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/quarantine-list?Unitcode=${Unitcode} `);
