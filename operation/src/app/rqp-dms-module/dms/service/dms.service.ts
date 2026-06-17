@@ -170,7 +170,6 @@ export class DmsService {
     });
     formData.append('sopDTO', jsonBlob, 'data.json');
     //formData.append('ursDTO', JSON.stringify(body.ursDTO));
-    console.log(formData);
 
     let createUserURL = this.API_URL + 'dms/sop/save-update';
 

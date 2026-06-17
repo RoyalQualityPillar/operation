@@ -165,7 +165,6 @@ export class IwsCompletedSaveComponent implements OnInit {
       this.QpsrRecordList = data.data;
       const QpsrRecordData: any[] = [];
       this.QpsrRecordList.forEach((element: any) => {
-        console.log(element);
         // check parameter already exists
         let existingParam = QpsrRecordData.find(
           (x: any) => x.parameterNo == element.ff0001
@@ -193,15 +192,9 @@ export class IwsCompletedSaveComponent implements OnInit {
           uom: element.ff0006,
           result: element.ff0007,
           passLimit: element.ff0008
-
         });
-
       });
-
       this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
     });
   }
   getQtmpRecordList(lc0002: any) {
@@ -291,7 +284,6 @@ export class IwsCompletedSaveComponent implements OnInit {
     //     lcrnumber
     //   )
     //   .subscribe((data: any) => {
-    //     console.log(data);
     //     let fileExtension = 'pdf';
     //     const binaryData = atob(data.data);
     //     const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -326,7 +318,6 @@ export class IwsCompletedSaveComponent implements OnInit {
     //     lcrnumber
     //   )
     //   .subscribe((data: any) => {
-    //     console.log(data);
     //     let fileExtension = 'pdf';
     //     const binaryData = atob(data.data);
     //     const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -365,7 +356,6 @@ export class IwsCompletedSaveComponent implements OnInit {
         moduleCode
       )
       .subscribe((data: any) => {
-        console.log(data);
         let fileExtension = 'pdf';
         const binaryData = atob(data.data);
         const arrayBuffer = new ArrayBuffer(binaryData.length);

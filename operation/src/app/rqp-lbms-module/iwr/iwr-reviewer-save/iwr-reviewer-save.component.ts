@@ -128,7 +128,6 @@ export class IwrReviewerSaveComponent implements OnInit {
 
   getCalibrationModuleRequestno() {
     this.iwsSwervice.getResquestNoIDForCalibration(this.ff0001, this.lc0001).subscribe((data: any) => {
-      console.log(data);
       this.lc0002 = data.data[0].lc0002;
       if (this.lc0002) {
         this.getQlpRecordList(this.lc0002);
@@ -475,8 +474,6 @@ export class IwrReviewerSaveComponent implements OnInit {
 
   //       this.selectedDialogData = result.data;
 
-  //       console.log(this.selectedDialogData);
-
   //       this.InstrumentForm.patchValue({
   //         instrumentCode: this.selectedDialogData.ff0005,
   //         instrumentName: this.selectedDialogData.ff0001,
@@ -484,7 +481,6 @@ export class IwrReviewerSaveComponent implements OnInit {
   //         scheduleDate: this.selectedDialogData.ff0004
   //       });       
   //         this.lc0002Value = this.selectedDialogData.ff0002;
-  //         console.log(this.lc0002Value);
   //         this.getQlpRecordList(this.lc0002Value);
   //         //this.getCdIndexList(this.lc0002Value);
   //         this.getQpsrRecordList(this.lc0002Value);
@@ -558,15 +554,9 @@ export class IwrReviewerSaveComponent implements OnInit {
           uom: element.ff0006,
           result: element.ff0007,
           passLimit: element.ff0008
-
         });
-
       });
-
       this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
     });
   }
   getQtmpRecordList(lc0002: any) {

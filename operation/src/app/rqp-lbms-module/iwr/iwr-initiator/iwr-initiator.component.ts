@@ -624,7 +624,6 @@ export class IwrInitiatorComponent implements OnInit {
       ],
       "anyListNonEmpty": true
     };
-    console.log(body)
     this.isLoading = true;
     this.iwsSwervice
       .saveCalibrationWorksheetMaster(body)
@@ -846,7 +845,6 @@ export class IwrInitiatorComponent implements OnInit {
 
       this.QpsrRecordList = QpsrRecordData;
 
-      console.log(this.QpsrRecordList);
 
     });
   }
