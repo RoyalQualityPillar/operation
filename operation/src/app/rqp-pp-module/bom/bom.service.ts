@@ -26,6 +26,11 @@ public bmrInput(unitCode: string): Observable<any> {
     const ALLSALEPRODUCTURL = this.API_URL + 'pmm/input' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
+  getBOMInputList(unitcode:any) {
+    let queryParams = `?unitcode=${unitcode}`;
+    const ALLSALEPRODUCTURL = this.API_URL + 'pmm/bom-input-list' + queryParams;
+    return this.http.get(ALLSALEPRODUCTURL);
+  }
    getResquestNoIDForBOM(lc0002: any, lc0001:any) {
     const queryParams = `?lc0002=${lc0002}&lc0001=${lc0001}`;
     const reviewURL = this.API_URL + 'pp/bom-module-request-no' + queryParams;

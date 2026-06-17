@@ -33,7 +33,7 @@ export class IwsUpdateSaveComponent implements OnInit {
   public lc0001: any;
   public lc0002: any;
   public ff0002: any;
-    public QlpRecordList: any;
+  public QlpRecordList: any;
   public CdIndexList: any;
   public QpsrRecordList: any;
   public QtmpRecordList: any;
@@ -117,7 +117,7 @@ export class IwsUpdateSaveComponent implements OnInit {
       //lcStage:this.headerRequestBody.stage
       lcStage: this.toolbarService.currentStage,
     };
-    console.log(body); this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
+    this.iwsSwervice.getNextStageList(body).subscribe((data: any) => {
       this.nextStageListData = data.data.nstage;
     });
   }
@@ -136,7 +136,7 @@ export class IwsUpdateSaveComponent implements OnInit {
   getQlpRecordList(lc0002: any) {
     this.iwsSwervice.getQlpRecordList(lc0002).subscribe((data: any) => {
       this.QlpRecordList = data.data;
-      const QlpRecordData: any[]= [];
+      const QlpRecordData: any[] = [];
       this.QlpRecordList.forEach((element: any) => {
         QlpRecordData.push({
           qualitativeParameterNo: element.ff0001,
@@ -167,7 +167,6 @@ export class IwsUpdateSaveComponent implements OnInit {
       this.QpsrRecordList = data.data;
       const QpsrRecordData: any[] = [];
       this.QpsrRecordList.forEach((element: any) => {
-        console.log(element);
         // check parameter already exists
         let existingParam = QpsrRecordData.find(
           (x: any) => x.parameterNo == element.ff0001
@@ -195,15 +194,9 @@ export class IwsUpdateSaveComponent implements OnInit {
           uom: element.ff0006,
           result: element.ff0007,
           passLimit: element.ff0008
-
         });
-
       });
-
       this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
     });
   }
   getQtmpRecordList(lc0002: any) {
@@ -212,67 +205,66 @@ export class IwsUpdateSaveComponent implements OnInit {
       const QtmpRecordData: any[] = [];
       this.QtmpRecordList.forEach((element: any) => {
         let existingParam = QtmpRecordData.find(
-        (x: any) => x.quantitativeParameterNo == element.ff0001
-      );
+          (x: any) => x.quantitativeParameterNo == element.ff0001
+        );
 
-      // Create new parameter
-      if (!existingParam) {
+        // Create new parameter
+        if (!existingParam) {
 
-        existingParam = {
-          quantitativeParameterNo: element.ff0001,
-          quantitativeParameterName: element.ff0002,
-          quantitativeSetPointNo: element.ff0003,
-          setPoints: []
-        };
+          existingParam = {
+            quantitativeParameterNo: element.ff0001,
+            quantitativeParameterName: element.ff0002,
+            quantitativeSetPointNo: element.ff0003,
+            setPoints: []
+          };
 
-        QtmpRecordData.push(existingParam);
+          QtmpRecordData.push(existingParam);
 
-      }
+        }
 
-      const readingValues: any[] = [];
+        const readingValues: any[] = [];
 
-      const totalReadings = Number(element.ff0019);
+        const totalReadings = Number(element.ff0019);
 
-      for (let i = 21; i < 21 + totalReadings; i++) {
+        for (let i = 21; i < 21 + totalReadings; i++) {
 
-        const fieldName =
-          'ff' + ('0000' + i).slice(-4);
+          const fieldName =
+            'ff' + ('0000' + i).slice(-4);
 
-        readingValues.push({
-          value: element[fieldName]
+          readingValues.push({
+            value: element[fieldName]
+          });
+
+        }
+
+        // Push setpoint
+        existingParam.setPoints.push({
+          setPoint: element.ff0004,
+          readings: element.ff0019,
+          readingValues: readingValues,
+          minimum: element.ff0005,
+          maximum: element.ff0006,
+          average: element.ff0007,
+          standardDeviation: element.ff0008,
+          relativeStandardDeviation: element.ff0009,
+          result: element.ff0010,
+          passLimit: element.ff0011,
+          uom: element.ff0012,
+          passLimitMin: element.ff0013,
+          passLimitMax: element.ff0014,
+          averageLower: element.ff0015,
+          averageUpper: element.ff0016,
+          quantitativeStandardDeviation: element.ff0017,
+          quantitativeRelativeStandardDeviation: element.ff0018
         });
-
-      }
-
-      // Push setpoint
-      existingParam.setPoints.push({
-        setPoint: element.ff0004,
-        readings: element.ff0019,
-        readingValues: readingValues,
-        minimum: element.ff0005,
-        maximum: element.ff0006,
-        average: element.ff0007,
-        standardDeviation: element.ff0008,
-        relativeStandardDeviation: element.ff0009,
-        result: element.ff0010,
-        passLimit: element.ff0011,
-        uom: element.ff0012,
-        passLimitMin: element.ff0013,
-        passLimitMax: element.ff0014,
-        averageLower: element.ff0015,
-        averageUpper: element.ff0016,
-        quantitativeStandardDeviation: element.ff0017,
-        quantitativeRelativeStandardDeviation: element.ff0018
       });
-    });
 
-    this.quantitativeParameters = QtmpRecordData;
+      this.quantitativeParameters = QtmpRecordData;
 
     });
   }
   getQpmrRecordList(lc0002: any) {
     this.iwsSwervice.getQpmrRecordList(lc0002).subscribe((data: any) => {
-      console.log(data);
     });
   }
   onGenerateParameters() {
@@ -297,7 +289,6 @@ export class IwsUpdateSaveComponent implements OnInit {
         parameterName: this.parameterName,
         setPoints: setPoints
       });
-      console.log(this.parameters);
     }
 
   }
@@ -314,7 +305,6 @@ export class IwsUpdateSaveComponent implements OnInit {
           }
         ]
       });
-      console.log(this.qualitativeParameters);
     }
 
   }
@@ -355,7 +345,6 @@ export class IwsUpdateSaveComponent implements OnInit {
         quantitativeParameterName: this.quantitativeParameterName,
         setPoints: setPoints
       });
-      console.log(this.quantitativeParameters);
     }
 
   }
@@ -395,7 +384,6 @@ export class IwsUpdateSaveComponent implements OnInit {
   }
 
   calculateStatistics(statistics: any) {
-    console.log(statistics);
     const values = statistics.readingValues
       .map((r: any) => Number(r.value))
       .filter((v: number) => !isNaN(v));
@@ -439,12 +427,10 @@ export class IwsUpdateSaveComponent implements OnInit {
     // statistics.relativeStandardDeviation = rsd.toFixed(2);
     statistics.relativeStandardDeviation =
       Number(rsd.toFixed(2));
-    console.log(statistics)
     this.checkMultiQuantitativeResult(statistics);
   }
 
   checkMultiQuantitativeResult(sp: any) {
-    console.log(sp)
     if (
 
       sp.minimum === '' ||
@@ -609,7 +595,7 @@ export class IwsUpdateSaveComponent implements OnInit {
     });
 
   }
-   onSubmit(value: any) {
+  onSubmit(value: any) {
     this.disableButtons = true;
     let draftValue: boolean;
     if (value == 1) {
@@ -636,7 +622,6 @@ export class IwsUpdateSaveComponent implements OnInit {
         });
       });
     });
-    console.log(qualitativeRecordList);
 
     const qpsrRecordList: any[] = [];
 
@@ -667,12 +652,8 @@ export class IwsUpdateSaveComponent implements OnInit {
           status: 0,
           comments: this.comments
         });
-
       });
-
     });
-
-    console.log('qpsrRecordList', qpsrRecordList);
 
     const qtmpRecordList: any[] = [];
 
@@ -685,7 +666,7 @@ export class IwsUpdateSaveComponent implements OnInit {
           ff0001: parameter.quantitativeParameterNo,
           // ff0001:"string",
           ff0002: parameter.quantitativeParameterName,
-          ff0003:parameter.quantitativeSetPointNo,
+          ff0003: parameter.quantitativeSetPointNo,
           ff0004: sp.setPoint,
           ff0005: sp.minimum,
           ff0006: sp.maximum,
@@ -714,19 +695,16 @@ export class IwsUpdateSaveComponent implements OnInit {
           status: 0,
           comments: this.comments
         });
-
       });
-
     });
 
-    console.log('qpmrRecordList', qtmpRecordList);
 
     let body = {
       lcRequest: {
         unitCode: this.headerData.unitcode,
         moduleCode: this.headerData.modulecode,
         departmentCode: this.headerData.departmentcode,
-         lcrqNumber: this.headerData.requestNo,
+        lcrqNumber: this.headerData.requestNo,
         lcNumber: this.headerData.lcnum,
         lcStage: this.headerData.stage,
         stage2: 0,
@@ -790,7 +768,6 @@ export class IwsUpdateSaveComponent implements OnInit {
       ],
       "anyListNonEmpty": true
     };
-    console.log(body)
     this.isLoading = true;
     this.iwsSwervice
       .saveCalibrationWorksheetMaster(body)
@@ -818,7 +795,6 @@ export class IwsUpdateSaveComponent implements OnInit {
   onLoadInstrumentCode() {
     let unitCode = this.cookieService.get('buCode');
     this.iwsSwervice.getAllInstrmentsList(unitCode).subscribe((data: any) => {
-      console.log(data);
       this.instrumrntInfo = data.data;
     });
   }
@@ -861,21 +837,14 @@ export class IwsUpdateSaveComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
 
       if (result) {
-
         this.selectedDialogData = result.data;
-
-        console.log(this.selectedDialogData);
-
         this.InstrumentForm.patchValue({
           instrumentCode: this.selectedDialogData.ff0003,
           instrumentName: this.selectedDialogData.ff0001,
           instrumentNumber: this.selectedDialogData.uc0001
         });
-
       }
-
     });
-
   }
   // onChangeInstrumentCode() {
 

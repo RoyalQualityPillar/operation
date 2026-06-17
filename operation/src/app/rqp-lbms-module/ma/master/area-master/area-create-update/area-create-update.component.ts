@@ -115,7 +115,6 @@ export class AreaCreateUpdateComponent implements OnInit, OnDestroy {
   onloadAGListDropDown() {
     this.isLoading = true;
     this.areaMasterService.getDropDownAGList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.agmList = data.data.agmList;
       this.deptCodeList = data.data.deptCodeList;
       this.isLoading = false;

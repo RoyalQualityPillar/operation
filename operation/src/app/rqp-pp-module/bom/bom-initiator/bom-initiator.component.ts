@@ -42,6 +42,7 @@ export class BomInitiatorComponent implements OnInit {
   public psmList: any[] = [];
   public bomAttachmentList: any[] = [];
   public pmmMaterialList: any[] = [];
+  public materialList: any[] = [];
   public saleProductList: any[] = [];
   public isStatusSuccess = false;
   constructor(
@@ -77,6 +78,7 @@ export class BomInitiatorComponent implements OnInit {
       isRasiInit: 'bom-Initiator',
     };
     this.onloadDropDownList();
+    this.onLoadDropDownList();
     this.onLoadNextStageData();
   }
   public onLoadNextStageData() {
@@ -159,6 +161,13 @@ export class BomInitiatorComponent implements OnInit {
     this.bomService.getDropDownList(this.cookieService.get('buCode')).subscribe((data: any) => {
       this.pmmMaterialList = data.data.pmmMaterialList;
       this.saleProductList = data.data.saleProductList;
+      this.isLoading = false;
+    });
+  }
+   onLoadDropDownList() {
+    this.isLoading = true;
+    this.bomService.getBOMInputList(this.cookieService.get('buCode')).subscribe((data: any) => {
+      this.materialList = data.data;
       this.isLoading = false;
     });
   }
@@ -410,9 +419,9 @@ export class BomInitiatorComponent implements OnInit {
   }
   openMaterialListLOV(index: number) {
     this.displayedColumns = [
-      { field: 'materialnumber', title: 'Material Number' },
-      { field: 'materialcode', title: 'Material Code' },
-      { field: 'materialname', title: 'Material Name' },
+      { field: 'uc0001', title: 'Material Number' },
+      { field: 'ff0001', title: 'Material Code' },
+      { field: 'ff0002', title: 'Material Name' },
     ];
     const dialogRef = this.dialog.open(LovDialogComponent, {
       height: '500px',
@@ -420,7 +429,7 @@ export class BomInitiatorComponent implements OnInit {
       data: {
         dialogTitle: 'Sales Product List',
         dialogColumns: this.displayedColumns,
-        dialogData: this.pmmMaterialList,
+        dialogData: this.materialList,
         lovName: 'businessUnitList',
       },
       disableClose: true,
@@ -429,9 +438,9 @@ export class BomInitiatorComponent implements OnInit {
       if (result) {
         this.selectedDialogData = result.data;
         this.containers.at(index).patchValue({
-          materialNo: this.selectedDialogData.materialnumber,
-          materialName: this.selectedDialogData.materialname,
-          materialCode: this.selectedDialogData.materialcode
+          materialNo: this.selectedDialogData.uc0001,
+          materialName: this.selectedDialogData.ff0002,
+          materialCode: this.selectedDialogData.ff0001
         });
       }
     });

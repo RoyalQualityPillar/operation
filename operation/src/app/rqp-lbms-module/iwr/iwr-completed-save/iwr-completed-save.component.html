@@ -74,20 +74,6 @@
                 <mat-label>UOM</mat-label>
                 <input type="text" matInput [(ngModel)]="sp.uom" readonly>
             </mat-form-field>
-
-            <!-- <mat-form-field appearance="outline" class="col-3 px-1">
-                    <mat-label>UOM</mat-label>
-
-                    <mat-select [(ngModel)]="sp.uom">
-
-                        <mat-option value="">Select UOM</mat-option>
-
-                        <mat-option *ngFor="let uom of uomList" [value]="uom">
-                            {{ uom }}
-                        </mat-option>
-
-                    </mat-select>
-                </mat-form-field> -->
             <mat-form-field appearance="outline" class="col-3 px-1 result">
                 <mat-label>Result</mat-label>
                 <input type="text" matInput [value]="sp.result" [style.color]="sp.result === 'PASS' ? 'green' : 'red'"
@@ -237,16 +223,6 @@
                 <input type="number" matInput [(ngModel)]="sp.passLimitMax" (input)="checkMultiQuantitativeResult(sp)"
                     readonly>
             </mat-form-field>
-
-            <!-- <mat-form-field appearance="outline" class="col-3 px-1">
-                    <mat-label>UOM</mat-label>
-                    <mat-select [(ngModel)]="sp.uom">
-                        <mat-option value="">Select UOM</mat-option>
-                        <mat-option *ngFor="let uom of uomList" [value]="uom">
-                            {{ uom }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field> -->
 
             <mat-form-field appearance="outline" class="col-2 px-1">
                 <mat-label>UOM</mat-label>
