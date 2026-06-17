@@ -606,7 +606,6 @@ export class IwrUpdateSaveComponent implements OnInit {
       ],
       "anyListNonEmpty": true
     };
-    console.log(body)
     this.isLoading = true;
     this.iwsSwervice
       .saveCalibrationWorksheetMaster(body)
@@ -774,15 +773,9 @@ export class IwrUpdateSaveComponent implements OnInit {
           uom: element.ff0006,
           result: element.ff0007,
           passLimit: element.ff0008
-
         });
-
       });
-
       this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
     });
   }
   getQtmpRecordList(lc0002: any) {

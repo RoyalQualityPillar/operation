@@ -31,17 +31,17 @@ export class IwrCompletedSaveComponent implements OnInit {
   public lc0001: any;
   public ff0002: any;
   public lc0002: any;
-  parameterNo: number = 0;
-  setPointNo: number = 0;
-  parameterName: any;
-  parameters: any[] = [];
-  uomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
-  qualitativeParameterNo: number;
-  qualitativeParameters: any[] = [];
-  quantitativeParameterNo: number = 0;
-  quantitativeSetPointNo: number = 0;
-  quantitativeParameterName: any;
-  quantitativeParameters: any[] = [];
+  public parameterNo: number = 0;
+  public setPointNo: number = 0;
+  public parameterName: any;
+  public parameters: any[] = [];
+  public uomList = ['°C', 'RPM', 'Bar', 'Kg', 'Minutes', 'pH', 'mL', '%'];
+  public qualitativeParameterNo: number;
+  public qualitativeParameters: any[] = [];
+  public quantitativeParameterNo: number = 0;
+  public quantitativeSetPointNo: number = 0;
+  public quantitativeParameterName: any;
+  public quantitativeParameters: any[] = [];
   public QlpRecordList: any;
   public CdIndexList: any;
   public QpsrRecordList: any;
@@ -428,17 +428,14 @@ export class IwrCompletedSaveComponent implements OnInit {
         let existingParam = QpsrRecordData.find(
           (x: any) => x.parameterNo == element.ff0001
         );
-
         // create new parameter
         if (!existingParam) {
-
           existingParam = {
             parameterNo: element.ff0001,
             parameterName: element.ff0002,
             setPointNo: element.ff0009,
             setPoints: []
           };
-
           QpsrRecordData.push(existingParam);
         }
 
@@ -451,15 +448,9 @@ export class IwrCompletedSaveComponent implements OnInit {
           uom: element.ff0006,
           result: element.ff0007,
           passLimit: element.ff0008
-
         });
-
       });
-
       this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
     });
   }
   getQtmpRecordList(lc0002: any) {
@@ -558,7 +549,6 @@ export class IwrCompletedSaveComponent implements OnInit {
     //     lcrnumber
     //   )
     //   .subscribe((data: any) => {
-    //     console.log(data);
     //     let fileExtension = 'pdf';
     //     const binaryData = atob(data.data);
     //     const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -593,7 +583,6 @@ export class IwrCompletedSaveComponent implements OnInit {
     //     lcrnumber
     //   )
     //   .subscribe((data: any) => {
-    //     console.log(data);
     //     let fileExtension = 'pdf';
     //     const binaryData = atob(data.data);
     //     const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -631,7 +620,6 @@ export class IwrCompletedSaveComponent implements OnInit {
         moduleCode
       )
       .subscribe((data: any) => {
-        console.log(data);
         let fileExtension = 'pdf';
         const binaryData = atob(data.data);
         const arrayBuffer = new ArrayBuffer(binaryData.length);

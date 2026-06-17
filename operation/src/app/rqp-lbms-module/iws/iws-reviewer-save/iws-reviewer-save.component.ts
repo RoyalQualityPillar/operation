@@ -78,7 +78,6 @@ export class IwsReviewerSaveComponent implements OnInit {
     let params: any = null;
     if (reviewData) {
       params = JSON.parse(reviewData);
-      console.log(params)
       this.pageData = {
         pageName: 'qtUpdateDetail',
         requestNo: params.uc0001,
@@ -169,7 +168,6 @@ export class IwsReviewerSaveComponent implements OnInit {
       this.QpsrRecordList = data.data;
       const QpsrRecordData: any[] = [];
       this.QpsrRecordList.forEach((element: any) => {
-        console.log(element);
         // check parameter already exists
         let existingParam = QpsrRecordData.find(
           (x: any) => x.parameterNo == element.ff0001
@@ -197,15 +195,9 @@ export class IwsReviewerSaveComponent implements OnInit {
           uom: element.ff0006,
           result: element.ff0007,
           passLimit: element.ff0008
-
         });
-
       });
-
       this.QpsrRecordList = QpsrRecordData;
-
-      console.log(this.QpsrRecordList);
-
     });
   }
   getQtmpRecordList(lc0002: any) {
