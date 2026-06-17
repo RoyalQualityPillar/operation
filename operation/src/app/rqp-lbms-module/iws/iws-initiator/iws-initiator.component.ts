@@ -29,6 +29,7 @@ export class IwsInitiatorComponent implements OnInit {
   public nextStageListData: any;
   public instrumrntInfo: any;
   public parameterInfo: any;
+  cumList: any;
   public displayedColumns: any[] = [];
   public selectedDialogData: any;
   destroy$ = new Subject<void>();
@@ -589,6 +590,9 @@ export class IwsInitiatorComponent implements OnInit {
     let unitCode = this.cookieService.get('buCode');
     this.iwsSwervice.getDropDownDeptList(unitCode).subscribe((data: any) => {
       this.parameterInfo = data.data.calperList;
+      this.cumList = data.data.cumList;
+
+
     });
   }
   onChangeParameterCode(sp: any) {
@@ -631,6 +635,50 @@ export class IwsInitiatorComponent implements OnInit {
       if (result) {
         this.selectedDialogData = result.data;
         sp.parameterCode = this.selectedDialogData.name
+      }
+    });
+  }
+
+   onChangeUOMCode(sp: any) {
+    if (!sp.uom) {
+      return;
+    } else {
+      this.isCategorySuccess = false;
+      let categoryCurrentValue = this.InstrumentForm.controls['uom'].value;
+      this.cumList.forEach((elements) => {
+        if (elements.buTypeCode == categoryCurrentValue) {
+          this.isCategorySuccess = true;
+        }
+      });
+      if (this.isCategorySuccess == false) {
+        this.InstrumentForm.controls['uom'].setErrors({ incorrect: true });
+        this.openUOMLOV(sp);
+      }
+    }
+  }
+
+  openUOMLOV(sp: any) {
+    this.displayedColumns = [
+      { field: 'cuName', title: 'UOM Name' },
+      { field: 'cuCode', title: 'UOM Code' }
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '700px',
+      data: {
+        dialogTitle: 'Parameter Information',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.cumList,
+        lovName: 'parameterList'
+      },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+
+      if (result) {
+        this.selectedDialogData = result.data;
+        sp.uom = this.selectedDialogData.cuName
       }
     });
   }
@@ -714,5 +762,47 @@ export class IwsInitiatorComponent implements OnInit {
   //   }
 
   // }
+   onChangeUOM() {
+    if (this.InstrumentForm.controls['uom'].value == '') {
+      this.InstrumentForm.controls['uom'].setValue('');
+      this.isCategorySuccess = false;
+      let statusCurrentValue = this.InstrumentForm.controls['uom'].value;
+      this.cumList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isCategorySuccess = true;
+        }
+      });
+      if (this.isCategorySuccess == false) {
+        this.InstrumentForm.controls['uom'].setErrors({ incorrect: true });
+        this.openUOMListLOV();
+      }
+    }
+  }
+ 
+   openUOMListLOV() {
+    this.displayedColumns = [
+      { field: 'cuCode', title: 'Parameter No' },
+      { field: 'cuName', title: 'Parameter Code' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Calper List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.cumList,
+        lovName: 'deptCodeList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.InstrumentForm.controls['uom'].setValue(
+          this.selectedDialogData.cuName
+        );      
+      }
+    });
+  }
 
 }
