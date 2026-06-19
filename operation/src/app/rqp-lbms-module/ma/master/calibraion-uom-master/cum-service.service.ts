@@ -12,7 +12,6 @@ private API_URL = environment.apiBaseURL;
   constructor(private http: HttpClient, private cookieService: CookieService) {}
   
     onCreate(body: any) {
-        console.log(body);
         let token = this.cookieService.get('token');
         let createUserURL = this.API_URL + 'lbms/cum_master/save-update';
         const httpOptions = {

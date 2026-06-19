@@ -176,7 +176,6 @@ export class PmrCompletedSaveComponent implements OnInit {
     //     lcrnumber
     //   )
     //   .subscribe((data: any) => {
-    //     console.log(data);
     //     let fileExtension = 'pdf';
     //     const binaryData = atob(data.data);
     //     const arrayBuffer = new ArrayBuffer(binaryData.length);
@@ -211,7 +210,6 @@ export class PmrCompletedSaveComponent implements OnInit {
     //     lcrnumber
     //   )
     //   .subscribe((data: any) => {
-    //     console.log(data);
     //     let fileExtension = 'pdf';
     //     const binaryData = atob(data.data);
     //     const arrayBuffer = new ArrayBuffer(binaryData.length);

@@ -266,7 +266,6 @@ export class GrnUpdateComponent implements OnInit {
   //           this.documentListData
   //         );
   //       }
-  //       console.log(this.createUpdateDocumentList);
   //     }
   //   });
   // }
@@ -490,7 +489,6 @@ export class GrnUpdateComponent implements OnInit {
 
     let attachmentList: any[] = [];
     this.body1.grnAttachmentList.forEach((obj) => {
-      console.log(obj.selectedFileList);
       if (obj.selectedFileList) {
         attachmentList.push(obj.selectedFileList);
       }

@@ -114,7 +114,6 @@ export class CreateUpdateEquipmentMasterComponent implements OnInit, OnDestroy {
    onloadDeptListDropDown() {
     this.isLoading = true;
     this.equipmentMasterService.getDropDownDeptList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.icMasterList = data.data.icMasterList;
       this.deptCodeList = data.data.deptCodeList;
       this.isLoading = false;
