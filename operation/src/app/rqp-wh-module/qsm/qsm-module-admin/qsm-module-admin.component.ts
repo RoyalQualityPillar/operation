@@ -18,6 +18,12 @@ export class QsmModuleAdminComponent {
    fgUnderApproverList(): void {
     this.router.navigate(['./rqpoperationui/wh/fg-under-approver-list']);
   }
+   fgRejectList(): void {
+    this.router.navigate(['./rqpoperationui/wh/fg-reject-list']);
+  }
+  sfgRejectList(): void {
+    this.router.navigate(['./rqpoperationui/wh/sfg-reject-list']);
+  }
  public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }

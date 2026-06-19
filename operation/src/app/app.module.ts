@@ -16,6 +16,10 @@ import { FgExecutionProcessOrderComponent } from './rqp-pp-module/epro/fg-execut
 import { SfgExecutionProcessOrderComponent } from './rqp-pp-module/epro/sfg-execution-process-order/sfg-execution-process-order.component';
 import { SfgUnderApproverListComponent } from './rqp-wh-module/qsm/sfg-under-approver-list/sfg-under-approver-list.component';
 import { FgUnderApproverListComponent } from './rqp-wh-module/qsm/fg-under-approver-list/fg-under-approver-list.component';
+import { SfgRejectListComponent } from './rqp-wh-module/qsm/sfg-reject-list/sfg-reject-list.component';
+import { FgRejectListComponent } from './rqp-wh-module/qsm/fg-reject-list/fg-reject-list.component';
+import { SfgApprovedListComponent } from './rqp-wh-module/slc/sfg-approved-list/sfg-approved-list.component';
+import { SfgLocationUpdateComponent } from './rqp-wh-module/slc/sfg-location-update/sfg-location-update.component';
 
 
 
@@ -27,7 +31,7 @@ import { FgUnderApproverListComponent } from './rqp-wh-module/qsm/fg-under-appro
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-    
+   
 
 
 

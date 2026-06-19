@@ -10,12 +10,12 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 
 @Component({
-  selector: 'app-fg-under-approver-list',
+  selector: 'app-fg-reject-list',
   standalone: false,
-  templateUrl: './fg-under-approver-list.component.html',
-  styleUrl: './fg-under-approver-list.component.scss'
+  templateUrl: './fg-reject-list.component.html',
+  styleUrl: './fg-reject-list.component.scss'
 })
-export class FgUnderApproverListComponent implements OnInit {
+export class FgRejectListComponent implements OnInit {
   public qualityStatusListForm:FormGroup;
   public tableData:any;
   public isLoading = false;
@@ -47,7 +47,7 @@ export class FgUnderApproverListComponent implements OnInit {
   }
   ngOnInit(): void {
    const userId = this.cookieService.get('unitCode');
-    this.whService.fgUnderApproverList(this.cookieService.get('buCode')).subscribe(({ data }) => {
+    this.whService.fgRejectList(this.cookieService.get('buCode')).subscribe(({ data }) => {
       this.tableData = data;
     }); 
   }
@@ -66,8 +66,8 @@ export class FgUnderApproverListComponent implements OnInit {
   }
   public onSubmit(row: any): void {
      const uc0001 = row.uc0001;
-     //const status = this.qualityStatusListForm.value.status;
-     this.whService.sfglocatioupdate(uc0001).subscribe((data: any) => {
+     const status = this.qualityStatusListForm.value.status;
+     this.whService.saveQualityStatusList(uc0001, status).subscribe((data: any) => {
        if (data.errorInfo != null) {
          this.isLoading = false;
          this.dialog.open(MessageDialogComponent, {
@@ -90,4 +90,5 @@ export class FgUnderApproverListComponent implements OnInit {
      });
    }
 }
+
 
