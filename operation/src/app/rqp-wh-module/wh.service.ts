@@ -27,6 +27,13 @@ export class WhService {
   public fgUnderApproverList(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/fg-under-approver-list?Unitcode=${unitCode} `);
   }
+   public fgRejectList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-reject-list?Unitcode=${unitCode} `);
+  }
+   public sfgRejectList(unitCode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-reject-list?Unitcode=${unitCode} `);
+  }
+
   public saveSampling(uc0001:string){
    const queryParams = `?uc0001=${uc0001}`;
    const samplingURL = this.API_URL + 'wh/sampling-save' +queryParams;
@@ -47,6 +54,12 @@ export class WhService {
    const qualityStatusURL = this.API_URL + 'pp/under-approver-save' +queryParams;
    return this.http.post(qualityStatusURL, '');
   }
+ public sfglocatioupdate(uc0001:string){
+   const queryParams = `?uc0001=${uc0001}`;
+   const qualityStatusURL = this.API_URL + 'pp/sfg-location-update' +queryParams;
+   return this.http.post(qualityStatusURL, '');
+  }
+  
   
   
   public quarantineList(Unitcode: string): Observable<any> {
@@ -68,11 +81,21 @@ export class WhService {
    public approverList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `wh/Approver-list?Unitcode=${Unitcode}`);
   }
+  public sfgapproverlist(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/sfg-approver-list?Unitcode=${Unitcode}`);
+  }
    public saveLocationUpdate(uc0001:string, ff0011:string){
    const queryParams = `?uc0001=${uc0001}&ff0011=${ff0011}`;
    const samplingURL = this.API_URL + 'wh/location-update-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
+  public sfglocationupdatesave(uc0001:string, ff0011:string){
+   const queryParams = `?uc0001=${uc0001}&location=${ff0011}`;
+   const samplingURL = this.API_URL + 'wh/sfg-location-update-save' +queryParams;
+   return this.http.post(samplingURL, '');
+  }
+  
+
 
    public getFgSamplingList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/fg-sampling-list?Unitcode=${Unitcode} `);

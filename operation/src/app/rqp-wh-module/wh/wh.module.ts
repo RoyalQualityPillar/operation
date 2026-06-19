@@ -45,6 +45,13 @@ import { SfgUnderTestListComponent } from '../sm/sfg-under-test-list/sfg-under-t
 import { SfgQuarantineListComponent } from '../qm/sfg-quarantine-list/sfg-quarantine-list.component';
 import { SfgUnderApproverListComponent } from '../qsm/sfg-under-approver-list/sfg-under-approver-list.component';
 import { FgUnderApproverListComponent } from '../qsm/fg-under-approver-list/fg-under-approver-list.component';
+import { SfgRejectListComponent } from '../qsm/sfg-reject-list/sfg-reject-list.component';
+import { FgRejectListComponent } from '../qsm/fg-reject-list/fg-reject-list.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { SfgApprovedListComponent } from '../slc/sfg-approved-list/sfg-approved-list.component';
+import { SfgLocationUpdateComponent } from '../slc/sfg-location-update/sfg-location-update.component';
 
 
 @NgModule({
@@ -89,6 +96,12 @@ import { FgUnderApproverListComponent } from '../qsm/fg-under-approver-list/fg-u
     SfgUnderTestListComponent,
     SfgUnderApproverListComponent,
     FgUnderApproverListComponent,
+    SfgRejectListComponent,
+    FgRejectListComponent,
+    SfgApprovedListComponent,
+    SfgLocationUpdateComponent,
+        
+    
     
    
 
@@ -101,7 +114,8 @@ import { FgUnderApproverListComponent } from '../qsm/fg-under-approver-list/fg-u
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    WhRoutingModule
+    WhRoutingModule,
+   
   ]
 })
 export class WhModule { }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Subject, takeUntil, timer } from 'rxjs';
 import { WhService } from '../../wh.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -10,24 +12,27 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 
 @Component({
-  selector: 'app-fg-under-approver-list',
+  selector: 'app-sfg-reject-list',
   standalone: false,
-  templateUrl: './fg-under-approver-list.component.html',
-  styleUrl: './fg-under-approver-list.component.scss'
+  templateUrl: './sfg-reject-list.component.html',
+  styleUrl: './sfg-reject-list.component.scss'
 })
-export class FgUnderApproverListComponent implements OnInit {
-  public qualityStatusListForm:FormGroup;
+export class SfgRejectListComponent implements OnInit {
+   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public sfgunderapproverListForm:FormGroup;
   public tableData:any;
   public isLoading = false;
    destroy$ = new Subject<void>();
  public addedUserdisplayedColumns: string[] = [
-    'lc0002',
+    'uc0001',
     'ff0001',
-    'ff0004',
+    'ff0006',
     'ff0002',
     'gr_ff0004',
+    //'ff0003',
     'gr_ff0002',
-    'ff0005',
+    'ff0008',
     'createdon',
     'createdby',
     'action'
@@ -40,17 +45,23 @@ export class FgUnderApproverListComponent implements OnInit {
     public dialog: MatDialog,
     private notificationService: NotificationService,
   ){
-    this.qualityStatusListForm = fb.group({
+    this.sfgunderapproverListForm = fb.group({
       documentName: [''],
       status:['']
     });
   }
   ngOnInit(): void {
    const userId = this.cookieService.get('unitCode');
-    this.whService.fgUnderApproverList(this.cookieService.get('buCode')).subscribe(({ data }) => {
+    this.whService.sfgRejectList(this.cookieService.get('buCode')).subscribe(({ data }) => {
       this.tableData = data;
     }); 
   }
+  ngAfterViewInit() {
+  if (this.tableData) {
+    
+    this.tableData.paginator = this.paginator;
+  }
+}
   public pageChanged(event): void {
     if (this.tableData?.length == GlobalConstants.size && Array.isArray(this.tableData)) {
       if (
@@ -66,7 +77,7 @@ export class FgUnderApproverListComponent implements OnInit {
   }
   public onSubmit(row: any): void {
      const uc0001 = row.uc0001;
-     //const status = this.qualityStatusListForm.value.status;
+     //const ff0008 = this.sfgunderapproverListForm.value.status;
      this.whService.sfglocatioupdate(uc0001).subscribe((data: any) => {
        if (data.errorInfo != null) {
          this.isLoading = false;
@@ -80,7 +91,7 @@ export class FgUnderApproverListComponent implements OnInit {
          this.isLoading = false;
          this.notificationService.showSuccess(data.status, () => {
          });
-         this.qualityStatusListForm.reset();
+         this.sfgunderapproverListForm.reset();
          timer(2000)
                      .pipe(takeUntil(this.destroy$))
                      .subscribe(() => {
@@ -90,4 +101,5 @@ export class FgUnderApproverListComponent implements OnInit {
      });
    }
 }
+
 

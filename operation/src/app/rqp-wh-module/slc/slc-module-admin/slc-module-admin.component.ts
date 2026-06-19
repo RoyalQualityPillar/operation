@@ -15,6 +15,9 @@ export class SlcModuleAdminComponent {
   public fgApprovedList(): void {
     this.router.navigate(['./rqpoperationui/pp/fg-approver-list']);
   }
+   public sfgApprovedList(): void {
+    this.router.navigate(['./rqpoperationui/wh/sfg-approved-list']);
+  }
   public fgRejectedList(): void {
     this.router.navigate(['./rqpoperationui/pp/fg-reject-list']);
   }
