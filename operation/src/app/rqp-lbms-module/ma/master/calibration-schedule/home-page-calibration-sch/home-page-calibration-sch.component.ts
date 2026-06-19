@@ -69,7 +69,6 @@ export class HomePageCalibrationSchComponent implements OnInit, AfterViewInit {
     this.activecalibrationschMasterTabledataUrl =
       apiEndPoints.activecalibrationschMasterTabledata;
     this.params = { pageIndex, size, unitCode };
-    console.log('Bharat');
     this.loadRoleMasterTableFilter();
     this.loadActiveRoleMasterTableFilter();
   }
@@ -154,7 +153,6 @@ export class HomePageCalibrationSchComponent implements OnInit, AfterViewInit {
     this.getLatestData = false;
   }
   setSelectedID(row: any) {
-    console.log(row);
     this.setSelectedID = row;
   }
   selectedAllId: any;
@@ -237,7 +235,6 @@ export class HomePageCalibrationSchComponent implements OnInit, AfterViewInit {
   UC0002: any;
   onSearchAllAuditTrail() {
     this.selectedAllId = this.selectedRow;
-    console.log(this.selectedRow);
     if (this.selectedRow.length == 0) {
       this.dialog.open(MessageDialogComponent, {
         data: {
@@ -318,7 +315,6 @@ export class HomePageCalibrationSchComponent implements OnInit, AfterViewInit {
   handleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onSearchAllAuditTrail();
@@ -328,7 +324,6 @@ export class HomePageCalibrationSchComponent implements OnInit, AfterViewInit {
   activeHandleButtonAction(event: { action: string; row: any }) {
     const { action, row } = event;
     this.selectedRow = row; // Set the selected row
-    console.log(action);
     switch (action) {
       case 'Audit_Trail':
         this.onActiveSelectAuditRow();
@@ -340,7 +335,6 @@ export class HomePageCalibrationSchComponent implements OnInit, AfterViewInit {
   }
 
   handleSubmit(row: any) {
-    console.log(row);
     console.log('submitBtn');
   }
 }

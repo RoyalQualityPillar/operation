@@ -99,7 +99,6 @@ export class CreateUpdateCalibrationFreqComponent implements OnInit {
   onloadDFListDropDown() {
     this.isLoading = true;
     this.calibrationFreqService.getDropDownList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.dfList = data.data.dfList;
       this.isLoading = false;
     });
@@ -110,7 +109,6 @@ export class CreateUpdateCalibrationFreqComponent implements OnInit {
   onloadDropDown() {
     this.isLoading = true;
     this.calibrationFreqService.getDropDownList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.buUnitList = data.data.buUnitList;
       this.mtMasterList = data.data.mtMasterList;
       this.utMasterList = data.data.utMasterList;
@@ -225,7 +223,6 @@ export class CreateUpdateCalibrationFreqComponent implements OnInit {
   //       } else {
   //         this.isLoading = false;
   //         this.notificationService.showSuccess(data.status, () => {
-  //           console.log('Success Snackbar Closed');
   //         });
   //         this.dialogRef.close();
   //       }

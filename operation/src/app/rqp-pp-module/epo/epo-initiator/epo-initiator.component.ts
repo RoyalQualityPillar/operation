@@ -246,7 +246,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
   deleteTodo(id: number) {
     this.stockList.splice(id, 1);
     this.stockList = [...this.stockList];
-    console.log(id + 'silindi');
     this.onCalTotalValue();
   }
   discoutAmount: number;
@@ -681,7 +680,6 @@ export class EpoInitiatorComponent implements OnInit, OnDestroy {
         } else {
           this.buttonHide = false;
           this.notificationService.showSuccess(data.status, () => {
-            console.log('Success Snackbar Closed');
           });
         }
         timer(5000)

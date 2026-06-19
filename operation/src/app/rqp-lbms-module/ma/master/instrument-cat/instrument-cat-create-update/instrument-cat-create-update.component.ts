@@ -79,7 +79,6 @@ export class InstrumentCatCreateUpdateComponent implements
     );
     this.onloadDropDown();
     this.onLoadStatusDropDown();
-    console.log(this.userData.type);
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
       this.isUpdate = true;
@@ -111,7 +110,6 @@ export class InstrumentCatCreateUpdateComponent implements
     });
   }
   onLoadFormValue() {
-    console.log(this.userData);
     this.isLoading = true;
     // this.organizationService
     //   .onLoadUpdatePage(this.userData.tableData.uc0001)
