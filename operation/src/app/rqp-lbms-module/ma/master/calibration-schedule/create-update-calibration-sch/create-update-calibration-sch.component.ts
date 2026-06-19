@@ -99,7 +99,6 @@ export class CreateUpdateCalibrationSchComponent implements OnInit {
  onloadDeptListDropDown() {
     this.isLoading = true;
     this.calibrationSchService.getDropDownDeptList(this.cookieService.get('buCode')).subscribe((data: any) => {
-      console.log(data);
       this.clfMasterList = data.data.clfMasterList;
       // this.imMasterList = data.data.imMasterList;
       this.cdIndexList = data.data.cdIndexList;

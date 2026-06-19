@@ -325,7 +325,6 @@ export class BomInitiatorComponent implements OnInit {
     let bodyData = this.formatRequestBody();
     let attachmentList: any[] = [];
     this.body1.bomAttachmentList.forEach((obj) => {
-      console.log(obj.selectedFileList);
       if (obj.selectedFileList) {
         attachmentList.push(obj.selectedFileList);
       }

@@ -389,7 +389,6 @@ export class GrnInitiatorComponent implements OnInit {
     let bodyData = this.formatRequestBody();
     let attachmentList: any[] = [];
     this.body1.grnAttachmentList.forEach((obj) => {
-      console.log(obj.selectedFileList);
       if (obj.selectedFileList) {
         attachmentList.push(obj.selectedFileList);
       }
