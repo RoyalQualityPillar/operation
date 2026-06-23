@@ -9,6 +9,8 @@ import { MessageDialogComponent } from 'src/app/common/message-dialog/message-di
 import { NotificationService } from 'src/app/common/notification.service';
 import { WhService } from '../../wh.service';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { Subject, takeUntil, timer } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fg-sampling-list',
@@ -22,6 +24,7 @@ export class FgSamplingListComponent implements OnInit {
   public fgSamplingListData: any;
   public dataSource: any;
   public isLoading = false;
+    destroy$ = new Subject<void>()
   displayedColumns = [
     'ff0001',
     'ff0003',
@@ -36,7 +39,8 @@ export class FgSamplingListComponent implements OnInit {
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-    private remoteLoader: RemoteComponentLoaderService
+    private remoteLoader: RemoteComponentLoaderService,
+     private router: Router,
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
@@ -98,7 +102,12 @@ public async submit(row: any): Promise<void> {
           this.isLoading = false;
 
           this.notificationService.showSuccess(data.status, () => {});
-
+          // this.fgSamplingListData.reset();
+          //                    timer(2000)
+          //                                .pipe(takeUntil(this.destroy$))
+          //                                .subscribe(() => {
+                                           this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
+                                         //});
         }
       });
 

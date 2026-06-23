@@ -8,6 +8,7 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, takeUntil, timer } from 'rxjs';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 @Component({
   selector: 'app-quality-status-list',
@@ -39,6 +40,7 @@ export class QualityStatusListComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
   ){
     this.qualityStatusListForm = fb.group({
       documentName: [''],
@@ -64,29 +66,79 @@ export class QualityStatusListComponent implements OnInit {
   private onPaginationCall(): void {
    
   }
-  public onSubmit(row: any): void {
-     const uc0001 = row.uc0001;
-     const status = this.qualityStatusListForm.value.status;
-     this.whService.saveQualityStatusList(uc0001, status).subscribe((data: any) => {
-       if (data.errorInfo != null) {
-         this.isLoading = false;
-         this.dialog.open(MessageDialogComponent, {
-           data: {
-             message: data.errorInfo.message,
-             heading: 'Error Information',
-           },
-         });
-       } else {
-         this.isLoading = false;
-         this.notificationService.showSuccess(data.status, () => {
-         });
-         this.qualityStatusListForm.reset();
-         timer(2000)
-                     .pipe(takeUntil(this.destroy$))
-                     .subscribe(() => {
+
+   public async onSubmit(row: any): Promise<void> {
+
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+      const uc0001 = row.uc0001;
+      const status = this.qualityStatusListForm.value.status;
+
+      this.whService.saveQualityStatusList(uc0001,status).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+          
                        this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
-                     });
-       }
-     });
-   }
+                     
+        }
+      });
+
+    }
+
+  });
+}
+//   public onSubmit(row: any): void {
+//      const uc0001 = row.uc0001;
+//      const status = this.qualityStatusListForm.value.status;
+//      this.whService.saveQualityStatusList(uc0001, status).subscribe((data: any) => {
+//        if (data.errorInfo != null) {
+//          this.isLoading = false;
+//          this.dialog.open(MessageDialogComponent, {
+//            data: {
+//              message: data.errorInfo.message,
+//              heading: 'Error Information',
+//            },
+//          });
+//        } else {
+//          this.isLoading = false;
+//          this.notificationService.showSuccess(data.status, () => {
+//          });
+//          this.qualityStatusListForm.reset();
+//          timer(2000)
+//                      .pipe(takeUntil(this.destroy$))
+//                      .subscribe(() => {
+//                        this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
+//                      });
+//        }
+//      });
+//    }
 }

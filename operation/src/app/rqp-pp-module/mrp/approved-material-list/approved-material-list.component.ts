@@ -12,6 +12,9 @@ import { LifeCycleDataService } from 'src/app/service/life-cycle-data.service';
 import { ToolbarService } from 'src/app/service/toolbar.service';
 import { PpService } from '../../pp.service';
 import { NotificationService } from 'src/app/common/notification.service';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { Router } from '@angular/router';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-approved-material-list',
@@ -34,6 +37,7 @@ export class ApprovedMaterialListComponent implements OnInit {
   private lifeCycleInfoDataLength: any;
   public fairRecords: any;
   public materialListValue: any;
+   destroy$ = new Subject<void>();
   public addedUserdisplayedColumns: string[] = [
     'action',
     'ff0001',
@@ -54,6 +58,8 @@ export class ApprovedMaterialListComponent implements OnInit {
     public dialogRef: MatDialogRef<ApprovedMaterialListComponent>,
     private ppService: PpService,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
+  private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -120,7 +126,59 @@ export class ApprovedMaterialListComponent implements OnInit {
     const ff0010 = row.ff0010 ?? '';
     return `${ff0007}.${ff0008}.${ff0009}.${ff0010}`;
   }
+  public async submit(row): Promise<void> {
 
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+      row = this.selectRow;
+    let uc0001 = this.materialListValue.uc0001;
+    let lc0005 = this.materialListValue.lc0005;
+
+      this.ppService.savePlanOrderMrpList(uc0001, lc0005, row.uc0001).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+          
+                   timer(2000)
+                               .pipe(takeUntil(this.destroy$))
+                               .subscribe(() => {
+                                 this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
+                               });
+        }
+      });
+
+    }
+
+  });
+}
   onSubmit(row) {
     row = this.selectRow;
     let uc0001 = this.materialListValue.uc0001;

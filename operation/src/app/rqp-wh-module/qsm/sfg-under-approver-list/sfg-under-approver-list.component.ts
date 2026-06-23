@@ -10,6 +10,7 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class SfgUnderApproverListComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
   ){
     this.sfgunderapproverListForm = fb.group({
       documentName: [''],
@@ -76,7 +78,24 @@ export class SfgUnderApproverListComponent implements OnInit {
   private onPaginationCall(): void {
    
   }
-  public onSubmit(row: any): void {
+  public async onSubmit(row: any): Promise<void> {
+    const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+
      const uc0001 = row.uc0001;
      const ff0008 = this.sfgunderapproverListForm.value.status;
      this.whService.saveUnderApproverList(uc0001, ff0008).subscribe((data: any) => {
@@ -93,13 +112,13 @@ export class SfgUnderApproverListComponent implements OnInit {
          this.notificationService.showSuccess(data.status, () => {
          });
          this.sfgunderapproverListForm.reset();
-         timer(2000)
-                     .pipe(takeUntil(this.destroy$))
-                     .subscribe(() => {
+        
                        this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
-                     });
+                    
        }
      });
    }
+    });
+}
 }
 

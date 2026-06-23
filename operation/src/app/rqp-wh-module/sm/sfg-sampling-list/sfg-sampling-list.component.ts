@@ -8,6 +8,8 @@ import { NotificationService } from 'src/app/common/notification.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { Router } from '@angular/router';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 @Component({
   selector: 'app-sfg-sampling-list',
@@ -35,6 +37,8 @@ export class SfgSamplingListComponent implements OnInit {
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private router: Router,
+    private remoteLoader: RemoteComponentLoaderService,
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
@@ -59,24 +63,73 @@ export class SfgSamplingListComponent implements OnInit {
   public onPaginationCall(): void {
     //todo
   }
+  public async submit(row: any): Promise<void> {
 
-  public submit(value: any) {
-    this.whService.saveFgSamplingList(value.uc0001).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
-        });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {
-        });
-      }
-    });
-  }
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+
+      this.whService.saveFgSamplingList(row.uc0001).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+           
+          this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
+                                        
+        }
+      });
+
+    }
+
+  });
+}
+
+
+  // public submit(value: any) {
+  //   this.whService.saveFgSamplingList(value.uc0001).subscribe((data: any) => {
+  //     if (data.errorInfo != null) {
+  //       this.isLoading = false;
+  //       this.dialog.open(MessageDialogComponent, {
+  //         data: {
+  //           message: data.errorInfo.message,
+  //           heading: 'Error Information',
+  //         },
+  //       });
+  //     } else {
+  //       this.isLoading = false;
+  //       this.notificationService.showSuccess(data.status, () => {
+  //       this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
+  //       });
+  //     }
+  //   });
+  // }
 
 }
 

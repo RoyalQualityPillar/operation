@@ -8,6 +8,9 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
 import { PpService } from '../../pp.service';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { Router } from '@angular/router';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-material-requ-planning',
@@ -21,6 +24,7 @@ export class MaterialRequPlanningComponent implements OnInit {
 public planningOrderListData: any;
 public dataSource: any;
  public isLoading = false;
+  destroy$ = new Subject<void>();
  displayedColumns = [
     'ff0001',
     'ff0003',
@@ -32,9 +36,11 @@ public dataSource: any;
   ];
 constructor(
 private ppService:PpService,
- private cookieService: CookieService,
-  public dialog: MatDialog,
-     private notificationService: NotificationService,
+private cookieService: CookieService,
+public dialog: MatDialog,
+private notificationService: NotificationService,
+ private remoteLoader: RemoteComponentLoaderService,
+  private router: Router,
 ){}
   ngOnInit(): void {
      let unitCode = this.cookieService.get('buCode');
@@ -60,23 +66,74 @@ private ppService:PpService,
     //todo
   }
 
-public submit(value:any){
- this.ppService.saveMaterialReqPlanningOrderList(value.uc0001, value.ff0002).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
-        });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {          
-        });
-      }
-    });
+  public async submit(row: any): Promise<void> {
+
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+
+      this.ppService.saveMaterialReqPlanningOrderList(row.uc0001,row.ff0002).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+          this.planningOrderListData.reset();
+          timer(2000)
+                               .pipe(takeUntil(this.destroy$))
+                               .subscribe(() => {
+                                 this.router.navigateByUrl('/rqpoperationui/pp/mrp-module-admin');
+                               });
+        }
+      });
+
+    }
+
+  });
 }
+
+// public submit(value:any){
+//  this.ppService.saveMaterialReqPlanningOrderList(value.uc0001, value.ff0002).subscribe((data: any) => {
+//       if (data.errorInfo != null) {
+//         this.isLoading = false;
+//         this.dialog.open(MessageDialogComponent, {
+//           data: {
+//             message: data.errorInfo.message,
+//             heading: 'Error Information',
+//           },
+//         });
+//       } else {
+//         this.isLoading = false;
+//         this.notificationService.showSuccess(data.status, () => {          
+//         });
+//       }
+//     });
+// }
 
 }
 

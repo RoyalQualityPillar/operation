@@ -40,6 +40,7 @@ import { FgRejectListComponent } from '../qsm/fg-reject-list/fg-reject-list.comp
 import { SfgRejectListComponent } from '../qsm/sfg-reject-list/sfg-reject-list.component';
 import { SfgApprovedListComponent } from '../slc/sfg-approved-list/sfg-approved-list.component';
 import { SfgLocationUpdateComponent } from '../slc/sfg-location-update/sfg-location-update.component';
+import { SlListComponent } from '../slc/sl-list/sl-list.component';
 
 const routes: Routes = [
   { path: 'grn-initiator', component: GrnInitiatorComponent },
@@ -76,12 +77,13 @@ const routes: Routes = [
   { path: 'slc-module-admin', component: SlcModuleAdminComponent },
   { path: 'approved-material-list', component: ApprovedMaterialListComponent },
   { path: 'location-update', component: LocationUpdateComponent },
-   { path: 'sfg-under-approver-list', component:SfgUnderApproverListComponent },
-   { path: 'fg-under-approver-list', component:FgUnderApproverListComponent },
-    { path: 'fg-reject-list', component:FgRejectListComponent },
-    { path: 'sfg-reject-list', component:SfgRejectListComponent },
-      { path: 'sfg-approved-list', component: SfgApprovedListComponent },
-      { path: 'sfg-location-update', component: SfgLocationUpdateComponent },
+  { path: 'sfg-under-approver-list', component:SfgUnderApproverListComponent },
+  { path: 'fg-under-approver-list', component:FgUnderApproverListComponent },
+  { path: 'fg-reject-list', component:FgRejectListComponent },
+  { path: 'sfg-reject-list', component:SfgRejectListComponent },
+  { path: 'sfg-approved-list', component: SfgApprovedListComponent },
+  { path: 'sfg-location-update', component: SfgLocationUpdateComponent },
+  { path: 'sl-list', component: SlListComponent },
 
  
 ];

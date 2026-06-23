@@ -20,6 +20,7 @@ import { SfgRejectListComponent } from './rqp-wh-module/qsm/sfg-reject-list/sfg-
 import { FgRejectListComponent } from './rqp-wh-module/qsm/fg-reject-list/fg-reject-list.component';
 import { SfgApprovedListComponent } from './rqp-wh-module/slc/sfg-approved-list/sfg-approved-list.component';
 import { SfgLocationUpdateComponent } from './rqp-wh-module/slc/sfg-location-update/sfg-location-update.component';
+import { SlListComponent } from './rqp-wh-module/slc/sl-list/sl-list.component';
 
 
 
@@ -31,6 +32,7 @@ import { SfgLocationUpdateComponent } from './rqp-wh-module/slc/sfg-location-upd
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
+   
    
 
 

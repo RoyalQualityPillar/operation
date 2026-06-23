@@ -7,6 +7,7 @@ import { RemoteComponentLoaderService } from 'src/app/service/remote-component-l
 import { WhService } from '../../wh.service';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-location-update',
@@ -29,6 +30,7 @@ export class LocationUpdateComponent implements OnInit {
     private whService: WhService,
     @Inject(MAT_DIALOG_DATA) public data,
     private notificationService: NotificationService,
+    private router: Router,
 
   ) {
     this.MaterialLocationForm = fb.group({
@@ -75,6 +77,7 @@ export class LocationUpdateComponent implements OnInit {
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
+          this.router.navigateByUrl('/rqpoperationui/wh/slc-module-admin');
         });
       }
     });

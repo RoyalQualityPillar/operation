@@ -9,6 +9,9 @@ import { MessageDialogComponent } from 'src/app/common/message-dialog/message-di
 import { NotificationService } from 'src/app/common/notification.service';
 import { PpService } from 'src/app/rqp-pp-module/pp.service';
 import { WhService } from '../../wh.service';
+import { Subject, takeUntil, timer } from 'rxjs';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fg-under-test-list',
@@ -22,6 +25,7 @@ export class FgUnderTestListComponent implements OnInit {
   public fgUnderTestListData: any;
   public dataSource: any;
   public isLoading = false;
+     destroy$ = new Subject<void>()
   displayedColumns = [
     'ff0001',
     'ff0003',
@@ -36,6 +40,8 @@ export class FgUnderTestListComponent implements OnInit {
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
+    private router: Router,
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
@@ -61,8 +67,23 @@ export class FgUnderTestListComponent implements OnInit {
     //todo
   }
 
-  public submit(value: any) {
-    this.whService.saveFgUnderTestLList(value.uc0001, value.status).subscribe((data: any) => {
+  public async submit(row:any): Promise<void>{
+      const component = await this.remoteLoader.loadComponentByKey(
+          'CommonESignatureComponent'
+        );
+  
+    const dialogRef = this.dialog.open(component, {
+      height: '300px',
+      width: '600px',
+      data: {},
+      disableClose: true,
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+  
+      if (result && result.data) {
+  
+    this.whService.saveFgUnderTestLList(row.uc0001, row.status).subscribe((data: any) => {
       if (data.errorInfo != null) {
         this.isLoading = false;
         this.dialog.open(MessageDialogComponent, {
@@ -74,10 +95,17 @@ export class FgUnderTestListComponent implements OnInit {
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
+          // this.fgUnderTestListData.reset();
+          //                    timer(2000)
+          //                                .pipe(takeUntil(this.destroy$))
+          //                                .subscribe(() => {
+                                           this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
+                                         //});
         });
       }
     });
   }
-
+});
+}
 }
 
