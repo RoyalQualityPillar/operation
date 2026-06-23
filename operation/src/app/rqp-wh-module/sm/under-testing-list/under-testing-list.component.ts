@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-under-testing-list',
@@ -17,6 +18,7 @@ import { RemoteComponentLoaderService } from 'src/app/service/remote-component-l
 export class UnderTestingListComponent implements OnInit {
   public tableData:any;
   public isLoading = false;
+   destroy$ = new Subject<void>()
  public addedUserdisplayedColumns: string[] = [
     'lc0002',
     'ff0001',
@@ -35,7 +37,8 @@ export class UnderTestingListComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-      private remoteLoader: RemoteComponentLoaderService
+      private remoteLoader: RemoteComponentLoaderService,
+    
   ){}
   ngOnInit(): void {
    const userId = this.cookieService.get('unitCode');
@@ -93,7 +96,9 @@ export class UnderTestingListComponent implements OnInit {
           this.isLoading = false;
 
           this.notificationService.showSuccess(data.status, () => {});
-
+           
+          this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
+                                        
         }
       });
 

@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 @Component({
   selector: 'app-sfg-reject-list',
@@ -38,12 +39,13 @@ export class SfgRejectListComponent implements OnInit {
     'action'
   ];
   constructor(
-     private whService: WhService,
+    private whService: WhService,
     private cookieService: CookieService,
     private fb:FormBuilder,
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
   ){
     this.sfgunderapproverListForm = fb.group({
       documentName: [''],
@@ -75,7 +77,23 @@ export class SfgRejectListComponent implements OnInit {
   private onPaginationCall(): void {
    
   }
-  public onSubmit(row: any): void {
+  public async onSubmit(row: any): Promise<void> {
+    const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
      const uc0001 = row.uc0001;
      //const ff0008 = this.sfgunderapproverListForm.value.status;
      this.whService.sfglocatioupdate(uc0001).subscribe((data: any) => {
@@ -91,15 +109,16 @@ export class SfgRejectListComponent implements OnInit {
          this.isLoading = false;
          this.notificationService.showSuccess(data.status, () => {
          });
-         this.sfgunderapproverListForm.reset();
-         timer(2000)
-                     .pipe(takeUntil(this.destroy$))
-                     .subscribe(() => {
+        
+        
                        this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
-                     });
+                    
        }
      });
    }
+   
+  });
+}
 }
 
 

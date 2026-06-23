@@ -8,6 +8,9 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { NotificationService } from 'src/app/common/notification.service';
 import { PpService } from '../../pp.service';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { Router } from '@angular/router';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-execution-process-order',
@@ -21,6 +24,7 @@ export class ExecutionProcessOrderComponent implements OnInit {
   public planningOrderListData: any;
   public dataSource: any;
   public isLoading = false;
+  destroy$ = new Subject<void>();
   displayedColumns = [
     'ff0001',
     'ff0003',
@@ -35,6 +39,8 @@ export class ExecutionProcessOrderComponent implements OnInit {
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
+    private router: Router,
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
@@ -60,22 +66,74 @@ export class ExecutionProcessOrderComponent implements OnInit {
     //todo
   }
 
-  public submit(value: any) {
-    this.ppService.saveProductionCompletedList(value.uc0001).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
-        });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {
-        });
-      }
-    });
-  }
+  public async submit(row: any): Promise<void> {
+
+   const component = await this.remoteLoader.loadComponentByKey(
+        'CommonESignatureComponent'
+      );
+
+  const dialogRef = this.dialog.open(component, {
+    height: '300px',
+    width: '600px',
+    data: {},
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+
+    if (result && result.data) {
+
+      this.isLoading = true;
+
+      this.ppService.saveProductionCompletedList(row.uc0001).subscribe((data: any) => {
+
+        if (data.errorInfo != null) {
+
+          this.isLoading = false;
+
+          this.dialog.open(MessageDialogComponent, {
+            data: {
+              message: data.errorInfo.message,
+              heading: 'Error Information',
+            },
+          });
+
+        } else {
+
+          this.isLoading = false;
+
+          this.notificationService.showSuccess(data.status, () => {});
+          // this.planningOrderListData.reset();
+          //          timer(2000)
+          //                      .pipe(takeUntil(this.destroy$))
+          //                      .subscribe(() => {
+                                 this.router.navigateByUrl('/rqpoperationui/pp/epro-module-admin');
+                              // });
+        }
+      });
+
+    }
+
+  });
+}
+
+
+  // public submit(value: any) {
+  //   this.ppService.saveProductionCompletedList(value.uc0001).subscribe((data: any) => {
+  //     if (data.errorInfo != null) {
+  //       this.isLoading = false;
+  //       this.dialog.open(MessageDialogComponent, {
+  //         data: {
+  //           message: data.errorInfo.message,
+  //           heading: 'Error Information',
+  //         },
+  //       });
+  //     } else {
+  //       this.isLoading = false;
+  //       this.notificationService.showSuccess(data.status, () => {
+  //       });
+  //     }
+  //   });
+  // }
 
 }

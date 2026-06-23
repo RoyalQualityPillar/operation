@@ -52,6 +52,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { SfgApprovedListComponent } from '../slc/sfg-approved-list/sfg-approved-list.component';
 import { SfgLocationUpdateComponent } from '../slc/sfg-location-update/sfg-location-update.component';
+import { SlListComponent } from '../slc/sl-list/sl-list.component';
 
 
 @NgModule({
@@ -100,6 +101,7 @@ import { SfgLocationUpdateComponent } from '../slc/sfg-location-update/sfg-locat
     FgRejectListComponent,
     SfgApprovedListComponent,
     SfgLocationUpdateComponent,
+     SlListComponent,
         
     
     

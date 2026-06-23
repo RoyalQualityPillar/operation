@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/common/notification.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalConstants } from 'src/app/common/global-constants';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-production-completed-list',
@@ -21,6 +22,7 @@ export class ProductionCompletedListComponent implements OnInit {
   public productionCompletedListData: any;
   public dataSource: any;
   public isLoading = false;
+     destroy$ = new Subject<void>();
   displayedColumns = [
     'ff0001',
     'ff0003',

@@ -7,6 +7,8 @@ import { RemoteComponentLoaderService } from 'src/app/service/remote-component-l
 import { WhService } from '../../wh.service';
 import { NotificationService } from 'src/app/common/notification.service';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
+import { Subject, takeUntil, timer } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sfg-location-update',
@@ -22,6 +24,7 @@ export class SfgLocationUpdateComponent implements OnInit {
   public materialValue: any;
   public selectedDialogData: any;
   public isLoading = false;
+   destroy$ = new Subject<void>()
   constructor(
     private fb: FormBuilder,
     private remoteLoader: RemoteComponentLoaderService,
@@ -29,6 +32,7 @@ export class SfgLocationUpdateComponent implements OnInit {
     private whService: WhService,
     @Inject(MAT_DIALOG_DATA) public data,
     private notificationService: NotificationService,
+    private router: Router,
 
   ) {
     this.MaterialLocationForm = fb.group({
@@ -59,7 +63,23 @@ export class SfgLocationUpdateComponent implements OnInit {
       }
     });
   }
-  Submit() {
+  public async Submit(): Promise<void> {
+     const component = await this.remoteLoader.loadComponentByKey(
+          'CommonESignatureComponent'
+        );
+  
+    const dialogRef = this.dialog.open(component, {
+      height: '300px',
+      width: '600px',
+      data: {},
+      disableClose: true,
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+  
+      if (result && result.data) {
+  
+        this.isLoading = true;
     const materialLocationValue = this.MaterialLocationForm.value;
     let uc0001 = this.materialValue.uc0001;
     let location = materialLocationValue.location;
@@ -75,9 +95,14 @@ export class SfgLocationUpdateComponent implements OnInit {
       } else {
         this.isLoading = false;
         this.notificationService.showSuccess(data.status, () => {
+          
+                                           this.router.navigateByUrl('/rqpoperationui/wh/slc-module-admin');
+                                         
         });
       }
     });
   }
+  });
 }
-
+}
+  

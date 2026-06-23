@@ -10,6 +10,9 @@ import { MessageDialogComponent } from 'src/app/common/message-dialog/message-di
 import { NotificationService } from 'src/app/common/notification.service';
 import { PpService } from 'src/app/rqp-pp-module/pp.service';
 import { WhService } from '../../wh.service';
+import { Subject, takeUntil, timer } from 'rxjs';
+import { Router } from '@angular/router';
+import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 
 @Component({
   selector: 'app-sfg-quarantine-list',
@@ -24,6 +27,7 @@ export class SfgQuarantineListComponent implements OnInit {
   public sfgQuarantineListData: any;
   public dataSource: any;
   public isLoading = false;
+  destroy$ = new Subject<void>();
   displayedColumns = [
     'ff0022',
     'ff0025',
@@ -42,6 +46,8 @@ export class SfgQuarantineListComponent implements OnInit {
     public dialog: MatDialog,
      private fb:FormBuilder,
     private notificationService: NotificationService,
+    private remoteLoader: RemoteComponentLoaderService,
+    private router: Router,
   ) {
     this.sfgQuarantineStatusListForm = fb.group({
       documentName: [''],
@@ -72,24 +78,72 @@ export class SfgQuarantineListComponent implements OnInit {
     //todo
   }
 
-  public submit(value: any) {
-     const quarantineStatus = this.sfgQuarantineStatusListForm.value;
-    this.ppService.saveFgQuarantineList(value.uc0001).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
-        });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {
-        });
-      }
-    });
-  }
+
+   public async submit(row: any): Promise<void> {
+    
+       const component = await this.remoteLoader.loadComponentByKey(
+            'CommonESignatureComponent'
+          );
+    
+      const dialogRef = this.dialog.open(component, {
+        height: '300px',
+        width: '600px',
+        data: {},
+        disableClose: true,
+      });
+    
+      dialogRef.afterClosed().subscribe((result) => {
+    
+        if (result && result.data) {
+    
+          this.isLoading = true;
+    
+          this.ppService.saveFgQuarantineList(row.uc0001).subscribe((data: any) => {
+    
+            if (data.errorInfo != null) {
+    
+              this.isLoading = false;
+    
+              this.dialog.open(MessageDialogComponent, {
+                data: {
+                  message: data.errorInfo.message,
+                  heading: 'Error Information',
+                },
+              });
+    
+            } else {
+    
+              this.isLoading = false;
+    
+              this.notificationService.showSuccess(data.status, () => {});
+                           this.router.navigateByUrl('/rqpoperationui/wh/qm-module-admin');
+                         
+            }
+          });
+    
+        }
+    
+      });
+    }
+
+  // public submit(value: any) {
+  //    const quarantineStatus = this.sfgQuarantineStatusListForm.value;
+  //   this.ppService.saveFgQuarantineList(value.uc0001).subscribe((data: any) => {
+  //     if (data.errorInfo != null) {
+  //       this.isLoading = false;
+  //       this.dialog.open(MessageDialogComponent, {
+  //         data: {
+  //           message: data.errorInfo.message,
+  //           heading: 'Error Information',
+  //         },
+  //       });
+  //     } else {
+  //       this.isLoading = false;
+  //       this.notificationService.showSuccess(data.status, () => {
+  //       });
+  //     }
+  //   });
+  // }
 
 }
 
