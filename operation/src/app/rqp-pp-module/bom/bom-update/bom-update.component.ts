@@ -167,6 +167,10 @@ export class BomUpdateComponent implements OnInit {
       productTrackingCode: [''],
       requestNo: [''],
       version: [''],
+
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get products(): FormArray {
@@ -187,14 +191,15 @@ export class BomUpdateComponent implements OnInit {
       weightUom: ['']
     });
   }
-  get containers(): FormArray {
-    return this.ContainerRequirementForm.get('containers') as FormArray;
+  getContainers(productIndex: number): FormArray {
+    return this.products.at(productIndex).get('containers') as FormArray;
   }
-  addContainer() {
-    this.containers.push(this.createContainer());
+  addContainer(productIndex: number): void {
+    this.getContainers(productIndex).push(this.createContainer());
   }
-  removeContainer(index: number) {
-    this.containers.removeAt(index);
+
+  removeContainer(productIndex: number, containerIndex: number): void {
+    this.getContainers(productIndex).removeAt(containerIndex);
   }
   removeRow(index: number) {
     // this.items.removeAt(index);
@@ -279,7 +284,9 @@ export class BomUpdateComponent implements OnInit {
   getBOMItemMasterList(lc0003: any) {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
       this.bomItemValue = data.data;
-      this.containers.clear();
+      // this.containers.clear();
+      const containers = this.getContainers(0);
+      containers.clear();
       const value = this.bomItemValue[0];
       this.bomItemValue.forEach((pack: any) => {
         const container = this.createContainer();
@@ -290,7 +297,8 @@ export class BomUpdateComponent implements OnInit {
           weight: pack.ff0004,
           weightUom: pack.ff0005,
         });
-        this.containers.push(container);
+        // this.containers.push(container);
+        containers.push(container);
       });
 
     });
@@ -359,7 +367,8 @@ export class BomUpdateComponent implements OnInit {
   }
   formatRequestBody() {
     const products = this.products.value;
-    const containers = this.containers.value;
+    // const containers = this.containers.value;
+    const containers = this.getContainers(0).value;
     this.body1 = {
       lcRequest: {
         unitCode: this.headerData.unitcode,
@@ -566,7 +575,7 @@ export class BomUpdateComponent implements OnInit {
       }
     });
   }
-  openMaterialListLOV(index: number) {
+  openMaterialListLOV(productIndex: number, containerIndex: number) {
     this.displayedColumns = [
       { field: 'materialnumber', title: 'Material Number' },
       { field: 'materialcode', title: 'Material Code' },
@@ -586,18 +595,20 @@ export class BomUpdateComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selectedDialogData = result.data;
-        this.containers.at(index).patchValue({
-          materialNo: this.selectedDialogData.materialnumber,
-          materialName: this.selectedDialogData.materialname,
-          materialCode: this.selectedDialogData.materialcode
-        });
+        this.getContainers(productIndex)
+          .at(containerIndex).patchValue({
+            materialNo: this.selectedDialogData.materialnumber,
+            materialName: this.selectedDialogData.materialname,
+            materialCode: this.selectedDialogData.materialcode
+          });
       }
     });
   }
-  onChangeByMaterialCode(index: number) {
-    const materialNo = this.containers.at(index).get('materialNo');
-    const materialName = this.containers.at(index).get('materialName');
-    const materialCode = this.containers.at(index).get('materialCode');
+  onChangeByMaterialCode(productIndex: number, containerIndex: number) {
+    const container = this.getContainers(productIndex).at(containerIndex);
+    const materialNo = container.get('materialNo');
+    const materialName = container.get('materialName');
+    const materialCode = container.get('materialCode');
     if (materialCode.value == '') {
       materialNo.setValue('');
       materialName.setValue('');
@@ -614,14 +625,15 @@ export class BomUpdateComponent implements OnInit {
         materialNo.setErrors({ incorrect: true });
         materialName.setErrors({ incorrect: true });
         materialCode.setErrors({ incorrect: true });
-        this.openMaterialListLOV(index);
+        this.openMaterialListLOV(productIndex, containerIndex);
       }
     }
   }
-  onChangeMaterialNo(index: number) {
-    const materialNo = this.containers.at(index).get('materialNo');
-    const materialName = this.containers.at(index).get('materialName');
-    const materialCode = this.containers.at(index).get('materialCode');
+  onChangeMaterialNo(productIndex: number, containerIndex: number) {
+    const container = this.getContainers(productIndex).at(containerIndex);
+    const materialNo = container.get('materialNo');
+    const materialName = container.get('materialName');
+    const materialCode = container.get('materialCode');
     if (materialNo.value == '') {
       materialNo.setValue('');
       materialName.setValue('');
@@ -638,14 +650,16 @@ export class BomUpdateComponent implements OnInit {
         materialNo.setErrors({ incorrect: true });
         materialName.setErrors({ incorrect: true });
         materialCode.setErrors({ incorrect: true });
-        this.openMaterialListLOV(index);
+        this.openMaterialListLOV(productIndex, containerIndex);
       }
     }
   }
-  onChangeMaterialName(index: number) {
-    const materialNo = this.containers.at(index).get('materialNo');
-    const materialName = this.containers.at(index).get('materialName');
-    const materialCode = this.containers.at(index).get('materialCode');
+  onChangeMaterialName(productIndex: number, containerIndex: number) {
+    const container = this.getContainers(productIndex).at(containerIndex);
+
+    const materialNo = container.get('materialNo');
+    const materialName = container.get('materialName');
+    const materialCode = container.get('materialCode');
     if (materialName.value == '') {
       materialNo.setValue('');
       materialName.setValue('');
@@ -662,7 +676,7 @@ export class BomUpdateComponent implements OnInit {
         materialNo.setErrors({ incorrect: true });
         materialName.setErrors({ incorrect: true });
         materialCode.setErrors({ incorrect: true });
-        this.openMaterialListLOV(index);
+        this.openMaterialListLOV(productIndex, containerIndex);
       }
     }
   }

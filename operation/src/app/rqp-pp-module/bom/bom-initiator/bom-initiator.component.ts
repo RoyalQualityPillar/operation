@@ -114,7 +114,13 @@ export class BomInitiatorComponent implements OnInit {
       productTrackingCode: [''],
       requestNo: [''],
       version: [''],
+
+      containers: this.fb.array([
+        this.createContainer()
+      ])
+
     });
+
   }
   get products(): FormArray {
     return this.BOMRequirementForm.get('products') as FormArray;
@@ -134,14 +140,25 @@ export class BomInitiatorComponent implements OnInit {
       weightUom: ['']
     });
   }
-  get containers(): FormArray {
-    return this.ContainerRequirementForm.get('containers') as FormArray;
+  // get containers(): FormArray {
+  //   return this.ContainerRequirementForm.get('containers') as FormArray;
+  // }
+  getContainers(productIndex: number): FormArray {
+    return this.products.at(productIndex).get('containers') as FormArray;
   }
-  addContainer() {
-    this.containers.push(this.createContainer());
+  // addContainer() {
+  //   this.containers.push(this.createContainer());
+  // }
+
+  // removeContainer(index: number) {
+  //   this.containers.removeAt(index);
+  // }
+  addContainer(productIndex: number): void {
+    this.getContainers(productIndex).push(this.createContainer());
   }
-  removeContainer(index: number) {
-    this.containers.removeAt(index);
+
+  removeContainer(productIndex: number, containerIndex: number): void {
+    this.getContainers(productIndex).removeAt(containerIndex);
   }
   removeRow(index: number) {
     // this.items.removeAt(index);
@@ -164,7 +181,7 @@ export class BomInitiatorComponent implements OnInit {
       this.isLoading = false;
     });
   }
-   onLoadDropDownList() {
+  onLoadDropDownList() {
     this.isLoading = true;
     this.bomService.getBOMInputList(this.cookieService.get('buCode')).subscribe((data: any) => {
       this.materialList = data.data;
@@ -241,75 +258,108 @@ export class BomInitiatorComponent implements OnInit {
   }
   formatRequestBody() {
     const products = this.products.value;
-    const containers = this.containers.value;
+    // const containers = this.containers.value;
+    // this.body1 = {
+    //   lcRequest: {
+    //     unitCode: this.headerData.unitcode,
+    //     moduleCode: this.headerData.modulecode,
+    //     departmentCode: this.headerData.departmentcode,
+    //     lcNumber: this.headerData.lcnum,
+    //     lcStage: this.headerData.stage,
+    //     lcRole: this.headerData.role,
+    //     stage2: 0,
+    //     requestType: '',
+    //     createdBy: this.headerData.createdby,
+    //     comments: this.comments,
+    //     documentModule: 'string',
+    //     documentStatus: 'string',
+    //     gmuserDTOList: [],
+    //     draft: this.draftValue,
+    //   },
+
+    //   bomItemItems: containers.map((item: any) => ({
+    //     uc0001: null,
+    //     ff0001: item.materialNo,
+    //     ff0002: item.materialName,
+    //     ff0003: item.materialCode,
+    //     ff0004: item.weight,
+    //     ff0005: item.weightUom,
+    //     ff0007: "string",
+    //     ff0008: "string",
+    //     ff0009: "string",
+    //     ff0010: "string",
+    //     unitcode: this.headerData.unitcode,
+    //     lc0001: '',
+    //     lc0002: '',
+    //     lc0003: '',
+    //     lc0004: '',
+    //     lc0005: '',
+    //     lc0006: '',
+    //     createdby: this.headerData.createdby,
+    //     status: 0,
+    //     comments: this.comments,
+    //   })),
+
+    //   bomIndexIndex: products.map((element: any) => ({
+    //     uc0001: null,
+    //     unitcode: this.headerData.unitcode,
+    //     ff0001: element.productNo,
+    //     ff0002: element.productName,
+    //     ff0003: element.market,
+    //     ff0004: element.productCode,
+    //     ff0005: element.uom,
+    //     ff0006: element.shelfLifeMonths,
+    //     ff0007: element.productType,
+    //     ff0008: element.dosageForm,
+    //     ff0009: element.inputCode,
+    //     ff0010: element.productTrackingCode,
+    //     lc0001: "string",
+    //     lc0002: "string",
+    //     lc0003: "string",
+    //     lc0004: "string",
+    //     lc0005: "string",
+    //     lc0006: "string",
+    //     createdby: this.headerData.createdby,
+    //     status: 0,
+    //     // version: 0,
+    //     comments: this.comments
+    //   })),
+    //   bomAttachmentList: this.bomAttachmentList,
+
+
+
+    // };
+
     this.body1 = {
-      lcRequest: {
-        unitCode: this.headerData.unitcode,
-        moduleCode: this.headerData.modulecode,
-        departmentCode: this.headerData.departmentcode,
-        lcNumber: this.headerData.lcnum,
-        lcStage: this.headerData.stage,
-        lcRole: this.headerData.role,
-        stage2: 0,
-        requestType: '',
-        createdBy: this.headerData.createdby,
-        comments: this.comments,
-        documentModule: 'string',
-        documentStatus: 'string',
-        gmuserDTOList: [],
-        draft: this.draftValue,
-      },
 
-      bomItemItems: containers.map((item: any) => ({
-        uc0001: null,
-        ff0001: item.materialNo,
-        ff0002: item.materialName,
-        ff0003: item.materialCode,
-        ff0004: item.weight,
-        ff0005: item.weightUom,
-        ff0007: "string",
-        ff0008: "string",
-        ff0009: "string",
-        ff0010: "string",
-        unitcode: this.headerData.unitcode,
-        lc0001: '',
-        lc0002: '',
-        lc0003: '',
-        lc0004: '',
-        lc0005: '',
-        lc0006: '',
-        createdby: this.headerData.createdby,
-        status: 0,
-        comments: this.comments,
+      bomIndexIndex: products.map((product: any) => ({
+
+        ff0001: product.productNo,
+        ff0002: product.productName,
+        ff0003: product.market,
+        ff0004: product.productCode,
+        ff0005: product.uom,
+        ff0006: product.shelfLifeMonths,
+        ff0007: product.productType,
+        ff0008: product.dosageForm,
+        ff0009: product.inputCode,
+        ff0010: product.productTrackingCode
+
       })),
 
-      bomIndexIndex: products.map((element: any) => ({
-        uc0001: null,
-        unitcode: this.headerData.unitcode,
-        ff0001: element.productNo,
-        ff0002: element.productName,
-        ff0003: element.market,
-        ff0004: element.productCode,
-        ff0005: element.uom,
-        ff0006: element.shelfLifeMonths,
-        ff0007: element.productType,
-        ff0008: element.dosageForm,
-        ff0009: element.inputCode,
-        ff0010: element.productTrackingCode,
-        lc0001: "string",
-        lc0002: "string",
-        lc0003: "string",
-        lc0004: "string",
-        lc0005: "string",
-        lc0006: "string",
-        createdby: this.headerData.createdby,
-        status: 0,
-        // version: 0,
-        comments: this.comments
-      })),
-      bomAttachmentList: this.bomAttachmentList,
+      bomItemItems: products.flatMap((product: any) =>
 
+        product.containers.map((container: any) => ({
 
+          ff0001: container.materialNo,
+          ff0002: container.materialName,
+          ff0003: container.materialCode,
+          ff0004: container.weight,
+          ff0005: container.weightUom
+
+        }))
+
+      )
 
     };
 
@@ -416,7 +466,7 @@ export class BomInitiatorComponent implements OnInit {
       }
     });
   }
-  openMaterialListLOV(index: number) {
+  openMaterialListLOV(productIndex: number, containerIndex: number) {
     this.displayedColumns = [
       { field: 'uc0001', title: 'Material Number' },
       { field: 'ff0001', title: 'Material Code' },
@@ -436,18 +486,21 @@ export class BomInitiatorComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selectedDialogData = result.data;
-        this.containers.at(index).patchValue({
-          materialNo: this.selectedDialogData.uc0001,
-          materialName: this.selectedDialogData.ff0002,
-          materialCode: this.selectedDialogData.ff0001
-        });
+        this.getContainers(productIndex)
+          .at(containerIndex).patchValue({
+            materialNo: this.selectedDialogData.uc0001,
+            materialName: this.selectedDialogData.ff0002,
+            materialCode: this.selectedDialogData.ff0001
+          });
       }
     });
   }
-  onChangeByMaterialCode(index: number) {
-    const materialNo = this.containers.at(index).get('materialNo');
-    const materialName = this.containers.at(index).get('materialName');
-    const materialCode = this.containers.at(index).get('materialCode');
+  onChangeByMaterialCode(productIndex: number, containerIndex: number) {
+    const container = this.getContainers(productIndex).at(containerIndex);
+
+    const materialNo = container.get('materialNo');
+    const materialName = container.get('materialName');
+    const materialCode = container.get('materialCode');
     if (materialCode.value == '') {
       materialNo.setValue('');
       materialName.setValue('');
@@ -464,14 +517,16 @@ export class BomInitiatorComponent implements OnInit {
         materialNo.setErrors({ incorrect: true });
         materialName.setErrors({ incorrect: true });
         materialCode.setErrors({ incorrect: true });
-        this.openMaterialListLOV(index);
+        this.openMaterialListLOV(productIndex, containerIndex);
       }
     }
   }
-  onChangeMaterialNo(index: number) {
-    const materialNo = this.containers.at(index).get('materialNo');
-    const materialName = this.containers.at(index).get('materialName');
-    const materialCode = this.containers.at(index).get('materialCode');
+  onChangeMaterialNo(productIndex: number, containerIndex: number) {
+    const container = this.getContainers(productIndex).at(containerIndex);
+
+    const materialNo = container.get('materialNo');
+    const materialName = container.get('materialName');
+    const materialCode = container.get('materialCode');
     if (materialNo.value == '') {
       materialNo.setValue('');
       materialName.setValue('');
@@ -488,14 +543,16 @@ export class BomInitiatorComponent implements OnInit {
         materialNo.setErrors({ incorrect: true });
         materialName.setErrors({ incorrect: true });
         materialCode.setErrors({ incorrect: true });
-        this.openMaterialListLOV(index);
+        this.openMaterialListLOV(productIndex, containerIndex);
       }
     }
   }
-  onChangeMaterialName(index: number) {
-    const materialNo = this.containers.at(index).get('materialNo');
-    const materialName = this.containers.at(index).get('materialName');
-    const materialCode = this.containers.at(index).get('materialCode');
+  onChangeMaterialName(productIndex: number, containerIndex: number) {
+    const container = this.getContainers(productIndex).at(containerIndex);
+
+    const materialNo = container.get('materialNo');
+    const materialName = container.get('materialName');
+    const materialCode = container.get('materialCode');
     if (materialName.value == '') {
       materialNo.setValue('');
       materialName.setValue('');
@@ -512,7 +569,7 @@ export class BomInitiatorComponent implements OnInit {
         materialNo.setErrors({ incorrect: true });
         materialName.setErrors({ incorrect: true });
         materialCode.setErrors({ incorrect: true });
-        this.openMaterialListLOV(index);
+        this.openMaterialListLOV(productIndex, containerIndex);
       }
     }
   }
