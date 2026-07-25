@@ -120,6 +120,9 @@ export class BomReviewerComponent implements OnInit {
       productTrackingCode: [''],
       requestNo: [''],
       version: [''],
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get products(): FormArray {
@@ -134,8 +137,8 @@ export class BomReviewerComponent implements OnInit {
       weightUom: ['']
     });
   }
-  get containers(): FormArray {
-    return this.ContainerRequirementForm.get('containers') as FormArray;
+  getContainers(productIndex: number): FormArray {
+    return this.products.at(productIndex).get('containers') as FormArray;
   }
 
 
@@ -164,8 +167,9 @@ export class BomReviewerComponent implements OnInit {
   getBOMItemMasterList(lc0003: any) {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
       this.bomItemValue = data.data;
-      this.containers.clear();
-      const value = this.bomItemValue[0];
+      // this.containers.clear();
+      const containers = this.getContainers(0);
+      containers.clear(); const value = this.bomItemValue[0];
       this.bomItemValue.forEach((pack: any) => {
         const container = this.createContainer();
         container.patchValue({
@@ -175,7 +179,8 @@ export class BomReviewerComponent implements OnInit {
           weight: pack.ff0004,
           weightUom: pack.ff0005,
         });
-        this.containers.push(container);
+        // this.containers.push(container);
+        containers.push(container);
       });
 
     });

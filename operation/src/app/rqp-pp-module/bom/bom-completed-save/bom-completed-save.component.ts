@@ -118,6 +118,9 @@ export class BomCompletedSaveComponent implements OnInit {
       productTrackingCode: [''],
       requestNo: [''],
       version: [''],
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get products(): FormArray {
@@ -132,10 +135,9 @@ export class BomCompletedSaveComponent implements OnInit {
       weightUom: ['']
     });
   }
-  get containers(): FormArray {
-    return this.ContainerRequirementForm.get('containers') as FormArray;
+  getContainers(productIndex: number): FormArray {
+    return this.products.at(productIndex).get('containers') as FormArray;
   }
-
 
   public getHeaderData(event: any) {
     this.headerData = event;
@@ -162,7 +164,7 @@ export class BomCompletedSaveComponent implements OnInit {
   getBOMItemMasterList(lc0003: any) {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
       this.bomItemValue = data.data;
-      this.containers.clear();
+      const containers = this.getContainers(0);
       const value = this.bomItemValue[0];
       this.bomItemValue.forEach((pack: any) => {
         const container = this.createContainer();
@@ -173,7 +175,7 @@ export class BomCompletedSaveComponent implements OnInit {
           weight: pack.ff0004,
           weightUom: pack.ff0005,
         });
-        this.containers.push(container);
+        containers.push(container);
       });
 
     });
