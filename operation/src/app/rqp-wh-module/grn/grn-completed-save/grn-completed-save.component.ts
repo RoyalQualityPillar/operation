@@ -145,6 +145,9 @@ export class GrnCompletedSaveComponent implements OnInit {
       // storageLocation: [''],
       wharehouseName: [''],
       wharehouseNo: [''],
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get items(): FormArray {
@@ -152,6 +155,9 @@ export class GrnCompletedSaveComponent implements OnInit {
   }
   get containers(): FormArray {
     return this.ContainerRequirementForm.get('containers') as FormArray;
+  }
+  getContainers(productIndex: number): FormArray {
+    return this.items.at(productIndex).get('containers') as FormArray;
   }
   public getCommentsData(event: any): void {
     this.userCurrentComments = event;
@@ -260,7 +266,7 @@ export class GrnCompletedSaveComponent implements OnInit {
     this.isLoading = false;
   }
   public downloadGRNReport() {
-const lcNumber = this.headerData?.lcnum;
+    const lcNumber = this.headerData?.lcnum;
     const templateName = 'grnReport.html';
     const moduleCode = this.headerData?.modulecode;
     const lcrnumber = this.headerData.requestNo;

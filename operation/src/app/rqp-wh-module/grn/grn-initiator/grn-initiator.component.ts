@@ -160,6 +160,9 @@ export class GrnInitiatorComponent implements OnInit {
       // storageLocation: [''],
       wharehouseName: [''],
       wharehouseNo: [''],
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get items(): FormArray {
@@ -171,16 +174,25 @@ export class GrnInitiatorComponent implements OnInit {
   removeRow(index: number) {
     this.items.removeAt(index);
   }
-  get containers(): FormArray {
-    return this.ContainerRequirementForm.get('containers') as FormArray;
+  // get containers(): FormArray {
+  //   return this.ContainerRequirementForm.get('containers') as FormArray;
+  // }
+  // addContainer() {
+  //   this.containers.push(this.createContainer());
+  // }
+  //  removeContainer(index: number) {
+  //   this.containers.removeAt(index);
+  // }
+  getContainers(productIndex: number): FormArray {
+    return this.items.at(productIndex).get('containers') as FormArray;
   }
-  addContainer() {
-    this.containers.push(this.createContainer());
+  addContainer(productIndex: number): void {
+    this.getContainers(productIndex).push(this.createContainer());
+  }
+  removeContainer(productIndex: number, containerIndex: number): void {
+    this.getContainers(productIndex).removeAt(containerIndex);
   }
 
-  removeContainer(index: number) {
-    this.containers.removeAt(index);
-  }
   onLoadInputApi() {
     let unitCode = this.headerData.unitcode;
     let module = 'CCA';
@@ -275,7 +287,7 @@ export class GrnInitiatorComponent implements OnInit {
   formatRequestBody() {
     const dateValue = this.MaterialRequirementForm.value;
     const items = this.items.value;
-    const containers = this.containers.value;
+    const containers = this.getContainers(0).value;
     this.body1 = {
       lcRequest: {
         unitCode: this.headerData.unitcode,
@@ -376,7 +388,7 @@ export class GrnInitiatorComponent implements OnInit {
     };
 
   }
-  onSubmit(btnStatus: any) { 
+  onSubmit(btnStatus: any) {
 
     if (btnStatus == 1) {
       this.draftValue = false;
@@ -396,10 +408,10 @@ export class GrnInitiatorComponent implements OnInit {
     let selectedFile: any[] = [];
     this.grnAttachmentList.forEach((elements: any) => {
       selectedFile.push(elements.selectedFileList);
-    });  
+    });
     this.grnService
       .onGRNSaveUpdate(attachmentList, this.body1)
-      .subscribe((data: any) => {    
+      .subscribe((data: any) => {
         if (data.errorInfo != null) {
           this.dialog.open(MessageDialogComponent, {
             data: {

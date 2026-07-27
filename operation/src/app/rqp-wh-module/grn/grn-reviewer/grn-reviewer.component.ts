@@ -29,16 +29,16 @@ export class GrnReviewerComponent implements OnInit {
   public ff0005: number;
   public ff0001: any;
   public lc0001: any;
-  public lc0003:any;
-  public ff0002:any;
+  public lc0003: any;
+  public ff0002: any;
   public nextStageListData: any;
   public headerRequestBody: any;
   public previousStageListData: any;
   public userCurrentComments: any;
-  public goodsReceiptValue:any;
-  public goodsReceiptPackValue:any;
-  public grnAttachmentListData:any[] = [];
-  public grnAttachmentListTableData:any;
+  public goodsReceiptValue: any;
+  public goodsReceiptPackValue: any;
+  public grnAttachmentListData: any[] = [];
+  public grnAttachmentListTableData: any;
   grnAttachListdisplayedColumns: string[] = [
     'uc0001',
     'ff0007',
@@ -102,7 +102,7 @@ export class GrnReviewerComponent implements OnInit {
       // });
     }
     if (this.ff0001) {
-     this.getGRNRequestNo();
+      this.getGRNRequestNo();
     }
     this.headerRequestBody = this.lifeCycleDataService.getSelectedRowData();
     this.onLoadNextStageData();
@@ -121,7 +121,7 @@ export class GrnReviewerComponent implements OnInit {
       this.nextStageListData = data.data.nstage;
       this.previousStageListData = data.data.pstage;
     });
-  }  
+  }
   public getHeaderData(event: any) {
     this.headerData = event;
   }
@@ -152,6 +152,9 @@ export class GrnReviewerComponent implements OnInit {
       // storageLocation: [''],
       wharehouseName: [''],
       wharehouseNo: [''],
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get items(): FormArray {
@@ -160,36 +163,39 @@ export class GrnReviewerComponent implements OnInit {
   get containers(): FormArray {
     return this.ContainerRequirementForm.get('containers') as FormArray;
   }
+  getContainers(productIndex: number): FormArray {
+    return this.items.at(productIndex).get('containers') as FormArray;
+  }
   getGRNRequestNo() {
     this.grnService.getResquestNoIDForGRN(this.ff0001, this.lc0001).subscribe((data: any) => {
-this.lc0003 = data.data[0].lc0003;
-if(this.lc0003){
-this.getGoodsReceiptList(this.lc0003);
-this.getGoodsReceiptPackList(this.lc0003);
-this.getGRNAttachchmentList(this.lc0003);
-}
+      this.lc0003 = data.data[0].lc0003;
+      if (this.lc0003) {
+        this.getGoodsReceiptList(this.lc0003);
+        this.getGoodsReceiptPackList(this.lc0003);
+        this.getGRNAttachchmentList(this.lc0003);
+      }
     });
   }
-  getGRNAttachchmentList(lc0003:any){  
-    this.grnService.getGRNAttachments(lc0003,this.ff0002).subscribe((data:any) => {
-   this.grnAttachmentListData = data.data;
-        this.grnAttachmentListTableData = new MatTableDataSource(data.data);
+  getGRNAttachchmentList(lc0003: any) {
+    this.grnService.getGRNAttachments(lc0003, this.ff0002).subscribe((data: any) => {
+      this.grnAttachmentListData = data.data;
+      this.grnAttachmentListTableData = new MatTableDataSource(data.data);
     });
   }
-  getGoodsReceiptList(lc0003:any){
-this.grnService.getGoodsReceiptList(lc0003).subscribe((data:any) => {
-  this.goodsReceiptValue = data.data;
-const value = this.goodsReceiptValue[0];
-  this.MaterialRequirementForm.patchValue({
-    grnDate:value.ff0019,
-    invoiceDate:value.ff0020,
-    invoiceNo:value.ff0021
-  });
+  getGoodsReceiptList(lc0003: any) {
+    this.grnService.getGoodsReceiptList(lc0003).subscribe((data: any) => {
+      this.goodsReceiptValue = data.data;
+      const value = this.goodsReceiptValue[0];
+      this.MaterialRequirementForm.patchValue({
+        grnDate: value.ff0019,
+        invoiceDate: value.ff0020,
+        invoiceNo: value.ff0021
+      });
 
- this.goodsReceiptValue.forEach((element:any, i:number) => {
- const item = this.items.at(i) as FormGroup;
-  item.patchValue({
-     poNo: element.ff0001,
+      this.goodsReceiptValue.forEach((element: any, i: number) => {
+        const item = this.items.at(i) as FormGroup;
+        item.patchValue({
+          poNo: element.ff0001,
           materialCode: element.ff0002,
           materialName: element.ff0003,
           materialNo: element.ff0009,
@@ -206,27 +212,27 @@ const value = this.goodsReceiptValue[0];
           inHouseBatchNo: element.ff0010,
           wharehouseName: element.ff0018,
           wharehouseNo: element.ff0016,
-  });
- 
-  
- });
+        });
 
-});
+
+      });
+
+    });
   }
-   getGoodsReceiptPackList(lc0003:any){
-    this.grnService.getGoodsReceiptPackList(lc0003).subscribe((data:any) => {
+  getGoodsReceiptPackList(lc0003: any) {
+    this.grnService.getGoodsReceiptPackList(lc0003).subscribe((data: any) => {
       this.goodsReceiptPackValue = data.data;
       this.goodsReceiptPackValue.forEach((pack: any, i: number) => {
         const container = this.containers.at(i) as FormGroup;
-  container.patchValue({   
+        container.patchValue({
           containerId: pack.ff0001,
           weight: pack.ff0004,
           weightUom: pack.ff0002,
-  });
+        });
       });
     });
   }
-   downloadDocument(row) {
+  downloadDocument(row) {
     let fileExtension = getFileExtension(row.ff0013);
     this.grnService
       .onDownloadDocumet(row.uc0001)
