@@ -138,28 +138,40 @@
                     </div>
 
 
-                    <!--Table start-->
+                    <div formArrayName="containers">
+                        <div *ngFor="let item of getContainers(i).controls; let j = index" [formGroupName]="j">
 
+                            <div class="row no-gutters ms-1 me-1 dense-4">
+                                <mat-form-field appearance="outline" class="col-4 px-1">
+                                    <mat-label>Container ID</mat-label>
+                                    <input type="text" formControlName="containerId" matInput placeholder="Container ID"
+                                        readonly />
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-4 px-1">
+                                    <mat-label>Weight</mat-label>
+                                    <input type="text" formControlName="weight" matInput placeholder="Weight"
+                                        readonly />
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-3 px-1">
+                                    <mat-label>UOM</mat-label>
+                                    <input type="text" matInput formControlName="weightUom" placeholder="Weight Uom"
+                                        readonly />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
-        <form [formGroup]="ContainerRequirementForm">
+        <!-- <form [formGroup]="ContainerRequirementForm">
             <div formArrayName="containers">
                 <div *ngFor="let item of containers.controls; let i = index" [formGroupName]="i">
                     <div class="table-box">
                         <div class="section_header_child_1">
                             <div class="float-start">Container Details (Lot Level)</div>
-                            <div class="float-left d-flex gap-2">
-                                <!-- <button mat-raised-button class="add-new-record-btn" (click)="addContainer()">
-                                    Add Container
-                                </button>
-                                <button mat-raised-button class="section-add-remove-record-btn"
-                                    (click)="removeContainer(i)">
-                                    Delete Container
-                                </button> -->
+                            <div class="float-left d-flex gap-2">                              
                             </div>
                         </div>
-
                     </div>
 
 
@@ -182,7 +194,7 @@
 
                 </div>
             </div>
-        </form>
+        </form> -->
     </ng-container>
     <!--Table end-->
     <div class="table-box">

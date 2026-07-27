@@ -138,15 +138,49 @@
                             <mat-label>Wharehouse No</mat-label>
                             <input type="text" matInput formControlName="wharehouseNo" placeholder="Wharehouse No" />
                         </mat-form-field>
+                        <div class="col-1 px-1 ">
+                            <button type="button" mat-raised-button class="section-add-new-record-btn w-100"
+                                (click)="addContainer(i)">
+                                Add Container
+                            </button>
+                        </div>
                     </div>
 
 
-                    <!--Table start-->
+                    <div formArrayName="containers">
+                        <div *ngFor="let item of getContainers(i).controls; let j = index" [formGroupName]="j">
 
+                            <div class="row no-gutters ms-1 me-1 dense-4">
+                                <mat-form-field appearance="outline" class="col-4 px-1">
+                                    <mat-label>Container ID</mat-label>
+                                    <input type="text" formControlName="containerId" matInput
+                                        placeholder="Container ID" />
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-4 px-1">
+                                    <mat-label>Weight</mat-label>
+                                    <input type="text" formControlName="weight" matInput placeholder="Weight" />
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-3 px-1">
+                                    <mat-label>UOM</mat-label>
+                                    <mat-select formControlName="weightUom">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option value="KG">KG</mat-option>
+                                        <mat-option value="GM">GM</mat-option>
+                                        <mat-option value="L">L</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <div *ngIf="j > 0" class="col-1 px-1 d-flex text-end mb-3">
+                                    <img src="/assets/delete.png" width="20" height="20"
+                                        (click)="removeContainer(i,j)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
-        <form [formGroup]="ContainerRequirementForm">
+        <!-- <form [formGroup]="ContainerRequirementForm">
             <div formArrayName="containers">
                 <div *ngFor="let item of containers.controls; let i = index" [formGroupName]="i">
                     <div class="table-box">
@@ -189,7 +223,7 @@
 
                 </div>
             </div>
-        </form>
+        </form> -->
     </ng-container>
     <!--Table end-->
     <div class="table-box">
@@ -250,53 +284,52 @@
             </mat-card>
         </div>
     </div>
-  <div class="m-2">
-            <div *ngIf="this.lc0003">
-                <div *ngIf="grnAttachmentListData">
-                    <mat-table [dataSource]="grnAttachmentListTableData" matSort id="dataTable"
-                        class="bg-color_ghost_White">
-                        <ng-container matColumnDef="uc0001">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Document No</mat-header-cell>
-                            <mat-cell *matCellDef="let row">{{ row.uc0001 }} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="ff0007">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Document Name</mat-header-cell>
-                            <mat-cell *matCellDef="let row">{{ row.ff0001 }} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="createdby">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Created By
-                            </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{ row.createdby }}</mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="createdon">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
-                            </mat-header-cell>
-                            <mat-cell *matCellDef="let row">
-                                {{ row.createdon | customDatePipe : "dateWithHrMin" }}</mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="ff0005">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Category Types
-                            </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{ row.ff0005 }}</mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="removeRow">
-                            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-                            <mat-cell *matCellDef="let row">
-                                <button *ngIf="row.uc0001" mat-icon-button color="primary"
-                                    (click)="downloadDocument(row)">
-                                    <mat-icon>download</mat-icon>
-                                </button>
-                            </mat-cell>
-                        </ng-container>
-                        <mat-header-row *matHeaderRowDef="grnAttachListdisplayedColumns"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: grnAttachListdisplayedColumns"></mat-row>
-                    </mat-table>
-                </div>
-                <div *ngIf="!grnAttachmentListData">
-                    <p style="color: red">No Record Found</p>
-                </div>
+    <div class="m-2">
+        <div *ngIf="this.lc0003">
+            <div *ngIf="grnAttachmentListData">
+                <mat-table [dataSource]="grnAttachmentListTableData" matSort id="dataTable"
+                    class="bg-color_ghost_White">
+                    <ng-container matColumnDef="uc0001">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Document No</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.uc0001 }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="ff0007">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Document Name</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.ff0001 }} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="createdby">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Created By
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{ row.createdby }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="createdon">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            {{ row.createdon | customDatePipe : "dateWithHrMin" }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="ff0005">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Category Types
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{ row.ff0005 }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="removeRow">
+                        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button *ngIf="row.uc0001" mat-icon-button color="primary" (click)="downloadDocument(row)">
+                                <mat-icon>download</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="grnAttachListdisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: grnAttachListdisplayedColumns"></mat-row>
+                </mat-table>
+            </div>
+            <div *ngIf="!grnAttachmentListData">
+                <p style="color: red">No Record Found</p>
             </div>
         </div>
+    </div>
     <!--file Upload End-->
 </div>
 

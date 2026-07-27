@@ -147,9 +147,9 @@ export class GrnUpdateComponent implements OnInit {
   }
   public getHeaderData(event: any) {
     this.headerData = event;
-     this.onReviewData();
+    this.onReviewData();
   }
-   onReviewData() {
+  onReviewData() {
     this.grnService
       .onCommentsData(this.ff0001, this.headerData.lcnum, this.ff0005)
       .subscribe((data: any) => {
@@ -185,6 +185,9 @@ export class GrnUpdateComponent implements OnInit {
       // storageLocation: [''],
       wharehouseName: [''],
       wharehouseNo: [''],
+      containers: this.fb.array([
+        this.createContainer()
+      ])
     });
   }
   get items(): FormArray {
@@ -193,18 +196,27 @@ export class GrnUpdateComponent implements OnInit {
   get containers(): FormArray {
     return this.ContainerRequirementForm.get('containers') as FormArray;
   }
+  getContainers(productIndex: number): FormArray {
+    return this.items.at(productIndex).get('containers') as FormArray;
+  }
+  addContainer(productIndex: number): void {
+    this.getContainers(productIndex).push(this.createContainer());
+  }
+  removeContainer(productIndex: number, containerIndex: number): void {
+    this.getContainers(productIndex).removeAt(containerIndex);
+  }
   addRow() {
     this.items.push(this.createItem());
   }
   removeRow(index: number) {
     this.items.removeAt(index);
   }
-  addContainer() {
-    this.containers.push(this.createContainer());
-  }
-  removeContainer(index: number) {
-    this.containers.removeAt(index);
-  }
+  // addContainer() {
+  //   this.containers.push(this.createContainer());
+  // }
+  // removeContainer(index: number) {
+  //   this.containers.removeAt(index);
+  // }
   public handleCommentsForm(event: any) {
     this.comments = event.comments;
   }
@@ -218,7 +230,7 @@ export class GrnUpdateComponent implements OnInit {
     return objects.filter((obj) => Object.keys(obj).length > 0);
   }
   onCreateSelectedDataList() {
-    this.selectedFileList.push(this.selectedFiles);   
+    this.selectedFileList.push(this.selectedFiles);
     // Check if the document name is provided before proceeding
     if (this.GRNRequirementForm.controls['documentName'].value) {
       // Add new action attachment object
@@ -373,7 +385,7 @@ export class GrnUpdateComponent implements OnInit {
       }
     });
   }
-  formatRequestBody() {   
+  formatRequestBody() {
     const dateValue = this.MaterialRequirementForm.value;
     const items = this.items.value;
     const containers = this.containers.value;
