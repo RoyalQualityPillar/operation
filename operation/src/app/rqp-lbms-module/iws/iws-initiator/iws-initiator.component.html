@@ -39,15 +39,13 @@
         <mat-label>Set Point Number</mat-label>
         <input type="number" matInput [(ngModel)]="setPointNo" placeholder="Set Point Number" />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="col-3 px-1">
+    <!-- <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Parameter Name</mat-label>
         <mat-select [(ngModel)]="parameterName">
             <mat-option value="">Select</mat-option>
-            <mat-option value="conducted">Parameter</mat-option>
-            <!-- <mat-option value="GM">GM</mat-option>
-                        <mat-option value="L">L</mat-option> -->
+            <mat-option value="conducted">Parameter</mat-option>           
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <div class="float-right col-3">
         <button mat-raised-button class="submitButton" [disabled]="disableButtons" (click)="onGenerateParameters()">
             Generate Fields
@@ -200,15 +198,13 @@
         <mat-label>Set Point Number</mat-label>
         <input type="number" matInput [(ngModel)]="quantitativeSetPointNo" placeholder="Set Point Number" />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="col-3 px-1">
+    <!-- <mat-form-field appearance="outline" class="col-3 px-1">
         <mat-label>Parameter Name</mat-label>
         <mat-select [(ngModel)]="quantitativeParameterName">
             <mat-option value="">Select</mat-option>
             <mat-option value="conducted">Conducted</mat-option>
-            <!-- <mat-option value="GM">GM</mat-option>
-                        <mat-option value="L">L</mat-option> -->
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <div class="float-right col-3">
         <button mat-raised-button class="submitButton" [disabled]="disableButtons"
             (click)="onGenerateQuantitativeParameters()">
