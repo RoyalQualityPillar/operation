@@ -26,7 +26,7 @@ export class MaterialRequVerfComponent implements OnInit {
     'lc0005',
     'ff0001',
     'ff0002',
-    'ff0003',
+    // 'ff0003',
     'ff0004',
     'ff0005',
     'ff0012',
@@ -70,9 +70,9 @@ export class MaterialRequVerfComponent implements OnInit {
   public submit(value: any) {
     this.dialog.open(ApprovedMaterialListComponent, {
       minWidth: '80%',
-      data: { tableData:value, pageTitle: 'Approved Material List'}
+      data: { tableData: value, pageTitle: 'Approved Material List' }
     });
-   
+
   }
 
 }
