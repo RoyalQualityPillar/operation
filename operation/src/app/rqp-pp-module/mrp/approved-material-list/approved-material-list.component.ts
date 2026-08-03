@@ -37,7 +37,7 @@ export class ApprovedMaterialListComponent implements OnInit {
   private lifeCycleInfoDataLength: any;
   public fairRecords: any;
   public materialListValue: any;
-   destroy$ = new Subject<void>();
+  destroy$ = new Subject<void>();
   public addedUserdisplayedColumns: string[] = [
     'action',
     'ff0001',
@@ -59,16 +59,16 @@ export class ApprovedMaterialListComponent implements OnInit {
     private ppService: PpService,
     private notificationService: NotificationService,
     private remoteLoader: RemoteComponentLoaderService,
-  private router: Router,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.materialListValue = this.data.tableData;
     let unitcode = this.cookieService.get('buCode');
-    let ff0001 = this.materialListValue.ff0001;
+    let ff0002 = this.materialListValue.ff0002;
     let lc0005 = this.materialListValue.lc0005;
 
-    this.ppService.getApprovedMaterialListData(unitcode, ff0001, lc0005)
+    this.ppService.getApprovedMaterialListData(unitcode, ff0002, lc0005)
       .subscribe((data: any) => {
         if (data.data?.length > 0) {
           this.fairRecords = data.data
@@ -128,57 +128,57 @@ export class ApprovedMaterialListComponent implements OnInit {
   }
   public async submit(row): Promise<void> {
 
-   const component = await this.remoteLoader.loadComponentByKey(
-        'CommonESignatureComponent'
-      );
+    const component = await this.remoteLoader.loadComponentByKey(
+      'CommonESignatureComponent'
+    );
 
-  const dialogRef = this.dialog.open(component, {
-    height: '300px',
-    width: '600px',
-    data: {},
-    disableClose: true,
-  });
+    const dialogRef = this.dialog.open(component, {
+      height: '300px',
+      width: '600px',
+      data: {},
+      disableClose: true,
+    });
 
-  dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result) => {
 
-    if (result && result.data) {
+      if (result && result.data) {
 
-      this.isLoading = true;
-      row = this.selectRow;
-    let uc0001 = this.materialListValue.uc0001;
-    let lc0005 = this.materialListValue.lc0005;
+        this.isLoading = true;
+        row = this.selectRow;
+        let uc0001 = this.materialListValue.uc0001;
+        let lc0005 = this.materialListValue.lc0005;
 
-      this.ppService.savePlanOrderMrpList(uc0001, lc0005, row.uc0001).subscribe((data: any) => {
+        this.ppService.savePlanOrderMrpList(uc0001, lc0005, row.uc0001).subscribe((data: any) => {
 
-        if (data.errorInfo != null) {
+          if (data.errorInfo != null) {
 
-          this.isLoading = false;
+            this.isLoading = false;
 
-          this.dialog.open(MessageDialogComponent, {
-            data: {
-              message: data.errorInfo.message,
-              heading: 'Error Information',
-            },
-          });
+            this.dialog.open(MessageDialogComponent, {
+              data: {
+                message: data.errorInfo.message,
+                heading: 'Error Information',
+              },
+            });
 
-        } else {
+          } else {
 
-          this.isLoading = false;
+            this.isLoading = false;
 
-          this.notificationService.showSuccess(data.status, () => {});
-          
-                   timer(2000)
-                               .pipe(takeUntil(this.destroy$))
-                               .subscribe(() => {
-                                 this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
-                               });
-        }
-      });
+            this.notificationService.showSuccess(data.status, () => { });
 
-    }
+            timer(2000)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe(() => {
+                this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
+              });
+          }
+        });
 
-  });
-}
+      }
+
+    });
+  }
   onSubmit(row) {
     row = this.selectRow;
     let uc0001 = this.materialListValue.uc0001;
