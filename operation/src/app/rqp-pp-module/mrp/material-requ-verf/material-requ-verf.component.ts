@@ -44,6 +44,9 @@ export class MaterialRequVerfComponent implements OnInit {
     private notificationService: NotificationService,
   ) { }
   ngOnInit(): void {
+    this.loadPlanningOrders();
+  }
+  loadPlanningOrders() {
     let unitCode = this.cookieService.get('buCode');
     this.ppService.PlanOrderMrpList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
@@ -68,9 +71,14 @@ export class MaterialRequVerfComponent implements OnInit {
   }
 
   public submit(value: any) {
-    this.dialog.open(ApprovedMaterialListComponent, {
+    const dialogRef = this.dialog.open(ApprovedMaterialListComponent, {
       minWidth: '80%',
       data: { tableData: value, pageTitle: 'Approved Material List' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadPlanningOrders();
+      }
     });
 
   }

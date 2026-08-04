@@ -65,10 +65,10 @@ export class ApprovedMaterialListComponent implements OnInit {
   ngOnInit(): void {
     this.materialListValue = this.data.tableData;
     let unitcode = this.cookieService.get('buCode');
-    let ff0002 = this.materialListValue.ff0002;
+    let ff0001 = this.materialListValue.ff0001;
     let lc0005 = this.materialListValue.lc0005;
 
-    this.ppService.getApprovedMaterialListData(unitcode, ff0002, lc0005)
+    this.ppService.getApprovedMaterialListData(unitcode, ff0001, lc0005)
       .subscribe((data: any) => {
         if (data.data?.length > 0) {
           this.fairRecords = data.data
@@ -151,9 +151,6 @@ export class ApprovedMaterialListComponent implements OnInit {
         this.ppService.savePlanOrderMrpList(uc0001, lc0005, row.uc0001).subscribe((data: any) => {
 
           if (data.errorInfo != null) {
-
-            this.isLoading = false;
-
             this.dialog.open(MessageDialogComponent, {
               data: {
                 message: data.errorInfo.message,
@@ -162,17 +159,15 @@ export class ApprovedMaterialListComponent implements OnInit {
             });
 
           } else {
-
-            this.isLoading = false;
-
             this.notificationService.showSuccess(data.status, () => { });
 
             timer(2000)
               .pipe(takeUntil(this.destroy$))
               .subscribe(() => {
-                this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
+                this.dialogRef.close(true);
               });
           }
+          this.isLoading = false;
         });
 
       }
