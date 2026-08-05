@@ -12,6 +12,7 @@ import { WhService } from '../../wh.service';
 import { Subject, takeUntil, timer } from 'rxjs';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-fg-under-test-list',
@@ -23,9 +24,10 @@ export class FgUnderTestListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   public fgUnderTestListData: any;
+  public fgundertestListForm: FormGroup;
   public dataSource: any;
   public isLoading = false;
-     destroy$ = new Subject<void>()
+  destroy$ = new Subject<void>()
   displayedColumns = [
     'ff0001',
     'ff0003',
@@ -42,7 +44,13 @@ export class FgUnderTestListComponent implements OnInit {
     private notificationService: NotificationService,
     private remoteLoader: RemoteComponentLoaderService,
     private router: Router,
-  ) { }
+    private fb: FormBuilder,
+  ) {
+    this.fgundertestListForm = fb.group({
+      documentName: [''],
+      status: ['']
+    });
+  }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
     this.whService.getFgUnderTestList(unitCode).subscribe((data: any) => {
@@ -67,45 +75,45 @@ export class FgUnderTestListComponent implements OnInit {
     //todo
   }
 
-  public async submit(row:any): Promise<void>{
-      const component = await this.remoteLoader.loadComponentByKey(
-          'CommonESignatureComponent'
-        );
-  
+  public async submit(row: any): Promise<void> {
+    const component = await this.remoteLoader.loadComponentByKey(
+      'CommonESignatureComponent'
+    );
+
     const dialogRef = this.dialog.open(component, {
       height: '300px',
       width: '600px',
       data: {},
       disableClose: true,
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
-  
+
       if (result && result.data) {
-  
-    this.whService.saveFgUnderTestLList(row.uc0001, row.status).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
-        });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {
-          // this.fgUnderTestListData.reset();
-          //                    timer(2000)
-          //                                .pipe(takeUntil(this.destroy$))
-          //                                .subscribe(() => {
-                                           this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
-                                         //});
+
+        this.whService.saveFgUnderTestLList(row.uc0001, row.status).subscribe((data: any) => {
+          if (data.errorInfo != null) {
+            this.isLoading = false;
+            this.dialog.open(MessageDialogComponent, {
+              data: {
+                message: data.errorInfo.message,
+                heading: 'Error Information',
+              },
+            });
+          } else {
+            this.isLoading = false;
+            this.notificationService.showSuccess(data.status, () => {
+              // this.fgUnderTestListData.reset();
+              //                    timer(2000)
+              //                                .pipe(takeUntil(this.destroy$))
+              //                                .subscribe(() => {
+              this.router.navigateByUrl('/rqpoperationui/wh/sm-module-admin');
+              //});
+            });
+          }
         });
       }
     });
   }
-});
-}
 }
 
