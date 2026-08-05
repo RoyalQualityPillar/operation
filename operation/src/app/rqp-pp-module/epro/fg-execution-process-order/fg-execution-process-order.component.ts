@@ -44,7 +44,7 @@ export class FgExecutionProcessOrderComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.getSfgMaterialCompletedProductionList(unitCode).subscribe((data: any) => {
+    this.ppService.getFGMaterialCompletedProductionList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
       this.planningOrderListData = new MatTableDataSource(this.dataSource);
       this.planningOrderListData.sort = this.sort;

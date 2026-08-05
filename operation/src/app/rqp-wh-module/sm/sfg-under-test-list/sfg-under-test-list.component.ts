@@ -50,7 +50,7 @@ export class SfgUnderTestListComponent implements OnInit {
       documentName: [''],
       status: ['']
     });
-  }
+  } 
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
     this.whService.getSFGUnderTestList(unitCode).subscribe((data: any) => {
