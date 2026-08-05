@@ -1,12 +1,26 @@
+<div>
+  <form [formGroup]="fgundertestListForm">
+    <div class="row no-gutters ms-1 me-1 dense-4">
+      <mat-form-field appearance="outline" class="col-3 px-1">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="">Select</mat-option>
+          <mat-option value="4012">Approved</mat-option>
+          <mat-option value="4013">Rejected</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
 <div class="table-box">
   <mat-table [dataSource]="fgUnderTestListData" matSort id="dataTable" class="table_background_color">
-          <ng-container matColumnDef="ff0001">
+    <ng-container matColumnDef="ff0001">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         Product Order Number
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
     </ng-container>
-     <ng-container matColumnDef="ff0002">
+    <ng-container matColumnDef="ff0002">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product Number
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
@@ -22,14 +36,14 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
-    </ng-container>    
+    </ng-container>
 
     <ng-container matColumnDef="ff0006">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.ff0010 }}</mat-cell>
     </ng-container>
-    
+
     <ng-container matColumnDef="createdon">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
       </mat-header-cell>
@@ -49,9 +63,9 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Action
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-icon class="cursor" (click)="submit(row)" > toggle_on </mat-icon>
+        <mat-icon class="cursor" (click)="submit(row)"> toggle_on </mat-icon>
       </mat-cell>
-    </ng-container>   
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
