@@ -37,9 +37,11 @@ import { SfgApproverListComponent } from "../fg/sfg-approver-list/sfg-approver-l
 import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.component";
 import { SfgExecutionProcessOrderComponent } from "../epro/sfg-execution-process-order/sfg-execution-process-order.component";
 import { FgExecutionProcessOrderComponent } from "../epro/fg-execution-process-order/fg-execution-process-order.component";
+import { FgLocationUpdateComponent } from "../fg/fg-location-update/fg-location-update.component";
+import { BmrNumberingSystemComponent } from "src/app/rqp-dms-module/bmr-numbering-system/bmr-numbering-system/bmr-numbering-system.component";
 
 const routes: Routes = [
-
+  { path: 'bmr-numbering-system', component: BmrNumberingSystemComponent },
   { path: 'epo-initiator', component: EpoInitiatorComponent },
   { path: 'epo-update', component: EpoUpdateComponent },
   { path: 'epo-update-save-submit', component: EpoUpdateSaveSubmitComponent },
@@ -76,7 +78,8 @@ const routes: Routes = [
   { path: 'sfg-reject-list', component: SfgRejectListComponent },
   { path: 'production-completed-list', component: ProductionCompletedListComponent },
   { path: 'sfg-execution-process-order', component: SfgExecutionProcessOrderComponent },
-   { path: 'fg-execution-process-order', component: FgExecutionProcessOrderComponent },
+  { path: 'fg-execution-process-order', component: FgExecutionProcessOrderComponent },
+  { path: 'fg-location-update', component: FgLocationUpdateComponent },
 
 ];
 

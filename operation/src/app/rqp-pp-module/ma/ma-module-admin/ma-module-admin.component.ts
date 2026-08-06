@@ -10,20 +10,24 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MaModuleAdminComponent {
 
-constructor(private router: Router, private cookieService: CookieService) { }
+  constructor(private router: Router, private cookieService: CookieService) { }
 
 
   onProductMaster() {
     this.router.navigate(['./rqpoperationui/pp/product-home-page']);
   }
-  
+
   onStackList() {
     this.router.navigate(['./rqpoperationui/pp/stack-list']);
   }
-   public onallStagesRecord(): void {
+  public onallStagesRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allstagesrecord']);
   }
-    public onallPendingRecord(): void {
+  public onallPendingRecord(): void {
     this.router.navigate(['./rqpquailtyui/dms/allpendingrecords']);
+  }
+
+  onBmrNumberingSystem(): void {
+    this.router.navigate(['./rqpoperationui/pp/bmr-numbering-system']);
   }
 }
