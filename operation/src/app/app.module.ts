@@ -24,6 +24,7 @@ import { SlListComponent } from './rqp-wh-module/slc/sl-list/sl-list.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +33,10 @@ import { SlListComponent } from './rqp-wh-module/slc/sl-list/sl-list.component';
     LovDialogComponent,
     MessageDialogComponent,
     PmsListComponent,
-   
-   
+
+
+
+
 
 
 

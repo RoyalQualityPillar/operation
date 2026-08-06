@@ -14,7 +14,6 @@ import { StockListEpoComponent } from "../pp-common/stock-list-epo/stock-list-ep
 import { MaModuleAdminComponent } from "../ma/ma-module-admin/ma-module-admin.component";
 import { ProductCreateUpdateComponent } from "../ma/master/product-master/product-create-update/product-create-update.component";
 import { ProductHomePageComponent } from "../ma/master/product-master/product-home-page/product-home-page.component";
-import { AddNewRecordComponent } from "../pp-common/add-new-record/add-new-record.component";
 import { MasterHomePageComponent } from "../master-home-page/master-home-page.component";
 import { MaterialComponent } from "../material/material.component";
 import { BomInitiatorComponent } from "../bom/bom-initiator/bom-initiator.component";
@@ -44,6 +43,11 @@ import { SfgApproverListComponent } from "../fg/sfg-approver-list/sfg-approver-l
 import { SfgRejectListComponent } from "../fg/sfg-reject-list/sfg-reject-list.component";
 import { FgExecutionProcessOrderComponent } from "../epro/fg-execution-process-order/fg-execution-process-order.component";
 import { SfgExecutionProcessOrderComponent } from "../epro/sfg-execution-process-order/sfg-execution-process-order.component";
+import { FgLocationUpdateComponent } from "../fg/fg-location-update/fg-location-update.component";
+import { AddNewRecordComponent } from "../pp-common/add-new-record/add-new-record.component";
+import { DmsAddNewRecordComponent } from "src/app/rqp-dms-module/dms-add-new-record/dms-add-new-record.component";
+import { DmproductCreateUpdateComponent } from "src/app/rqp-dms-module/dmproduct-master/dmproduct-create-update/dmproduct-create-update.component";
+import { BmrNumberingSystemComponent } from "src/app/rqp-dms-module/bmr-numbering-system/bmr-numbering-system/bmr-numbering-system.component";
 
 @NgModule({
   declarations: [
@@ -57,7 +61,6 @@ import { SfgExecutionProcessOrderComponent } from "../epro/sfg-execution-process
     MaModuleAdminComponent,
     ProductCreateUpdateComponent,
     ProductHomePageComponent,
-    AddNewRecordComponent,
     MaterialComponent,
     MasterHomePageComponent,
     BomInitiatorComponent,
@@ -82,14 +85,16 @@ import { SfgExecutionProcessOrderComponent } from "../epro/sfg-execution-process
     ApprovedMaterialListComponent,
     FgApproverListComponent,
     FgRejectListComponent,
-     SfgApproverListComponent,
-    SfgRejectListComponent, 
+    SfgApproverListComponent,
+    SfgRejectListComponent,
     ProductionCompletedListComponent,
     FgExecutionProcessOrderComponent,
     SfgExecutionProcessOrderComponent,
-    
-
-
+    FgLocationUpdateComponent,
+    AddNewRecordComponent,
+    DmsAddNewRecordComponent,
+    DmproductCreateUpdateComponent,
+    BmrNumberingSystemComponent,
 
   ],
   imports: [

@@ -57,7 +57,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     MatIconModule,
     MatTooltipModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
 })
 export class AngularMaterialModule {}
