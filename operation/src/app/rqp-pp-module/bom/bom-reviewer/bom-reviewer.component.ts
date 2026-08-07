@@ -152,7 +152,7 @@ export class BomReviewerComponent implements OnInit {
     this.bomService.getResquestNoIDForBOM(this.ff0001, this.lc0001).subscribe((data: any) => {
       this.lc0003 = data.data[0].lc0003;
       if (this.lc0003) {
-        this.getBOMItemMasterList(this.lc0003);
+        // this.getBOMItemMasterList(this.lc0003);
         this.getBOMIndexMasterList(this.lc0003);
         this.getBOMAttachments(this.lc0003);
       }
@@ -179,6 +179,7 @@ export class BomReviewerComponent implements OnInit {
           weight: pack.ff0004,
           weightUom: pack.ff0005,
         });
+        console.log(container.value);
         // this.containers.push(container);
         containers.push(container);
       });
@@ -205,6 +206,7 @@ export class BomReviewerComponent implements OnInit {
         });
         this.products.push(product);
       });
+      this.getBOMItemMasterList(lc0003);
     });
   }
   downloadDocument(row) {

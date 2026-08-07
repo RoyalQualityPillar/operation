@@ -331,9 +331,25 @@ export class BomInitiatorComponent implements OnInit {
     // };
 
     this.body1 = {
+ lcRequest: {
+        unitCode: this.headerData.unitcode,
+        moduleCode: this.headerData.modulecode,
+        departmentCode: this.headerData.departmentcode,
+        lcNumber: this.headerData.lcnum,
+        lcStage: this.headerData.stage,
+        lcRole: this.headerData.role,
+        stage2: 0,
+        requestType: '',
+        createdBy: this.headerData.createdby,
+        comments: this.comments,
+        documentModule: 'string',
+        documentStatus: 'string',
+        gmuserDTOList: [],
+        draft: this.draftValue,
+      },
 
       bomIndexIndex: products.map((product: any) => ({
-
+        uc0001: null,
         ff0001: product.productNo,
         ff0002: product.productName,
         ff0003: product.market,
@@ -343,23 +359,50 @@ export class BomInitiatorComponent implements OnInit {
         ff0007: product.productType,
         ff0008: product.dosageForm,
         ff0009: product.inputCode,
-        ff0010: product.productTrackingCode
-
+        ff0010: product.productTrackingCode,
+        unitcode: this.headerData.unitcode,
+        lc0001: "string",
+        lc0002: "string",
+        lc0003: "string",
+        lc0004: "string",
+        lc0005: "string",
+        lc0006: "string",
+        createdby: this.headerData.createdby,
+        status: 0,
+        // version: 0,
+        comments: this.comments
       })),
 
       bomItemItems: products.flatMap((product: any) =>
 
         product.containers.map((container: any) => ({
-
+          uc0001: null,
           ff0001: container.materialNo,
           ff0002: container.materialName,
           ff0003: container.materialCode,
           ff0004: container.weight,
-          ff0005: container.weightUom
+          ff0005: container.weightUom,
+          ff0006: "string",
+          ff0007: "string",
+          ff0008: "string",
+          ff0009: "string",
+          ff0010: "string",
+          unitcode: this.headerData.unitcode,
+          lc0001: '',
+          lc0002: '',
+          lc0003: '',
+          lc0004: '',
+          lc0005: '',
+          lc0006: '',
+          lc0007: '',
+          createdby: this.headerData.createdby,
+          status: 0,
+          comments: this.comments,
 
         }))
 
-      )
+      ),
+      bomAttachmentList: this.bomAttachmentList,
 
     };
 
