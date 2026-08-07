@@ -96,7 +96,7 @@ export class BomInitiatorComponent implements OnInit {
   getHeaderData(event: any) {
     this.headerData = event;
     let uc0001 = this.headerData.unitcode;
-    this.bomService.bmrInput(uc0001).subscribe(({ data }) => {
+    this.bomService.bmrInputList(uc0001).subscribe(({ data }) => {
       this.psmList = data.pmsList;
     });
   }

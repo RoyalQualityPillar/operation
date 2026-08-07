@@ -9,29 +9,32 @@ import { environment } from 'src/environments/environment';
 })
 export class BomService {
   private API_URL = environment.apiBaseURL;
-constructor(private http: HttpClient, private cookieService: CookieService) { }
-   
-public bmrInput(unitCode: string): Observable<any> {
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
+
+  public bmrInput(unitCode: string): Observable<any> {
     return this.http.get(this.API_URL + `bmr/bmr/input?unitcode=${unitCode}`);
+  }
+  public bmrInputList(unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `bmr/bmr/input?unitcode=${unitcode}`);
   }
   public productList(uc0001: string): Observable<any> {
     return this.http.get(this.API_URL + `dms/product-list?uc0001=${uc0001}`);
   }
-   getNextStageList(requestBody: any) {
+  getNextStageList(requestBody: any) {
     const nextStageURL = this.API_URL + 'gm/input/get-np-stages';
     return this.http.post(nextStageURL, requestBody);
   }
-   getDropDownList(unitcode:any) {
+  getDropDownList(unitcode: any) {
     let queryParams = `?unitCode=${unitcode}`;
     const ALLSALEPRODUCTURL = this.API_URL + 'pmm/input' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
-  getBOMInputList(unitcode:any) {
+  getBOMInputList(unitcode: any) {
     let queryParams = `?unitcode=${unitcode}`;
     const ALLSALEPRODUCTURL = this.API_URL + 'pmm/bom-input-list' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
-   getResquestNoIDForBOM(lc0002: any, lc0001:any) {
+  getResquestNoIDForBOM(lc0002: any, lc0001: any) {
     const queryParams = `?lc0002=${lc0002}&lc0001=${lc0001}`;
     const reviewURL = this.API_URL + 'pp/bom-module-request-no' + queryParams;
     return this.http.get(reviewURL);
@@ -41,17 +44,17 @@ public bmrInput(unitCode: string): Observable<any> {
     const reviewURL = this.API_URL + 'pp/BomItem-master-list' + queryParams;
     return this.http.get(reviewURL);
   }
-   getBOMIndexMasterList(lc0003: any) {
+  getBOMIndexMasterList(lc0003: any) {
     const queryParams = `?lc0003=${lc0003}`;
     const reviewURL = this.API_URL + 'pp/BomIndex-master-list' + queryParams;
     return this.http.get(reviewURL);
   }
-  getBOMAttachments(lc0003:string, moduleCode:string){
- const queryParams = `?lc0003=${lc0003}&moduleCode=${moduleCode}`;
+  getBOMAttachments(lc0003: string, moduleCode: string) {
+    const queryParams = `?lc0003=${lc0003}&moduleCode=${moduleCode}`;
     const reviewURL = this.API_URL + 'gm/attachment-list' + queryParams;
     return this.http.get(reviewURL);
   }
-   onDownloadDocumet( uc0001: any) {
+  onDownloadDocumet(uc0001: any) {
     const queryParams = `?uc0001=${uc0001}`;
     const reviewURL = this.API_URL + 'file/att-download' + queryParams;
     return this.http.post(reviewURL, '');
@@ -62,7 +65,7 @@ public bmrInput(unitCode: string): Observable<any> {
       this.API_URL + 'gm/gmap-record/review-comments' + queryParams;
     return this.http.get(reviewURL);
   }
-    onGetCommentsData(
+  onGetCommentsData(
     lcRequestnumber: string,
     lcnum: string,
     templateName: string,
@@ -80,8 +83,8 @@ public bmrInput(unitCode: string): Observable<any> {
   ) {
     let token = this.cookieService.get('token');
     let formData: FormData = new FormData();
-    
-     for (let file of bomAttachmentList) {
+
+    for (let file of bomAttachmentList) {
       formData.append('bomAttachmentList', file);
     }
     // Append JSON data as a blob
