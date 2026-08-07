@@ -149,7 +149,7 @@ export class BomCompletedSaveComponent implements OnInit {
     this.bomService.getResquestNoIDForBOM(this.ff0001, this.lc0001).subscribe((data: any) => {
       this.lc0003 = data.data[0].lc0003;
       if (this.lc0003) {
-        this.getBOMItemMasterList(this.lc0003);
+        // this.getBOMItemMasterList(this.lc0003);
         this.getBOMIndexMasterList(this.lc0003);
         this.getBOMAttachments(this.lc0003);
       }
@@ -165,6 +165,7 @@ export class BomCompletedSaveComponent implements OnInit {
     this.bomService.getBOMItemMasterList(lc0003).subscribe((data: any) => {
       this.bomItemValue = data.data;
       const containers = this.getContainers(0);
+      containers.clear();
       const value = this.bomItemValue[0];
       this.bomItemValue.forEach((pack: any) => {
         const container = this.createContainer();
@@ -200,6 +201,7 @@ export class BomCompletedSaveComponent implements OnInit {
         });
         this.products.push(product);
       });
+      this.getBOMItemMasterList(lc0003);
     });
   }
   downloadDocument(row) {
