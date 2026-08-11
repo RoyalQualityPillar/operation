@@ -18,7 +18,7 @@ export interface userData {
   userData: any;
   type: any;
   tableData: any;
-} 
+}
 @Component({
   selector: 'app-create-update-equip-inst-master',
   standalone: false,
@@ -32,6 +32,8 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
   orgList: any;
   buTypeList: any;
   unitList: any;
+  deptCodeList: any;
+  icMasterList: any;
   formData: any;
   isLoading = false;
   statusList: any;
@@ -75,18 +77,20 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
       ff0015: ['', Validators.required],
       ff0016: ['', Validators.required],
       ff0017: ['', Validators.required],
+      ff0018: ['', Validators.required],
       createdby: [''],
       status: [''],
       comments: ['', Validators.required],
     });
   }
 
- ngOnInit(): void {
+  ngOnInit(): void {
     this.DepartmentMaster.controls['unitcode'].patchValue(
       this.cookieService.get('buCode')
     );
     this.onloadDropDown();
     this.onLoadStatusDropDown();
+    this.onloadDeptListDropDown();
     if (this.userData.type == 'Modification') {
       this.isReadOnly = true;
       this.isUpdate = true;
@@ -101,7 +105,7 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     let unitCode = this.cookieService.get('buCode');
     let params = { unitCode };
-   
+
     this.apiService
       .sendRequest(apiEndPoints.dropDownInputList, 'GET', params)
       .subscribe((data: any) => {
@@ -115,6 +119,14 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.equipInstMasterService.getDropDownList().subscribe((data: any) => {
       this.statusList = data.data.statusInfo;
+      this.isLoading = false;
+    });
+  }
+  onloadDeptListDropDown() {
+    this.isLoading = true;
+    this.equipInstMasterService.getDropDownDeptList(this.cookieService.get('buCode')).subscribe((data: any) => {
+      this.icMasterList = data.data.icMasterList;
+      this.deptCodeList = data.data.deptCodeList;
       this.isLoading = false;
     });
   }
@@ -150,6 +162,7 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
     this.DepartmentMaster.controls['ff0015'].setValue(this.formData.ff0015);
     this.DepartmentMaster.controls['ff0016'].setValue(this.formData.ff0016);
     this.DepartmentMaster.controls['ff0017'].setValue(this.formData.ff0017);
+    this.DepartmentMaster.controls['ff0018'].setValue(this.formData.ff0018);
     this.DepartmentMaster.controls['status'].setValue(this.formData.status);
     this.DepartmentMaster.controls['comments'].setValue(this.formData.comments);
   }
@@ -199,7 +212,7 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
       }
     });
   }
-   onCreate() {
+  onCreate() {
     this.isLoading = true;
     this.DepartmentMaster.controls['createdby'].setValue(
       this.cookieService.get('userId')
@@ -313,6 +326,171 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
       if (this.isStatusSuccess == false) {
         this.DepartmentMaster.controls['status'].setErrors({ incorrect: true });
         this.openStatusLOV();
+      }
+    }
+  }
+  onChangeDepartment() {
+    if (this.DepartmentMaster.controls['ff0006'].value == '') {
+      this.DepartmentMaster.controls['ff0006'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0006'].value;
+      this.deptCodeList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0006'].setErrors({ incorrect: true });
+        this.openDepartmentLOV();
+      }
+    }
+  }
+  openDepartmentLOV() {
+    this.displayedColumns = [
+      { field: 'unitName', title: 'Department Name' },
+      { field: 'unitCode', title: 'Department Code' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Department List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.deptCodeList,
+        lovName: 'deptCodeList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0006'].setValue(
+          this.selectedDialogData.unitCode
+        );
+      }
+    });
+  }
+  openCategoryListLOV() {
+    this.displayedColumns = [
+      { field: 'uc0001', title: 'Category No' },
+      { field: 'ff0001', title: 'Category Code' },
+      { field: 'ff0002', title: 'Category Name' },
+      { field: 'ff0003', title: 'Category Type' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Department List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.icMasterList,
+        lovName: 'deptCodeList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0002'].setValue(
+          this.selectedDialogData.uc0001
+        );
+        this.DepartmentMaster.controls['ff0003'].setValue(
+          this.selectedDialogData.ff0003
+        );
+        this.DepartmentMaster.controls['ff0004'].setValue(
+          this.selectedDialogData.ff0002
+        );
+        this.DepartmentMaster.controls['ff0005'].setValue(
+          this.selectedDialogData.ff0001
+        );
+      }
+    });
+  }
+  onChangeCategoryType() {
+    if (this.DepartmentMaster.controls['ff0005'].value == '') {
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0005'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+  onChangeCategoryNo() {
+    if (this.DepartmentMaster.controls['ff0002'].value == '') {
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0002'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+  onChangeCategoryCode() {
+    if (this.DepartmentMaster.controls['ff0003'].value == '') {
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0003'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
+      }
+    }
+  }
+  onChangeCategoryName() {
+    if (this.DepartmentMaster.controls['ff0004'].value == '') {
+      this.DepartmentMaster.controls['ff0004'].setValue('');
+      this.DepartmentMaster.controls['ff0002'].setValue('');
+      this.DepartmentMaster.controls['ff0003'].setValue('');
+      this.DepartmentMaster.controls['ff0005'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0004'].value;
+      this.icMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0004'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0002'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0003'].setErrors({ incorrect: true });
+        this.DepartmentMaster.controls['ff0005'].setErrors({ incorrect: true });
+        this.openCategoryListLOV();
       }
     }
   }
