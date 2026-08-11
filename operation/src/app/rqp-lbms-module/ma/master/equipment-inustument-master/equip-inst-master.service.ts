@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 })
 export class EquipInstMasterService {
 
- private API_URL = environment.apiBaseURL;
- constructor(private http: HttpClient, private cookieService: CookieService) {}
+  private API_URL = environment.apiBaseURL;
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   onCreate(body: any) {
     let token = this.cookieService.get('token');
@@ -22,8 +22,8 @@ export class EquipInstMasterService {
     };
     return this.http.post(createUserURL, body, httpOptions);
   }
-  
- getDropDownList() {
+
+  getDropDownList() {
     let token = this.cookieService.get('token');
     let listURL =
       this.API_URL +
@@ -36,10 +36,15 @@ export class EquipInstMasterService {
     };
     return this.http.get(listURL, httpOptions);
   }
-    onAllRoleAuditTrail(uc0001: any) {
+  onAllRoleAuditTrail(uc0001: any) {
     let queryParams = `?UC0001=${uc0001}`;
     const ALLSALEPRODUCTURL =
       this.API_URL + 'lbms/equipment_inus_master/get-by-code-all' + queryParams;
+    return this.http.get(ALLSALEPRODUCTURL);
+  }
+  getDropDownDeptList(unitCode: any) {
+    let queryParams = `?unitCode=${unitCode}`;
+    const ALLSALEPRODUCTURL = this.API_URL + 'limsm-im/input' + queryParams;
     return this.http.get(ALLSALEPRODUCTURL);
   }
 }
