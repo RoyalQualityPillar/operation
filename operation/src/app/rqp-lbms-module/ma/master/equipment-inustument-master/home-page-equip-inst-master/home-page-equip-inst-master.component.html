@@ -1,9 +1,4 @@
-<mat-tab-group
-  animationDuration="500ms"
-  class="m-1"
-  #tabGroup
-  (selectedTabChange)="tabChanged($event)"
->
+<mat-tab-group animationDuration="500ms" class="m-1" #tabGroup (selectedTabChange)="tabChanged($event)">
   <mat-tab aria-label="Tab7">
     <ng-template mat-tab-label>
       <div>
@@ -11,11 +6,7 @@
       </div>
     </ng-template>
     <div class="margin-left_10 margin-right_10">
-      <button
-        mat-raised-button
-        class="add-new-record"
-        (click)="onOpenRolePOPUP()"
-      >
+      <button mat-raised-button class="add-new-record" (click)="onOpenRolePOPUP()">
         Add New Record
       </button>
     </div>
@@ -45,16 +36,12 @@
       </div>
     </ng-template>
     <div class="margin-left_10 margin-right_10">
-      <button
-        mat-raised-button
-        class="add-new-record"
-        (click)="onOpenRolePOPUP()"
-      >
+      <button mat-raised-button class="add-new-record" (click)="onOpenRolePOPUP()">
         Add New Record
       </button>
     </div>
     <ng-template #activeRoleMasterContainer></ng-template>
-<!--
+    <!--
     <app-common-table-filter
       [columnConfig]="columnConfig"
       [filterOptions]="filterOptions"
