@@ -34,6 +34,7 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
   unitList: any;
   deptCodeList: any;
   icMasterList: any;
+  equipmentMasterList: any;
   formData: any;
   isLoading = false;
   statusList: any;
@@ -127,6 +128,7 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
     this.equipInstMasterService.getDropDownDeptList(this.cookieService.get('buCode')).subscribe((data: any) => {
       this.icMasterList = data.data.icMasterList;
       this.deptCodeList = data.data.deptCodeList;
+      this.equipmentMasterList = data.data.equipmentMasterList;
       this.isLoading = false;
     });
   }
@@ -366,6 +368,50 @@ export class CreateUpdateEquipInstMasterComponent implements OnInit, OnDestroy {
         this.selectedDialogData = result.data;
         this.DepartmentMaster.controls['ff0006'].setValue(
           this.selectedDialogData.unitCode
+        );
+      }
+    });
+  }
+  onChangeEquipment() {
+    if (this.DepartmentMaster.controls['ff0007'].value == '') {
+      this.DepartmentMaster.controls['ff0007'].setValue('');
+      this.isStatusSuccess = false;
+      let statusCurrentValue = this.DepartmentMaster.controls['ff0007'].value;
+      this.equipmentMasterList.forEach((elements) => {
+        if (elements.productNO == statusCurrentValue) {
+          this.isStatusSuccess = true;
+        }
+      });
+      if (this.isStatusSuccess == false) {
+        this.DepartmentMaster.controls['ff0007'].setErrors({ incorrect: true });
+        this.openEquipmentLOV();
+      }
+    }
+  }
+  openEquipmentLOV() {
+    this.displayedColumns = [
+      { field: 'name', title: 'Equipment Name' },
+      { field: 'code', title: 'Equipment Code' },
+    ];
+    const dialogRef = this.dialog.open(LovDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: {
+        dialogTitle: 'Equipment List',
+        dialogColumns: this.displayedColumns,
+        dialogData: this.equipmentMasterList,
+        lovName: 'deptCodeList',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.selectedDialogData = result.data;
+        this.DepartmentMaster.controls['ff0007'].setValue(
+          this.selectedDialogData.code
+        );
+        this.DepartmentMaster.controls['ff0008'].setValue(
+          this.selectedDialogData.name
         );
       }
     });

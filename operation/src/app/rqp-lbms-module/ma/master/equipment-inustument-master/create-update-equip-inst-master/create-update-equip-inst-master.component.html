@@ -77,11 +77,17 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Equipment No</mat-label>
-                <input type="text" matInput formControlName="ff0007" placeholder="Equipment No" />
+                <input type="text" matInput formControlName="ff0007" placeholder="Equipment No"
+                  (change)="onChangeEquipment()" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                  color="primary" (click)="openEquipmentLOV()" />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Equopment Name</mat-label>
-                <input type="text" matInput formControlName="ff0008" placeholder="Equopment Name" />
+                <input type="text" matInput formControlName="ff0008" placeholder="Equopment Name"
+                  (change)="onChangeEquipment()" />
+                <img alt="lov img" src="../../../../../../assets/searchfind.svg" class="icon-size lovSearchButton"
+                  color="primary" (click)="openEquipmentLOV()" />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Clasification</mat-label>
@@ -107,13 +113,27 @@
                 <mat-label>Supplier Name</mat-label>
                 <input type="text" matInput formControlName="ff0014" placeholder="Supplier Name" />
               </mat-form-field>
-              <mat-form-field appearance="outline" class="col-6 px-1">
+              <!-- <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Installed On</mat-label>
                 <input type="text" matInput formControlName="ff0015" placeholder="Installed On" />
+              </mat-form-field> 
+               <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>Warraty Exipire On</mat-label>
+                <input type="text" matInput formControlName="ff0016" placeholder="Warraty Exipire On" />
+              </mat-form-field>-->
+              <mat-form-field appearance="outline" class="col-6 px-1">
+                <mat-label>Installed On</mat-label>
+                <input type="text" matInput [matDatepicker]="picker" formControlName="ff0015"
+                  placeholder="Installed On" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>Warraty Exipire On</mat-label>
-                <input type="text" matInput formControlName="ff0016" placeholder="Warraty Exipire On" />
+                <input type="text" matInput [matDatepicker]="picker1" formControlName="ff0016"
+                  placeholder="Warraty Exipire On" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-6 px-1">
                 <mat-label>SOP No</mat-label>
