@@ -89,8 +89,8 @@ export class WhService {
    const samplingURL = this.API_URL + 'wh/location-update-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
-  public sfglocationupdatesave(uc0001:string, ff0011:string){
-   const queryParams = `?uc0001=${uc0001}&location=${ff0011}`;
+  public sfglocationupdatesave(uc0001:string, location:string){
+   const queryParams = `?uc0001=${uc0001}&location=${location}`;
    const samplingURL = this.API_URL + 'wh/sfg-location-update-save' +queryParams;
    return this.http.post(samplingURL, '');
   }
