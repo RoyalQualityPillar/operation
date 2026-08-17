@@ -9,6 +9,7 @@ import { NotificationService } from 'src/app/common/notification.service';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
+import { SfgLocationUpdateComponent } from '../../slc/sfg-location-update/sfg-location-update.component';
 
 @Component({
   selector: 'app-fg-under-approver-list',
@@ -66,52 +67,12 @@ export class FgUnderApproverListComponent implements OnInit {
   private onPaginationCall(): void {
    
   }
-  public async onSubmit(row: any): Promise<void> {
-
-   const component = await this.remoteLoader.loadComponentByKey(
-        'CommonESignatureComponent'
-      );
-
-  const dialogRef = this.dialog.open(component, {
-    height: '300px',
-    width: '600px',
-    data: {},
-    disableClose: true,
-  });
-
-  dialogRef.afterClosed().subscribe((result) => {
-
-    if (result && result.data) {
-
-      this.isLoading = true;
-
-      this.whService.sfglocatioupdate(row.uc0001).subscribe((data: any) => {
-
-        if (data.errorInfo != null) {
-
-          this.isLoading = false;
-
-          this.dialog.open(MessageDialogComponent, {
-            data: {
-              message: data.errorInfo.message,
-              heading: 'Error Information',
-            },
-          });
-
-        } else {
-
-          this.isLoading = false;
-
-          this.notificationService.showSuccess(data.status, () => {});
-          
-                       this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
-                    
-        }
-      });
-
-    }
-
-  });
+  public  onSubmit(row: any) {
+ this.dialog.open(SfgLocationUpdateComponent, {
+      minWidth: '80%',
+      data: { tableData: row, pageTitle: 'Under Approved Material Location' }
+    });
+  
 }
 //   public onSubmit(row: any): void {
 //      const uc0001 = row.uc0001;
