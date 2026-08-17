@@ -76,6 +76,7 @@ export class FgUnderTestListComponent implements OnInit {
   }
 
   public async submit(row: any): Promise<void> {
+    const status = this.fgundertestListForm.get('status').value;
     const component = await this.remoteLoader.loadComponentByKey(
       'CommonESignatureComponent'
     );
@@ -91,7 +92,7 @@ export class FgUnderTestListComponent implements OnInit {
 
       if (result && result.data) {
 
-        this.whService.saveFgUnderTestLList(row.uc0001, row.status).subscribe((data: any) => {
+        this.whService.saveFgUnderTestLList(row.uc0001, status).subscribe((data: any) => {
           if (data.errorInfo != null) {
             this.isLoading = false;
             this.dialog.open(MessageDialogComponent, {
