@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, takeUntil, timer } from 'rxjs';
 import { WhService } from '../../wh.service';
@@ -10,6 +10,9 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { MessageDialogComponent } from 'src/app/common/message-dialog/message-dialog.component';
 import { RemoteComponentLoaderService } from 'src/app/service/remote-component-loader.service';
 import { SfgLocationUpdateComponent } from '../../slc/sfg-location-update/sfg-location-update.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-fg-under-approver-list',
@@ -18,7 +21,10 @@ import { SfgLocationUpdateComponent } from '../../slc/sfg-location-update/sfg-lo
   styleUrl: './fg-under-approver-list.component.scss'
 })
 export class FgUnderApproverListComponent implements OnInit {
+   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   public qualityStatusListForm: FormGroup;
+  public fgUnderApproverListData: any;
   public tableData: any;
   public isLoading = false;
   destroy$ = new Subject<void>();
@@ -53,10 +59,13 @@ export class FgUnderApproverListComponent implements OnInit {
     const userId = this.cookieService.get('unitCode');
     this.whService.fgUnderApproverList(this.cookieService.get('buCode')).subscribe(({ data }) => {
       this.tableData = data;
+      this.fgUnderApproverListData = new MatTableDataSource(this.tableData);
+      this.fgUnderApproverListData.sort = this.sort;
+      this.fgUnderApproverListData.paginator = this.paginator;
     });
   }
   public pageChanged(event): void {
-    if (this.tableData?.length == GlobalConstants.size && Array.isArray(this.tableData)) {
+    if (this.fgUnderApproverListData?.length == GlobalConstants.size && Array.isArray(this.tableData)) {
       if (
         event.length - (event.pageIndex + 1) * event.pageSize == 0 ||
         event.length < event.pageSize

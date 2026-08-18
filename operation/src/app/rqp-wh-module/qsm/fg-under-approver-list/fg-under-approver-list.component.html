@@ -17,19 +17,17 @@
         </div>
     </form>
 </div>
-
-
 <div class="table-box">
-    <mat-table [dataSource]="tableData" matTableExporter class="table_background_color" matSort id="dataTable">
+    <mat-table [dataSource]="fgUnderApproverListData" matSort id="dataTable" class="table_background_color">
         <ng-container matColumnDef="lc0002">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Material Number
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Material Number
             </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ff0001">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Material Name
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Material Name
             </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
         </ng-container>
@@ -41,32 +39,29 @@
         </ng-container>
 
         <ng-container matColumnDef="ff0002">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                UOM
+            <mat-header-cell *matHeaderCellDef mat-sort-header>UOM
             </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.ff0005 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0005 }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gr_ff0004">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Product Code
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.ff0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0002 }}</mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="gr_ff0002">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.ff0010 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0010 }}</mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="ff0005">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Current Status
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.status }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="createdon">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Created On
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
                 {{ row.createdon | customDatePipe : "dateWithHrMin" }}
@@ -81,19 +76,17 @@
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef mat-sort-header class="rqp-life-cycle-table-columns">
-                Action
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Batch
             </mat-header-cell>
-
             <mat-cell *matCellDef="let row">
-                <mat-icon (click)="onSubmit(row)">
-                    toggle_on
-                </mat-icon>
+                <mat-icon class="cursor" (click)="onSubmit(row)"> toggle_on </mat-icon>
             </mat-cell>
         </ng-container>
+
         <mat-header-row *matHeaderRowDef="addedUserdisplayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: addedUserdisplayedColumns"></mat-row>
     </mat-table>
+
     <mat-paginator [pageSizeOptions]="[10, 15, 20, 25]" (page)="pageChanged($event)" showFirstLastButtons
         aria-label="Select page of periodic rows">
     </mat-paginator>
