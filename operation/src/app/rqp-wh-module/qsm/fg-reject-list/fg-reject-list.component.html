@@ -22,14 +22,14 @@
 <div class="table-box">
     <mat-table [dataSource]="tableData" matTableExporter class="table_background_color" matSort id="dataTable">
         <ng-container matColumnDef="lc0002">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Request Number
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Material Number
             </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.lc0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ff0001">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Pack Number
+                Material Name
             </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
         </ng-container>
@@ -42,21 +42,21 @@
 
         <ng-container matColumnDef="ff0002">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-                UNO
+                UOM
             </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.ff0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{ row.ff0005 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gr_ff0004">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Material Number
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Product Number
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.gr_ff0004 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0002 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gr_ff0002">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.gr_ff0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0010 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ff0005">

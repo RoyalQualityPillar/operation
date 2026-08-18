@@ -10,8 +10,8 @@
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status">
                     <mat-option value="">Select</mat-option>
-                    <mat-option value="3008">Approved</mat-option>
-                    <mat-option value="3009">Rejected</mat-option>
+                    <mat-option value="4016">Approved</mat-option>
+                    <mat-option value="4017">Rejected</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -22,14 +22,14 @@
 <div class="table-box">
     <mat-table [dataSource]="tableData" matTableExporter class="table_background_color" matSort id="dataTable">
         <ng-container matColumnDef="lc0002">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Request Number
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Material Number
             </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.lc0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ff0001">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Pack Number
+                Material Name
             </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
         </ng-container>
@@ -42,27 +42,27 @@
 
         <ng-container matColumnDef="ff0002">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-                UNO
+                UOM
             </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.ff0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{ row.ff0005 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gr_ff0004">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Material Number
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Product Code
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.gr_ff0004 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0002 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gr_ff0002">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Material Code
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.gr_ff0002 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.ff0010 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ff0005">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Current Status
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.ff0005 }} </mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.status }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="createdon">

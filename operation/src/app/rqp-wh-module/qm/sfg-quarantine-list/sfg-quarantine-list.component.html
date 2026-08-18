@@ -20,9 +20,9 @@
 
 <div class="table-box">
   <mat-table [dataSource]="sfgQuarantineListData" matSort id="dataTable" class="table_background_color">
-          <ng-container matColumnDef="ff0022">
+    <ng-container matColumnDef="ff0022">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-       Batch No
+        Batch No
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0022 }} </mat-cell>
     </ng-container>
@@ -30,7 +30,7 @@
     <ng-container matColumnDef="ff0025">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product No
       </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.ff0025 }} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{ row.uc0001 }} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ff0002">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product Code
@@ -42,7 +42,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name
       </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.ff0001 }} </mat-cell>
-    </ng-container>    
+    </ng-container>
 
     <ng-container matColumnDef="ff0006">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity
@@ -61,7 +61,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.ff0024 }}</mat-cell>
     </ng-container>
-    
+
     <ng-container matColumnDef="createdon">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
       </mat-header-cell>
@@ -81,9 +81,9 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Batch
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-icon class="cursor" (click)="submit(row)" > toggle_on </mat-icon>
+        <mat-icon class="cursor" (click)="submit(row)"> toggle_on </mat-icon>
       </mat-cell>
-    </ng-container>   
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
