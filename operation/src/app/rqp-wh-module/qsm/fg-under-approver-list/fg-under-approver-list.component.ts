@@ -18,11 +18,11 @@ import { SfgLocationUpdateComponent } from '../../slc/sfg-location-update/sfg-lo
   styleUrl: './fg-under-approver-list.component.scss'
 })
 export class FgUnderApproverListComponent implements OnInit {
-  public qualityStatusListForm:FormGroup;
-  public tableData:any;
+  public qualityStatusListForm: FormGroup;
+  public tableData: any;
   public isLoading = false;
-   destroy$ = new Subject<void>();
- public addedUserdisplayedColumns: string[] = [
+  destroy$ = new Subject<void>();
+  public addedUserdisplayedColumns: string[] = [
     'lc0002',
     'ff0001',
     'ff0004',
@@ -35,24 +35,25 @@ export class FgUnderApproverListComponent implements OnInit {
     'action'
   ];
   constructor(
-     private whService: WhService,
+    private whService: WhService,
     private cookieService: CookieService,
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     public dialog: MatDialog,
     private notificationService: NotificationService,
     private remoteLoader: RemoteComponentLoaderService,
-  ){
+  ) {
     this.qualityStatusListForm = fb.group({
       documentName: [''],
-      status:['']
+      status: ['']
     });
+
   }
   ngOnInit(): void {
-   const userId = this.cookieService.get('unitCode');
+    const userId = this.cookieService.get('unitCode');
     this.whService.fgUnderApproverList(this.cookieService.get('buCode')).subscribe(({ data }) => {
       this.tableData = data;
-    }); 
+    });
   }
   public pageChanged(event): void {
     if (this.tableData?.length == GlobalConstants.size && Array.isArray(this.tableData)) {
@@ -65,39 +66,74 @@ export class FgUnderApproverListComponent implements OnInit {
     }
   }
   private onPaginationCall(): void {
-   
+
   }
-  public  onSubmit(row: any) {
- this.dialog.open(SfgLocationUpdateComponent, {
-      minWidth: '80%',
-      data: { tableData: row, pageTitle: 'Under Approved Material Location' }
+  public async onSubmit(row: any): Promise<void> {
+    const component = await this.remoteLoader.loadComponentByKey(
+      'CommonESignatureComponent'
+    );
+
+    const dialogRef = this.dialog.open(component, {
+      height: '300px',
+      width: '600px',
+      data: {},
+      disableClose: true,
     });
-  
-}
-//   public onSubmit(row: any): void {
-//      const uc0001 = row.uc0001;
-//      //const status = this.qualityStatusListForm.value.status;
-//      this.whService.sfglocatioupdate(uc0001).subscribe((data: any) => {
-//        if (data.errorInfo != null) {
-//          this.isLoading = false;
-//          this.dialog.open(MessageDialogComponent, {
-//            data: {
-//              message: data.errorInfo.message,
-//              heading: 'Error Information',
-//            },
-//          });
-//        } else {
-//          this.isLoading = false;
-//          this.notificationService.showSuccess(data.status, () => {
-//          });
-//          this.qualityStatusListForm.reset();
-//          timer(2000)
-//                      .pipe(takeUntil(this.destroy$))
-//                      .subscribe(() => {
-//                        this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
-//                      });
-//        }
-//      });
-//    }
-// }
+
+    dialogRef.afterClosed().subscribe((result) => {
+
+      if (result && result.data) {
+
+        this.isLoading = true;
+
+        const uc0001 = row.uc0001;
+        const ff0008 = this.qualityStatusListForm.value.status;
+        this.whService.saveUnderApproverList(uc0001, ff0008).subscribe((data: any) => {
+          if (data.errorInfo != null) {
+            this.isLoading = false;
+            this.dialog.open(MessageDialogComponent, {
+              data: {
+                message: data.errorInfo.message,
+                heading: 'Error Information',
+              },
+            });
+          } else {
+            this.isLoading = false;
+            this.notificationService.showSuccess(data.status, () => {
+            });
+            this.qualityStatusListForm.reset();
+
+            this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
+
+          }
+        });
+      }
+    });
+  }
+  //   public onSubmit(row: any): void {
+  //      const uc0001 = row.uc0001;
+  //      //const status = this.qualityStatusListForm.value.status;
+  //      this.whService.sfglocatioupdate(uc0001).subscribe((data: any) => {
+  //        if (data.errorInfo != null) {
+  //          this.isLoading = false;
+  //          this.dialog.open(MessageDialogComponent, {
+  //            data: {
+  //              message: data.errorInfo.message,
+  //              heading: 'Error Information',
+  //            },
+  //          });
+  //        } else {
+  //          this.isLoading = false;
+  //          this.notificationService.showSuccess(data.status, () => {
+  //          });
+  //          this.qualityStatusListForm.reset();
+  //          timer(2000)
+  //                      .pipe(takeUntil(this.destroy$))
+  //                      .subscribe(() => {
+  //                        this.router.navigateByUrl('/rqpoperationui/wh/qsm-module-admin');
+  //                      });
+  //        }
+  //      });
+  //    }
+  // }
 }
