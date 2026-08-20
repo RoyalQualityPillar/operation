@@ -319,6 +319,10 @@ export class PpService {
     return this.http.get(this.API_URL + `pp/fg-approver-list?Unitcode=${Unitcode} `);
   }
 
+  public getFgUnderApproverList(Unitcode: string): Observable<any> {
+    return this.http.get(this.API_URL + `pp/fg-under-approver-list?Unitcode=${Unitcode} `);
+  }
+
   public getFgRejectList(Unitcode: string): Observable<any> {
     return this.http.get(this.API_URL + `pp/fg-reject-list?Unitcode=${Unitcode} `);
   }

@@ -24,7 +24,7 @@ export class SfgLocationUpdateComponent implements OnInit {
   public materialValue: any;
   public selectedDialogData: any;
   public isLoading = false;
-   destroy$ = new Subject<void>()
+  destroy$ = new Subject<void>()
   constructor(
     private fb: FormBuilder,
     private remoteLoader: RemoteComponentLoaderService,
@@ -63,46 +63,29 @@ export class SfgLocationUpdateComponent implements OnInit {
       }
     });
   }
-  public async Submit(): Promise<void> {
-     const component = await this.remoteLoader.loadComponentByKey(
-          'CommonESignatureComponent'
-        );
-  
-    const dialogRef = this.dialog.open(component, {
-      height: '300px',
-      width: '600px',
-      data: {},
-      disableClose: true,
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-  
-      if (result && result.data) {
-  
+  public Submit() {
         this.isLoading = true;
-    const materialLocationValue = this.MaterialLocationForm.value;
-    let uc0001 = this.materialValue.uc0001;
-    let location = materialLocationValue.location;
-    this.whService.sfglocationupdatesave(uc0001, location).subscribe((data: any) => {
-      if (data.errorInfo != null) {
-        this.isLoading = false;
-        this.dialog.open(MessageDialogComponent, {
-          data: {
-            message: data.errorInfo.message,
-            heading: 'Error Information',
-          },
+        const materialLocationValue = this.MaterialLocationForm.value;
+        let uc0001 = this.materialValue.uc0001;
+        let location = materialLocationValue.location;
+        this.whService.sfglocationupdatesave(uc0001, location).subscribe((data: any) => {
+          if (data.errorInfo != null) {
+            this.isLoading = false;
+            this.dialog.open(MessageDialogComponent, {
+              data: {
+                message: data.errorInfo.message,
+                heading: 'Error Information',
+              },
+            });
+          } else {
+            this.isLoading = false;
+            this.notificationService.showSuccess(data.status, () => {
+
+              this.router.navigateByUrl('/rqpoperationui/wh/slc-module-admin');
+
+            });
+          }
         });
-      } else {
-        this.isLoading = false;
-        this.notificationService.showSuccess(data.status, () => {
-          
-                                           this.router.navigateByUrl('/rqpoperationui/wh/slc-module-admin');
-                                         
-        });
-      }
-    });
   }
-  });
 }
-}
-  
+

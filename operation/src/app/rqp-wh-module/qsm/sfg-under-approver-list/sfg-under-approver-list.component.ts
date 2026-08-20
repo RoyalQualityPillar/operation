@@ -33,7 +33,7 @@ export class SfgUnderApproverListComponent implements OnInit {
     'ff0002',
     'gr_ff0004',
     //'ff0003',
-    'gr_ff0002',
+    // 'gr_ff0002',
     'ff0008',
     'createdon',
     'createdby',
