@@ -41,7 +41,7 @@ export class FgApproverListComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     let unitCode = this.cookieService.get('buCode');
-    this.ppService.getFgApproverList(unitCode).subscribe((data: any) => {
+    this.ppService.getFgUnderApproverList(unitCode).subscribe((data: any) => {
       this.dataSource = data.data;
       this.fgApproverListData = new MatTableDataSource(this.dataSource);
       this.fgApproverListData.sort = this.sort;
